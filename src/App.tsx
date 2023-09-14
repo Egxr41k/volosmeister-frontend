@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {MyComponent} from "./components/MyComponent";
+import ProductList from "./components/ProductList";
+import ProductForm from "./components/ProductForm";
 
 function App() {
   return (
-    <MyComponent/>
+      <div className="bg-fuchsia-200 h-screen">
+        <ProductForm/>
+      </div>
   );
 }
 
