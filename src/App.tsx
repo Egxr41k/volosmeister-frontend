@@ -6,8 +6,8 @@ import ProductForm from "./components/ProductForm";
 
 function App() {
   return (
-      <div className="bg-fuchsia-200 h-screen">
-        <ProductForm/>
+      <div className="bg-fuchsia-200">
+        <ProductList/>
       </div>
   );
 }

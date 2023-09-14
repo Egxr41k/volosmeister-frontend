@@ -5,11 +5,11 @@ const baseUrl = "https://localhost:7128/"
 export function RequestHandler()  {
     return {
         fetchAll: async() => {
-            const response = await fetch(baseUrl);
+            const response = await fetch(`${baseUrl}api/Products`);
             return await response.json();
         },
         fetchById: async(id: number): Promise<IProductDetails> => {
-            const response = await fetch(baseUrl + `/${id}`)
+            const response = await fetch(`${baseUrl}api/Products/${id}`)
             return await response.json() as IProductDetails;
         },
         create: async(newEntity: IProduct) => {
