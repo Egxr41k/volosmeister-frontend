@@ -15,14 +15,17 @@ const ProductForm = () => {
     }
     const [product, setProduct] = useState(emptyProduct)
     const [selectedImage, setSelectedImage] = useState<File |  undefined>();
-
+    let message: string = "Додати товар"
     const createProduct = async (e:any)  => {
-
+        e.preventDefault()
+        const result = await RequestHandler().create(product)
+        if (result) message = "товар успішно доданий, бажаете додати ще?"
+        setProduct(emptyProduct)
     }
     return <div>
         <div className="w-5/6 bg-fuchsia-50 mx-auto p-6">
             <form className="h-2/5 " encType="multipart/form-data" method="post" >
-                <h2 className="text-lg font-semibold my-2">Додати товар</h2>
+                <h2 className="text-lg font-semibold my-2">{message}</h2>
                 {selectedImage && (
                     <img src={URL.createObjectURL(selectedImage)} alt="Selected image"/>
                 )}

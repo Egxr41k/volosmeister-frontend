@@ -10,18 +10,18 @@ export function RequestHandler()  {
         },
         fetchById: async(id: number): Promise<IProductDetails> => {
             const response = await fetch(baseUrl + `/${id}`)
-            return await response.json() as IProductDetails; //IProductDetails | IUserDetails
+            return await response.json() as IProductDetails;
         },
-        create: async(newEntity: IProduct) => { //IProduct[]
+        create: async(newEntity: IProduct) => {
             const response= await fetch(
                 `${baseUrl}api/Products`, {
-                method: 'POST',
-                body: JSON.stringify(newEntity),
-                headers: {
-                    "content-type": "application/json"
-                }
-            })
-            return await response.json()
+                    method: 'POST',
+                    body: JSON.stringify(newEntity),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                })
+            return await response.json() as IProduct
         },
         update: (id: number, updateEntity: IProduct) => { //IProduct
 
