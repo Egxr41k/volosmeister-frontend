@@ -28,6 +28,25 @@ export function RequestHandler()  {
         },
         delete: (id: number) => { //IProduct
 
-        }
+        },
+        saveImage: (img: File ) => {
+            return new Promise((resolve, reject) => {
+                const formData = new FormData();
+                formData.append('image', img);
+                console.log(formData)
+
+                const request = new XMLHttpRequest();
+                request.open("POST", "https://localhost:7128/SaveImage", true);
+                request.responseType = 'json'
+
+                request.onload = () => {
+                    resolve(request.response)
+                }
+                request.onerror = ()=> {
+                    reject(request.response)
+                }
+                request.send(formData);
+            });
+        },
     }
 }

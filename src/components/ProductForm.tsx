@@ -18,6 +18,15 @@ const ProductForm = () => {
     let message: string = "Додати товар"
     const createProduct = async (e:any)  => {
         e.preventDefault()
+        if (selectedImage) {
+            RequestHandler()
+                .saveImage(selectedImage)
+                .then(response => {
+                    setProduct(prevState => ({
+                        ...prevState, imageSrc: response as string
+                    }))
+                })
+        }
         const result = await RequestHandler().create(product)
         if (result) message = "товар успішно доданий, бажаете додати ще?"
         setProduct(emptyProduct)

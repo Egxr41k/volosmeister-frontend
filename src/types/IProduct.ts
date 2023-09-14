@@ -1,7 +1,7 @@
 export interface IProduct {
     id: number,
     name: string,
-    imageSrc: string | File,
+    imageSrc: string,
     description: string,
     count: number,
     isAvailable: boolean,
