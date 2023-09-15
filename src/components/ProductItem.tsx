@@ -3,13 +3,13 @@ import {IProduct} from "../types/IProduct";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const isAdmin = true
-    return <div key={item.id} className="w-72 h-96 bg-fuchsia-50 mx-10 my-5">
-        <img src="https://images.pexels.com/videos/3045163/free-video-3045163.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt={item.name} className="w-full h-3/5"/>
-        <div className="mx-6 h-2/5">
-            <h2 className="text-lg font-semibold h-1/10">{item.name}</h2>
-            <p className="h-3/10">{item.description} </p>
-            <p className="text-fuchsia-600 h-1/10">{item.newPrice} грн. <span className="line-through text-gray-500">{item.oldPrice} грн.</span></p>
-            <div className="flex justify-between h-2/10">
+    return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
+        <img src="https://images.pexels.com/videos/3045163/free-video-3045163.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt={item.name} className="w-full h-96"/>
+        <div className="p-6 h-64">
+            <h2 className="text-xl font-semibold">{item.name}</h2>
+            <p className="font-extralight h-20 my-2">{item.description} </p>
+            <p className="text-fuchsia-600 h-6 my-3">{item.newPrice} грн. <span className="line-through text-gray-500">{item.oldPrice} грн.</span></p>
+            <div className="flex justify-between align-bottom">
                 <button className="font-semibold border border-black bg-black text-white rounded-md px-4 py-2 hover:border-fuchsia-600 hover:bg-fuchsia-600">
                     {isAdmin ? <>Видалити</> : <>Замовити</>}
                 </button>
