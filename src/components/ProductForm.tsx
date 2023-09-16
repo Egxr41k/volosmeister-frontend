@@ -14,7 +14,7 @@ const ProductForm = () => {
         oldPrice: 0
     }
     const [product, setProduct] = useState(emptyProduct)
-    const [selectedImage, setSelectedImage] = useState<File |  undefined>();
+    const [selectedImage, setSelectedImage] = useState<File>();
     let message: string = "Додати товар"
     const createProduct = async (e:any)  => {
         e.preventDefault()
@@ -32,12 +32,10 @@ const ProductForm = () => {
         setProduct(emptyProduct)
     }
     return <div className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
-        {selectedImage && (
-            <img
-                src={URL.createObjectURL(selectedImage)}
-                alt="Selected image"
-                className="w-full h-72"/>
-        )}
+        <img src={selectedImage ? URL.createObjectURL(selectedImage) :
+            "https://localhost:7128/GetImage/0"}
+             alt="Selected image"
+             className="w-full h-72"/>
         <form className="h-64 p-6" encType="multipart/form-data" method="post">
             <h2 className="text-xl font-semibold">{message}</h2>
             <input type="file" id="fileInput" accept=".jpg"
