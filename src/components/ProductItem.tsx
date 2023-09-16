@@ -1,5 +1,6 @@
 import React from "react";
 import {IProduct} from "../types/IProduct";
+import {FilledBtn, BorderedBtn} from "./Btns";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const isAdmin = true
@@ -22,12 +23,10 @@ const ProductItem = ({item}:{item: IProduct}) => {
                 }
             </p>
             <div className="flex justify-between align-bottom">
-                <button className="font-semibold border border-black bg-black text-white rounded-md px-4 py-2 hover:border-fuchsia-600 hover:bg-fuchsia-600">
-                    {isAdmin ? <>Видалити</> : <>Замовити</>}
-                </button>
-                <button className="border border-black text-black rounded-md px-4 py-2 hover:border-fuchsia-600 hover:text-fuchsia-600">
-                    {isAdmin ? <>Редагувати</> : <>Детальніше</>}
-                </button>
+                <FilledBtn handleClick={async () => console.log()}
+                           content={isAdmin ? "Видалити" : "Замовити"}/>
+                <BorderedBtn handleClick={async () => console.log()}
+                             content={isAdmin ? "Редагувати" : "Детальніше"}/>
             </div>
         </div>
     </div>;

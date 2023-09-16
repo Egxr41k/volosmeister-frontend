@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {IProduct} from "../types/IProduct";
 import {RequestHandler} from "../services/RequestHandler";
+import {FilledBtn} from "./Btns";
+
 const ProductForm = () => {
     const emptyProduct: IProduct = {
         count: 0,
@@ -82,12 +84,8 @@ const ProductForm = () => {
                               ...prevState, description: event.target.value
                           }))
                       }} value={product.description} />
-            <button className="font-semibold border-0
-                        bg-black text-white rounded-md px-10 py-2
-                        hover:bg-fuchsia-600"
-                    onClick={createProduct}>
-                Додати
-            </button>
+            <FilledBtn handleClick={async (event) => createProduct(event)}
+                       content="Додати"/>
         </form>
     </div>
 }
