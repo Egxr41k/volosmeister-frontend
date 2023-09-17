@@ -18,7 +18,14 @@ export const ProductList = () => {
     }, []);
     return <div className="flex flex-wrap justify-center">
         { selectedProduct ? <ProductDetails item={selectedProduct}/> :
-            data.map((item: IProduct) => <div onClick={()=> setSelectedProduct(item)}> <ProductItem item={item}/></div>) }
-        <ProductForm/>
+            <>{
+                data.map((item: IProduct) =>
+                <div onClick={()=>
+                    setSelectedProduct(item)}>
+                    <ProductItem item={item}/>
+                </div>) }
+                <ProductForm/>
+            </>
+        }
     </div>;
 }
