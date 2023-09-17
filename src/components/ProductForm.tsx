@@ -1,20 +1,10 @@
 import React, {useState} from "react";
-import {IProduct} from "../types/IProduct";
+import {emptyProduct, IProduct} from "../types/IProduct";
 import {RequestHandler} from "../services/RequestHandler";
 import {FilledBtn} from "./Btns";
 
 const ProductForm = () => {
-    const emptyProduct: IProduct = {
-        count: 0,
-        description: "",
-        id: 0,
-        imageSrc: "",
-        isAvailable: false,
-        isSale: false,
-        name: "",
-        newPrice: 0,
-        oldPrice: 0
-    }
+
     const [product, setProduct] = useState(emptyProduct)
     const [selectedImage, setSelectedImage] = useState<File>();
     let message: string = "Додати товар"
