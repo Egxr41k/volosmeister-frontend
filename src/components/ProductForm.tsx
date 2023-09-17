@@ -37,7 +37,7 @@ const ProductForm = () => {
         <img src={selectedImage ? URL.createObjectURL(selectedImage) :
             "https://localhost:7128/GetImage/0"}
              alt="Selected image"
-             className="w-full h-72"/>
+             className="w-full h-72 object-cover"/>
         <form className="h-64 p-6" encType="multipart/form-data" method="post">
             <h2 className="text-xl font-semibold">{message}</h2>
             <input type="file" id="fileInput" accept=".jpg"

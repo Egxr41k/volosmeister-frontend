@@ -5,18 +5,17 @@ import {RequestHandler} from "../services/RequestHandler";
 import ProductForm from "./ProductForm";
 
 
-const ProductList = () => {
+export const ProductList = () => {
     const [data, setData] = useState([]);
-    useEffect( () => {
+    useEffect(() => {
         const getProducts = async () =>{
             let products = await RequestHandler().fetchAll()
             setData(products)
         }
         getProducts()
     }, []);
-    return <div className="flex flex-wrap ">
+    return <div className="flex flex-wrap justify-center">
         { data.map((item: IProduct) => <ProductItem item={item}/>) }
         <ProductForm/>
     </div>;
 }
-export default ProductList;

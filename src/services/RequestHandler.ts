@@ -26,8 +26,13 @@ export function RequestHandler()  {
         update: (id: number, updateEntity: IProduct) => { //IProduct
 
         },
-        delete: (id: number) => { //IProduct
-
+        delete: async (id: number) => { //IProduct
+            const response= await fetch(`${baseUrl}api/Products/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
         },
         saveImage: (img: File ) => {
             return new Promise((resolve, reject) => {

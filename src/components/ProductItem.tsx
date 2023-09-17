@@ -1,6 +1,7 @@
 import React from "react";
 import {IProduct} from "../types/IProduct";
 import {FilledBtn, BorderedBtn} from "./Btns";
+import {RequestHandler} from "../services/RequestHandler";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const isAdmin = true
@@ -8,7 +9,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
         <img src={item.imageSrc != "" ? item.imageSrc :
             "https://localhost:7128/GetImage/0"}
              alt={item.name}
-             className="w-full h-96"/>
+             className="w-full h-96 object-cover"/>
         <div className="p-6 h-64">
             <h2 className="text-xl font-semibold">{item.name}</h2>
             <p className="font-extralight h-20 my-2">{item.description} </p>
@@ -23,8 +24,10 @@ const ProductItem = ({item}:{item: IProduct}) => {
                 }
             </p>
             <div className="flex justify-between align-bottom">
-                <FilledBtn handleClick={async () => console.log()}
-                           content={isAdmin ? "Видалити" : "Замовити"}/>
+                <FilledBtn handleClick={isAdmin ?
+                    async () => await RequestHandler().delete(item.id) :
+                    async ()=> console.log()}
+                           content={isAdmin ? "Видалити" : "В кошик"}/>
                 <BorderedBtn handleClick={async () => console.log()}
                              content={isAdmin ? "Редагувати" : "Детальніше"}/>
             </div>
