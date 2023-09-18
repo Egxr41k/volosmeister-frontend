@@ -1,5 +1,5 @@
 import React from "react";
-import {IBtnProps} from "../types/IBtnProps";
+import {IBtnProps} from "../types/IProps";
 
 export const FilledBtn = ({handleClick, content}: IBtnProps) =>{
     return <button className="font-semibold border-0
