@@ -5,12 +5,14 @@ import {ProductList} from "./screens/ProductList";
 import {About} from "./screens/About";
 import {Questions} from "./screens/Questions";
 import {Contacts} from "./screens/Contacts";
+import {ProductDetails} from "./ProductDetails";
 
 const path = window.location.pathname
 export const CurrentScreen = () =>{
     switch (path) {
         case "/Home":        return <Home/>
         case "/ProductList": return <ProductList/>
+        //case "/ProductDetails": return <ProductDetails/>
         case "/About":       return <About/>
         case "/Questions":   return <Questions/>
         case "/Contacts":    return <Contacts/>
