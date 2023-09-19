@@ -26,10 +26,12 @@ const ProductItem = ({item}:{item: IProduct}) => {
             <div className="flex justify-between align-bottom">
                 <FilledBtn handleClick={isAdmin ?
                     async () => await RequestHandler().delete(item.id) :
-                    async ()=> console.log()}
-                           content={isAdmin ? "Видалити" : "В кошик"}/>
-                <BorderedBtn handleClick={async () => console.log()}
-                             content={isAdmin ? "Редагувати" : "Детальніше"}/>
+                    async ()=> console.log()}>
+                    {isAdmin ? "Видалити" : "В кошик"}
+                </FilledBtn>
+                <BorderedBtn handleClick={async () => console.log()}>
+                    {isAdmin ? "Редагувати" : "Детальніше"}
+                </BorderedBtn>
             </div>
         </div>
     </div>;

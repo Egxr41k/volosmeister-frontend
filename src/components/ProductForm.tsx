@@ -74,8 +74,9 @@ const ProductForm = () => {
                               ...prevState, description: event.target.value
                           }))
                       }} value={product.description} />
-            <FilledBtn handleClick={async (event) => createProduct(event)}
-                       content="Додати"/>
+            <FilledBtn handleClick={async (event) => createProduct(event)}>
+                Додати
+            </FilledBtn>
         </form>
     </div>
 }

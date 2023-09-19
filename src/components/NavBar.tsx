@@ -33,7 +33,7 @@ export const NavBar = () => {
 const CustomLink = ({href, children} : INavLinkProps) => {
     return <li className="mx-4">
         <a href={href} className={[
-                "text-white", //default link styles
+                "text-white", //default  styles
                 path === href ?
                     "font-bold" //styles when active
                     : ""
