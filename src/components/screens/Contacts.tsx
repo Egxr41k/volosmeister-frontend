@@ -1,4 +1,5 @@
-export const About = () =>{
+export const Contacts = () =>{
     return <>
-        </>
+        Contacts
+    </>
 }

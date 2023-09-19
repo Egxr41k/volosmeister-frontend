@@ -1,24 +1,35 @@
 import React from "react";
 import {INavLinkProps} from "../types/IProps";
+import {Home} from "./screens/Home";
+import {ProductList} from "./screens/ProductList";
+import {About} from "./screens/About";
+import {Questions} from "./screens/Questions";
+import {Contacts} from "./screens/Contacts";
 
+const path = window.location.pathname
+export const CurrentScreen = () =>{
+    switch (path) {
+        case "/Home":        return <Home/>
+        case "/ProductList": return <ProductList/>
+        case "/About":       return <About/>
+        case "/Questions":   return <Questions/>
+        case "/Contacts":    return <Contacts/>
+    }
+}
 export const NavBar = () => {
-    const path = window.location.pathname
-    return <nav className='bg-fuchsia-600'>
-        <div>
-            <ul>
-                <CustomLink href="/Home">Головна</CustomLink>
-                <CustomLink href="/ProductList">Каталог</CustomLink>
-                <CustomLink href="/About">Про нас</CustomLink>
-                <CustomLink href="/Questions">Питання</CustomLink>
-                <CustomLink href="/Contacts">Контакти</CustomLink>
-            </ul>
-        </div>
+    return<nav>
+        <ul className="flex py-5">
+            <CustomLink href="/Home">        Головна</CustomLink>
+            <CustomLink href="/ProductList"> Каталог</CustomLink>
+            <CustomLink href="/About">       Про нас</CustomLink>
+            <CustomLink href="/Questions">   Питання</CustomLink>
+            <CustomLink href="/Contacts">    Контакти</CustomLink>
+        </ul>
     </nav>
 }
 
 const CustomLink = ({href, children} : INavLinkProps) => {
-    const path = window.location.pathname
-    return <li>
+    return <li className="mx-4">
         <a href={href} className={[
                 "text-white", //default link styles
                 path === href ?
