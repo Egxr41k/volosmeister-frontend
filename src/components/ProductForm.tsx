@@ -32,6 +32,7 @@ const ProductForm = () => {
             <h2 className="text-xl font-semibold">{message}</h2>
             <input type="file" id="fileInput" accept=".jpg"
                    className="block w-full my-2 text-sm text-gray-500
+                       file:ease-in-out file:duration-300
                        file:mr-4 file:py-2 file:px-4 file:rounded-md
                        file:border-0 file:text-sm file:font-semibold
                        file:bg-black file:text-white

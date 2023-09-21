@@ -12,7 +12,9 @@ export const Home = () => {
                 <p className="">Безліч товарів, щоб полегшити Ваше життя!
                     Постійні акції та знижки!
                     Тільки якісний продукт, перевірений часом та нами особисто!</p>
-                <BorderedBtn handleClick={() => window.location.pathname = "/ProductList"} children="Discover"/>
+                <BorderedBtn handleClick={() => window.location.pathname = "/ProductList"}
+                             children="Discover"
+                             color="white"/>
             </div>
         </div>
     </div>
