@@ -19,8 +19,8 @@ export const CurrentScreen = () =>{
     }
 }
 export const NavBar = () => {
-    return<nav>
-        <ul className="flex py-5">
+    return<nav className="flex">
+        <ul className="flex my-auto">
             <CustomLink href="/Home">        Головна</CustomLink>
             <CustomLink href="/ProductList"> Каталог</CustomLink>
             <CustomLink href="/About">       Про нас</CustomLink>

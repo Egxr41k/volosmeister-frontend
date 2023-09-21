@@ -22,8 +22,8 @@ export const Header = () => {
     const [isShowCart, setIsShowCart] = useState(false)
     const total = cartItems.reduce((acc, item) => acc + item.newPrice, 0)
 
-    return <div className="bg-fuchsia-600 px-40">
-        <div className='flex justify-between relative w-full'>
+    return <div className="flex bg-fuchsia-600 px-40 h-[7vh]">
+        <div className='flex justify-between relative w-full align-middle'>
             <NavBar/>
 
             <CartBtn handleClick = { () => setIsShowCart(!isShowCart) }>

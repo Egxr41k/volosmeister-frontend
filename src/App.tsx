@@ -7,16 +7,13 @@ import {Footer} from "./components/Footer";
 
 
 function App() {
-    return (
-        <>
-            <Header/>
-            <div className="bg-fuchsia-200">
-                {CurrentScreen()}
-            </div>
-            <Footer/>
-        </>
-
-    );
+    return <>
+        <Header/>
+        <div className="bg-fuchsia-200 min-h-[90vh]">
+            {CurrentScreen()}
+        </div>
+        <Footer/>
+    </>;
 }
 
 export default App;
