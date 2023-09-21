@@ -18,7 +18,7 @@ const cartItems: IProduct[] = [
     }
 ]
 
-export const Header = () =>{
+export const Header = () => {
     const [isShowCart, setIsShowCart] = useState(false)
     const total = cartItems.reduce((acc, item) => acc + item.newPrice, 0)
 
@@ -32,7 +32,7 @@ export const Header = () =>{
 
             <div className = {
                 ['bg-white absolute right-0 shadow-md p-5 rounded-md z-10 top-14',
-                    !isShowCart ? "hidden" : ""
+                    !isShowCart && "hidden"
                 ].join(" ")}>
 
                 {cartItems.map(item => <CartItem item={item}/>)}

@@ -12,10 +12,13 @@ export const FilledBtn = ({handleClick, children}: IBtnProps) =>{
     </button>
 }
 
-export const BorderedBtn = ({handleClick, children}: IBtnProps) =>{
-    return <button className="border border-black
-                        text-black rounded-md px-4 py-2
-                        hover:border-fuchsia-600 hover:text-fuchsia-600"
+export const BorderedBtn = ({handleClick, children}: IBtnProps, color?: string) =>{
+    return <button className={
+        ["border rounded-md px-4 py-2 hover:border-fuchsia-600 hover:text-fuchsia-600",
+            color === "black" ?
+                "border-black text-black" :
+                "border-white text-white"
+        ].join(" ")}
                    onClick={handleClick}>
         {children}
     </button>

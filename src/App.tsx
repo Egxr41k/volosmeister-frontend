@@ -10,7 +10,7 @@ function App() {
     return (
         <>
             <Header/>
-            <div className="bg-fuchsia-200 px-40 min-h-screen">
+            <div className="bg-fuchsia-200">
                 {CurrentScreen()}
             </div>
             <Footer/>
