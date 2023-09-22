@@ -1,7 +1,7 @@
-import {emptyProduct, IProduct} from "../types/IProduct";
+import {emptyProduct, IProduct} from "../../types/IProduct";
 import React from "react";
-import {ICartItem, useShoppingCart} from "../context/ShoppingCartContext";
-import {storeItems} from "../App";
+import {ICartItem, useShoppingCart} from "../../context/ShoppingCartContext";
+import {storeItems} from "../../App";
 
 export const CartItem = (cartItem: ICartItem) => {
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {IBtnProps} from "../types/IProps";
+import {IBtnProps} from "../../types/IProps";
 
 export const CartBtn = ({handleClick, children}: IBtnProps) => {
     return <button className='bg-transparent border-none relative'

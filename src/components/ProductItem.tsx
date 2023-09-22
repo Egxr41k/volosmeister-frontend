@@ -37,7 +37,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
                     () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>
-                <BorderedBtn handleClick={async () => console.log()}>
+                <BorderedBtn handleClick={() => window.location.pathname = `/ProductDetails/${item.id}`}>
                     {isAdmin ? "Редагувати" : "Детальніше"}
                 </BorderedBtn>
             </div>

@@ -5,18 +5,26 @@ import {ProductList} from "./screens/ProductList";
 import {About} from "./screens/About";
 import {Questions} from "./screens/Questions";
 import {Contacts} from "./screens/Contacts";
-import {ProductDetails} from "./ProductDetails";
+import {ProductDetails} from "./screens/ProductDetails";
 
 const path = window.location.pathname
 export const CurrentScreen = () =>{
     switch (path) {
         case "/Home":        return <Home/>
         case "/ProductList": return <ProductList/>
-        //case "/ProductDetails": return <ProductDetails/>
         case "/About":       return <About/>
         case "/Questions":   return <Questions/>
         case "/Contacts":    return <Contacts/>
+        default: return DetailsRoute()
     }
+}
+const DetailsRoute = () => {
+    if(path.includes("/ProductDetails/")){
+        path.charAt(path.length - 1)
+        let result = path.replace("/ProductDetails/", "")
+        let id = parseInt(result)
+        return <ProductDetails id={id}/>
+    } else return <>вы, наверное, заблудились...</>
 }
 export const NavBar = () => {
     return<nav className="flex">

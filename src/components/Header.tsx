@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {NavBar} from "./NavBar";
-import {CartBtn} from "./CartBtn";
-import {CartItem} from "./CartItem";
+import {CartBtn} from "./cart/CartBtn";
+import {CartItem} from "./cart/CartItem";
 import {IProduct} from "../types/IProduct";
 import {useShoppingCart} from "../context/ShoppingCartContext";
 
