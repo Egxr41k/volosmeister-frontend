@@ -2,9 +2,17 @@ import React from "react";
 import {IProduct} from "../types/IProduct";
 import {FilledBtn, BorderedBtn} from "./Btns";
 import {RequestHandler} from "../services/RequestHandler";
+import {useShoppingCart} from "../context/ShoppingCartContext";
 
 const ProductItem = ({item}:{item: IProduct}) => {
-    const isAdmin = true
+    const {
+        getItemQuantity,
+        increaseCartQuantity,
+        decreaseCartQuantity,
+        removeFromCart,
+    } = useShoppingCart()
+    const quantity = getItemQuantity(item.id)
+    const isAdmin = false
     return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
         <img src={item.imageSrc != "" ? item.imageSrc :
             "https://localhost:7128/GetImage/0"}
@@ -26,7 +34,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
             <div className="flex justify-between align-bottom">
                 <FilledBtn handleClick={isAdmin ?
                     async () => await RequestHandler().delete(item.id) :
-                    async ()=> console.log()}>
+                    () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>
                 <BorderedBtn handleClick={async () => console.log()}>

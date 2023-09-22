@@ -1,12 +1,14 @@
-import {IProduct} from "../types/IProduct";
+import {emptyProduct, IProduct} from "../types/IProduct";
 import React from "react";
+import {ICartItem, useShoppingCart} from "../context/ShoppingCartContext";
+import {storeItems} from "../App";
 
-export const CartItem = ({item}:{item: IProduct}) => {
+export const CartItem = (cartItem: ICartItem) => {
 
-    //const dispatch = useDispatch()
-    const removeHandler = (id: number) => {
-        //dispatch(removeFromCart(id))
-    }
+    const { removeFromCart } = useShoppingCart()
+
+    const item = storeItems.find(i => i.id === cartItem.id)
+    if (item == null) return null
     return <div className='flex items-center mb-4'
                 key={`cart item ${item.name}`}>
         <img src={item.imageSrc}
@@ -19,10 +21,10 @@ export const CartItem = ({item}:{item: IProduct}) => {
                 {item.name}
             </div>
             <div>
-                {`${item.count} x $${item.newPrice.toLocaleString()}`}
+                {`${cartItem.quantity} x $${item.newPrice.toLocaleString()}`}
             </div>
             <button className='text-red-600 bg-transparent border-0'
-                    onClick={() => removeHandler(item.id)}>
+                    onClick={() => removeFromCart(item.id)}>
                 Удалить
             </button>
         </div>
