@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {CurrentScreen, NavBar} from "./components/NavBar";
+import {CurrentScreen, Navigation} from "./components/Navigation";
 import {Header} from "./components/Header";
 import {Footer} from "./components/Footer";
 import {IProduct} from "./types/IProduct";

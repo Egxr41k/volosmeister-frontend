@@ -15,6 +15,7 @@ export const CurrentScreen = () =>{
         case "/About":       return <About/>
         case "/Questions":   return <Questions/>
         case "/Contacts":    return <Contacts/>
+        case "/admin":       return <>ви тепер адміністратор</> //2. добавить adminContext
         default: return DetailsRoute()
     }
 }
@@ -26,7 +27,7 @@ const DetailsRoute = () => {
         return <ProductDetails id={id}/>
     } else return <>вы, наверное, заблудились...</>
 }
-export const NavBar = () => {
+export const Navigation = () => {
     return<nav className="flex">
         <ul className="flex my-auto">
             <CustomLink href="/Home">        Головна</CustomLink>
