@@ -4,21 +4,12 @@ import {emptyProduct, IProduct} from "../../types/IProduct";
 import {RequestHandler} from "../../services/RequestHandler";
 import ProductForm from "../ProductForm";
 import {ProductDetails} from "./ProductDetails";
+import {storeItems} from "../../App";
 
 
 export const ProductList = () => {
-    const [data, setData] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
-    const getProducts = async () =>{
-        let products = await RequestHandler().fetchAll() // 1.создать контекст для данных
-        setData(products)
-    }
-
-    useEffect(() => {
-        getProducts()
-    }, []);
     return <div className="flex flex-wrap justify-center">
-        {data.map((item: IProduct) => <ProductItem item={item}/>)}
+        {storeItems.map((item: IProduct) => <ProductItem item={item}/>)}
         <ProductForm/>
     </div>;
 }
