@@ -14,8 +14,7 @@ export const ProductDetails = ({id}:{id:number}) => {
     const [product, setProduct] = useState<IProduct>()
     const getDetails = async () =>{
         let response = await RequestHandler().fetchById(id)
-        if (response) setDetails(response
-        )
+        if (response) setDetails(response)
         console.log(details)
     }
     const getProduct = async ()=>{

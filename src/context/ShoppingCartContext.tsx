@@ -41,7 +41,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
     const openCart = () => {
         setIsOpen(!isOpen)
-        console.log("click")
+        console.log(isOpen)
     }
     const closeCart = () => setIsOpen(false)
     function getItemQuantity(id: number) {

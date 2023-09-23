@@ -14,9 +14,7 @@ export const Header = () => {
     return <div className="flex bg-fuchsia-600 px-40 h-[7vh]">
         <div className='flex justify-between relative w-full align-middle'>
             <Navigation/>
-        <button onClick={openCart} className="h-10 w-20">
 
-        </button>
             <CartBtn handleClick = {openCart}>
                 { `${cartQuantity}` }
             </CartBtn>
