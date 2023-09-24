@@ -6,7 +6,8 @@ import {About} from "./screens/About";
 import {Questions} from "./screens/Questions";
 import {Contacts} from "./screens/Contacts";
 import {ProductDetails} from "./screens/ProductDetails";
-import {AdminContext} from "../context/AdminContext";
+import {useAdminContext} from "../context/AdminContext";
+import {BorderedBtn} from "./Btns";
 
 const path = window.location.pathname
 export const CurrentScreen = () =>{
@@ -16,10 +17,11 @@ export const CurrentScreen = () =>{
         case "/About":       return <About/>
         case "/Questions":   return <Questions/>
         case "/Contacts":    return <Contacts/>
-        case "/admin":       return AdminRoute()
+        case "/Admin":       return <Admin/>
         default: return DetailsRoute()
     }
 }
+
 const DetailsRoute = () => {
     if(path.includes("/ProductDetails/")){
         path.charAt(path.length - 1)
@@ -29,23 +31,26 @@ const DetailsRoute = () => {
     } else return <>вы, наверное, заблудились...</>
 }
 
-const AdminRoute = () => {
-    const { isAdmin, setAdmin } = useContext(AdminContext);
-    const handleClick = () => {
-        setAdmin()
-        console.log(isAdmin)
-    };
+const Admin = () => {
+    const { isAdmin, setAdmin } = useAdminContext()
 
-    return (
-        <div>
-            <button onClick={setAdmin}>
-                {isAdmin ? 'Disable admin mode' : 'Enable admin mode'}
-            </button>
+    return <div className="flex justify-center items-center h-[90vh]">
+        <div className="text-center ">
+            <BorderedBtn handleClick={setAdmin}>
+                Enable admin mode
+            </BorderedBtn>
+            {isAdmin && <div className="flex mt-5">
+                <p className="mr-1.5">ви тепер адміністратор, це означає що ви можете</p>
+                <a href="/ProductList" className="text-fuchsia-500 underline">редагувати</a>
+                <p className="ml-1.5">цей сайт</p>
+            </div>}
         </div>
-    );
+    </div>
+
 }
+
 export const Navigation = () => {
-    return<nav className="flex">
+    return <nav className="flex">
         <ul className="flex my-auto">
             <CustomLink href="/Home">        Головна</CustomLink>
             <CustomLink href="/ProductList"> Каталог</CustomLink>

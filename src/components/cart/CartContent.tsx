@@ -1,4 +1,4 @@
-import {useShoppingCart} from "../../context/ShoppingCartContext";
+import {useCart} from "../../context/CartContext";
 import {CartItem} from "./CartItem";
 import React from "react";
 import {storeItems} from "../../App";
@@ -8,7 +8,7 @@ type ShoppingCartProps = {
 }
 
 export function CartContent({isOpen} : ShoppingCartProps) {
-    const {closeCart, cartItems} = useShoppingCart()
+    const {closeCart, cartItems} = useCart()
     return <div className = {
         ['bg-white absolute right-0 shadow-md p-5 rounded-md z-10 top-14 mr-40',
             !isOpen && "hidden"

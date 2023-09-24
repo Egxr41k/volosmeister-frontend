@@ -1,11 +1,11 @@
 import {emptyProduct, IProduct} from "../../types/IProduct";
 import React from "react";
-import {ICartItem, useShoppingCart} from "../../context/ShoppingCartContext";
+import {ICartItem, useCart} from "../../context/CartContext";
 import {storeItems} from "../../App";
 
 export const CartItem = (cartItem: ICartItem) => {
 
-    const { removeFromCart } = useShoppingCart()
+    const { removeFromCart } = useCart()
 
     const item = storeItems.find(i => i.id === cartItem.id)
     if (item == null) return null

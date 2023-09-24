@@ -1,18 +1,22 @@
-import React, {createContext, ReactNode, useState} from "react";
+import React, {createContext, ReactNode, useContext, useState} from "react";
 
 type AdminContextType = {
     isAdmin: boolean
     setAdmin: () => void
 }
 
-export const AdminContext = createContext({} as AdminContextType);
+const AdminContext = createContext({} as AdminContextType);
 
-export const AdminContextProvider = ({ children }: {children: ReactNode}) => {
+export function useAdminContext() {
+    return useContext(AdminContext)
+}
+export const AdminProvider = ({ children }: {children: ReactNode}) => {
     const [isAdmin, setIsAdmin] = useState(false);
 
     const setAdmin = () => {
         setIsAdmin(true)
-        console.log(isAdmin)
+
+        alert("ви тепер адміністратор, це означає що ви можете реадагувати цей сайт")
     }
 
 

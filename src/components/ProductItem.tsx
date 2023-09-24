@@ -2,7 +2,7 @@ import React from "react";
 import {IProduct} from "../types/IProduct";
 import {FilledBtn, BorderedBtn} from "./Btns";
 import {RequestHandler} from "../services/RequestHandler";
-import {useShoppingCart} from "../context/ShoppingCartContext";
+import {useCart} from "../context/CartContext";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {
@@ -10,7 +10,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
-    } = useShoppingCart()
+    } = useCart()
     const quantity = getItemQuantity(item.id)
     const isAdmin = false
     return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
