@@ -3,6 +3,7 @@ import {IProduct} from "../types/IProduct";
 import {FilledBtn, BorderedBtn} from "./Btns";
 import {RequestHandler} from "../services/RequestHandler";
 import {useCart} from "../context/CartContext";
+import {useAdmin} from "../hooks/useAdmin";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {
@@ -12,10 +13,11 @@ const ProductItem = ({item}:{item: IProduct}) => {
         removeFromCart,
     } = useCart()
     const quantity = getItemQuantity(item.id)
-    const isAdmin = false
+    const { isAdmin} = useAdmin()
+    console.log(isAdmin)
     return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
         <img src={item.imageSrc != "" ? item.imageSrc :
-            "https://localhost:7128/GetImage/0"}
+            "/NO_PHOTO_YET.png"}
              alt={item.name}
              className="w-full h-96 object-cover"/>
         <div className="p-6 h-64">

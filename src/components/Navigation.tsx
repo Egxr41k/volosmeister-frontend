@@ -6,8 +6,8 @@ import {About} from "./screens/About";
 import {Questions} from "./screens/Questions";
 import {Contacts} from "./screens/Contacts";
 import {ProductDetails} from "./screens/ProductDetails";
-import {useAdminContext} from "../context/AdminContext";
 import {BorderedBtn} from "./Btns";
+import {useAdmin} from "../hooks/useAdmin";
 
 const path = window.location.pathname
 export const CurrentScreen = () =>{
@@ -32,7 +32,7 @@ const DetailsRoute = () => {
 }
 
 const Admin = () => {
-    const { isAdmin, setAdmin } = useAdminContext()
+    const { isAdmin, setAdmin } = useAdmin()
 
     return <div className="flex justify-center items-center h-[90vh]">
         <div className="text-center ">
@@ -46,7 +46,6 @@ const Admin = () => {
             </div>}
         </div>
     </div>
-
 }
 
 export const Navigation = () => {

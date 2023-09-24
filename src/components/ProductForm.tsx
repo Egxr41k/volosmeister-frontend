@@ -1,13 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {emptyProduct, IProduct} from "../types/IProduct";
 import {RequestHandler} from "../services/RequestHandler";
 import {FilledBtn} from "./Btns";
+import DetailsForm from "./DetailsForm";
+import {IProductDetails} from "../types/IProductDetails";
 
-const ProductForm = () => {
+const ProductForm = ({productToUpdate, detailsToUpdate}: {
+    productToUpdate?: IProduct, detailsToUpdate?: IProductDetails}) => {
 
-    const [product, setProduct] = useState(emptyProduct)
+    const [product, setProduct] = useState(productToUpdate ?? emptyProduct)
     const [selectedImage, setSelectedImage] = useState<File>();
-    let message: string = "Додати товар"
+    const [details, setDetails] = useState<IProductDetails>(detailsToUpdate ??
+        {features: [], id: 0, stats: []})
+    useEffect(() =>{
+        setProduct(productToUpdate ?? emptyProduct)
+        setDetails(detailsToUpdate ??
+            {features: [], id: 0, stats: []})
+    }, [productToUpdate, detailsToUpdate]);
     const createProduct = async (e:any)  => {
         e.preventDefault()
         if (selectedImage) {
@@ -20,16 +29,21 @@ const ProductForm = () => {
                 })
         }
         const result = await RequestHandler().create(product)
-        if (result) message = "товар успішно доданий, бажаете додати ще?"
+        alert("продукт успішно доданий")
         setProduct(emptyProduct)
     }
+    const updateProduct = async (e:any)  => {
+        e.preventDefault()
+        alert("продукт успішно оновлений")
+    }
+
     return <div className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
         <img src={selectedImage ? URL.createObjectURL(selectedImage) :
-            "https://localhost:7128/GetImage/0"}
+            "/NO_PHOTO_YET.png"}
              alt="Selected image"
              className="w-full h-72 object-cover"/>
         <form className="h-64 p-6" encType="multipart/form-data" method="post">
-            <h2 className="text-xl font-semibold">{message}</h2>
+            <h2 className="text-xl font-semibold">Додати товар</h2>
             <input type="file" id="fileInput" accept=".jpg"
                    className="block w-full my-2 text-sm text-gray-500
                        file:ease-in-out file:duration-300
@@ -75,8 +89,14 @@ const ProductForm = () => {
                               ...prevState, description: event.target.value
                           }))
                       }} value={product.description} />
-            <FilledBtn handleClick={async (event) => createProduct(event)}>
-                Додати
+            {productToUpdate && <>
+                {/*продукт до оновлення у наявності*/}
+                <DetailsForm details={details} setDetails={setDetails}/>
+            </>}
+            <FilledBtn handleClick={ productToUpdate ?
+                async (event) => updateProduct(event) :
+                async (event) => createProduct(event)}>
+                { productToUpdate ? "Оновити" : "Додати"}
             </FilledBtn>
         </form>
     </div>
