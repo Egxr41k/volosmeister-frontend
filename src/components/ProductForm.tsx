@@ -42,7 +42,8 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
             "/NO_PHOTO_YET.png"}
              alt="Selected image"
              className="w-full h-72 object-cover"/>
-        <form className="h-64 p-5" encType="multipart/form-data" method="post">
+        <form className="h-64 p-5" encType="multipart/form-data" method="post"
+              onSubmit={(event) => event.preventDefault()}>
             <h2 className="text-xl font-semibold">{ productToUpdate ? "Оновити товар" : "Додати товар" }</h2>
             <input type="file" id="fileInput" accept=".jpg"
                    className="block w-full my-2 text-sm text-gray-500
