@@ -7,3 +7,23 @@ export interface IProductDetails {
     features: IFeature[],
     stats: IProperty[],
 }
+// {
+//     "id": 0,
+//     "features": [
+//     {
+//         "id": 0,
+//         "productId": 0,
+//         "title": "string",
+//         "imageSrc": "string",
+//         "description": "string"
+//     }
+// ],
+//     "stats": [
+//     {
+//         "id": 0,
+//         "productId": 0,
+//         "name": "string",
+//         "value": "string"
+//     }
+// ]
+// }

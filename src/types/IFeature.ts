@@ -5,3 +5,4 @@ export interface IFeature{
     imagesSrc: string,
     description: string,
 }
+

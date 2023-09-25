@@ -37,13 +37,13 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
         alert("продукт успішно оновлений")
     }
 
-    return <div className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
+    return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
         <img src={selectedImage ? URL.createObjectURL(selectedImage) :
             "/NO_PHOTO_YET.png"}
              alt="Selected image"
              className="w-full h-72 object-cover"/>
-        <form className="h-64 p-6" encType="multipart/form-data" method="post">
-            <h2 className="text-xl font-semibold">Додати товар</h2>
+        <form className="h-64 p-5" encType="multipart/form-data" method="post">
+            <h2 className="text-xl font-semibold">{ productToUpdate ? "Оновити товар" : "Додати товар" }</h2>
             <input type="file" id="fileInput" accept=".jpg"
                    className="block w-full my-2 text-sm text-gray-500
                        file:ease-in-out file:duration-300
@@ -90,7 +90,6 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                           }))
                       }} value={product.description} />
             {productToUpdate && <>
-                {/*продукт до оновлення у наявності*/}
                 <DetailsForm details={details} setDetails={setDetails}/>
             </>}
             <FilledBtn handleClick={ productToUpdate ?
