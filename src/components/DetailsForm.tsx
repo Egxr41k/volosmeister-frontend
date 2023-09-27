@@ -7,81 +7,89 @@ import {IProperty} from "../types/IProperty";
 const DetailsForm = ({details, setDetails}: {details: IProductDetails,
     setDetails: React.Dispatch<React.SetStateAction<IProductDetails>>}) => {
     const [featureImages, setFeatureImages] = useState<(File | undefined)[]>([])
-    const [features, setFeatures] = useState<IFeature[]>(details.features)
-    const [stats, setStats] = useState<IProperty[]>(details.stats)
-    const setFeatureTitle = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+
+    const setFeatureTitle = (value: string, i: number) => {
         const newFeatures = [...details.features];
-        newFeatures[i].title = e.target.value;
+        newFeatures[i].title = value;
+        setFeatures(newFeatures)
+    }
+    const setFeatureDescription = (value: string, i: number) => {
+        const newFeatures = [...details.features];
+        newFeatures[i].description = value;
+        setFeatures(newFeatures)
+    }
+    const setFeatures = (newFeatures: IFeature[]) => {
         setDetails(prevState => ({
             ...prevState, features: newFeatures
         }))
     }
-    const setFeatureDescription = (e: React.ChangeEvent<HTMLTextAreaElement>, i: number) => {
-        const newFeatures = [...details.features];
-        newFeatures[i].description = e.target.value;
+    
+    const setPropertyName = (value: string, i: number) => {
+        const newStats = [...details.stats];
+        newStats[i].name = value;
+        setStats(newStats)
+    }
+    const setPropertyValue = (value: string, i: number) => {
+        const newStats = [...details.stats];
+        newStats[i].value = value;
+        setStats(newStats)
+    }
+    const setStats = (newStats: IProperty[]) => {
         setDetails(prevState => ({
-            ...prevState, features: newFeatures
+            ...prevState, stats: newStats
         }))
     }
 
-    const setPropertyName = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
-        const newStats = [...details.stats];
-        newStats[i].name = e.target.value;
+
+    const addFeature = () => {
         setDetails(prevState => ({
-            ...prevState, stats: newStats
+            ...prevState, features: [...prevState.features,
+                {
+                    description: "",
+                    id: 0,
+                    imagesSrc: "",
+                    productId: 0,
+                    title: ""
+                }
+            ]
         }))
-    }
-    const setPropertyValue = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
-        const newStats = [...details.stats];
-        newStats[i].name = e.target.value;
-        setDetails(prevState => ({
-            ...prevState, stats: newStats
-        }))
-    }
-    const addSection = () => {
-        setFeatures( [...features,
-            {
-                description: "",
-                id: 0,
-                imagesSrc: "",
-                productId: 0,
-                title: ""
-            }
-        ])
         setFeatureImages([...featureImages, undefined])
     }
-    const deleteSection = () => {
-        setFeatures(
-            features.filter(
+    const deleteFeature = () => {
+        setDetails(prevState => ({
+            ...prevState, features: prevState.features.filter(
                 (_, i) =>
-                    i !== features.length -1
+                    i !== prevState.features.length -1
             )
-        );
+        }))
 
         setFeatureImages(
             featureImages.filter(
                 (_, i) =>
-                    i !== features.length -1
+                    i !== featureImages.length -1
             )
         );
     }
+
     const addProperty = () => {
-        setStats( [...stats,
-            {
-                id: 0,
-                productId: 0,
-                name: "",
-                value: ""
-            }
-        ])
+        setDetails(prevState => ({
+            ...prevState, stats: [...prevState.stats,
+                {
+                    id: 0,
+                    productId: 0,
+                    name: "",
+                    value: ""
+                }
+            ]
+        }))
     }
     const deleteProperty = () => {
-        setStats(
-            stats.filter(
+        setDetails(prevState => ({
+            ...prevState, stats: prevState.stats.filter(
                 (_, i) =>
-                    i !== stats.length -1
+                    i !== prevState.stats.length -1
             )
-        );
+        }))
     }
 
     return <div>
@@ -90,18 +98,18 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                 <h2 className="text-xl font-semibold my-auto">
                     { details.features.length != 0 ? "Оновити cекції" : "Додати cекції" }
                 </h2>
-                <BorderedBtn handleClick={addSection}>
+                <BorderedBtn handleClick={addFeature}>
                     +
                 </BorderedBtn>
             </div>
 
-            { features.map((feature: IFeature, index: number) => {
+            { details.features.map((feature: IFeature, index: number) => {
                 return <div key={index} className="my-2">
                     <div className="flex justify-between my-2">
                         <h4 className="font-medium">
                             Ceкція {index+1}
                         </h4>
-                        <BorderedBtn handleClick={deleteSection}>
+                        <BorderedBtn handleClick={deleteFeature}>
                             -
                         </BorderedBtn>
                     </div>
@@ -110,7 +118,7 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                          alt="Selected image" className="w-full h-72 object-cover"/>
                     <input className="w-48 my-2" placeholder="назва" type="text"
                            onChange={event =>
-                               setFeatureTitle(event, index)
+                               setFeatureTitle(event.target.value, index)
                            } value={feature.title}/>
                     <input type="file" id="fileInput" accept=".jpg"
                            className="block w-full my-2 text-sm text-gray-500
@@ -126,7 +134,7 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                            }}/>
                     <textarea className="w-full h-20 my-2" placeholder="опис"
                               onChange={event =>
-                                  setFeatureDescription(event, index)
+                                  setFeatureDescription(event.target.value, index)
                               } value={feature.description} />
                 </div>})
             }
@@ -141,7 +149,7 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                 </BorderedBtn>
             </div>
 
-            { stats.map((property: IProperty, index: number) => {
+            { details.stats.map((property: IProperty, index: number) => {
                 return <div key={index} className="my-2">
                     <div className="flex justify-between my-2">
                         <h4 className="font-medium">
@@ -154,11 +162,11 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
 
                     <input className="w-48 my-2" placeholder="назва" type="text"
                            onChange={event =>
-                               setPropertyName(event, index)
+                               setPropertyName(event.target.value, index)
                            } value={property.name}/>
                     <input className="w-48 my-2" placeholder="значення" type="text"
                            onChange={event =>
-                               setPropertyValue(event, index)
+                               setPropertyValue(event.target.value, index)
                            } value={property.value}/>
 
                 </div>})
