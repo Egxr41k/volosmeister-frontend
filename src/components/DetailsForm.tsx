@@ -1,12 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {IProductDetails} from "../types/IProductDetails";
 import {IFeature} from "../types/IFeature";
 import {BorderedBtn} from "./Btns";
 import {IProperty} from "../types/IProperty";
 
-const DetailsForm = ({details, setDetails}: {details: IProductDetails,
-    setDetails: React.Dispatch<React.SetStateAction<IProductDetails>>}) => {
-    const [featureImages, setFeatureImages] = useState<(File | undefined)[]>([])
+interface IDetailsFormProps {
+    details: IProductDetails,
+    setDetails: React.Dispatch<React.SetStateAction<IProductDetails>>
+    images: (File | undefined) [],
+    setImages: React.Dispatch<React.SetStateAction<(File | undefined) []>>
+}
+
+const DetailsForm = ({details, setDetails, images, setImages}: IDetailsFormProps) => {
 
     const setFeatureTitle = (value: string, i: number) => {
         const newFeatures = [...details.features];
@@ -53,7 +58,7 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                 }
             ]
         }))
-        setFeatureImages([...featureImages, undefined])
+        setImages([...images, undefined])
     }
     const deleteFeature = () => {
         setDetails(prevState => ({
@@ -63,10 +68,10 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
             )
         }))
 
-        setFeatureImages(
-            featureImages.filter(
+        setImages(
+            images.filter(
                 (_, i) =>
-                    i !== featureImages.length -1
+                    i !== images.length -1
             )
         );
     }
@@ -113,7 +118,7 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                             -
                         </BorderedBtn>
                     </div>
-                    <img src={featureImages[index] ? URL.createObjectURL(featureImages[index]!) :
+                    <img src={images[index + 1] ? URL.createObjectURL(images[index + 1]!) :
                         "/NO_PHOTO_YET.png"}
                          alt="Selected image" className="w-full h-72 object-cover"/>
                     <input className="w-48 my-2" placeholder="назва" type="text"
@@ -128,7 +133,7 @@ const DetailsForm = ({details, setDetails}: {details: IProductDetails,
                        file:bg-black file:text-white
                        hover:file:bg-fuchsia-600 "
                            onChange={event => {
-                               setFeatureImages(prevState => [
+                               setImages(prevState => [
                                    ...prevState, event.target.files?.[0]
                                ])
                            }}/>

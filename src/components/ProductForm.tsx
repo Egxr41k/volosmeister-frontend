@@ -9,25 +9,18 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     productToUpdate?: IProduct, detailsToUpdate?: IProductDetails}) => {
 
     const [product, setProduct] = useState(productToUpdate ?? emptyProduct)
-    const [selectedImage, setSelectedImage] = useState<File>();
+    const [images, setImages] = useState<(File | undefined)[]>([]);
     const [details, setDetails] = useState<IProductDetails>(detailsToUpdate ??
         {features: [], id: 0, stats: []})
-    useEffect(() =>{
+
+    useEffect(() => {
         setProduct(productToUpdate ?? emptyProduct)
         setDetails(detailsToUpdate ??
             {features: [], id: 0, stats: []})
     }, [productToUpdate, detailsToUpdate]);
+
     const createProduct = async (e:any)  => {
         e.preventDefault()
-        if (selectedImage) {
-            RequestHandler()
-                .saveImage(selectedImage)
-                .then(response => {
-                    setProduct(prevState => ({
-                        ...prevState, imageSrc: response as string
-                    }))
-                })
-        }
         const result = await RequestHandler().create(product)
         alert("продукт успішно доданий")
         setProduct(emptyProduct)
@@ -37,8 +30,18 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
         alert("продукт успішно оновлений")
     }
 
+    const saveExistingImages = () => {
+        let imagesSrc: string[] = [];
+        images.map((image: File | undefined) => {
+            if (image) RequestHandler()
+                .saveImage(image!)
+                .then(response => imagesSrc.push(response as string))
+        })
+        return imagesSrc
+    }
+
     return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
-        <img src={selectedImage ? URL.createObjectURL(selectedImage) :
+        <img src={images[0] ? URL.createObjectURL(images[0]!) :
             "/NO_PHOTO_YET.png"}
              alt="Selected image"
              className="w-full h-72 object-cover"/>
@@ -53,7 +56,9 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                        file:bg-black file:text-white
                        hover:file:bg-fuchsia-600 "
                    onChange={event => {
-                       setSelectedImage(event.target.files?.[0])
+                       setImages(prevState => [
+                           event.target.files?.[0], ...prevState
+                       ])
                    }}/>
 
             <div className="flex flex-wrap justify-between">
@@ -91,7 +96,8 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                           }))
                       }} value={product.description} />
             {productToUpdate && <>
-                <DetailsForm details={details} setDetails={setDetails}/>
+                <DetailsForm details={details} setDetails={setDetails}
+                images={images} setImages={setImages}/>
             </>}
             <FilledBtn handleClick={ productToUpdate ?
                 async (event) => updateProduct(event) :
