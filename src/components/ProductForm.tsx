@@ -4,6 +4,7 @@ import {RequestHandler} from "../services/RequestHandler";
 import {FilledBtn} from "./Btns";
 import DetailsForm from "./DetailsForm";
 import {IProductDetails} from "../types/IProductDetails";
+import * as fs from 'fs'
 
 const ProductForm = ({productToUpdate, detailsToUpdate}: {
     productToUpdate?: IProduct, detailsToUpdate?: IProductDetails}) => {
@@ -18,7 +19,6 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
         setDetails(detailsToUpdate ??
             {features: [], id: 0, stats: []})
     }, [productToUpdate, detailsToUpdate]);
-
     const createProduct = async (e:any)  => {
         e.preventDefault()
         const result = await RequestHandler().create(product)
@@ -27,22 +27,56 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     }
     const updateProduct = async (e:any)  => {
         e.preventDefault()
-        alert("продукт успішно оновлений")
+        await setImagesSrc()
+
+        console.log(product);
+        if (productToUpdate != product){
+            console.log("product put request is sent")
+            const result = RequestHandler().update(product.id, product)
+        }
+
+        console.log(details);
+        if (details !== detailsToUpdate) {
+            console.log("details put request is sent")
+            const result = RequestHandler().updateDetails(product.id, details)
+        }
+    }
+    
+    const setImagesSrc = async () => {
+        let imagesSrc = await initImagesSrc()
+
+        setProduct(prevState => ({
+            ...prevState, imageSrc: imagesSrc[0] ?? prevState.imageSrc
+        }))
+
+        setDetails(prevState => ({
+            ...prevState,
+            features: prevState.features.map((feature, i) => ({
+                ...feature, imageSrc: imagesSrc[i + 1]
+            }))
+        }))
     }
 
-    const saveExistingImages = () => {
+    const initImagesSrc = async () => {
         let imagesSrc: string[] = [];
-        images.map((image: File | undefined) => {
-            if (image) RequestHandler()
-                .saveImage(image!)
-                .then(response => imagesSrc.push(response as string))
-        })
+        if (product.imageSrc) imagesSrc.push(product.imageSrc)
+        for (let image of images) {
+            if (image) {
+                const response = await RequestHandler().saveImage(image!)
+                console.log(response)
+                imagesSrc.push(response as string)
+            }
+        }
         return imagesSrc
     }
 
     return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
-        <img src={images[0] ? URL.createObjectURL(images[0]!) :
-            "/NO_PHOTO_YET.png"}
+        <img src={product.imageSrc ?
+            product.imageSrc :
+                images[0] ?
+                    URL.createObjectURL(images[0]!) :
+                        "/NO_PHOTO_YET.png"}
+
              alt="Selected image"
              className="w-full h-72 object-cover"/>
         <form className="h-64 p-5" encType="multipart/form-data" method="post"
@@ -108,4 +142,3 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     </div>
 }
 export default ProductForm
-

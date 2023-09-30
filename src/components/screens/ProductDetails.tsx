@@ -12,7 +12,7 @@ export const ProductDetails = ({id}:{id:number}) => {
         { features: [], id: 0, stats: []})
     const [product, setProduct] = useState<IProduct>(emptyProduct)
     const getDetails = () =>{
-        let response = RequestHandler().fetchById(id)
+        let response = RequestHandler().getDetails(id)
         response.then(details => setDetails(details))
     }
     const getProduct = ()=> {

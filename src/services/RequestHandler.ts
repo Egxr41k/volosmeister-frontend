@@ -6,12 +6,14 @@ export function RequestHandler()  {
     return {
         fetchAll: async() => {
             const response = await fetch(`${baseUrl}api/Products`);
-            return await response.json();
+            return await response.json() as IProduct[];
         },
-        fetchById: async(id: number): Promise<IProductDetails> => {
-            const response = await fetch(`${baseUrl}api/Products/${id}`)
+
+        getDetails: async(id: number): Promise<IProductDetails> => {
+            const response = await fetch(`${baseUrl}api/Details/${id}`)
             return await response.json() as IProductDetails;
         },
+
         create: async(newEntity: IProduct) => {
             const response= await fetch(
                 `${baseUrl}api/Products`, {
@@ -23,9 +25,31 @@ export function RequestHandler()  {
                 })
             return await response.json() as IProduct
         },
-        update: (id: number, updateEntity: IProduct) => { //IProduct
 
+        update: async (id: number, updateEntity: IProduct) => { //IProduct
+            const response= await fetch(
+                `${baseUrl}api/Products/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify(updateEntity),
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+            return await response.json() as IProduct;
         },
+
+        updateDetails: async(id: number, updateEntity: IProductDetails) => {
+            const response= await fetch(
+                `${baseUrl}api/Details/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(updateEntity),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                })
+            return await response.json() as IProductDetails;
+        },
+
         delete: async (id: number) => { //IProduct
             const response= await fetch(`${baseUrl}api/Products/${id}`, {
                 method: 'DELETE',
@@ -34,6 +58,7 @@ export function RequestHandler()  {
                 }
             })
         },
+
         saveImage: (img: File ) => {
             return new Promise((resolve, reject) => {
                 const formData = new FormData();

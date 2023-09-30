@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {IProductDetails} from "../types/IProductDetails";
 import {IFeature} from "../types/IFeature";
 import {BorderedBtn} from "./Btns";
@@ -13,6 +13,10 @@ interface IDetailsFormProps {
 
 const DetailsForm = ({details, setDetails, images, setImages}: IDetailsFormProps) => {
 
+
+    useEffect(() => {
+        console.log(images)
+    }, []);
     const setFeatureTitle = (value: string, i: number) => {
         const newFeatures = [...details.features];
         newFeatures[i].title = value;
@@ -52,7 +56,7 @@ const DetailsForm = ({details, setDetails, images, setImages}: IDetailsFormProps
                 {
                     description: "",
                     id: 0,
-                    imagesSrc: "",
+                    imageSrc: "",
                     productId: 0,
                     title: ""
                 }
@@ -109,7 +113,7 @@ const DetailsForm = ({details, setDetails, images, setImages}: IDetailsFormProps
             </div>
 
             { details.features.map((feature: IFeature, index: number) => {
-                return <div key={index} className="my-2">
+                return <div key={index } className="my-2">
                     <div className="flex justify-between my-2">
                         <h4 className="font-medium">
                             Ceкція {index+1}
@@ -121,22 +125,23 @@ const DetailsForm = ({details, setDetails, images, setImages}: IDetailsFormProps
                     <img src={images[index + 1] ? URL.createObjectURL(images[index + 1]!) :
                         "/NO_PHOTO_YET.png"}
                          alt="Selected image" className="w-full h-72 object-cover"/>
-                    <input className="w-48 my-2" placeholder="назва" type="text"
-                           onChange={event =>
-                               setFeatureTitle(event.target.value, index)
-                           } value={feature.title}/>
                     <input type="file" id="fileInput" accept=".jpg"
                            className="block w-full my-2 text-sm text-gray-500
                        file:ease-in-out file:duration-300
                        file:mr-4 file:py-2 file:px-4 file:rounded-md
                        file:border-0 file:text-sm file:font-semibold
                        file:bg-black file:text-white
-                       hover:file:bg-fuchsia-600 "
+                       hover:file:bg-fuchsia-600"
                            onChange={event => {
-                               setImages(prevState => [
-                                   ...prevState, event.target.files?.[0]
-                               ])
+                               const newImages = [...images]; // создаем копию массива, чтобы не мутировать исходный
+                               newImages[index + 1] = event.target.files?.[0];
+                               setImages(newImages);
+                               console.log(images)
                            }}/>
+                    <input className="w-48 my-2" placeholder="назва" type="text"
+                           onChange={event =>
+                               setFeatureTitle(event.target.value, index)
+                           } value={feature.title}/>
                     <textarea className="w-full h-20 my-2" placeholder="опис"
                               onChange={event =>
                                   setFeatureDescription(event.target.value, index)
