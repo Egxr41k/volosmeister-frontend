@@ -4,7 +4,6 @@ import {RequestHandler} from "../services/RequestHandler";
 import {FilledBtn} from "./Btns";
 import DetailsForm from "./DetailsForm";
 import {IProductDetails} from "../types/IProductDetails";
-import * as fs from 'fs'
 
 const ProductForm = ({productToUpdate, detailsToUpdate}: {
     productToUpdate?: IProduct, detailsToUpdate?: IProductDetails}) => {
@@ -13,12 +12,34 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     const [images, setImages] = useState<(File | undefined)[]>([]);
     const [details, setDetails] = useState<IProductDetails>(detailsToUpdate ??
         {features: [], id: 0, stats: []})
+    const [isProductImageExist, setIsProductImageExist] = useState(false)
 
     useEffect(() => {
         setProduct(productToUpdate ?? emptyProduct)
         setDetails(detailsToUpdate ??
             {features: [], id: 0, stats: []})
     }, [productToUpdate, detailsToUpdate]);
+
+    useEffect(() => {
+        const checkImageExist = async () => {
+            const result = await RequestHandler().checkIsImageExist(product.imageSrc);
+            setIsProductImageExist(result);
+            console.log(product.imageSrc)
+            console.log(result)
+            console.log(isProductImageExist)
+        };
+
+        checkImageExist();
+    }, [product.imageSrc]);
+
+    const addImage = (image: File | undefined) => {
+        if (image) {
+            setImages(prevState => [
+                image, ...prevState
+            ])
+        } else return
+    }
+
     const createProduct = async (e:any)  => {
         e.preventDefault()
         const result = await RequestHandler().create(product)
@@ -27,6 +48,7 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     }
     const updateProduct = async (e:any)  => {
         e.preventDefault()
+        console.log(images)
         await setImagesSrc()
 
         console.log(product);
@@ -41,25 +63,19 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
             const result = RequestHandler().updateDetails(product.id, details)
         }
     }
-    
+
     const setImagesSrc = async () => {
         let imagesSrc = await initImagesSrc()
 
         setProduct(prevState => ({
-            ...prevState, imageSrc: imagesSrc[0] ?? prevState.imageSrc
+            ...prevState, imageSrc: imagesSrc[0]
         }))
 
-        setDetails(prevState => ({
-            ...prevState,
-            features: prevState.features.map((feature, i) => ({
-                ...feature, imageSrc: imagesSrc[i + 1]
-            }))
-        }))
     }
 
     const initImagesSrc = async () => {
         let imagesSrc: string[] = [];
-        if (product.imageSrc) imagesSrc.push(product.imageSrc)
+        if (isProductImageExist) imagesSrc.push(product.imageSrc)
         for (let image of images) {
             if (image) {
                 const response = await RequestHandler().saveImage(image!)
@@ -71,10 +87,10 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     }
 
     return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
-        <img src={product.imageSrc ?
-            product.imageSrc :
-                images[0] ?
-                    URL.createObjectURL(images[0]!) :
+        <img src={images[0] ?
+                URL.createObjectURL(images[0]!):
+                isProductImageExist ?
+                    product.imageSrc:
                         "/NO_PHOTO_YET.png"}
 
              alt="Selected image"
@@ -90,9 +106,7 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                        file:bg-black file:text-white
                        hover:file:bg-fuchsia-600 "
                    onChange={event => {
-                       setImages(prevState => [
-                           event.target.files?.[0], ...prevState
-                       ])
+                       addImage(event.target.files?.[0])
                    }}/>
 
             <div className="flex flex-wrap justify-between">

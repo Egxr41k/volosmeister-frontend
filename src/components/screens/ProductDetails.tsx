@@ -21,13 +21,13 @@ export const ProductDetails = ({id}:{id:number}) => {
     }
 
     useEffect(() => {
-        getDetails()
+        //getDetails()
         getProduct()
-        console.log(product)
+        console.log(product, details)
     }, [product]);
 
     return <div className="flex">{isAdmin ?
-        <ProductForm productToUpdate={product} detailsToUpdate={details}/> :
+        <ProductForm productToUpdate={product}/> :
         <>
         </>}
     </div>

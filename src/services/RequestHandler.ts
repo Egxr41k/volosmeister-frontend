@@ -78,5 +78,7 @@ export function RequestHandler()  {
                 request.send(formData);
             });
         },
+        checkIsImageExist: async (imageSrc: string) => (await fetch(imageSrc)).ok
+
     }
 }
