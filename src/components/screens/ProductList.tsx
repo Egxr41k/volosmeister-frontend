@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductItem from "../ProductItem";
 import {emptyProduct, IProduct} from "../../types/IProduct";
-import {RequestHandler} from "../../services/RequestHandler";
+import HttpClient from "../../services/HttpClient";
 import ProductForm from "../ProductForm";
 import {ProductDetails} from "./ProductDetails";
 import {storeItems} from "../../App";

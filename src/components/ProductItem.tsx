@@ -1,7 +1,7 @@
 import React from "react";
 import {IProduct} from "../types/IProduct";
 import {FilledBtn, BorderedBtn} from "./Btns";
-import {RequestHandler} from "../services/RequestHandler";
+import HttpClient from "../services/HttpClient";
 import {useCart} from "../context/CartContext";
 import {useAdmin} from "../hooks/useAdmin";
 
@@ -35,7 +35,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
             </p>
             <div className="flex justify-between align-bottom">
                 <FilledBtn handleClick={isAdmin ?
-                    async () => await RequestHandler().delete(item.id) :
+                    async () => await HttpClient().deleteProduct(item.id) :
                     () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>

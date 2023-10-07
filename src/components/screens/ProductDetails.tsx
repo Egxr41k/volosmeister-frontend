@@ -1,7 +1,7 @@
 import {emptyProduct, IProduct} from "../../types/IProduct";
 import {IProductDetails} from "../../types/IProductDetails";
 import {useEffect, useState} from "react";
-import {RequestHandler} from "../../services/RequestHandler";
+import HttpClient from "../../services/HttpClient";
 import {storeItems} from "../../App";
 import {useAdmin} from "../../hooks/useAdmin";
 import DetailsForm from "../DetailsForm";
@@ -12,8 +12,8 @@ export const ProductDetails = ({id}:{id:number}) => {
         { features: [], id: 0, stats: []})
     const [product, setProduct] = useState<IProduct>(emptyProduct)
     const getDetails = () =>{
-        let response = RequestHandler().getDetails(id)
-        response.then(details => setDetails(details))
+        // let response = HttpClient().getDetails(id)
+        // response.then(details => setDetails(details))
     }
     const getProduct = ()=> {
         let product = storeItems.find(i => i.id === id)

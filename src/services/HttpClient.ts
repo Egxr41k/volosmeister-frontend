@@ -2,19 +2,14 @@ import {IProductDetails} from "../types/IProductDetails";
 import {IProduct} from "../types/IProduct";
 
 const baseUrl = "https://localhost:7128/"
-export function RequestHandler()  {
+const HttpClient = () =>  {
     return {
-        fetchAll: async() => {
+        getProducts: async() => {
             const response = await fetch(`${baseUrl}api/Products`);
             return await response.json() as IProduct[];
         },
 
-        getDetails: async(id: number): Promise<IProductDetails> => {
-            const response = await fetch(`${baseUrl}api/Details/${id}`)
-            return await response.json() as IProductDetails;
-        },
-
-        create: async(newEntity: IProduct) => {
+        createProduct: async(newEntity: IProduct) => {
             const response= await fetch(
                 `${baseUrl}api/Products`, {
                     method: 'POST',
@@ -26,9 +21,9 @@ export function RequestHandler()  {
             return await response.json() as IProduct
         },
 
-        update: async (id: number, updateEntity: IProduct) => { //IProduct
+        updateProduct: async (updateEntity: IProduct) => { //IProduct
             const response= await fetch(
-                `${baseUrl}api/Products/${id}`, {
+                `${baseUrl}api/Products/${updateEntity.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(updateEntity),
                 headers: {
@@ -38,19 +33,7 @@ export function RequestHandler()  {
             return await response.json() as IProduct;
         },
 
-        updateDetails: async(id: number, updateEntity: IProductDetails) => {
-            const response= await fetch(
-                `${baseUrl}api/Details/${id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify(updateEntity),
-                    headers: {
-                        "content-type": "application/json"
-                    }
-                })
-            return await response.json() as IProductDetails;
-        },
-
-        delete: async (id: number) => { //IProduct
+        deleteProduct: async (id: number) => { //IProduct
             const response= await fetch(`${baseUrl}api/Products/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -58,6 +41,27 @@ export function RequestHandler()  {
                 }
             })
         },
+
+        // getDetails: async(id: number): Promise<IProductDetails> => {
+        //     const response = await fetch(`${baseUrl}api/Details/${id}`)
+        //     return await response.json() as IProductDetails;
+        // },
+
+        // createDetails: () => {
+        //
+        // },
+
+        // updateDetails: async(updateEntity: IProductDetails) => {
+        //     const response= await fetch(
+        //         `${baseUrl}api/Details/${updateEntity.id}`, {
+        //             method: 'PUT',
+        //             body: JSON.stringify(updateEntity),
+        //             headers: {
+        //                 "content-type": "application/json"
+        //             }
+        //         })
+        //     return await response.json() as IProductDetails;
+        // },
 
         saveImage: (img: File ) => {
             return new Promise((resolve, reject) => {
@@ -78,7 +82,9 @@ export function RequestHandler()  {
                 request.send(formData);
             });
         },
-        checkIsImageExist: async (imageSrc: string) => (await fetch(imageSrc)).ok
 
+        checkImageExisting: async (imageSrc: string) => (await fetch(imageSrc)).ok
     }
 }
+
+export default HttpClient
