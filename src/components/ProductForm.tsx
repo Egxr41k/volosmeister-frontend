@@ -9,7 +9,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
     const [productInfo, setProductInfo] = useState<IProductInfo>(existingProductInfo)
     const [images, setImages] = useState<(File | undefined)[]>([])
     const [isProductImageExist, setIsProductImageExist] = useState(false)
-    const [isProductExist, setIsProductExist] = useState(productInfo.product.id != 0)
+    const isProductExist = useState(productInfo.product.id != 0)[0]
 
     useEffect(() => {
         console.log("ProductForm component mount")
@@ -19,7 +19,6 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
     const checkProductImageExist = () => {
         HttpClient().checkImageExisting(productInfo.product.imageSrc)
             .then(result => setIsProductImageExist(result));
-
     };
 
     const createProductInfo = async (e:any)  => {
@@ -83,6 +82,49 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                 image, ...prevState
             ])
         } else return
+    }
+
+    const setDescription = (value: string) => {
+        setProductInfo(prevState => ({
+            ...prevState, product: {
+                ...prevState.product,
+                description: value
+            }
+        }))
+    }
+    const setOldPrice = (value: number) => {
+        setProductInfo(prevState => ({
+            ...prevState, product: {
+                ...prevState.product,
+                oldPrice: value,
+                isSale: value > prevState.product.newPrice
+            }
+        }))
+    }
+    const setNewPrice = (value: number) => {
+        setProductInfo(prevState => ({
+            ...prevState, product: {
+                ...prevState.product,
+                newPrice: value
+            }
+        }))
+    }
+    const setCount = (value: number) => {
+        setProductInfo(prevState => ({
+            ...prevState, product: {
+                ...prevState.product,
+                count: value,
+                isAvailable: value > 0
+            }
+        }))
+    }
+    const setName = (value: string) => {
+        setProductInfo(prevState => ({
+            ...prevState, product: {
+                ...prevState.product,
+                name: value
+            }
+        }))
     }
 
     const setFeatureTitle = (value: string, i: number) => {
@@ -210,52 +252,26 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
             <div className="flex flex-wrap justify-between">
                 <input className="w-48 my-2" placeholder="назва" type="text"
                        onChange={event => {
-                           setProductInfo(prevState => ({
-                               ...prevState, product: {
-                                   ...prevState.product, name: event.target.value
-                               }
-                           }))
+                           setName(event.target.value)
                        }} value={productInfo.product.name} maxLength={25}/>
                 <input className="w-16 my-2" placeholder="кількість" type="number"
                        onChange={event => {
-                           setProductInfo(prevState => ({
-                               ...prevState, product: {
-                                   ...prevState.product,
-                                   count: parseInt(event.target.value),
-                                   isAvailable: parseInt(event.target.value) > 0
-                               }
-                           }))
+                           setCount(parseInt(event.target.value))
                        }} value={productInfo.product.count}/>
 
                 <input className="w-32 my-2" placeholder="стара ціна" type="number"
                        onChange={event => {
-                           setProductInfo(prevState => ({
-                               ...prevState, product: {
-                                   ...prevState.product,
-                                   oldPrice: parseInt(event.target.value),
-                                   isSale: parseInt(event.target.value) > prevState.product.newPrice
-                               }
-                           }))
+                           setOldPrice(parseInt(event.target.value))
                        }} value={productInfo.product.oldPrice}/>
 
                 <input className="w-32 my-2" placeholder="нова ціна" type="number"
                        onChange={event => {
-                           setProductInfo(prevState => ({
-                               ...prevState, product: {
-                                   ...prevState.product,
-                                   newPrice: parseInt(event.target.value)
-                               }
-                           }))
+                           setNewPrice(parseInt(event.target.value))
                        }} value={productInfo.product.newPrice}/>
             </div>
             <textarea className="w-full h-20 my-2" placeholder="опис"
                       onChange={event => {
-                          setProductInfo(prevState => ({
-                              ...prevState, product: {
-                                  ...prevState.product,
-                                  description: event.target.value
-                              }
-                          }))
+                          setDescription(event.target.value)
                       }} value={productInfo.product.description} maxLength={120}/>
             {isProductExist && <>
                 <div className="my-2">
@@ -283,11 +299,11 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                                  alt="Selected image" className="w-full h-72 object-cover"/>
                             <input type="file" id="fileInput" accept=".jpg"
                                    className="block w-full my-2 text-sm text-gray-500
-                       file:ease-in-out file:duration-300
-                       file:mr-4 file:py-2 file:px-4 file:rounded-md
-                       file:border-0 file:text-sm file:font-semibold
-                       file:bg-black file:text-white
-                       hover:file:bg-fuchsia-600"
+                                                file:ease-in-out file:duration-300
+                                                file:mr-4 file:py-2 file:px-4 file:rounded-md
+                                                file:border-0 file:text-sm file:font-semibold
+                                                file:bg-black file:text-white
+                                                hover:file:bg-fuchsia-600"
                                    onChange={event => {
                                        const newImages = [...images]; // создаем копию массива, чтобы не мутировать исходный
                                        newImages[index + 1] = event.target.files?.[0];
