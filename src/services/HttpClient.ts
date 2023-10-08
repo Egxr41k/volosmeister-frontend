@@ -6,22 +6,29 @@ const HttpClient = () =>  {
     return {
         getProducts: async() => {
             const response = await fetch(`${baseUrl}api/Products`);
-            return await response.json() as IProduct[];
+            if (response.ok) return await response.json() as IProduct[];
+            else return undefined;
+        },
+
+        getProduct: async (id: number) => {
+            const response= await fetch(`${baseUrl}api/Products/${id}`)
+            if (response.ok) return await response.json() as IProduct
+            else return undefined;
         },
 
         createProduct: async(newEntity: IProduct) => {
-            const response= await fetch(
-                `${baseUrl}api/Products`, {
+            const response= await fetch(`${baseUrl}api/Products`, {
                     method: 'POST',
                     body: JSON.stringify(newEntity),
                     headers: {
                         "content-type": "application/json"
                     }
                 })
-            return await response.json() as IProduct
+            if (response.ok) return await response.json() as IProduct
+            else return undefined;
         },
 
-        updateProduct: async (updateEntity: IProduct) => { //IProduct
+        updateProduct: async (updateEntity: IProduct) => {
             const response= await fetch(
                 `${baseUrl}api/Products/${updateEntity.id}`, {
                 method: 'PUT',
@@ -30,38 +37,60 @@ const HttpClient = () =>  {
                     "content-type": "application/json"
                 }
             })
-            return await response.json() as IProduct;
+            if (response.ok) return await response.json() as IProduct
+            else return undefined;
         },
 
-        deleteProduct: async (id: number) => { //IProduct
+        deleteProduct: async (id: number) => {
             const response= await fetch(`${baseUrl}api/Products/${id}`, {
                 method: 'DELETE',
                 headers: {
                     "content-type": "application/json"
                 }
             })
+            return response.ok
         },
 
-        // getDetails: async(id: number): Promise<IProductDetails> => {
-        //     const response = await fetch(`${baseUrl}api/Details/${id}`)
-        //     return await response.json() as IProductDetails;
-        // },
+        getDetails: async(id: number): Promise<IProductDetails> => {
+            const response = await fetch(`${baseUrl}api/Details/${id}`)
+            return await response.json() as IProductDetails;
+        },
 
-        // createDetails: () => {
-        //
-        // },
+        createDetails: async (newEntity: IProductDetails) => {
+            const response= await fetch(
+                `${baseUrl}api/Details`, {
+                    method: 'POST',
+                    body: JSON.stringify(newEntity),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                })
+            if (response.ok) return await response.json() as IProductDetails
+            else return undefined;
+        },
 
-        // updateDetails: async(updateEntity: IProductDetails) => {
-        //     const response= await fetch(
-        //         `${baseUrl}api/Details/${updateEntity.id}`, {
-        //             method: 'PUT',
-        //             body: JSON.stringify(updateEntity),
-        //             headers: {
-        //                 "content-type": "application/json"
-        //             }
-        //         })
-        //     return await response.json() as IProductDetails;
-        // },
+        updateDetails: async(updateEntity: IProductDetails) => {
+            const response= await fetch(
+                `${baseUrl}api/Details/${updateEntity.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(updateEntity),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                })
+            if (response.ok) return await response.json() as IProductDetails
+            else return undefined;
+        },
+
+        deleteDetails: async (id: number) => {
+            const response= await fetch(`${baseUrl}api/Details/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+            return response.ok
+        },
 
         saveImage: (img: File ) => {
             return new Promise((resolve, reject) => {
@@ -70,7 +99,7 @@ const HttpClient = () =>  {
                 console.log(formData)
 
                 const request = new XMLHttpRequest();
-                request.open("POST", "https://localhost:7128/SaveImage", true);
+                request.open("POST", `${baseUrl}SaveImage`, true);
                 request.responseType = 'json'
 
                 request.onload = () => {

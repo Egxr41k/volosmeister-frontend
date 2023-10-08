@@ -24,11 +24,16 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
         const checkIsImageExist = async () => {
             const result = await HttpClient().checkImageExisting(product.imageSrc);
             setIsProductImageExist(result);
+            console.log(product.imageSrc)
             console.log(result)
             console.log(isProductImageExist)
         };
 
         if(product.imageSrc != "") checkIsImageExist();
+        const response = HttpClient().updateProduct(product)
+        response.then(product =>{
+            if(product) setProduct(product)
+        })
     }, [product.imageSrc]);
 
     const createProduct = async (e:any)  => {
@@ -41,21 +46,21 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     const updateProduct = async (e:any)  => {
         e.preventDefault()
         await setImagesSrc()
-
-        console.log(product);
         if (productToUpdate != product){
-            console.log("product put request is sent")
-            const result = HttpClient().updateProduct(product)
+            let response = HttpClient().updateProduct(product)
+            response.then(product =>{
+                if(product) setProduct(product)
+            })
         }
     }
 
     const setImagesSrc = async () => {
-        let imagesSrc = await initImagesSrc()
-
+        const imagesSrc = await initImagesSrc()
+        console.log(imagesSrc)
         setProduct(prevState => ({
             ...prevState, imageSrc: imagesSrc[0]
         }))
-
+        console.log(product);
     }
 
     const initImagesSrc = async () => {
@@ -192,7 +197,7 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                            setProduct(prevState => ({
                                ...prevState, name: event.target.value
                            }))
-                       }} value={product.name}/>
+                       }} value={product.name} maxLength={25}/>
                 <input className="w-16 my-2" placeholder="кількість" type="number"
                        onChange={event => {
                            setProduct(prevState => ({
@@ -219,7 +224,7 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                           setProduct(prevState => ({
                               ...prevState, description: event.target.value
                           }))
-                      }} value={product.description} />
+                      }} value={product.description} maxLength={120}/>
             {productToUpdate && <>
                 <div className="my-2">
                     <div className="flex justify-between">

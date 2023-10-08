@@ -1,5 +1,5 @@
 import {emptyProduct, IProduct} from "../../types/IProduct";
-import {IProductDetails} from "../../types/IProductDetails";
+import {emptyDetails, IProductDetails} from "../../types/IProductDetails";
 import {useEffect, useState} from "react";
 import HttpClient from "../../services/HttpClient";
 import {storeItems} from "../../App";
@@ -8,23 +8,31 @@ import DetailsForm from "../DetailsForm";
 import ProductForm from "../ProductForm";
 export const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()
-    const [details, setDetails] = useState<IProductDetails>(
-        { features: [], id: 0, stats: []})
-    const [product, setProduct] = useState<IProduct>(emptyProduct)
+    const [details, setDetails] = useState(emptyDetails)
+    const [product, setProduct] = useState(emptyProduct)
+
+    useEffect(() => {
+        console.log("ProductDetails component render")
+    }, []);
+
     const getDetails = () =>{
-        // let response = HttpClient().getDetails(id)
-        // response.then(details => setDetails(details))
+        const response = HttpClient().getDetails(id)
+        response.then(details => {
+            if(details) setDetails(details)
+        })
     }
     const getProduct = ()=> {
-        let product = storeItems.find(i => i.id === id)
-        if (product) setProduct(product)
+        const response = HttpClient().getProduct(id)
+        response.then(product =>{
+            if(product) setProduct(product)
+        })
     }
 
     useEffect(() => {
-        //getDetails()
+        getDetails()
         getProduct()
         console.log(product, details)
-    }, [product]);
+    }, []);
 
     return <div className="flex">{isAdmin ?
         <ProductForm productToUpdate={product}/> :
