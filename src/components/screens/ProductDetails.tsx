@@ -6,36 +6,54 @@ import {storeItems} from "../../App";
 import {useAdmin} from "../../hooks/useAdmin";
 import DetailsForm from "../DetailsForm";
 import ProductForm from "../ProductForm";
+
+export interface IProductInfo{
+    product: IProduct,
+    details: IProductDetails
+}
+
 export const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()
-    const [details, setDetails] = useState(emptyDetails)
-    const [product, setProduct] = useState(emptyProduct)
+    const [productInfo, setProductInfo] = useState<IProductInfo>(
+        {product: emptyProduct, details: emptyDetails})
 
     useEffect(() => {
         console.log("ProductDetails component render")
-    }, []);
+    });
 
     const getDetails = () =>{
-        const response = HttpClient().getDetails(id)
-        response.then(details => {
-            if(details) setDetails(details)
+        const detailsResult = HttpClient().getDetails(id)
+        detailsResult.then(result => {
+            if(result) {
+                setProductInfo(prevState => ({
+                    ...prevState, details: result
+                }))
+            }
         })
     }
     const getProduct = ()=> {
-        const response = HttpClient().getProduct(id)
-        response.then(product =>{
-            if(product) setProduct(product)
+        const productResult = HttpClient().getProduct(id)
+        productResult.then(result => {
+            if(result) {
+                setProductInfo(prevState => ({
+                    ...prevState, product: result
+                }))
+            }
         })
     }
 
-    useEffect(() => {
-        getDetails()
+    const getProductInfo = () => {
         getProduct()
-        console.log(product, details)
+        getDetails()
+    }
+
+    useEffect(() => {
+        getProductInfo()
+        console.log(productInfo)
     }, []);
 
     return <div className="flex">{isAdmin ?
-        <ProductForm productToUpdate={product}/> :
+        <ProductForm existingProductInfo={productInfo} /> :
         <>
         </>}
     </div>

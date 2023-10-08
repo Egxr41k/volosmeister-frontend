@@ -8,7 +8,7 @@ import {CartProvider} from "./context/CartContext";
 import HttpClient from "./services/HttpClient";
 import {AdminProvider} from "./context/AdminContext";
 
-export const storeItems: IProduct[] = await HttpClient().getProducts()
+export const storeItems = await HttpClient().getProducts() as IProduct[]
 
 function App() {
     return <CartProvider>

@@ -1,71 +1,79 @@
 import React, {useEffect, useState} from "react";
-import {emptyProduct, IProduct} from "../types/IProduct";
-import {emptyDetails, IProductDetails} from "../types/IProductDetails";
 import HttpClient from "../services/HttpClient";
 import {BorderedBtn, FilledBtn} from "./Btns";
 import {IFeature} from "../types/IFeature";
 import {IProperty} from "../types/IProperty";
+import {IProductInfo} from "./screens/ProductDetails";
 
-const ProductForm = ({productToUpdate, detailsToUpdate}: {
-    productToUpdate?: IProduct, detailsToUpdate?: IProductDetails}) => {
-
-    const [product, setProduct] = useState(productToUpdate ?? emptyProduct)
-    const [details, setDetails] = useState(detailsToUpdate ?? emptyDetails)
-    const [images, setImages] = useState<(File | undefined)[]>([]);
+const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo}) => {
+    const [productInfo, setProductInfo] = useState<IProductInfo>(existingProductInfo)
+    const [images, setImages] = useState<(File | undefined)[]>([])
     const [isProductImageExist, setIsProductImageExist] = useState(false)
+    const [isProductExist, setIsProductExist] = useState(productInfo.product.id == 0)
 
     useEffect(() => {
-        setProduct(productToUpdate ?? emptyProduct)
-        setDetails(detailsToUpdate ??
-            {features: [], id: 0, stats: []})
-    }, [productToUpdate, detailsToUpdate]);
+        // const checkIsImageExist = async () => {
+        //     const result = await HttpClient().checkImageExisting(productInfo.product.imageSrc);
+        //     setIsProductImageExist(result);
+        //     console.log(productInfo.product.imageSrc)
+        //     console.log(result)
+        //     console.log(isProductImageExist)
+        // };
 
-    useEffect(() => {
-        const checkIsImageExist = async () => {
-            const result = await HttpClient().checkImageExisting(product.imageSrc);
-            setIsProductImageExist(result);
-            console.log(product.imageSrc)
-            console.log(result)
-            console.log(isProductImageExist)
-        };
+        // if(product.imageSrc != "") checkIsImageExist();
+        // const response = HttpClient().updateProduct(productInfo.product)
+        // response.then(result =>{
+        //     if(result) setProductInfo(prevState => ({
+        //         ...prevState, product: result
+        //     }))
+        // })
+    }, []); //product.imageSrc
 
-        if(product.imageSrc != "") checkIsImageExist();
-        const response = HttpClient().updateProduct(product)
-        response.then(product =>{
-            if(product) setProduct(product)
-        })
-    }, [product.imageSrc]);
-
-    const createProduct = async (e:any)  => {
+    const createProductInfo = async (e:any)  => {
         e.preventDefault()
         await setImagesSrc()
-        const result = await HttpClient().createProduct(product)
-        alert("продукт успішно доданий")
-        setProduct(emptyProduct)
+
+        if (existingProductInfo != productInfo){
+            const productResult = await HttpClient().createProduct(productInfo.product)
+            const detailsResult = await HttpClient().createDetails(productInfo.details)
+
+            setProductInfo(prevState => ({
+                product: productResult ?? prevState.product,
+                details: detailsResult ?? prevState.details,
+            }))
+            alert("продукт успішно доданий")
+        }
     }
-    const updateProduct = async (e:any)  => {
+    const updateProductInfo = async (e:any)  => {
         e.preventDefault()
         await setImagesSrc()
-        if (productToUpdate != product){
-            let response = HttpClient().updateProduct(product)
-            response.then(product =>{
-                if(product) setProduct(product)
-            })
+
+        if (existingProductInfo != productInfo){
+            const productResult = await HttpClient().updateProduct(productInfo.product)
+            const detailsResult = await HttpClient().updateDetails(productInfo.details)
+
+            setProductInfo(prevState => ({
+                product: productResult ?? prevState.product,
+                details: detailsResult ?? prevState.details,
+            }))
+            alert("продукт успішно доданий")
         }
     }
 
     const setImagesSrc = async () => {
         const imagesSrc = await initImagesSrc()
         console.log(imagesSrc)
-        setProduct(prevState => ({
-            ...prevState, imageSrc: imagesSrc[0]
+        setProductInfo(prevState => ({
+            ...prevState, product: {
+                ...prevState.product, imageSrc: imagesSrc[0]
+            }
         }))
-        console.log(product);
+        console.log(productInfo.product);
     }
 
     const initImagesSrc = async () => {
         let imagesSrc: string[] = [];
-        if (isProductImageExist) imagesSrc.push(product.imageSrc)
+        if (isProductImageExist) imagesSrc.push(productInfo.product.imageSrc)
         for (let image of images) {
             if (image) {
                 const response = await HttpClient().saveImage(image!)
@@ -85,58 +93,67 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     }
 
     const setFeatureTitle = (value: string, i: number) => {
-        const newFeatures = [...details.features];
+        const newFeatures = [...productInfo.details.features];
         newFeatures[i].title = value;
         setFeatures(newFeatures)
     }
     const setFeatureDescription = (value: string, i: number) => {
-        const newFeatures = [...details.features];
+        const newFeatures = [...productInfo.details.features];
         newFeatures[i].description = value;
         setFeatures(newFeatures)
     }
     const setFeatures = (newFeatures: IFeature[]) => {
-        setDetails(prevState => ({
-            ...prevState, features: newFeatures
+        setProductInfo(prevState => ({
+            ...prevState, details: {
+                ...prevState.details, features: newFeatures
+            }
         }))
     }
 
     const setPropertyName = (value: string, i: number) => {
-        const newStats = [...details.stats];
+        const newStats = [...productInfo.details.stats];
         newStats[i].name = value;
         setStats(newStats)
     }
     const setPropertyValue = (value: string, i: number) => {
-        const newStats = [...details.stats];
+        const newStats = [...productInfo.details.stats];
         newStats[i].value = value;
         setStats(newStats)
     }
     const setStats = (newStats: IProperty[]) => {
-        setDetails(prevState => ({
-            ...prevState, stats: newStats
+        setProductInfo(prevState => ({
+            ...prevState, details: {
+                ...prevState.details, stats: newStats
+            }
         }))
     }
 
-
     const addFeature = () => {
-        setDetails(prevState => ({
-            ...prevState, features: [...prevState.features,
-                {
-                    description: "",
-                    id: 0,
-                    imageSrc: "",
-                    productId: 0,
-                    title: ""
-                }
-            ]
+        setProductInfo(prevState => ({
+            ...prevState, details: {
+                ...prevState.details, features:[
+                    ...prevState.details.features, {
+                        description: "",
+                        id: 0,
+                        imageSrc: "",
+                        productId: 0,
+                        title: ""
+                    }
+                ]
+            }
         }))
         setImages([...images, undefined])
     }
     const deleteFeature = () => {
-        setDetails(prevState => ({
-            ...prevState, features: prevState.features.filter(
-                (_, i) =>
-                    i !== prevState.features.length -1
-            )
+        setProductInfo(prevState => ({
+            ...prevState, details: {
+                ...prevState.details, features: {
+                    ...prevState.details.features.filter(
+                        (_, i) =>
+                            i !== prevState.details.features.length -1
+                    )
+                }
+            }
         }))
 
         setImages(
@@ -148,23 +165,29 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
     }
 
     const addProperty = () => {
-        setDetails(prevState => ({
-            ...prevState, stats: [...prevState.stats,
-                {
-                    id: 0,
-                    productId: 0,
-                    name: "",
-                    value: ""
-                }
-            ]
+        setProductInfo(prevState => ({
+            ...prevState, details: {
+                ...prevState.details, stats:[
+                    ...prevState.details.stats, {
+                        id: 0,
+                        productId: 0,
+                        name: "",
+                        value: ""
+                    }
+                ]
+            }
         }))
     }
     const deleteProperty = () => {
-        setDetails(prevState => ({
-            ...prevState, stats: prevState.stats.filter(
-                (_, i) =>
-                    i !== prevState.stats.length -1
-            )
+        setProductInfo(prevState => ({
+            ...prevState, details: {
+                ...prevState.details, stats: {
+                    ...prevState.details.stats.filter(
+                        (_, i) =>
+                            i !== prevState.details.stats.length -1
+                    )
+                }
+            }
         }))
     }
 
@@ -172,14 +195,14 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
         <img src={images[0] ?
                 URL.createObjectURL(images[0]!):
                 isProductImageExist ?
-                    product.imageSrc:
+                    productInfo.product.imageSrc:
                         "/NO_PHOTO_YET.png"}
 
              alt="Selected image"
              className="w-full h-72 object-cover"/>
         <form className="h-64 p-5" encType="multipart/form-data" method="post"
               onSubmit={(event) => event.preventDefault()}>
-            <h2 className="text-xl font-semibold">{ productToUpdate ? "Оновити товар" : "Додати товар" }</h2>
+            <h2 className="text-xl font-semibold">{ isProductExist ? "Оновити товар" : "Додати товар" }</h2>
             <input type="file" id="fileInput" accept=".jpg"
                    className="block w-full my-2 text-sm text-gray-500
                        file:ease-in-out file:duration-300
@@ -194,49 +217,65 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
             <div className="flex flex-wrap justify-between">
                 <input className="w-48 my-2" placeholder="назва" type="text"
                        onChange={event => {
-                           setProduct(prevState => ({
-                               ...prevState, name: event.target.value
+                           setProductInfo(prevState => ({
+                               ...prevState, product: {
+                                   ...prevState.product, name: event.target.value
+                               }
                            }))
-                       }} value={product.name} maxLength={25}/>
+                       }} value={productInfo.product.name} maxLength={25}/>
                 <input className="w-16 my-2" placeholder="кількість" type="number"
                        onChange={event => {
-                           setProduct(prevState => ({
-                               ...prevState,  count: parseInt(event.target.value), isAvailable: true
+                           setProductInfo(prevState => ({
+                               ...prevState, product: {
+                                   ...prevState.product,
+                                   count: parseInt(event.target.value),
+                                   isAvailable: parseInt(event.target.value) > 0
+                               }
                            }))
-                       }} value={product.count}/>
+                       }} value={productInfo.product.count}/>
 
                 <input className="w-32 my-2" placeholder="стара ціна" type="number"
                        onChange={event => {
-                           setProduct(prevState => ({
-                               ...prevState,  oldPrice: parseInt(event.target.value), isSale: true
+                           setProductInfo(prevState => ({
+                               ...prevState, product: {
+                                   ...prevState.product,
+                                   oldPrice: parseInt(event.target.value),
+                                   isSale: parseInt(event.target.value) > prevState.product.newPrice
+                               }
                            }))
-                       }} value={product.oldPrice}/>
+                       }} value={productInfo.product.oldPrice}/>
 
                 <input className="w-32 my-2" placeholder="нова ціна" type="number"
                        onChange={event => {
-                           setProduct(prevState => ({
-                               ...prevState,  newPrice: parseInt(event.target.value)
+                           setProductInfo(prevState => ({
+                               ...prevState, product: {
+                                   ...prevState.product,
+                                   newPrice: parseInt(event.target.value)
+                               }
                            }))
-                       }} value={product.newPrice}/>
+                       }} value={productInfo.product.newPrice}/>
             </div>
             <textarea className="w-full h-20 my-2" placeholder="опис"
                       onChange={event => {
-                          setProduct(prevState => ({
-                              ...prevState, description: event.target.value
+                          setProductInfo(prevState => ({
+                              ...prevState, product: {
+                                  ...prevState.product,
+                                  description: event.target.value
+                              }
                           }))
-                      }} value={product.description} maxLength={120}/>
-            {productToUpdate && <>
+                      }} value={productInfo.product.description} maxLength={120}/>
+            {isProductExist && <>
                 <div className="my-2">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-semibold my-auto">
-                            { details.features.length != 0 ? "Оновити cекції" : "Додати cекції" }
+                            { productInfo.details.features.length != 0 ? "Оновити cекції" : "Додати cекції" }
                         </h2>
                         <BorderedBtn handleClick={addFeature}>
                             +
                         </BorderedBtn>
                     </div>
 
-                    { details.features.map((feature: IFeature, index: number) => {
+                    { productInfo.details.features.map((feature: IFeature, index: number) => {
                         return <div key={index } className="my-2">
                             <div className="flex justify-between my-2">
                                 <h4 className="font-medium">
@@ -276,14 +315,14 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                 <div className="my-2">
                     <div className="flex justify-between">
                         <h2 className="text-lg font-semibold my-auto">
-                            { details.stats.length != 0 ? "Оновити характеристики" : "Додати характеристики" }
+                            { productInfo.details.stats.length != 0 ? "Оновити характеристики" : "Додати характеристики" }
                         </h2>
                         <BorderedBtn handleClick={addProperty}>
                             +
                         </BorderedBtn>
                     </div>
 
-                    { details.stats.map((property: IProperty, index: number) => {
+                    { productInfo.details.stats.map((property: IProperty, index: number) => {
                         return <div key={index} className="my-2">
                             <div className="flex justify-between my-2">
                                 <h4 className="font-medium">
@@ -307,10 +346,10 @@ const ProductForm = ({productToUpdate, detailsToUpdate}: {
                     }
                 </div>
             </>}
-            <FilledBtn handleClick={ productToUpdate ?
-                async (event) => updateProduct(event) :
-                async (event) => createProduct(event)}>
-                { productToUpdate ? "Оновити" : "Додати"}
+            <FilledBtn handleClick={ isProductExist ?
+                async (event) => updateProductInfo(event) :
+                async (event) => createProductInfo(event)}>
+                { isProductExist ? "Оновити" : "Додати"}
             </FilledBtn>
         </form>
     </div>
