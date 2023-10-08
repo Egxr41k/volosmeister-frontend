@@ -1,7 +1,7 @@
 import React from "react";
 import {IProduct} from "../types/IProduct";
 import {FilledBtn, BorderedBtn} from "./Btns";
-import {RequestHandler} from "../services/RequestHandler";
+import HttpClient from "../services/HttpClient";
 import {useCart} from "../context/CartContext";
 import {useAdmin} from "../hooks/useAdmin";
 
@@ -20,12 +20,12 @@ const ProductItem = ({item}:{item: IProduct}) => {
             "/NO_PHOTO_YET.png"}
              alt={item.name}
              className="w-full h-96 object-cover"/>
-        <div className="p-6 h-64">
-            <h2 className="text-xl font-semibold">{item.name}</h2>
+        <div className="p-5 h-64">
+            <h2 className="text-xl font-semibold h-14">{item.name}</h2>
             <p className="font-extralight h-20 my-2">{item.description} </p>
-            <p className="text-fuchsia-600 my-3">
+            <p className="text-fuchsia-600 my-1">
                 {item.newPrice} грн.
-                <span className="line-through text-gray-500 mr-14">
+                <span className="line-through text-gray-500 mr-14 ml-2">
                     {item.oldPrice} грн.
                 </span>
                 {item.isAvailable ?
@@ -35,7 +35,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
             </p>
             <div className="flex justify-between align-bottom">
                 <FilledBtn handleClick={isAdmin ?
-                    async () => await RequestHandler().delete(item.id) :
+                    async () => await HttpClient().deleteProduct(item.id) :
                     () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>

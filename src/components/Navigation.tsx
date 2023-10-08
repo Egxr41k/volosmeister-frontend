@@ -10,6 +10,7 @@ import {BorderedBtn} from "./Btns";
 import {useAdmin} from "../hooks/useAdmin";
 
 const path = window.location.pathname
+
 export const CurrentScreen = () =>{
     switch (path) {
         case "/Home":        return <Home/>
@@ -28,7 +29,12 @@ const DetailsRoute = () => {
         let result = path.replace("/ProductDetails/", "")
         let id = parseInt(result)
         return <ProductDetails id={id}/>
-    } else return <>вы, наверное, заблудились...</>
+    } else return <div className="flex justify-center items-center">
+        <p>ви, мабуть, заблукали...</p>
+        <BorderedBtn handleClick={() => window.location.pathname = "/Home"}>
+            вертайтеся на головну
+        </BorderedBtn>
+    </div>
 }
 
 const Admin = () => {

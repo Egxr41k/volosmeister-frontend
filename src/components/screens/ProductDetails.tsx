@@ -1,34 +1,34 @@
-import {emptyProduct, IProduct} from "../../types/IProduct";
-import {IProductDetails} from "../../types/IProductDetails";
+
 import {useEffect, useState} from "react";
-import {RequestHandler} from "../../services/RequestHandler";
+import HttpClient from "../../services/HttpClient";
 import {storeItems} from "../../App";
 import {useAdmin} from "../../hooks/useAdmin";
-import DetailsForm from "../DetailsForm";
 import ProductForm from "../ProductForm";
+import {emptyInfo} from "../../types/IProductInfo";
+
 export const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()
-    const [details, setDetails] = useState<IProductDetails>(
-        { features: [], id: 0, stats: []})
-    const [product, setProduct] = useState<IProduct>(emptyProduct)
-    const getDetails = () =>{
-        let response = RequestHandler().getDetails(id)
-        response.then(details => setDetails(details))
-    }
-    const getProduct = ()=> {
-        let product = storeItems.find(i => i.id === id)
-        if (product) setProduct(product)
-    }
+    const [productInfo, setProductInfo] = useState(emptyInfo)
 
     useEffect(() => {
-        //getDetails()
-        getProduct()
-        console.log(product, details)
-    }, [product]);
+        console.log("ProductDetails component mount")
+        getProductInfo()
+    }, []);
 
-    return <div className="flex">{isAdmin ?
-        <ProductForm productToUpdate={product}/> :
-        <>
-        </>}
+    const getProductInfo = async () => {
+        const productResult =  await HttpClient().getProduct(id)
+        const detailsResult = await HttpClient().getDetails(id)
+
+        setProductInfo(prevState => ({
+            product: productResult ?? prevState.product,
+            details: detailsResult ?? prevState.details,
+        }))
+    }
+
+    return <div className="flex">{ productInfo != emptyInfo ?
+        isAdmin ?
+            <ProductForm existingProductInfo={productInfo} /> :
+            <></> :
+        <></>}
     </div>
 }

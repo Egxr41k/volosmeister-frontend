@@ -5,10 +5,10 @@ import {Header} from "./components/Header";
 import {Footer} from "./components/Footer";
 import {IProduct} from "./types/IProduct";
 import {CartProvider} from "./context/CartContext";
-import {RequestHandler} from "./services/RequestHandler";
+import HttpClient from "./services/HttpClient";
 import {AdminProvider} from "./context/AdminContext";
 
-export const storeItems: IProduct[] = await RequestHandler().fetchAll()
+export const storeItems = await HttpClient().getProducts() as IProduct[]
 
 function App() {
     return <CartProvider>

@@ -7,6 +7,11 @@ export interface IProductDetails {
     features: IFeature[],
     stats: IProperty[],
 }
+export const emptyDetails: IProductDetails = {
+    id: 0,
+    features: [],
+    stats: []
+}
 // {
 //     "id": 0,
 //     "features": [
