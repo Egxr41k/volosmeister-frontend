@@ -3,37 +3,30 @@ import HttpClient from "../services/HttpClient";
 import {BorderedBtn, FilledBtn} from "./Btns";
 import {IFeature} from "../types/IFeature";
 import {IProperty} from "../types/IProperty";
-import {IProductInfo} from "./screens/ProductDetails";
+import {emptyInfo, IProductInfo} from "../types/IProductInfo";
 
 const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo}) => {
     const [productInfo, setProductInfo] = useState<IProductInfo>(existingProductInfo)
     const [images, setImages] = useState<(File | undefined)[]>([])
     const [isProductImageExist, setIsProductImageExist] = useState(false)
-    const [isProductExist, setIsProductExist] = useState(productInfo.product.id == 0)
+    const [isProductExist, setIsProductExist] = useState(productInfo.product.id != 0)
 
     useEffect(() => {
-        // const checkIsImageExist = async () => {
-        //     const result = await HttpClient().checkImageExisting(productInfo.product.imageSrc);
-        //     setIsProductImageExist(result);
-        //     console.log(productInfo.product.imageSrc)
-        //     console.log(result)
-        //     console.log(isProductImageExist)
-        // };
+        console.log("ProductForm component mount")
+        if (isProductExist) checkProductImageExist()
+    }, []);
 
-        // if(product.imageSrc != "") checkIsImageExist();
-        // const response = HttpClient().updateProduct(productInfo.product)
-        // response.then(result =>{
-        //     if(result) setProductInfo(prevState => ({
-        //         ...prevState, product: result
-        //     }))
-        // })
-    }, []); //product.imageSrc
+    const checkProductImageExist = () => {
+        HttpClient().checkImageExisting(productInfo.product.imageSrc)
+            .then(result => setIsProductImageExist(result));
+
+    };
 
     const createProductInfo = async (e:any)  => {
         e.preventDefault()
         await setImagesSrc()
 
-        if (existingProductInfo != productInfo){
+        if (productInfo != emptyInfo){
             const productResult = await HttpClient().createProduct(productInfo.product)
             const detailsResult = await HttpClient().createDetails(productInfo.details)
 
@@ -48,7 +41,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
         e.preventDefault()
         await setImagesSrc()
 
-        if (existingProductInfo != productInfo){
+        if (productInfo != emptyInfo){
             const productResult = await HttpClient().updateProduct(productInfo.product)
             const detailsResult = await HttpClient().updateDetails(productInfo.details)
 
