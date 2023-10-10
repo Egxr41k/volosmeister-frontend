@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ProductItem from "../ProductItem";
 import IProduct, {emptyProduct} from "../../types/IProduct";
 import ProductForm from "../ProductForm";
 import {emptyDetails} from "../../types/IProductDetails";
-import HttpClient from "../../services/HttpClient";
 import useProducts from "../../hooks/useProducts";
 
 const ProductList = () => {

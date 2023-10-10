@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import {CurrentScreen} from "./components/Navigation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import IProduct from "./types/IProduct";
 import {CartProvider} from "./context/CartContext";
-import HttpClient from "./services/HttpClient";
 import {AdminProvider} from "./context/AdminContext";
 
 function App() {

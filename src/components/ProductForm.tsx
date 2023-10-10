@@ -19,17 +19,25 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
         request
     } = useProductInfo(existingProductInfo)
 
-    const [isProductImageExist, setIsProductImageExist] = useState(false)
+    const [isImagesExist, setIsImagesExist] = useState([false])
     const isProductExist = useState(productInfo.product.id != 0)[0]
 
     useEffect(() => {
         console.log("ProductForm component mount")
-        if (isProductExist) checkProductImageExist()
     }, []);
 
-    const checkProductImageExist = () => {
-        HttpClient().checkImageExisting(productInfo.product.imageSrc)
-            .then(result => setIsProductImageExist(result));
+    useEffect(() => {
+        if (isProductExist) checkImagesExist().catch(error => console.log(error))
+    }, [images]);
+
+    const checkImagesExist = async () => {
+        let isProductImageExist = await HttpClient().checkImageExisting(productInfo.product.imageSrc)
+        let temp: boolean[] = [isProductImageExist]
+        await Promise.all(productInfo.details.features.map(async (feature: IFeature, index) => {
+            temp[index + 1] = await HttpClient().checkImageExisting(feature.imageSrc)
+        }))
+        console.log("images has been changed, now it is", temp)
+        setIsImagesExist(temp)
     };
     const formSubmit = async () => {
         if (isProductExist) await request.updateProductInfo()
@@ -51,7 +59,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
     return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
         <img src={images[0] ?
                 URL.createObjectURL(images[0]!):
-                isProductImageExist ?
+                isImagesExist[0] ?
                     productInfo.product.imageSrc:
                         "/NO_PHOTO_YET.png"}
 
@@ -107,8 +115,11 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                                     -
                                 </BorderedBtn>
                             </div>
-                            <img src={images[index + 1] ? URL.createObjectURL(images[index + 1]!) :
-                                "/NO_PHOTO_YET.png"}
+                            <img src={images[index + 1] ?
+                                URL.createObjectURL(images[index + 1]!):
+                                isImagesExist[index + 1] ?
+                                    feature.imageSrc:
+                                    "/NO_PHOTO_YET.png"}
                                  alt="Selected image" className="w-full h-72 object-cover"/>
                             <FilePicker position={index + 1}/>
                             <input className="w-48 my-2" placeholder="назва" type="text"

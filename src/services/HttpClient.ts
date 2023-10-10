@@ -113,7 +113,8 @@ const HttpClient = () =>  {
             });
         },
 
-        checkImageExisting: async (imageSrc: string) => (await fetch(imageSrc)).ok
+        checkImageExisting: async (imageSrc: string) =>
+            imageSrc != "" ? (await fetch(imageSrc)).ok : false
     }
 }
 

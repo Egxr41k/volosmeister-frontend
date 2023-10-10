@@ -1,10 +1,10 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import IProductInfo, {emptyInfo} from "../types/IProductInfo";
 import HttpClient from "../services/HttpClient";
 import IFeature from "../types/IFeature";
 import IProperty from "../types/IProperty";
 import IProduct from "../types/IProduct";
-import IProductDetails from "../types/IProductDetails";
+import IProductDetails, {emptyDetails} from "../types/IProductDetails";
 
 const useProductInfo = (initialValue?: IProductInfo) => {
     const [productInfo, setProductInfo] = useState(initialValue ?? emptyInfo)
@@ -15,12 +15,12 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const detailsResult = await HttpClient().getDetails(id)
 
         SetInfo(productResult, detailsResult);
-
     }
     const updateProductInfo = async ()  => {
         await setImagesSrc()
 
-        if (productInfo !== emptyInfo){
+        console.log(productInfo, initialValue)
+        if (productInfo !== initialValue){
             const productResult = await HttpClient().updateProduct(productInfo.product)
             const detailsResult = await HttpClient().updateDetails(productInfo.details)
 
@@ -32,7 +32,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
     const createProductInfo = async ()  => {
         await setImagesSrc()
 
-        if (productInfo !== emptyInfo){
+        if (productInfo !== initialValue){
             const productResult = await HttpClient().createProduct(productInfo.product)
             const detailsResult = await HttpClient().createDetails(productInfo.details)
 
@@ -49,14 +49,21 @@ const useProductInfo = (initialValue?: IProductInfo) => {
 
     const setImagesSrc = async () => {
         const imagesSrc = await initImagesSrc()
-        console.log(imagesSrc)
         setProductInfo(prevState => ({
             ...prevState, product: {
                 ...prevState.product, imageSrc: imagesSrc[0]
+            }, details: {
+                ...prevState.details,
+                features: prevState.details.features.map((feature: IFeature, index: number) => {
+                    if (index < imagesSrc.length) {
+                        return { ...feature, imageSrc: imagesSrc[index + 1] }
+                    }
+                    return feature
+                })
             }
         }))
-        console.log(productInfo.product);
     }
+
 
     const initImagesSrc = async () => {
         let imagesSrc: string[] = [];
@@ -166,7 +173,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
                         description: "",
                         id: 0,
                         imageSrc: "",
-                        productId: 0,
+                        productId: productInfo.product.id,
                         title: ""
                     }
                 ]
@@ -200,7 +207,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
                 ...prevState.details, stats:[
                     ...prevState.details.stats, {
                         id: 0,
-                        productId: 0,
+                        productId: productInfo.product.id,
                         name: "",
                         value: ""
                     }
