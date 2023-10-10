@@ -1,4 +1,4 @@
-export interface IProduct {
+interface IProduct {
     id: number,
     name: string,
     imageSrc: string,
@@ -21,5 +21,7 @@ export const emptyProduct: IProduct = {
     newPrice: 0,
     oldPrice: 0
 }
+
+export default IProduct
 
 

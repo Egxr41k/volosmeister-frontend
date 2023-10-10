@@ -1,7 +1,7 @@
-import {useCart} from "../../context/CartContext";
 import {CartItem} from "./CartItem";
 import React from "react";
 import {storeItems} from "../../App";
+import useCart from "../../hooks/useCart";
 
 type ShoppingCartProps = {
     isOpen: boolean

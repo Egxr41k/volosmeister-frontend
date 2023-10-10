@@ -1,8 +1,10 @@
-import {useEffect, useState} from "react";
-import {emptyInfo, IProductInfo} from "../types/IProductInfo";
+import {useState} from "react";
+import IProductInfo, {emptyInfo} from "../types/IProductInfo";
 import HttpClient from "../services/HttpClient";
-import {IFeature} from "../types/IFeature";
-import {IProperty} from "../types/IProperty";
+import IFeature from "../types/IFeature";
+import IProperty from "../types/IProperty";
+import IProduct from "../types/IProduct";
+import IProductDetails from "../types/IProductDetails";
 
 const useProductInfo = (initialValue?: IProductInfo) => {
     const [productInfo, setProductInfo] = useState(initialValue ?? emptyInfo)
@@ -12,38 +14,37 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const productResult =  await HttpClient().getProduct(id)
         const detailsResult = await HttpClient().getDetails(id)
 
-        setProductInfo(prevState => ({
-            product: productResult ?? prevState.product,
-            details: detailsResult ?? prevState.details,
-        }))
+        SetInfo(productResult, detailsResult);
+
     }
     const updateProductInfo = async ()  => {
         await setImagesSrc()
 
-        if (productInfo != emptyInfo){
+        if (productInfo !== emptyInfo){
             const productResult = await HttpClient().updateProduct(productInfo.product)
             const detailsResult = await HttpClient().updateDetails(productInfo.details)
 
-            setProductInfo(prevState => ({
-                product: productResult ?? prevState.product,
-                details: detailsResult ?? prevState.details,
-            }))
+            SetInfo(productResult, detailsResult);
+
             alert("продукт успішно доданий")
         }
     }
     const createProductInfo = async ()  => {
         await setImagesSrc()
 
-        if (productInfo != emptyInfo){
+        if (productInfo !== emptyInfo){
             const productResult = await HttpClient().createProduct(productInfo.product)
             const detailsResult = await HttpClient().createDetails(productInfo.details)
 
-            setProductInfo(prevState => ({
-                product: productResult ?? prevState.product,
-                details: detailsResult ?? prevState.details,
-            }))
+            SetInfo(productResult, detailsResult);
             alert("продукт успішно доданий")
         }
+    }
+    function SetInfo(productResult: IProduct | undefined, detailsResult: IProductDetails | undefined) {
+        setProductInfo(prevState => ({
+            product: productResult ?? prevState.product,
+            details: detailsResult ?? prevState.details,
+        }))
     }
 
     const setImagesSrc = async () => {

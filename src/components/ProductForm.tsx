@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import HttpClient from "../services/HttpClient";
-import {BorderedBtn, FilledBtn} from "./Btns";
-import {IFeature} from "../types/IFeature";
-import {IProperty} from "../types/IProperty";
-import {emptyInfo, IProductInfo} from "../types/IProductInfo";
+import IFeature from "../types/IFeature";
+import IProperty from "../types/IProperty";
+import IProductInfo from "../types/IProductInfo";
 import useProductInfo from "../hooks/useProductInfo";
+import BorderedBtn from "./btns/BorderedBtn";
+import FilledBtn from "./btns/FilledBtn";
 
 const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo}) => {
     const {

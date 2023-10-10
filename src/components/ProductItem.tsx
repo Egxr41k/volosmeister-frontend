@@ -1,9 +1,10 @@
 import React from "react";
-import {IProduct} from "../types/IProduct";
-import {FilledBtn, BorderedBtn} from "./Btns";
+import IProduct from "../types/IProduct";
 import HttpClient from "../services/HttpClient";
-import {useCart} from "../context/CartContext";
-import {useAdmin} from "../hooks/useAdmin";
+import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
+import FilledBtn from "./btns/FilledBtn";
+import BorderedBtn from "./btns/BorderedBtn";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {

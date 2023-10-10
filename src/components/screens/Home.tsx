@@ -1,6 +1,6 @@
-import {BorderedBtn} from "../Btns";
+import BorderedBtn from "../btns/BorderedBtn";
 
-export const Home = () => {
+const Home = () => {
     return <div className="relative">
         <img src="https://static.tildacdn.com/tild3461-3062-4839-a133-623333343030/kak-vibrat-mebel-dly.jpg"
              alt="" className="w-full object-cover h-[90vh]"/>
@@ -21,3 +21,5 @@ export const Home = () => {
         </div>
     </div>
 }
+
+export default Home

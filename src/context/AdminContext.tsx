@@ -6,7 +6,7 @@ type AdminContextType = {
     setAdmin: () => void
 }
 
-export const AdminContext = createContext({} as AdminContextType);
+const AdminContext = createContext({} as AdminContextType);
 export const AdminProvider = ({ children }: {children: ReactNode}) => {
     const [isAdmin, setIsAdmin] = useLocalStorage("", false);
 
@@ -23,3 +23,5 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
         </AdminContext.Provider>
     );
 };
+
+export default AdminContext

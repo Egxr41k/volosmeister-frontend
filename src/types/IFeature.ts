@@ -1,4 +1,4 @@
-export interface IFeature{
+interface IFeature{
     id: number,
     productId: number,
     title: string,
@@ -6,3 +6,4 @@ export interface IFeature{
     description: string,
 }
 
+export default IFeature

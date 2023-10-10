@@ -1,5 +1,6 @@
-export const Questions = () => {
+const Questions = () => {
     return <>
         Questions
     </>
 }
+ export default Questions

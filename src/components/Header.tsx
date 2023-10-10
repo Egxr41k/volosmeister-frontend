@@ -1,11 +1,9 @@
 import React, {useState} from "react";
-import {Navigation} from "./Navigation";
-import {CartBtn} from "./cart/CartBtn";
-import {CartItem} from "./cart/CartItem";
-import {IProduct} from "../types/IProduct";
-import {useCart} from "../context/CartContext";
+import Navigation from "./Navigation";
+import {CartBtn} from "./btns/CartBtn";
+import useCart from "../hooks/useCart";
 
-export const Header = () => {
+const Header = () => {
     const { openCart, cartQuantity } = useCart()
 
     return <div className="flex bg-fuchsia-600 px-40 h-[7vh]">
@@ -18,3 +16,5 @@ export const Header = () => {
         </div>
     </div>
 }
+
+export default Header

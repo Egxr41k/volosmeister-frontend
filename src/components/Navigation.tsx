@@ -1,13 +1,13 @@
 import React, {useContext} from "react";
 import {INavLinkProps} from "../types/IProps";
-import {Home} from "./screens/Home";
-import {ProductList} from "./screens/ProductList";
-import {About} from "./screens/About";
-import {Questions} from "./screens/Questions";
-import {Contacts} from "./screens/Contacts";
-import {ProductDetails} from "./screens/ProductDetails";
-import {BorderedBtn} from "./Btns";
-import {useAdmin} from "../hooks/useAdmin";
+import Home from "./screens/Home";
+import ProductList from "./screens/ProductList";
+import About from "./screens/About";
+import Questions from "./screens/Questions";
+import Contacts from "./screens/Contacts";
+import ProductDetails from "./screens/ProductDetails";
+import BorderedBtn from "./btns/BorderedBtn";
+import Admin from "./screens/Admin";
 
 const path = window.location.pathname
 
@@ -37,24 +37,7 @@ const DetailsRoute = () => {
     </div>
 }
 
-const Admin = () => {
-    const { isAdmin, setAdmin } = useAdmin()
-
-    return <div className="flex justify-center items-center h-[90vh]">
-        <div className="text-center ">
-            <BorderedBtn handleClick={setAdmin}>
-                Enable admin mode
-            </BorderedBtn>
-            {isAdmin && <div className="flex mt-5">
-                <p className="mr-1.5">ви тепер адміністратор, це означає що ви можете</p>
-                <a href="/ProductList" className="text-fuchsia-500 underline">редагувати</a>
-                <p className="ml-1.5">цей сайт</p>
-            </div>}
-        </div>
-    </div>
-}
-
-export const Navigation = () => {
+const Navigation = () => {
     return <nav className="flex">
         <ul className="flex my-auto">
             <CustomLink href="/Home">        Головна</CustomLink>
@@ -78,4 +61,5 @@ const CustomLink = ({href, children} : INavLinkProps) => {
         </a>
     </li>
 }
+export default Navigation
 

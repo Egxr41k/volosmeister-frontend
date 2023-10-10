@@ -24,9 +24,6 @@ type CartContext = {
 
 const CartContext = createContext({} as CartContext)
 
-export function useCart() {
-    return useContext(CartContext)
-}
 export function CartProvider({ children }: CartProviderProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [cartItems, setCartItems] = useLocalStorage<ICartItem[]>(
@@ -39,10 +36,7 @@ export function CartProvider({ children }: CartProviderProps) {
         -1
     )
 
-    const openCart = () => {
-        setIsOpen(!isOpen)
-        console.log(isOpen)
-    }
+    const openCart = () => setIsOpen(true)
     const closeCart = () => setIsOpen(false)
     function getItemQuantity(id: number) {
         return cartItems.find(item => item.id === id)?.quantity || 0
@@ -101,3 +95,5 @@ export function CartProvider({ children }: CartProviderProps) {
         </CartContext.Provider>
     )
 }
+
+export default CartContext

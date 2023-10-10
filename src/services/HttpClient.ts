@@ -1,5 +1,5 @@
-import {IProductDetails} from "../types/IProductDetails";
-import {IProduct} from "../types/IProduct";
+import IProductDetails from "../types/IProductDetails";
+import IProduct from "../types/IProduct";
 
 const baseUrl = "https://localhost:7128/"
 const HttpClient = () =>  {
