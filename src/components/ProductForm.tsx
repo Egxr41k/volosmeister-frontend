@@ -35,7 +35,18 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
         if (isProductExist) await request.updateProductInfo()
         else await request.createProductInfo()
     }
-
+    const FilePicker = ({position}: {position: number}) => {
+        return <input type="file" id="fileInput" accept=".jpg"
+                      className="block w-full my-2 text-sm text-gray-500
+                       file:ease-in-out file:duration-300
+                       file:mr-4 file:py-2 file:px-4 file:rounded-md
+                       file:border-0 file:text-sm file:font-semibold
+                       file:bg-black file:text-white
+                       hover:file:bg-fuchsia-600 "
+                      onChange={event => {
+                          setImageToPos(event.target.files?.[0], position)}
+        }/>
+    }
 
     return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
         <img src={images[0] ?
@@ -49,16 +60,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
         <form className="h-64 p-5" encType="multipart/form-data" method="post"
               onSubmit={(event) => event.preventDefault()}>
             <h2 className="text-xl font-semibold">{ isProductExist ? "Оновити товар" : "Додати товар" }</h2>
-            <input type="file" id="fileInput" accept=".jpg"
-                   className="block w-full my-2 text-sm text-gray-500
-                       file:ease-in-out file:duration-300
-                       file:mr-4 file:py-2 file:px-4 file:rounded-md
-                       file:border-0 file:text-sm file:font-semibold
-                       file:bg-black file:text-white
-                       hover:file:bg-fuchsia-600 "
-                   onChange={event => {
-                       setImageToPos(event.target.files?.[0], 0)
-                   }}/>
+            <FilePicker position={0}/>
 
             <div className="flex flex-wrap justify-between">
                 <input className="w-48 my-2" placeholder="назва" type="text"
@@ -108,16 +110,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                             <img src={images[index + 1] ? URL.createObjectURL(images[index + 1]!) :
                                 "/NO_PHOTO_YET.png"}
                                  alt="Selected image" className="w-full h-72 object-cover"/>
-                            <input type="file" id="fileInput" accept=".jpg"
-                                   className="block w-full my-2 text-sm text-gray-500
-                                                file:ease-in-out file:duration-300
-                                                file:mr-4 file:py-2 file:px-4 file:rounded-md
-                                                file:border-0 file:text-sm file:font-semibold
-                                                file:bg-black file:text-white
-                                                hover:file:bg-fuchsia-600"
-                                   onChange={event => {
-                                       setImageToPos(event.target.files?.[0], index + 1)
-                                   }}/>
+                            <FilePicker position={index + 1}/>
                             <input className="w-48 my-2" placeholder="назва" type="text"
                                    onChange={event =>
                                        setFeaturesValue.setFeatureTitle(event.target.value, index)

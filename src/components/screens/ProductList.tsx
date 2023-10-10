@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import ProductItem from "../ProductItem";
 import IProduct, {emptyProduct} from "../../types/IProduct";
 import ProductForm from "../ProductForm";
-import {storeItems} from "../../App";
 import {emptyDetails} from "../../types/IProductDetails";
+import HttpClient from "../../services/HttpClient";
+import useProducts from "../../hooks/useProducts";
 
 const ProductList = () => {
+    const products = useProducts()
+
     return <div className="flex flex-wrap justify-center">
-        {storeItems.map((item: IProduct) => <ProductItem item={item}/>)}
+        {products.map((item: IProduct) => <ProductItem item={item}/>)}
         <ProductForm existingProductInfo={{product: emptyProduct, details: emptyDetails}}/>
     </div>;
 }

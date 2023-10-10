@@ -6,8 +6,8 @@ const HttpClient = () =>  {
     return {
         getProducts: async() => {
             const response = await fetch(`${baseUrl}api/Products`);
-            if (response.ok) return await response.json() as IProduct[];
-            else return undefined;
+            if (response.ok) return await response.json() as IProduct[]
+            else return [];
         },
 
         getProduct: async (id: number) => {
@@ -51,9 +51,10 @@ const HttpClient = () =>  {
             return response.ok
         },
 
-        getDetails: async(id: number): Promise<IProductDetails> => {
+        getDetails: async(id: number) => {
             const response = await fetch(`${baseUrl}api/Details/${id}`)
-            return await response.json() as IProductDetails;
+            if (response.ok) return await response.json() as IProductDetails;
+            else return undefined;
         },
 
         createDetails: async (newEntity: IProductDetails) => {

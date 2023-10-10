@@ -1,7 +1,7 @@
 import {CartItem} from "./CartItem";
 import React from "react";
-import {storeItems} from "../../App";
 import useCart from "../../hooks/useCart";
+import useProducts from "../../hooks/useProducts";
 
 type ShoppingCartProps = {
     isOpen: boolean
@@ -9,6 +9,7 @@ type ShoppingCartProps = {
 
 export function CartContent({isOpen} : ShoppingCartProps) {
     const {closeCart, cartItems} = useCart()
+    const storeItems = useProducts()
     return <div className = {
         ['bg-white absolute right-0 shadow-md p-5 rounded-md z-10 top-14 mr-40',
             !isOpen && "hidden"

@@ -1,16 +1,15 @@
-import IProduct from "../../types/IProduct";
 import React from "react";
 import {ICartItem} from "../../context/CartContext";
-import {storeItems} from "../../App";
 import useCart from "../../hooks/useCart";
+import useProducts from "../../hooks/useProducts";
 
 export const CartItem = (cartItem: ICartItem) => {
-
     const { removeFromCart } = useCart()
+    const products = useProducts()
 
-    const item = storeItems.find(i => i.id === cartItem.id)
-    if (item == null) return null
-    return <div className='flex items-center mb-4'
+    const item = products.find(i => i.id === cartItem.id)
+    if (!item) return null
+    else return <div className='flex items-center mb-4'
                 key={`cart item ${item.name}`}>
         <img src={item.imageSrc}
              alt={item.name}
