@@ -33,7 +33,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
     const checkImagesExist = async () => {
         let isProductImageExist = await HttpClient().checkImageExisting(productInfo.product.imageSrc)
         let temp: boolean[] = [isProductImageExist]
-        await Promise.all(productInfo.details.features.map(async (feature: IFeature, index) => {
+        await Promise.all(productInfo.details.features.map(async (feature: IFeature, index: number) => {
             temp[index + 1] = await HttpClient().checkImageExisting(feature.imageSrc)
         }))
         console.log("images has been changed, now it is", temp)

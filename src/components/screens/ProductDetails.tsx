@@ -1,8 +1,10 @@
 import {useEffect} from "react";
 import useAdmin from "../../hooks/useAdmin";
 import ProductForm from "../ProductForm";
-import {emptyInfo} from "../../types/IProductInfo";
 import useProductInfo from "../../hooks/useProductInfo";
+import {emptyInfo} from "../../types/IProductInfo";
+
+
 
 const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()

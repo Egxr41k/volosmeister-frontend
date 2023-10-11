@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Navigation from "./Navigation";
-import {CartBtn} from "./btns/CartBtn";
 import useCart from "../hooks/useCart";
+import CartBtn from "./btns/CartBtn";
 
 const Header = () => {
     const { openCart, cartQuantity } = useCart()

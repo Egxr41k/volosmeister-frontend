@@ -1,7 +1,7 @@
 import React from "react";
 import {IBtnProps} from "../../types/IProps";
 
-export const CartBtn = ({handleClick, children}: IBtnProps) => {
+const CartBtn = ({handleClick, children}: IBtnProps) => {
     return <button className='bg-transparent border-none relative'
                    onClick={handleClick}>
         <img src="/cart.png" alt='' />
@@ -11,3 +11,5 @@ export const CartBtn = ({handleClick, children}: IBtnProps) => {
         </div>
     </button>
 }
+
+export default CartBtn
