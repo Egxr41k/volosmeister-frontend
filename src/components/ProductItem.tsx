@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import IProduct from "../types/IProduct";
 import HttpClient from "../services/HttpClient";
 import useCart from "../hooks/useCart";
@@ -10,15 +10,20 @@ const ProductItem = ({item}:{item: IProduct}) => {
     const {
         getItemQuantity,
         increaseCartQuantity,
-        decreaseCartQuantity,
-        removeFromCart,
     } = useCart()
     const quantity = getItemQuantity(item.id)
     const { isAdmin} = useAdmin()
-    console.log(isAdmin)
+
+    const [isImageExist, setIsImageExist] = useState(false)
+
+    useEffect(() => {
+        console.log("ProductItem component mount")
+        HttpClient().checkImageExisting(item.imageSrc)
+            .then(result => setIsImageExist(result))
+    }, []);
+
     return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
-        <img src={item.imageSrc != "" ? item.imageSrc :
-            "/NO_PHOTO_YET.png"}
+        <img src={isImageExist ? item.imageSrc : "/NO_PHOTO_YET.png"}
              alt={item.name}
              className="w-full h-96 object-cover"/>
         <div className="p-5 h-64">

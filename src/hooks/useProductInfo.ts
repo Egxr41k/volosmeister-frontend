@@ -26,7 +26,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
 
             SetInfo(productResult, detailsResult);
 
-            alert("продукт успішно доданий")
+            alert("продукт успішно оновлений")
         }
     }
     const createProductInfo = async ()  => {
@@ -64,19 +64,32 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         }))
     }
 
-
     const initImagesSrc = async () => {
         let imagesSrc: string[] = [];
-        let isProductImageExist = await HttpClient().checkImageExisting(productInfo.product.imageSrc)
-        if (isProductImageExist) imagesSrc.push(productInfo.product.imageSrc)
-        for (let image of images) {
-            if (image) {
-                const response = await HttpClient().saveImage(image!)
-                console.log(response)
-                imagesSrc.push(response as string)
-            }
+        imagesSrc[0] = await initProductImageSrc()
+
+        for (let i = 0; i < productInfo.details.features.length; i++){
+            const feature: IFeature = productInfo.details.features[i];
+            const featureImageFile = images[i + 1]
+            let featureImageSrc: string = "";
+
+            if (featureImageFile) featureImageSrc =
+                await HttpClient().saveImage(featureImageFile!) as string
+            else featureImageSrc = feature.imageSrc
+
+            imagesSrc[i+1] = featureImageSrc
         }
+        setImages([])
         return imagesSrc
+    }
+
+    const initProductImageSrc = async() => {
+        let productImgFile = images[0]
+        if (productImgFile) { // сохранить первое изображение если оно существует
+            return await HttpClient().saveImage(productImgFile) as string
+        } else { // а если нет то установить предыдущее
+            return productInfo.product.imageSrc
+        }
     }
 
     const setImageToPos = (image: File | undefined, i: number) => {
