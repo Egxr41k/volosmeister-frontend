@@ -1,23 +1,22 @@
-import {baseUrl} from "./BaseReqests";
+import {baseUrl} from "./BaseRequests";
 
-export const saveImage = (img: File) => {
-    return new Promise((resolve, reject) => {
+export const saveImage = async (img: File) => {
+    try {
         const formData = new FormData();
         formData.append('image', img);
-        console.log(formData)
 
-        const request = new XMLHttpRequest();
-        request.open("POST", `${baseUrl}SaveImage`, true);
-        request.responseType = 'json'
+        const response = await fetch(`${baseUrl}SaveImage`, {
+            method: 'POST',
+            body: formData,
+        });
 
-        request.onload = () => {
-            resolve(request.response)
+        if (response.ok) {
+            return await response.json() as string;
         }
-        request.onerror = () => {
-            reject(request.response)
-        }
-        request.send(formData);
-    });
+    } catch (error) {
+        console.error('Error saving image:', error);
+    }
+    return undefined;
 }
 
 export const checkImageExisting = async (imageSrc: string) =>

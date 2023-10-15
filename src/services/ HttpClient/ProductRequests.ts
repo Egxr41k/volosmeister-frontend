@@ -1,17 +1,18 @@
 import IProduct from "../../types/IProduct";
-import {baseDelete, baseGet, basePost, basePut} from "./BaseReqests";
+import BaseRequests from "./BaseRequests";
 
+const productRequest = BaseRequests<IProduct>("Product")
 export const getProducts = async () =>
-    baseGet<IProduct[]>('Products')
+    productRequest.getAll()
 
 export const getProduct = async (id: number) =>
-    baseGet<IProduct>(`Products/${id}`)
+    productRequest.get(id)
 
 export const createProduct = async (newEntity: IProduct) =>
-    basePost<IProduct>('Products', newEntity)
+    productRequest.post(newEntity)
 
 export const updateProduct = async (updateEntity: IProduct) =>
-    basePut<IProduct>(`Products/${updateEntity.id}`, updateEntity)
+    productRequest.put(updateEntity)
 
 export const deleteProduct = async (id: number) =>
-    baseDelete(`Products/${id}`)
+    productRequest.delete(id)
