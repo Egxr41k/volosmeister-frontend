@@ -3,8 +3,7 @@ import IProductInfo, {emptyInfo} from "../types/IProductInfo";
 import HttpClient from "../services/HttpClient";
 import IFeature from "../types/IFeature";
 import IProperty from "../types/IProperty";
-import IProduct from "../types/IProduct";
-import IProductDetails, {emptyDetails} from "../types/IProductDetails";
+
 
 const useProductInfo = (initialValue?: IProductInfo) => {
     const [productInfo, setProductInfo] = useState(initialValue ?? emptyInfo)
@@ -14,82 +13,89 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const productResult =  await HttpClient().getProduct(id)
         const detailsResult = await HttpClient().getDetails(id)
 
-        SetInfo(productResult, detailsResult);
+        if (productResult && detailsResult){
+            setProductInfo( { product: productResult, details: detailsResult})
+            alert("продукт успішно отриманий")
+        }
     }
     const updateProductInfo = async ()  => {
-        await setImagesSrc()
+        const infoToSent = await setImagesSrc()
 
-        console.log(productInfo, initialValue)
-        if (productInfo !== initialValue){
-            const productResult = await HttpClient().updateProduct(productInfo.product)
-            const detailsResult = await HttpClient().updateDetails(productInfo.details)
+        if (infoToSent !== initialValue){
+            const productResult = await HttpClient().updateProduct(infoToSent.product)
+            const detailsResult = await HttpClient().updateDetails(infoToSent.details)
 
-            SetInfo(productResult, detailsResult);
-
-            alert("продукт успішно оновлений")
+            if (productResult && detailsResult){
+                setProductInfo( { product: productResult, details: detailsResult})
+                alert("продукт успішно оновлений")
+            }
         }
     }
     const createProductInfo = async ()  => {
-        await setImagesSrc()
+        const infoToSent = await setImagesSrc()
 
-        if (productInfo !== initialValue){
-            const productResult = await HttpClient().createProduct(productInfo.product)
-            const detailsResult = await HttpClient().createDetails(productInfo.details)
+        if (infoToSent !== initialValue){
+            const productResult = await HttpClient().createProduct(infoToSent.product)
+            const detailsResult = await HttpClient().createDetails(infoToSent.details)
 
-            SetInfo(productResult, detailsResult);
-            alert("продукт успішно доданий")
+            if (productResult && detailsResult){
+                setProductInfo( { product: productResult, details: detailsResult})
+                alert("продукт успішно оновлений")
+            }
         }
-    }
-    function SetInfo(productResult: IProduct | undefined, detailsResult: IProductDetails | undefined) {
-        setProductInfo(prevState => ({
-            product: productResult ?? prevState.product,
-            details: detailsResult ?? prevState.details,
-        }))
     }
 
     const setImagesSrc = async () => {
-        const imagesSrc = await initImagesSrc()
-        setProductInfo(prevState => ({
-            ...prevState, product: {
-                ...prevState.product, imageSrc: imagesSrc[0]
-            }, details: {
-                ...prevState.details,
-                features: prevState.details.features.map((feature: IFeature, index: number) => {
-                    if (index < imagesSrc.length) {
-                        return { ...feature, imageSrc: imagesSrc[index + 1] }
-                    }
-                    return feature
-                })
+        const [productImagesSrc, ...featureImagesSrc] = await initImagesSrc()
+
+        return {
+            product: {
+                ...productInfo.product, imageSrc: productImagesSrc
+            },
+            details: {
+                ...productInfo.details, features: setImagesSrcToFeature(featureImagesSrc)
             }
-        }))
+        } as IProductInfo
     }
 
+    const setImagesSrcToFeature = (featureImagesSrc: string[]) => {
+        return productInfo.details.features.map((feature: IFeature, index: number) => {
+            if (index < featureImagesSrc.length) {
+                return {...feature, imageSrc: featureImagesSrc[index]}
+            } else return feature
+        })
+    }
     const initImagesSrc = async () => {
-        let imagesSrc: string[] = [];
-        imagesSrc[0] = await initProductImageSrc()
+        const [productImageFile, ...featureImageFiles] = images
 
-        for (let i = 0; i < productInfo.details.features.length; i++){
-            const feature: IFeature = productInfo.details.features[i];
-            const featureImageFile = images[i + 1]
-            let featureImageSrc: string = "";
+        let productImagesSrc = await initProductImageSrc(productImageFile)
+        console.log(productImagesSrc)
 
-            if (featureImageFile) featureImageSrc =
-                await HttpClient().saveImage(featureImageFile!) as string
-            else featureImageSrc = feature.imageSrc
-
-            imagesSrc[i+1] = featureImageSrc
-        }
+        let featureImagesSrc = await initFeatureImageSrc(featureImageFiles)
+        console.log(featureImagesSrc)
+        
         setImages([])
-        return imagesSrc
+        return [productImagesSrc, ...featureImagesSrc]
     }
 
-    const initProductImageSrc = async() => {
-        let productImgFile = images[0]
-        if (productImgFile) { // сохранить первое изображение если оно существует
+    const initProductImageSrc = async(productImgFile: File | undefined) => {
+        if (productImgFile) {
             return await HttpClient().saveImage(productImgFile) as string
-        } else { // а если нет то установить предыдущее
+        } else { 
             return productInfo.product.imageSrc
         }
+    }
+
+    const initFeatureImageSrc = async (featureImageFiles: (File | undefined)[]) => {
+        return await Promise.all(
+            productInfo.details.features.map(async (feature: IFeature, index: number) => {
+                if (featureImageFiles[index]) {
+                    return await HttpClient().saveImage(featureImageFiles[index]!) as string
+                } else {
+                    return feature.imageSrc
+                }
+            })
+        )
     }
 
     const setImageToPos = (image: File | undefined, i: number) => {

@@ -11,7 +11,7 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
     const [isAdmin, setIsAdmin] = useLocalStorage("", false);
 
     const setAdmin = () => {
-        setIsAdmin(true)
+        setIsAdmin(!isAdmin)
         console.log(isAdmin)
         alert("ви тепер адміністратор, це означає що ви можете реадагувати цей сайт")
     }

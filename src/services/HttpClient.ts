@@ -1,7 +1,7 @@
 import IProductDetails from "../types/IProductDetails";
 import IProduct from "../types/IProduct";
 
-const baseUrl = "https://localhost:7128/"
+const baseUrl = "https://thebloominghome.azurewebsites.net/"
 const HttpClient = () =>  {
     return {
         getProducts: async() => {
