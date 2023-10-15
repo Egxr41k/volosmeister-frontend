@@ -8,12 +8,18 @@ const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()
     const {
         productInfo,
+        setInfo,
         request,
-    } = useProductInfo(emptyInfo)
+    } = useProductInfo()
 
     useEffect(() => {
         console.log("ProductDetails component mount")
-        request.getProductInfo(id).then()
+        request.getProductInfo(id)
+            .then(data => {
+                if (data) {
+                    setInfo(data.product, data.details)
+                }
+            })
     }, [])
 
     return <div className="flex">{ productInfo != emptyInfo ?

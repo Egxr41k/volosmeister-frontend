@@ -1,8 +1,8 @@
 import IProductDetails from "../types/IProductDetails";
 import IProduct from "../types/IProduct";
 
-const baseUrl = "https://thebloominghome.azurewebsites.net/"
 const HttpClient = () =>  {
+    const baseUrl = "https://thebloominghome.azurewebsites.net/"
     return {
         getProducts: async() => {
             const response = await fetch(`${baseUrl}api/Products`);
@@ -114,7 +114,17 @@ const HttpClient = () =>  {
         },
 
         checkImageExisting: async (imageSrc: string) =>
-            imageSrc != "" ? (await fetch(imageSrc)).ok : false
+            imageSrc != "" ? (await fetch(imageSrc)).ok : false,
+
+        deleteImage: async(id: number) => {
+            const response= await fetch(`${baseUrl}DeleteImage/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+            return response.ok
+        }
     }
 }
 

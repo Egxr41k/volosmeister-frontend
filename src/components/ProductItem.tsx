@@ -5,6 +5,7 @@ import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
 import FilledBtn from "./btns/FilledBtn";
 import BorderedBtn from "./btns/BorderedBtn";
+import useProductInfo from "../hooks/useProductInfo";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {
@@ -13,6 +14,8 @@ const ProductItem = ({item}:{item: IProduct}) => {
     } = useCart()
     const quantity = getItemQuantity(item.id)
     const { isAdmin} = useAdmin()
+
+    const {request} = useProductInfo()
 
     const [isImageExist, setIsImageExist] = useState(false)
 
@@ -41,7 +44,10 @@ const ProductItem = ({item}:{item: IProduct}) => {
             </p>
             <div className="flex justify-between align-bottom">
                 <FilledBtn handleClick={isAdmin ?
-                    async () => await HttpClient().deleteProduct(item.id) :
+                    async () => {
+                    const isSuccesses = window.confirm("вибраний вами товар буде виделанний")
+                        if (isSuccesses) await request.deleteProductInfo(item.id)
+                } :
                     () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>

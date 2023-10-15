@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import {INavLinkProps} from "../types/IProps";
 import Home from "./screens/Home";
 import ProductList from "./screens/ProductList";
@@ -8,6 +8,7 @@ import Contacts from "./screens/Contacts";
 import ProductDetails from "./screens/ProductDetails";
 import BorderedBtn from "./btns/BorderedBtn";
 import Admin from "./screens/Admin";
+import {getIdFromUrl} from "../services/StringService";
 
 const path = window.location.pathname
 
@@ -24,17 +25,16 @@ export const CurrentScreen = () =>{
 }
 
 const DetailsRoute = () => {
-    if(path.includes("/ProductDetails/")){
-        path.charAt(path.length - 1)
-        let result = path.replace("/ProductDetails/", "")
-        let id = parseInt(result)
-        return <ProductDetails id={id}/>
-    } else return <div className="flex justify-center items-center">
-        <p>ви, мабуть, заблукали...</p>
-        <BorderedBtn handleClick={() => window.location.pathname = "/Home"}>
-            вертайтеся на головну
-        </BorderedBtn>
-    </div>
+    if (path.includes("/ProductDetails/")) {
+        return <ProductDetails id={getIdFromUrl(path)}/>
+    } else {
+        return <div className="flex justify-center items-center">
+            <p>ви, мабуть, заблукали...</p>
+            <BorderedBtn handleClick={() => window.location.pathname = "/Home"}>
+                вертайтеся на головну
+            </BorderedBtn>
+        </div>
+    }
 }
 
 const Navigation = () => {

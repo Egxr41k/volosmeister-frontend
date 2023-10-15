@@ -3,19 +3,32 @@ import IProductInfo, {emptyInfo} from "../types/IProductInfo";
 import HttpClient from "../services/HttpClient";
 import IFeature from "../types/IFeature";
 import IProperty from "../types/IProperty";
+import {getIdFromUrl} from "../services/StringService";
+import IProduct from "../types/IProduct";
+import IProductDetails from "../types/IProductDetails";
 
 
 const useProductInfo = (initialValue?: IProductInfo) => {
     const [productInfo, setProductInfo] = useState(initialValue ?? emptyInfo)
     const [images, setImages] = useState<(File | undefined)[]>([])
 
+    const setInfo = (productResult: IProduct, detailsResult: IProductDetails) => {
+        setProductInfo(prevState => ({
+            product: productResult,
+            details: detailsResult,
+        }))
+    }
     const getProductInfo = async (id: number) => {
-        const productResult =  await HttpClient().getProduct(id)
+        const productResult = await HttpClient().getProduct(id)
         const detailsResult = await HttpClient().getDetails(id)
 
         if (productResult && detailsResult){
-            setProductInfo( { product: productResult, details: detailsResult})
+
             alert("продукт успішно отриманий")
+            return {
+                product: productResult,
+                details: detailsResult,
+            } as IProductInfo
         }
     }
     const updateProductInfo = async ()  => {
@@ -26,7 +39,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
             const detailsResult = await HttpClient().updateDetails(infoToSent.details)
 
             if (productResult && detailsResult){
-                setProductInfo( { product: productResult, details: detailsResult})
+                setInfo( productResult, detailsResult)
                 alert("продукт успішно оновлений")
             }
         }
@@ -39,10 +52,40 @@ const useProductInfo = (initialValue?: IProductInfo) => {
             const detailsResult = await HttpClient().createDetails(infoToSent.details)
 
             if (productResult && detailsResult){
-                setProductInfo( { product: productResult, details: detailsResult})
-                alert("продукт успішно оновлений")
+                setInfo( productResult, detailsResult)
+                alert("продукт успішно доданий")
             }
         }
+    }
+    const deleteProductInfo = async (id: number) => {
+        const tempInfo = await getProductInfo(id)
+
+        const imageResults = await deleteImages(getImagesSrc(tempInfo!));
+        const productResult = await HttpClient().deleteProduct(id)
+        const detailsResult =  await HttpClient().deleteDetails(id)
+
+        let results = [productResult, detailsResult, ...imageResults]
+        alert(results)
+    }
+
+    const deleteImages = async (imagesSrc: string[]) => {
+        console.log(imagesSrc)
+        return await Promise.all(
+            imagesSrc.map(async (imageSrc: string) => {
+                if (imageSrc != ""){
+                    let imageId = getIdFromUrl(imageSrc)
+                    return await HttpClient().deleteImage(imageId)
+                }
+            })
+        )
+    }
+    const getImagesSrc = (tempInfo: IProductInfo) => {
+        const featureImagesSrc = tempInfo.details.features.map(
+            (feature: IFeature, index: number) => {
+                return feature.imageSrc
+            }
+        )
+        return [tempInfo.product.imageSrc, ...featureImagesSrc]
     }
 
     const setImagesSrc = async () => {
@@ -250,6 +293,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
 
     return {
         productInfo,
+        setInfo,
         setProductValues: {
             setName,
             setCount,
@@ -277,6 +321,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
             getProductInfo,
             createProductInfo,
             updateProductInfo,
+            deleteProductInfo
         },
     }
 }
