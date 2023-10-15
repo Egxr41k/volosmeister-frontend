@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import IProduct from "../types/IProduct";
-import HttpClient from "../services/HttpClient";
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
 import FilledBtn from "./btns/FilledBtn";
 import BorderedBtn from "./btns/BorderedBtn";
 import useProductInfo from "../hooks/useProductInfo";
+import {checkImageExisting} from "../services/ HttpClient/ImageRequests";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {
@@ -21,7 +21,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
 
     useEffect(() => {
         console.log("ProductItem component mount")
-        HttpClient().checkImageExisting(item.imageSrc)
+        checkImageExisting(item.imageSrc)
             .then(result => setIsImageExist(result))
     }, []);
 

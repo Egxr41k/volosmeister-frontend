@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import HttpClient from "../services/HttpClient";
 import IFeature from "../types/IFeature";
 import IProperty from "../types/IProperty";
 import IProductInfo from "../types/IProductInfo";
 import useProductInfo from "../hooks/useProductInfo";
 import BorderedBtn from "./btns/BorderedBtn";
 import FilledBtn from "./btns/FilledBtn";
+import {checkImageExisting} from "../services/ HttpClient/ImageRequests";
 
 const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo}) => {
     const {
@@ -31,10 +31,10 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
     }, [images]);
 
     const checkImagesExist = async () => {
-        let isProductImageExist = await HttpClient().checkImageExisting(productInfo.product.imageSrc)
+        let isProductImageExist = await checkImageExisting(productInfo.product.imageSrc)
         let isFeaturesImagesExist = await Promise.all(
             productInfo.details.features.map(async (feature: IFeature, index: number) => {
-                return await HttpClient().checkImageExisting(feature.imageSrc)
+                return await checkImageExisting(feature.imageSrc)
         }))
         setIsImagesExist([isProductImageExist, ...isFeaturesImagesExist])
     };
@@ -50,12 +50,12 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                        file:border-0 file:text-sm file:font-semibold
                        file:bg-black file:text-white
                        hover:file:bg-fuchsia-600 "
-                      onChange={event => {
+                       onChange={event => {
                           setImageToPos(event.target.files?.[0], position)}
         }/>
     }
 
-    return <div className="w-80 h-[80vh] overflow-y-auto bg-fuchsia-50 mx-10 my-5">
+    return <div className="w-80 h-160 overflow-y-auto bg-fuchsia-50 mx-10 my-5">
         <img src={images[0] ?
                 URL.createObjectURL(images[0]!):
                 isImagesExist[0] ?

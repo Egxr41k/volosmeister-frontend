@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
 import IProductInfo, {emptyInfo} from "../types/IProductInfo";
-import HttpClient from "../services/HttpClient";
 import IFeature from "../types/IFeature";
 import IProperty from "../types/IProperty";
 import {getIdFromUrl} from "../services/StringService";
 import IProduct from "../types/IProduct";
 import IProductDetails from "../types/IProductDetails";
+import {createProduct, deleteProduct, getProduct, updateProduct} from "../services/ HttpClient/ProductRequests";
+import {createDetails, deleteDetails, getDetails, updateDetails} from "../services/ HttpClient/DetailsRequests";
+import {deleteImage, saveImage} from "../services/ HttpClient/ImageRequests";
 
 
 const useProductInfo = (initialValue?: IProductInfo) => {
@@ -19,8 +21,8 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         }))
     }
     const getProductInfo = async (id: number) => {
-        const productResult = await HttpClient().getProduct(id)
-        const detailsResult = await HttpClient().getDetails(id)
+        const productResult = await getProduct(id)
+        const detailsResult = await getDetails(id)
 
         if (productResult && detailsResult){
 
@@ -35,8 +37,8 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const infoToSent = await setImagesSrc()
 
         if (infoToSent !== initialValue){
-            const productResult = await HttpClient().updateProduct(infoToSent.product)
-            const detailsResult = await HttpClient().updateDetails(infoToSent.details)
+            const productResult = await updateProduct(infoToSent.product)
+            const detailsResult = await updateDetails(infoToSent.details)
 
             if (productResult && detailsResult){
                 setInfo( productResult, detailsResult)
@@ -48,8 +50,8 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const infoToSent = await setImagesSrc()
 
         if (infoToSent !== initialValue){
-            const productResult = await HttpClient().createProduct(infoToSent.product)
-            const detailsResult = await HttpClient().createDetails(infoToSent.details)
+            const productResult = await createProduct(infoToSent.product)
+            const detailsResult = await createDetails(infoToSent.details)
 
             if (productResult && detailsResult){
                 setInfo( productResult, detailsResult)
@@ -61,8 +63,8 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const tempInfo = await getProductInfo(id)
 
         const imageResults = await deleteImages(getImagesSrc(tempInfo!));
-        const productResult = await HttpClient().deleteProduct(id)
-        const detailsResult =  await HttpClient().deleteDetails(id)
+        const productResult = await deleteProduct(id)
+        const detailsResult =  await deleteDetails(id)
 
         let results = [productResult, detailsResult, ...imageResults]
         alert(results)
@@ -74,7 +76,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
             imagesSrc.map(async (imageSrc: string) => {
                 if (imageSrc != ""){
                     let imageId = getIdFromUrl(imageSrc)
-                    return await HttpClient().deleteImage(imageId)
+                    return await deleteImage(imageId)
                 }
             })
         )
@@ -123,7 +125,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
 
     const initProductImageSrc = async(productImgFile: File | undefined) => {
         if (productImgFile) {
-            return await HttpClient().saveImage(productImgFile) as string
+            return await saveImage(productImgFile) as string
         } else { 
             return productInfo.product.imageSrc
         }
@@ -133,7 +135,7 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         return await Promise.all(
             productInfo.details.features.map(async (feature: IFeature, index: number) => {
                 if (featureImageFiles[index]) {
-                    return await HttpClient().saveImage(featureImageFiles[index]!) as string
+                    return await saveImage(featureImageFiles[index]!) as string
                 } else {
                     return feature.imageSrc
                 }

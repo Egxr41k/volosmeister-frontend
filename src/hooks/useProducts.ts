@@ -1,18 +1,16 @@
 import {useEffect, useState} from "react";
 import IProduct from "../types/IProduct";
-import HttpClient from "../services/HttpClient";
+import {getProducts} from "../services/HttpClient";
 
 const useProducts = () => {
     const [products, setProducts] = useState([] as IProduct[])
 
     useEffect(() => {
-        getProducts()
+        getProducts().then(result => {
+            if (result.length != 0) setProducts(result)
+        })
     }, []);
 
-    const getProducts = async () => {
-        const productsResult = await HttpClient().getProducts()
-        if (productsResult.length != 0) setProducts(productsResult)
-    }
     return products
 }
 
