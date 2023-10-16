@@ -25,8 +25,6 @@ const useProductInfo = (initialValue?: IProductInfo) => {
         const detailsResult = await getDetails(id)
 
         if (productResult && detailsResult){
-
-            alert("продукт успішно отриманий")
             return {
                 product: productResult,
                 details: detailsResult,

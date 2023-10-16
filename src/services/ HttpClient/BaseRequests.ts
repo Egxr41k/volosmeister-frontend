@@ -1,4 +1,4 @@
-export const baseUrl = "https://localhost:7128/api/"
+export const baseUrl = "https://thebloominghome.azurewebsites.net/api/"
 const BaseRequests = <T>(controllerName: string) => {
     const url = baseUrl + controllerName
 
@@ -14,6 +14,7 @@ const BaseRequests = <T>(controllerName: string) => {
             }
             return undefined;
         },
+
         get: async (id: number): Promise<T | undefined> => {
             try {
                 const response = await fetch(url + "/" + id);

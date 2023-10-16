@@ -22,9 +22,13 @@ const ProductDetails = ({id}:{id:number}) => {
             })
     }, [])
 
-    return <div className="flex">{ productInfo != emptyInfo ?
-        isAdmin ? <ProductForm existingProductInfo={productInfo} /> :
-            <></> :
+    return <div className="flex">{ productInfo == emptyInfo ?
+        <div className="flex items-center justify-center h-[90vh] w-full">
+            <div className="relative">
+                <div className="w-20 h-20 border-fuchsia-300 border-2 rounded-full"></div>
+                <div className="w-20 h-20 border-fuchsia-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
+            </div>
+        </div> :
         <></>}
     </div>
 }

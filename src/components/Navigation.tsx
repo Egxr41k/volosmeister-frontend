@@ -13,22 +13,17 @@ import {getIdFromUrl} from "../services/StringService";
 const path = window.location.pathname
 
 export const CurrentScreen = () =>{
+    let id = getIdFromUrl(path)
     switch (path) {
-        case "/Home":        return <Home/>
-        case "/ProductList": return <ProductList/>
-        case "/About":       return <About/>
-        case "/Questions":   return <Questions/>
-        case "/Contacts":    return <Contacts/>
-        case "/Admin":       return <Admin/>
-        default: return DetailsRoute()
-    }
-}
+        case "/Home":                   return <Home/>
+        case "/ProductList":            return <ProductList/>
+        case `/ProductDetails/${id}`:   return <ProductDetails id={id}/>
+        case "/About":                  return <About/>
+        case "/Questions":              return <Questions/>
+        case "/Contacts":               return <Contacts/>
+        case "/Admin":                  return <Admin/>
 
-const DetailsRoute = () => {
-    if (path.includes("/ProductDetails/")) {
-        return <ProductDetails id={getIdFromUrl(path)}/>
-    } else {
-        return <div className="flex justify-center items-center">
+        default: return <div className="flex justify-center items-center">
             <p>ви, мабуть, заблукали...</p>
             <BorderedBtn handleClick={() => window.location.pathname = "/Home"}>
                 вертайтеся на головну
