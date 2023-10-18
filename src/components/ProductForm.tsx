@@ -129,8 +129,8 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                                       onChange={event =>
                                           setFeaturesValue.setFeatureDescription(event.target.value, index)
                                       } value={feature.description} />
-                        </div>})
-                    }
+                        </div>
+                    })}
                 </div>
                 <div className="my-2">
                     <div className="flex justify-between">
@@ -162,8 +162,8 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                                        setStatsValue.setPropertyValue(event.target.value, index)
                                    } value={property.value}/>
 
-                        </div>})
-                    }
+                        </div>
+                    })}
                 </div>
             </>}
             <FilledBtn handleClick={formSubmit}>
