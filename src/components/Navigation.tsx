@@ -33,19 +33,17 @@ export const CurrentScreen = () =>{
 }
 
 const Navigation = () => {
-    return <nav className="flex">
-        <ul className="flex my-auto">
+    return <ul className="flex flex-wrap">
             <CustomLink href="/Home">        Головна</CustomLink>
             <CustomLink href="/ProductList"> Каталог</CustomLink>
             <CustomLink href="/About">       Про нас</CustomLink>
             <CustomLink href="/Questions">   Питання</CustomLink>
             <CustomLink href="/Contacts">    Контакти</CustomLink>
-        </ul>
-    </nav>
+    </ul>
 }
 
 const CustomLink = ({href, children} : INavLinkProps) => {
-    return <li className="mx-4">
+    return <li className="m-4">
         <a href={href} className={[
                 "text-white", //default  styles
                 path === href ?
