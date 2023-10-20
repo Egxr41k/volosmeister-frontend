@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import useAdmin from "../../hooks/useAdmin";
 import ProductForm from "../ProductForm";
 import useProductInfo from "../../hooks/useProductInfo";
@@ -34,6 +34,7 @@ const ProductDetails = ({id}:{id:number}) => {
                 <div className="w-20 h-20 border-fuchsia-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
             </div>
         </div>
+
     }
 
     return productInfo == emptyInfo ? <Spinner/> : <div>
@@ -102,15 +103,29 @@ const ProductDetails = ({id}:{id:number}) => {
 
         {/*Todo: create a image Slider*/}
 
-        <div className="flex bg-fuchsia-50">
-            <div className="mx-auto my-10">
+        <div className="py-10 bg-fuchsia-50">
+            <img src={productInfo.product.imageSrc} alt="ProductImage"
+                 className="mx-auto h-96 my-5"/>
+
+            <h3 className="font-bold text-center my-5">
+                {productInfo.product.name}
+            </h3>
+            <p className="text-center my-5">
+                    <span className="text-fuchsia-600">
+                        {productInfo.product.newPrice} грн. {"  "}
+                    </span>
+                <span className="line-through text-gray-400">
+                        {productInfo.product.oldPrice} грн.
+                    </span>
+            </p>
+            <div className="mx-auto w-fit my-5">
                 <FilledBtn handleClick={() => {}}>
                     Замовити зараз
                 </FilledBtn>
             </div>
         </div>
 
-
+        {/*Todo: create a "Recent viewed" section*/}
 
     </div>
 }

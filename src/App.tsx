@@ -10,12 +10,13 @@ function App() {
     return <CartProvider>
         <AdminProvider>
             <Header/>
-            <div className="bg-fuchsia-200 min-h-[90vh]">
+            <main className="bg-fuchsia-200 min-h-[90vh]">
                 <CurrentScreen/>
-            </div>
+            </main>
             <Footer/>
         </AdminProvider>
     </CartProvider>;
+    
 }
 
 export default App;

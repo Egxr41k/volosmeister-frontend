@@ -6,15 +6,17 @@ import CartBtn from "./btns/CartBtn";
 const Header = () => {
     const { openCart, cartQuantity } = useCart()
 
-    return <div className="flex bg-fuchsia-600 px-40 h-[7vh]">
+    return <header className="flex bg-fuchsia-600 px-40 h-[7vh]">
         <div className='flex justify-between relative w-full align-middle'>
             <Navigation/>
 
-            <CartBtn handleClick = {openCart}>
-                { `${cartQuantity}` }
-            </CartBtn>
+            {/*<Navigation/>*/}
+
+            {/*<CartBtn handleClick = {openCart}>*/}
+            {/*    { `${cartQuantity}` }*/}
+            {/*</CartBtn>*/}
         </div>
-    </div>
+    </header>
 }
 
 export default Header
