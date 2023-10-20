@@ -43,7 +43,7 @@ const Navigation = () => {
 }
 
 const CustomLink = ({href, children} : INavLinkProps) => {
-    return <li className="m-4">
+    return <li className="m-3">
         <a href={href} className={[
                 "text-white", //default  styles
                 path === href ?
