@@ -8,7 +8,7 @@ const Contacts = () =>{
     return <div className="relative">
         <img src="/logo.png"
              alt=""
-             className="object-cover h-[90vh] opacity-20 mx-auto"/>
+             className="object-cover h-[90vh] opacity-10 mx-auto"/>
 
         <div className="absolute flex -translate-x-2/4 -translate-y-2/4 bg-opacity-80
                         left-1/2 top-1/2 w-full h-full justify-center items-center">
