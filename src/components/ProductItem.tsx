@@ -9,11 +9,7 @@ import {checkImageExisting} from "../services/ HttpClient/ImageRequests";
 import {textFormatter} from "../services/StringService";
 
 const ProductItem = ({item}:{item: IProduct}) => {
-    const {
-        getItemQuantity,
-        increaseCartQuantity,
-    } = useCart()
-    const quantity = getItemQuantity(item.id)
+    const {increaseCartQuantity} = useCart()
     const { isAdmin} = useAdmin()
 
     const {request} = useProductInfo()

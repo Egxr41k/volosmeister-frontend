@@ -7,17 +7,20 @@ import FilledBtn from "./btns/FilledBtn";
 //import CartItem from "./CartItem";
 
 const Cart = () => {
-    const {cartItems} = useCart()
+    const {cartItems, removeFromCart, increaseCartQuantity} = useCart()
     const products = useProducts()
+
+    const removeAll = () => {
+        cartItems.forEach(item => {
+            removeFromCart(item.id)
+        })
+    }
 
     const showItems = () => {
         console.log(cartItems)
         return cartItems.map(item => {
             const product = findProductById(item.id)
-            return product && <div>
-                <CartItem product={product!} quantity={item.quantity}/>
-                <CartItem product={product!} quantity={item.quantity}/>
-            </div>
+            return <CartItem product={product} quantity={item.quantity}/>
         })
     }
 
@@ -37,25 +40,31 @@ const Cart = () => {
             <p className="p-3">
                 Ваш кошик поки що порожній
             </p> :
-            <div className="h-96">
+            <div>
                 <div className="overflow-y-auto h-72">
                     {showItems()}
                 </div>
-                <p className="text-lg font-semibold mb-2">
+                <p className="text-lg font-semibold">
                     Загалом: {calculateTotalPrice()} грн.
                 </p>
-                <FilledBtn handleClick={()=>{}}>
-                    Замовити все
-                </FilledBtn>
+                <div className="my-2">
+                    <FilledBtn handleClick={removeAll}>
+                        Очистити кошик
+                    </FilledBtn>
+                </div>
+                <div className="my-2">
+                    <BorderedBtn handleClick={()=>{}}>
+                        Замовити все
+                    </BorderedBtn>
+                </div>
             </div>
         }
     </div>
 }
 
-const CartItem = ( {product, quantity} : {product: IProduct, quantity: number}) => {
+const CartItem = ( {product, quantity} : {product?: IProduct, quantity: number}) => {
     const {increaseCartQuantity, decreaseCartQuantity } = useCart()
-
-    return <div className="flex flex-col gap-3 border-solid p-3">
+    return product ? <div className="flex flex-col gap-3 p-3">
         <img src={product.imageSrc} alt="" className="w-32 h-32 mx-auto"/>
         <p>
             {product.name}
@@ -74,7 +83,7 @@ const CartItem = ( {product, quantity} : {product: IProduct, quantity: number}) 
         <p className="text-start">
             Ціна: {product.newPrice.toLocaleString()} грн.
         </p>
-    </div>
+    </div> : <p className="p-3">продукт не знайдено</p>
 }
 
 export default Cart
