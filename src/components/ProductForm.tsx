@@ -73,7 +73,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
                 <input className="w-48 my-2" placeholder="назва" type="text"
                        onChange={event => {
                            setProductValues.setName(event.target.value)
-                       }} value={productInfo.product.name} maxLength={25}/>
+                       }} value={productInfo.product.name}/>
                 <input className="w-16 my-2" placeholder="кількість" type="number"
                        onChange={event => {
                            setProductValues.setCount(parseInt(event.target.value))
@@ -92,7 +92,7 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
             <textarea className="w-full h-20 my-2" placeholder="опис"
                       onChange={event => {
                           setProductValues.setDescription(event.target.value)
-                      }} value={productInfo.product.description} maxLength={120}/>
+                      }} value={productInfo.product.description}/>
             {isProductExist && <>
                 <div className="my-2">
                     <div className="flex justify-between">

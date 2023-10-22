@@ -32,7 +32,7 @@ const Cart = () => {
         return products.find(i => i.id === id)
     }
 
-    return <div className="bg-fuchsia-50 rounded w-48 text-center">
+    return <div className="bg-fuchsia-50 w-48 text-center">
         {cartItems.length == 0 ?
             <p className="p-3">
                 Ваш кошик поки що порожній

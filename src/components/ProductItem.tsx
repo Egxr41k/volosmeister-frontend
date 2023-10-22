@@ -6,6 +6,7 @@ import FilledBtn from "./btns/FilledBtn";
 import BorderedBtn from "./btns/BorderedBtn";
 import useProductInfo from "../hooks/useProductInfo";
 import {checkImageExisting} from "../services/ HttpClient/ImageRequests";
+import {textFormatter} from "../services/StringService";
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {
@@ -27,11 +28,11 @@ const ProductItem = ({item}:{item: IProduct}) => {
 
     return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
         <img src={isImageExist ? item.imageSrc : "/NO_PHOTO_YET.png"}
-             alt={item.name}
+             alt=""
              className="w-full h-96 object-cover"/>
         <div className="p-5 h-64">
-            <h2 className="text-xl font-semibold h-14">{item.name}</h2>
-            <p className="font-extralight h-20 my-2">{item.description} </p>
+            <h2 className="text-xl font-semibold h-8">{textFormatter(item.name, 30)}</h2>
+            <p className="font-extralight h-20 my-4">{textFormatter(item.description, 120)} </p>
             <p className="text-fuchsia-600 my-1">
                 {item.newPrice} грн.
                 <span className="line-through text-gray-500 mr-14 ml-2">
