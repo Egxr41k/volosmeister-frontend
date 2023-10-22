@@ -3,11 +3,9 @@ import Navigation from "./Navigation";
 import MenuIcon from "../icons/menu.svg"
 import CartIcon from "../icons/cart.svg"
 import Drawer from "./Drawer";
-import useCart from "../hooks/useCart";
+import Cart from "./Cart";
 
 const Header = () => {
-    //const { openCart, cartQuantity } = useCart()
-
     return <header className="flex justify-between bg-fuchsia-600 py-auto px-12 md:px-40 h-[7vh] w-full">
 
         <div className="hidden md:block">
@@ -24,9 +22,7 @@ const Header = () => {
 
         <div className="flex">
             <Drawer position="right" btnIconSrc={CartIcon}>
-                <div>
-                    Cart
-                </div>
+                <Cart/>
             </Drawer>
         </div>
 

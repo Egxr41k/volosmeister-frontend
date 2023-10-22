@@ -34,9 +34,7 @@ const Drawer = ({position, children, btnIconSrc}: IDrawerProps) => {
             <button className={closeBtnPos[position]} onClick={() => setIsOpen(false)}>
                 <img src={CloseIcon} className="w-8 h-8" alt=""/>
             </button>
-            <div className="w-min mx-auto">
-                {children}
-            </div>
+            {children}
         </div>
     </div>
 }

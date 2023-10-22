@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useState } from "react"
-import { CartContent } from "../components/cart/CartContent"
 import { useLocalStorage } from "../hooks/useLocalStorage"
 
 type CartProviderProps = {
@@ -32,8 +31,7 @@ export function CartProvider({ children }: CartProviderProps) {
     )
 
     const cartQuantity = cartItems.reduce(
-        (quantity, item) => item.quantity + quantity,
-        -1
+        (quantity, item) => item.quantity + quantity, 0
     )
 
     const openCart = () => setIsOpen(true)
@@ -91,7 +89,6 @@ export function CartProvider({ children }: CartProviderProps) {
             }}
         >
             {children}
-            <CartContent isOpen={isOpen} />
         </CartContext.Provider>
     )
 }
