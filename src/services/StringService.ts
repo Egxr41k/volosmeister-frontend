@@ -1,7 +1,8 @@
-export const getIdFromUrl = (url: string): number => {
+export const getIdFromUrl = (url: string) => {
     const parts = url.split("/");
     const lastPart = parts[parts.length - 1];
-    return parseInt(lastPart);
+    const id =  parseInt(lastPart)
+    return isNaN(id) ? undefined : id
 }
 
 export const textFormatter = (text: string, length: number) => {

@@ -9,6 +9,8 @@ import ProductDetails from "./screens/ProductDetails";
 import BorderedBtn from "./btns/BorderedBtn";
 import Admin from "./screens/Admin";
 import {getIdFromUrl} from "../services/StringService";
+import ProductForm from "./screens/ProductForm";
+import useAdmin from "../hooks/useAdmin";
 
 const path = window.location.pathname
 
@@ -17,11 +19,12 @@ export const CurrentScreen = () =>{
     switch (path) {
         case "/Home":                   return <Home/>
         case "/ProductList":            return <ProductList/>
-        case `/ProductDetails/${id}`:   return <ProductDetails id={id}/>
-        case "/AboutUs":                  return <AboutUs/>
+        case "/AboutUs":                return <AboutUs/>
         case "/Questions":              return <Questions/>
         case "/Contacts":               return <Contacts/>
         case "/Admin":                  return <Admin/>
+        case `/ProductDetails/${id}`:   return <ProductDetails id={id!}/>
+        case `/ProductForm/${id}`:      return <ProductForm id={id}/>
 
         default: return <div className="flex justify-center items-center">
             <p>ви, мабуть, заблукали...</p>
@@ -32,13 +35,21 @@ export const CurrentScreen = () =>{
     }
 }
 
+export const navigateTo = (pathname: string) => {
+    window.location.pathname = pathname
+}
+
 const Navigation = () => {
+    const { isAdmin} = useAdmin()
     return <ul className="flex flex-wrap">
-            <CustomLink href="/Home">        Головна</CustomLink>
-            <CustomLink href="/ProductList"> Каталог</CustomLink>
-            <CustomLink href="/AboutUs">       Про нас</CustomLink>
-            <CustomLink href="/Questions">   Питання</CustomLink>
-            <CustomLink href="/Contacts">    Контакти</CustomLink>
+        <CustomLink href="/Home">        Головна</CustomLink>
+        <CustomLink href="/ProductList"> Каталог</CustomLink>
+        {isAdmin &&
+        <CustomLink href="/ProductForm/0"> Додати товар </CustomLink>
+        }
+        <CustomLink href="/AboutUs">     Про нас</CustomLink>
+        <CustomLink href="/Questions">   Питання</CustomLink>
+        <CustomLink href="/Contacts">    Контакти</CustomLink>
     </ul>
 }
 

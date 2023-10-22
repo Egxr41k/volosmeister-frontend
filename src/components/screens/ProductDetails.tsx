@@ -1,31 +1,21 @@
 import React, {useEffect} from "react";
 import useAdmin from "../../hooks/useAdmin";
-import ProductForm from "../ProductForm";
+import ProductForm from "./ProductForm";
 import useProductInfo from "../../hooks/useProductInfo";
 import {emptyInfo} from "../../types/IProductInfo";
 import BorderedBtn from "../btns/BorderedBtn";
 import IProperty from "../../types/IProperty";
 import IFeature from "../../types/IFeature";
 import FilledBtn from "../btns/FilledBtn";
+import {navigateTo} from "../Navigation";
 
 const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()
-    const {
-        productInfo,
-        setInfo,
-        request,
-    } = useProductInfo()
+    const {productInfo} = useProductInfo(id)
 
     useEffect(() => {
         console.log("ProductDetails component mount")
-        request.getProductInfo(id)
-            .then(data => {
-                if (data) {
-                    console.log(data)
-                    setInfo(data.product, data.details)
-                }
-            })
-    }, [])
+    }, []);
 
     const Spinner = () => {
         return <div className="flex items-center justify-center h-full w-full">
@@ -59,8 +49,10 @@ const ProductDetails = ({id}:{id:number}) => {
                             АКЦІЙНА ЦІНА<br/>
                             <span className="font-semibold text-red-500">{" " + productInfo.product.newPrice + " ГРН!"}</span>
                         </h2> }
-                    <BorderedBtn handleClick={() => {}} color="white">
-                        Замовити
+                    <BorderedBtn color="white" handleClick={isAdmin ?
+                        () => {navigateTo(`ProductForm/${id}`)}:
+                        () => {}}>
+                        {isAdmin ? "Редагувати" : "Замовити"}
                     </BorderedBtn>
                 </div>
             </div>

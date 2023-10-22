@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import IFeature from "../types/IFeature";
-import IProperty from "../types/IProperty";
-import IProductInfo from "../types/IProductInfo";
-import useProductInfo from "../hooks/useProductInfo";
-import BorderedBtn from "./btns/BorderedBtn";
-import FilledBtn from "./btns/FilledBtn";
-import {checkImageExisting} from "../services/ HttpClient/ImageRequests";
+import IFeature from "../../types/IFeature";
+import IProperty from "../../types/IProperty";
+import IProductInfo from "../../types/IProductInfo";
+import useProductInfo from "../../hooks/useProductInfo";
+import BorderedBtn from "../btns/BorderedBtn";
+import FilledBtn from "../btns/FilledBtn";
+import {checkImageExisting} from "../../services/ HttpClient/ImageRequests";
 
-const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo}) => {
+const ProductForm = ({id}:{id?: number | undefined}) => {
     const {
         productInfo,
         setProductValues,
@@ -17,10 +17,10 @@ const ProductForm = ({existingProductInfo}: {existingProductInfo: IProductInfo})
         setStatsValue,
         editDetails,
         request
-    } = useProductInfo(existingProductInfo)
+    } = useProductInfo(id)
 
     const [isImagesExist, setIsImagesExist] = useState([false])
-    const isProductExist = useState(productInfo.product.id != 0)[0]
+    const isProductExist = useState(!!id)[0]
 
     useEffect(() => {
         console.log("ProductForm component mount")

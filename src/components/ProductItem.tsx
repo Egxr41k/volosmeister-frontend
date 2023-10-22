@@ -53,7 +53,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>
                 <BorderedBtn handleClick={() => window.location.pathname = `/ProductDetails/${item.id}`}>
-                    {isAdmin ? "Редагувати" : "Детальніше"}
+                    Детальніше
                 </BorderedBtn>
             </div>
         </div>
