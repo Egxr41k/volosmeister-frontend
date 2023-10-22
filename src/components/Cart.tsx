@@ -17,7 +17,6 @@ const Cart = () => {
     }
 
     const showItems = () => {
-        console.log(cartItems)
         return cartItems.map(item => {
             const product = findProductById(item.id)
             return <CartItem product={product} quantity={item.quantity}/>

@@ -1,23 +1,14 @@
 import React from 'react';
 import ProductItem from "../ProductItem";
-import IProduct, {emptyProduct} from "../../types/IProduct";
-import ProductForm from "./ProductForm";
-import {emptyDetails} from "../../types/IProductDetails";
 import useProducts from "../../hooks/useProducts";
-import useAdmin from "../../hooks/useAdmin";
+import Spinner from "../Spinner";
 
 const ProductList = () => {
     const products = useProducts()
-    const { isAdmin} = useAdmin()
 
     return <div className="flex flex-wrap justify-center">
-        {products.length == 0 ? <div className="flex items-center justify-center w-80 h-160 bg-fuchsia-50">
-            <div className="relative">
-                <div className="w-20 h-20 border-fuchsia-300 border-2 rounded-full"></div>
-                <div className="w-20 h-20 border-fuchsia-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
-            </div>
-        </div> :
-        products.map((item: IProduct) => <ProductItem item={item} key={item.name}/>)}
+        {products.length == 0 ?  <Spinner/> :
+        products.map((item) => <ProductItem item={item} key={item.name}/>)}
     </div>;
 }
 

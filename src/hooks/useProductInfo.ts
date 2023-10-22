@@ -3,23 +3,34 @@ import IProductInfo, {emptyInfo} from "../types/IProductInfo";
 import IFeature from "../types/IFeature";
 import IProperty from "../types/IProperty";
 import {getIdFromUrl} from "../services/StringService";
-import IProduct from "../types/IProduct";
-import IProductDetails from "../types/IProductDetails";
 import {createProduct, deleteProduct, getProduct, updateProduct} from "../services/ HttpClient/ProductRequests";
 import {createDetails, deleteDetails, getDetails, updateDetails} from "../services/ HttpClient/DetailsRequests";
-import {deleteImage, saveImage} from "../services/ HttpClient/ImageRequests";
+import {checkImageExisting, deleteImage, saveImage} from "../services/ HttpClient/ImageRequests";
 
 
 const useProductInfo = (id?: number) => {
     const [productInfo, setProductInfo] = useState(emptyInfo)
     const [images, setImages] = useState<(File | undefined)[]>([])
+    const [isImagesExist, setIsImagesExist] = useState([true])
 
     useEffect(() => {
         id && getProductInfo(id!)
             .then(data => {
-                data && setProductInfo(data)
+                if (data){
+                    setProductInfo(data)
+                    checkImagesExist(data).catch(error => console.log(error))
+                }
             })
     }, [])
+
+    const checkImagesExist = async (productInfo: IProductInfo) => {
+        const isProductImageExist = await checkImageExisting(productInfo.product.imageSrc)
+        const isFeaturesImagesExist = await Promise.all(
+            productInfo.details.features.map(async (feature: IFeature, index: number) => {
+                return await checkImageExisting(feature.imageSrc)
+            }))
+        setIsImagesExist([isProductImageExist, ...isFeaturesImagesExist])
+    };
 
     const getProductInfo = async (id: number) => {
         const productResult = await getProduct(id)
@@ -308,6 +319,7 @@ const useProductInfo = (id?: number) => {
             setDescription,
         },
         images,
+        isImagesExist,
         setImageToPos,
         setFeaturesValue: {
             setFeatureTitle,

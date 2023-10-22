@@ -8,6 +8,7 @@ import IProperty from "../../types/IProperty";
 import IFeature from "../../types/IFeature";
 import FilledBtn from "../btns/FilledBtn";
 import {navigateTo} from "../Navigation";
+import Spinner from "../Spinner";
 
 const ProductDetails = ({id}:{id:number}) => {
     const { isAdmin} = useAdmin()
@@ -16,16 +17,6 @@ const ProductDetails = ({id}:{id:number}) => {
     useEffect(() => {
         console.log("ProductDetails component mount")
     }, []);
-
-    const Spinner = () => {
-        return <div className="flex items-center justify-center h-full w-full">
-            <div className="relative">
-                <div className="w-20 h-20 border-fuchsia-300 border-2 rounded-full"></div>
-                <div className="w-20 h-20 border-fuchsia-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
-            </div>
-        </div>
-
-    }
 
     return productInfo == emptyInfo ? <Spinner/> : <div>
 
@@ -47,7 +38,9 @@ const ProductDetails = ({id}:{id:number}) => {
                     { productInfo.product.isSale &&
                         <h2 className="text-4xl my-6">
                             АКЦІЙНА ЦІНА<br/>
-                            <span className="font-semibold text-red-500">{" " + productInfo.product.newPrice + " ГРН!"}</span>
+                            <span className="font-semibold text-red-500">
+                                {" " + productInfo.product.newPrice + " ГРН!"}
+                            </span>
                         </h2> }
                     <BorderedBtn color="white" handleClick={isAdmin ?
                         () => {navigateTo(`ProductForm/${id}`)}:
@@ -84,7 +77,7 @@ const ProductDetails = ({id}:{id:number}) => {
             </h2>
             <div className="flex">
                 <ul className="list-disc mx-auto">
-                    { productInfo.details.stats.map((property: IProperty, index: number) => {
+                    { productInfo.details.stats.map((property: IProperty) => {
                         return property.name == "" ?
                             <li>{property.value}</li> :
                             <li>{property.name + ": " + property.value}</li>
