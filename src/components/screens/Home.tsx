@@ -1,4 +1,5 @@
 import BorderedBtn from "../btns/BorderedBtn";
+import {navigateTo} from "../Navigation";
 
 const Home = () => {
     return <div className="relative">
@@ -14,7 +15,7 @@ const Home = () => {
                     Постійні акції та знижки!<br/>
                     Тільки якісний продукт, перевірений часом та нами особисто!
                 </p>
-                <BorderedBtn handleClick={() => window.location.pathname = "/ProductList"}
+                <BorderedBtn handleClick={() => navigateTo("/ProductList")}
                              children="Discover"
                              color="white"/>
             </div>

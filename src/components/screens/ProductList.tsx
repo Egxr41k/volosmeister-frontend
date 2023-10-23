@@ -6,10 +6,10 @@ import Spinner from "../Spinner";
 const ProductList = () => {
     const products = useProducts()
 
-    return <div className="flex flex-wrap justify-center">
-        {products.length == 0 ?  <Spinner/> :
-        products.map((item) => <ProductItem item={item} key={item.name}/>)}
-    </div>;
+    return products.length == 0 ? <Spinner/> :
+        <div className="flex flex-wrap justify-center items-center">
+            {products.map((item) => <ProductItem item={item} key={item.name}/>)}
+        </div>;
 }
 
 export default ProductList

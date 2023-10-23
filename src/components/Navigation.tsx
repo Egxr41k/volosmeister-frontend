@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {INavLinkProps} from "../types/IProps";
 import Home from "./screens/Home";
 import ProductList from "./screens/ProductList";
@@ -17,6 +17,7 @@ const path = window.location.pathname
 export const CurrentScreen = () =>{
     let id = getIdFromUrl(path)
     switch (path) {
+        case "/":                   return <Home/>
         case "/Home":                   return <Home/>
         case "/ProductList":            return <ProductList/>
         case "/AboutUs":                return <AboutUs/>
@@ -24,11 +25,11 @@ export const CurrentScreen = () =>{
         case "/Contacts":               return <Contacts/>
         case "/Admin":                  return <Admin/>
         case `/ProductDetails/${id}`:   return <ProductDetails id={id!}/>
-        case `/ProductForm/${id}`:      return <ProductForm id={id}/>
+        case `/ProductForm/${id}`:      return <ProductForm id={id!}/>
 
         default: return <div className="flex justify-center items-center">
             <p>ви, мабуть, заблукали...</p>
-            <BorderedBtn handleClick={() => window.location.pathname = "/Home"}>
+            <BorderedBtn handleClick={() => navigateTo("/Home")}>
                 вертайтеся на головну
             </BorderedBtn>
         </div>
@@ -41,6 +42,7 @@ export const navigateTo = (pathname: string) => {
 
 const Navigation = () => {
     const { isAdmin} = useAdmin()
+
     return <ul className="flex flex-wrap">
         <CustomLink href="/Home">        Головна</CustomLink>
         <CustomLink href="/ProductList"> Каталог</CustomLink>

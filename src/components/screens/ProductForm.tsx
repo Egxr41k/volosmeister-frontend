@@ -5,7 +5,7 @@ import useProductInfo from "../../hooks/useProductInfo";
 import BorderedBtn from "../btns/BorderedBtn";
 import FilledBtn from "../btns/FilledBtn";
 
-const ProductForm = ({id}:{id?: number | undefined}) => {
+const ProductForm = ({id}:{id: number}) => {
     const {
         productInfo,
         setProductValues,

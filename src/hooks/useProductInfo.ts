@@ -11,7 +11,7 @@ import {checkImageExisting, deleteImage, saveImage} from "../services/ HttpClien
 const useProductInfo = (id?: number) => {
     const [productInfo, setProductInfo] = useState(emptyInfo)
     const [images, setImages] = useState<(File | undefined)[]>([])
-    const [isImagesExist, setIsImagesExist] = useState([true])
+    const [isImagesExist, setIsImagesExist] = useState([false])
 
     useEffect(() => {
         id && getProductInfo(id!)

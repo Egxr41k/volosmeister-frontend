@@ -16,7 +16,6 @@ function App() {
             <Footer/>
         </AdminProvider>
     </CartProvider>;
-    
 }
 
 export default App;

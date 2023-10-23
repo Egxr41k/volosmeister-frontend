@@ -27,18 +27,22 @@ const ProductItem = ({item}:{item: IProduct}) => {
              alt=""
              className="w-full h-96 object-cover"/>
         <div className="p-5 h-64">
-            <h2 className="text-xl font-semibold h-8">{textFormatter(item.name, 30)}</h2>
-            <p className="font-extralight h-20 my-4">{textFormatter(item.description, 120)} </p>
-            <p className="text-fuchsia-600 my-1">
-                {item.newPrice} грн.
-                <span className="line-through text-gray-500 mr-14 ml-2">
-                    {item.oldPrice} грн.
-                </span>
+            <h2 className="text-xl font-semibold">{textFormatter(item.name, 30)}</h2>
+            <p className="font-extralight h-24 my-2">{textFormatter(item.description, 120)} </p>
+            <div className="flex justify-between my-2">
+                <div className="flex gap-1">
+                    <p className="text-fuchsia-600 w-fit">
+                        {item.newPrice} грн.
+                    </p>
+                    <p className="line-through text-gray-500 w-fit">
+                        {item.oldPrice} грн.
+                    </p>
+                </div>
                 {item.isAvailable ?
-                    <span className="text-fuchsia-600">в наявності</span> :
-                    <span className="text-gray-500">немає в наявності </span>
+                    <p className="text-fuchsia-600 w-fit">в наявності</p> :
+                    <p className="text-gray-500 w-fit">немає в наявності </p>
                 }
-            </p>
+            </div>
             <div className="flex justify-between align-bottom">
                 <FilledBtn handleClick={isAdmin ?
                     async () => {
