@@ -3,10 +3,12 @@ import TelegramIcon from "../../icons/telegram.svg"
 import ViberIcon from "../../icons/viber.svg"
 import MessengerIcon from "../../icons/messenger.svg"
 import InstagramIcon from "../../icons/instagram.svg"
+import logo from "../../imgs/logo.png"
+
 
 const Contacts = () =>{
     return <div className="relative">
-        <img src="/logo.png"
+        <img src={logo}
              alt=""
              className="object-cover h-[90vh] opacity-10 mx-auto"/>
 

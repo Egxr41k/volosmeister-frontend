@@ -4,6 +4,7 @@ import IProperty from "../../types/IProperty";
 import useProductInfo from "../../hooks/useProductInfo";
 import BorderedBtn from "../btns/BorderedBtn";
 import FilledBtn from "../btns/FilledBtn";
+import NO_PHOTO_YET from "../../imgs/NO_PHOTO_YET.png"
 
 const ProductForm = ({id}:{id: number}) => {
     const {
@@ -18,7 +19,7 @@ const ProductForm = ({id}:{id: number}) => {
         request
     } = useProductInfo(id)
 
-    const isProductExist = useState(!!id)[0]
+    const isProductExist = useState(id != 0)[0]
 
     useEffect(() => {
         console.log("ProductForm component mount")
@@ -47,7 +48,7 @@ const ProductForm = ({id}:{id: number}) => {
                     URL.createObjectURL(images[0]!):
                     isImagesExist[0] ?
                         productInfo.product.imageSrc:
-                            "/NO_PHOTO_YET.png"}
+                            NO_PHOTO_YET}
 
                  alt="Selected image"
                  className="w-full h-72 object-cover"/>

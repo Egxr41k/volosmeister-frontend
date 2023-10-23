@@ -17,19 +17,19 @@ const path = window.location.pathname
 export const CurrentScreen = () =>{
     let id = getIdFromUrl(path)
     switch (path) {
-        case "/":                   return <Home/>
-        case "/Home":                   return <Home/>
-        case "/ProductList":            return <ProductList/>
-        case "/AboutUs":                return <AboutUs/>
-        case "/Questions":              return <Questions/>
-        case "/Contacts":               return <Contacts/>
-        case "/Admin":                  return <Admin/>
-        case `/ProductDetails/${id}`:   return <ProductDetails id={id!}/>
-        case `/ProductForm/${id}`:      return <ProductForm id={id!}/>
+        case "/TheBloomingHome.UI/":                   return <Home/>
+        case "/TheBloomingHome.UI/Home":                   return <Home/>
+        case "/TheBloomingHome.UI/ProductList":            return <ProductList/>
+        case "/TheBloomingHome.UI/AboutUs":                return <AboutUs/>
+        case "/TheBloomingHome.UI/Questions":              return <Questions/>
+        case "/TheBloomingHome.UI/Contacts":               return <Contacts/>
+        case "/TheBloomingHome.UI/Admin":                  return <Admin/>
+        case `/TheBloomingHome.UI/ProductDetails/${id}`:   return <ProductDetails id={id!}/>
+        case `/TheBloomingHome.UI/ProductForm/${id}`:      return <ProductForm id={id!}/>
 
         default: return <div className="flex justify-center items-center">
             <p>ви, мабуть, заблукали...</p>
-            <BorderedBtn handleClick={() => navigateTo("/Home")}>
+            <BorderedBtn handleClick={() => navigateTo("/TheBloomingHome.UI/Home")}>
                 вертайтеся на головну
             </BorderedBtn>
         </div>
@@ -44,14 +44,14 @@ const Navigation = () => {
     const { isAdmin} = useAdmin()
 
     return <ul className="flex flex-wrap">
-        <CustomLink href="/Home">        Головна</CustomLink>
-        <CustomLink href="/ProductList"> Каталог</CustomLink>
+        <CustomLink href="/TheBloomingHome.UI/Home">        Головна</CustomLink>
+        <CustomLink href="/TheBloomingHome.UI/ProductList"> Каталог</CustomLink>
         {isAdmin &&
-        <CustomLink href="/ProductForm/0"> Додати товар </CustomLink>
+        <CustomLink href="/TheBloomingHome.UI/ProductForm/0"> Додати товар </CustomLink>
         }
-        <CustomLink href="/AboutUs">     Про нас</CustomLink>
-        <CustomLink href="/Questions">   Питання</CustomLink>
-        <CustomLink href="/Contacts">    Контакти</CustomLink>
+        <CustomLink href="/TheBloomingHome.UI/AboutUs">     Про нас</CustomLink>
+        <CustomLink href="/TheBloomingHome.UI/Questions">   Питання</CustomLink>
+        <CustomLink href="/TheBloomingHome.UI/Contacts">    Контакти</CustomLink>
     </ul>
 }
 

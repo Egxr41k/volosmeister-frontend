@@ -42,7 +42,7 @@ const ProductDetails = ({id}:{id:number}) => {
                                 </span>
                             </h2> }
                         <BorderedBtn color="white" handleClick={isAdmin ?
-                            () => {navigateTo(`ProductForm/${id}`)}:
+                            () => {navigateTo(`/TheBloomingHome.UI/git resProductForm/${id}`)}:
                             () => {}}>
                             {isAdmin ? "Редагувати" : "Замовити"}
                         </BorderedBtn>

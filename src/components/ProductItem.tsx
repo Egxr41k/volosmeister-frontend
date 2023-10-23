@@ -52,7 +52,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
                     () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>
-                <BorderedBtn handleClick={() => window.location.pathname = `/ProductDetails/${item.id}`}>
+                <BorderedBtn handleClick={() => window.location.pathname = `/TheBloomingHome.UI/ProductDetails/${item.id}`}>
                     Детальніше
                 </BorderedBtn>
             </div>

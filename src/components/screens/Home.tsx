@@ -15,7 +15,7 @@ const Home = () => {
                     Постійні акції та знижки!<br/>
                     Тільки якісний продукт, перевірений часом та нами особисто!
                 </p>
-                <BorderedBtn handleClick={() => navigateTo("/ProductList")}
+                <BorderedBtn handleClick={() => navigateTo("/TheBloomingHome.UI/ProductList")}
                              children="Discover"
                              color="white"/>
             </div>

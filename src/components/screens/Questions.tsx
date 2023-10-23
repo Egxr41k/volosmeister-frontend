@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import ArrowUp from "../../icons/arrow_up.svg";
 import ArrowDown from "../../icons/arrow_down.svg";
+import logo from "../../imgs/logo.png"
+
 
 const Questions = () => {
     return <div className="relative">
-        <img src="/logo.png"
+        <img src={logo}
              alt=""
              className="object-cover h-[90vh] opacity-10 mx-auto"/>
 
