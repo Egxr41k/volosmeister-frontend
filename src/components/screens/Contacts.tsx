@@ -5,7 +5,6 @@ import MessengerIcon from "../../icons/messenger.svg"
 import InstagramIcon from "../../icons/instagram.svg"
 import logo from "../../imgs/logo.png"
 
-
 const Contacts = () =>{
     return <div className="relative">
         <img src={logo}

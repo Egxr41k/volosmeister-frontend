@@ -2,6 +2,7 @@ export const getIdFromUrl = (url: string) => {
     const parts = url.split("/");
     const lastPart = parts[parts.length - 1];
     const id =  parseInt(lastPart)
+    console.log(id)
     return isNaN(id) ? undefined : id
 }
 

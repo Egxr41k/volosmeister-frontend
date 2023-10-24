@@ -1,5 +1,7 @@
 import BorderedBtn from "../btns/BorderedBtn";
 import {navigateTo} from "../Navigation";
+import {Link} from "react-router-dom";
+import React from "react";
 
 const Home = () => {
     return <div className="relative">
@@ -15,9 +17,9 @@ const Home = () => {
                     Постійні акції та знижки!<br/>
                     Тільки якісний продукт, перевірений часом та нами особисто!
                 </p>
-                <BorderedBtn handleClick={() => navigateTo("/TheBloomingHome.UI/ProductList")}
-                             children="Discover"
-                             color="white"/>
+                <BorderedBtn color="white" handleClick={() => {} }>
+                    <Link to="ProductList">Discover</Link>
+                </BorderedBtn>
             </div>
         </div>
     </div>

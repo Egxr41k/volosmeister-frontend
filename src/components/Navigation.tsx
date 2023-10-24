@@ -1,39 +1,32 @@
 import React, {useEffect} from "react";
 import {INavLinkProps} from "../types/IProps";
+import useAdmin from "../hooks/useAdmin";
+import {Link, NavLink, Route, Routes} from "react-router-dom";
 import Home from "./screens/Home";
 import ProductList from "./screens/ProductList";
 import AboutUs from "./screens/AboutUs";
 import Questions from "./screens/Questions";
 import Contacts from "./screens/Contacts";
-import ProductDetails from "./screens/ProductDetails";
-import BorderedBtn from "./btns/BorderedBtn";
 import Admin from "./screens/Admin";
-import {getIdFromUrl} from "../services/StringService";
+import ProductDetails from "./screens/ProductDetails";
 import ProductForm from "./screens/ProductForm";
-import useAdmin from "../hooks/useAdmin";
+import {getIdFromUrl} from "../services/StringService";
 
 const path = window.location.pathname
 
 export const CurrentScreen = () =>{
-    let id = getIdFromUrl(path)
-    switch (path) {
-        case "/TheBloomingHome.UI/":                   return <Home/>
-        case "/TheBloomingHome.UI/Home":                   return <Home/>
-        case "/TheBloomingHome.UI/ProductList":            return <ProductList/>
-        case "/TheBloomingHome.UI/AboutUs":                return <AboutUs/>
-        case "/TheBloomingHome.UI/Questions":              return <Questions/>
-        case "/TheBloomingHome.UI/Contacts":               return <Contacts/>
-        case "/TheBloomingHome.UI/Admin":                  return <Admin/>
-        case `/TheBloomingHome.UI/ProductDetails/${id}`:   return <ProductDetails id={id!}/>
-        case `/TheBloomingHome.UI/ProductForm/${id}`:      return <ProductForm id={id!}/>
 
-        default: return <div className="flex justify-center items-center">
-            <p>ви, мабуть, заблукали...</p>
-            <BorderedBtn handleClick={() => navigateTo("/TheBloomingHome.UI/Home")}>
-                вертайтеся на головну
-            </BorderedBtn>
-        </div>
-    }
+    return <Routes>
+        <Route path="/"                       element={<Home/>}/>
+        <Route path="/Home"                   element={<Home/>}/>
+        <Route path="/ProductList"            element={<ProductList/>}/>
+        <Route path="/AboutUs"                element={<AboutUs/>}/>
+        <Route path="/Questions"              element={<Questions/>}/>
+        <Route path="/Contacts"               element={<Contacts/>}/>
+        <Route path="/Admin"                  element={<Admin/>}/>
+        <Route path="ProductDetails/:id"      element={<ProductDetails/>}/>
+        <Route path="/ProductForm/:id"        element={<ProductForm/>} />
+    </Routes>
 }
 
 export const navigateTo = (pathname: string) => {
@@ -44,27 +37,27 @@ const Navigation = () => {
     const { isAdmin} = useAdmin()
 
     return <ul className="flex flex-wrap">
-        <CustomLink href="/TheBloomingHome.UI/Home">        Головна</CustomLink>
-        <CustomLink href="/TheBloomingHome.UI/ProductList"> Каталог</CustomLink>
+        <CustomLink href="/Home">        Головна</CustomLink>
+        <CustomLink href="/ProductList"> Каталог</CustomLink>
         {isAdmin &&
-        <CustomLink href="/TheBloomingHome.UI/ProductForm/0"> Додати товар </CustomLink>
+
+            <CustomLink href="/ProductForm/0"> Додати товар </CustomLink>
         }
-        <CustomLink href="/TheBloomingHome.UI/AboutUs">     Про нас</CustomLink>
-        <CustomLink href="/TheBloomingHome.UI/Questions">   Питання</CustomLink>
-        <CustomLink href="/TheBloomingHome.UI/Contacts">    Контакти</CustomLink>
+        <CustomLink href="/AboutUs">     Про нас</CustomLink>
+        <CustomLink href="/Questions">   Питання</CustomLink>
+        <CustomLink href="/Contacts">    Контакти</CustomLink>
     </ul>
 }
 
 const CustomLink = ({href, children} : INavLinkProps) => {
+    const setActive = (isActive: boolean) => {
+        return ["text-white", isActive && "font-bold"].join(" ")
+    }
+
     return <li className="m-3">
-        <a href={href} className={[
-                "text-white", //default  styles
-                path === href ?
-                    "font-bold" //styles when active
-                    : ""
-        ].join(" ")}>
+        <NavLink to={href}  className={({isActive}) => setActive(isActive)}>
             {children}
-        </a>
+        </NavLink>
     </li>
 }
 export default Navigation

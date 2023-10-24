@@ -4,9 +4,12 @@ import IProperty from "../../types/IProperty";
 import useProductInfo from "../../hooks/useProductInfo";
 import BorderedBtn from "../btns/BorderedBtn";
 import FilledBtn from "../btns/FilledBtn";
+import {useParams} from "react-router-dom";
 import NO_PHOTO_YET from "../../imgs/NO_PHOTO_YET.png"
 
-const ProductForm = ({id}:{id: number}) => {
+const ProductForm = () => {
+    const { id } = useParams()
+    const intId = parseInt(id ?? "")
     const {
         productInfo,
         setProductValues,
@@ -17,9 +20,9 @@ const ProductForm = ({id}:{id: number}) => {
         setStatsValue,
         editDetails,
         request
-    } = useProductInfo(id)
+    } = useProductInfo(intId)
 
-    const isProductExist = useState(id != 0)[0]
+    const isProductExist = useState(intId != 0)[0]
 
     useEffect(() => {
         console.log("ProductForm component mount")
