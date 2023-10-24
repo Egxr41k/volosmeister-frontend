@@ -8,7 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 import {CurrentScreen} from "./components/Navigation";
 
 function App() {
-    return <BrowserRouter>
+    return <BrowserRouter basename="/TheBloomingHome.UI">
         <CartProvider>
             <AdminProvider>
                 <Header/>

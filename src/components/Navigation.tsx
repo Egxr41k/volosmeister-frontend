@@ -24,7 +24,7 @@ export const CurrentScreen = () =>{
         <Route path="/Questions"              element={<Questions/>}/>
         <Route path="/Contacts"               element={<Contacts/>}/>
         <Route path="/Admin"                  element={<Admin/>}/>
-        <Route path="ProductDetails/:id"      element={<ProductDetails/>}/>
+        <Route path="/ProductDetails/:id"      element={<ProductDetails/>}/>
         <Route path="/ProductForm/:id"        element={<ProductForm/>} />
     </Routes>
 }
