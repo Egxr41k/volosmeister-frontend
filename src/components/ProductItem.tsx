@@ -7,6 +7,8 @@ import BorderedBtn from "./btns/BorderedBtn";
 import useProductInfo from "../hooks/useProductInfo";
 import {checkImageExisting} from "../services/ HttpClient/ImageRequests";
 import {textFormatter} from "../services/StringService";
+import {Link} from "react-router-dom";
+import NO_PHOTO_YET from "../imgs/NO_PHOTO_YET.png"
 
 const ProductItem = ({item}:{item: IProduct}) => {
     const {increaseCartQuantity} = useCart()
@@ -23,7 +25,7 @@ const ProductItem = ({item}:{item: IProduct}) => {
     }, []);
 
     return <div key={item.id} className="w-80 h-160 bg-fuchsia-50 mx-10 my-5">
-        <img src={isImageExist ? item.imageSrc : "/NO_PHOTO_YET.png"}
+        <img src={isImageExist ? item.imageSrc : NO_PHOTO_YET}
              alt=""
              className="w-full h-96 object-cover"/>
         <div className="p-5 h-64">
@@ -52,8 +54,8 @@ const ProductItem = ({item}:{item: IProduct}) => {
                     () => increaseCartQuantity(item.id)}>
                     {isAdmin ? "Видалити" : "В кошик"}
                 </FilledBtn>
-                <BorderedBtn handleClick={() => window.location.pathname = `/ProductDetails/${item.id}`}>
-                    Детальніше
+                <BorderedBtn handleClick={() => {} }>
+                    <Link to={`/ProductDetails/${item.id}`}>Детальніше</Link>
                 </BorderedBtn>
             </div>
         </div>

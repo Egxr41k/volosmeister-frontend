@@ -2,10 +2,10 @@ import React from "react";
 
 export interface IBtnProps {
     handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    children: string
+    children: React.ReactNode
 }
 
 export interface INavLinkProps{
     href: string;
-    children: string;
+    children: React.ReactNode;
 }

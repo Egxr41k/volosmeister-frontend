@@ -1,39 +1,31 @@
 import React, {useEffect} from "react";
 import {INavLinkProps} from "../types/IProps";
+import useAdmin from "../hooks/useAdmin";
+import {Link, NavLink, Route, Routes} from "react-router-dom";
 import Home from "./screens/Home";
 import ProductList from "./screens/ProductList";
 import AboutUs from "./screens/AboutUs";
 import Questions from "./screens/Questions";
 import Contacts from "./screens/Contacts";
-import ProductDetails from "./screens/ProductDetails";
-import BorderedBtn from "./btns/BorderedBtn";
 import Admin from "./screens/Admin";
-import {getIdFromUrl} from "../services/StringService";
+import ProductDetails from "./screens/ProductDetails";
 import ProductForm from "./screens/ProductForm";
-import useAdmin from "../hooks/useAdmin";
+import {getIdFromUrl} from "../services/StringService";
 
 const path = window.location.pathname
 
 export const CurrentScreen = () =>{
-    let id = getIdFromUrl(path)
-    switch (path) {
-        case "/":                   return <Home/>
-        case "/Home":                   return <Home/>
-        case "/ProductList":            return <ProductList/>
-        case "/AboutUs":                return <AboutUs/>
-        case "/Questions":              return <Questions/>
-        case "/Contacts":               return <Contacts/>
-        case "/Admin":                  return <Admin/>
-        case `/ProductDetails/${id}`:   return <ProductDetails id={id!}/>
-        case `/ProductForm/${id}`:      return <ProductForm id={id!}/>
-
-        default: return <div className="flex justify-center items-center">
-            <p>ви, мабуть, заблукали...</p>
-            <BorderedBtn handleClick={() => navigateTo("/Home")}>
-                вертайтеся на головну
-            </BorderedBtn>
-        </div>
-    }
+    return <Routes>
+        <Route path="/"                       element={<Home/>}/>
+        <Route path="/Home"                   element={<Home/>}/>
+        <Route path="/ProductList"            element={<ProductList/>}/>
+        <Route path="/AboutUs"                element={<AboutUs/>}/>
+        <Route path="/Questions"              element={<Questions/>}/>
+        <Route path="/Contacts"               element={<Contacts/>}/>
+        <Route path="/Admin"                  element={<Admin/>}/>
+        <Route path="ProductDetails/:id"      element={<ProductDetails/>}/>
+        <Route path="/ProductForm/:id"        element={<ProductForm/>} />
+    </Routes>
 }
 
 export const navigateTo = (pathname: string) => {
@@ -47,7 +39,7 @@ const Navigation = () => {
         <CustomLink href="/Home">        Головна</CustomLink>
         <CustomLink href="/ProductList"> Каталог</CustomLink>
         {isAdmin &&
-        <CustomLink href="/ProductForm/0"> Додати товар </CustomLink>
+            <CustomLink href="/ProductForm/0"> Додати товар </CustomLink>
         }
         <CustomLink href="/AboutUs">     Про нас</CustomLink>
         <CustomLink href="/Questions">   Питання</CustomLink>
@@ -56,15 +48,14 @@ const Navigation = () => {
 }
 
 const CustomLink = ({href, children} : INavLinkProps) => {
+    const setActive = (isActive: boolean) => {
+        return ["text-white", isActive && "font-bold"].join(" ")
+    }
+
     return <li className="m-3">
-        <a href={href} className={[
-                "text-white", //default  styles
-                path === href ?
-                    "font-bold" //styles when active
-                    : ""
-        ].join(" ")}>
+        <NavLink to={href}  className={({isActive}) => setActive(isActive)}>
             {children}
-        </a>
+        </NavLink>
     </li>
 }
 export default Navigation

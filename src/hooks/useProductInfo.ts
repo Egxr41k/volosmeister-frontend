@@ -8,13 +8,13 @@ import {createDetails, deleteDetails, getDetails, updateDetails} from "../servic
 import {checkImageExisting, deleteImage, saveImage} from "../services/ HttpClient/ImageRequests";
 
 
-const useProductInfo = (id?: number) => {
+const useProductInfo = (id: number = 0) => {
     const [productInfo, setProductInfo] = useState(emptyInfo)
     const [images, setImages] = useState<(File | undefined)[]>([])
     const [isImagesExist, setIsImagesExist] = useState([false])
 
     useEffect(() => {
-        id && getProductInfo(id!)
+        id != 0 && getProductInfo(id!)
             .then(data => {
                 if (data){
                     setProductInfo(data)

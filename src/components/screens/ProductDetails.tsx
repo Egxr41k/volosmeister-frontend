@@ -8,13 +8,17 @@ import IFeature from "../../types/IFeature";
 import FilledBtn from "../btns/FilledBtn";
 import {navigateTo} from "../Navigation";
 import Spinner from "../Spinner";
+import {Link, useParams} from "react-router-dom";
 
-const ProductDetails = ({id}:{id:number}) => {
+const ProductDetails = () => {
+    const { id } = useParams()
+    const intId = parseInt(id ?? "")
+
     const { isAdmin} = useAdmin()
-    const {productInfo} = useProductInfo(id)
+    const {productInfo} = useProductInfo(intId)
 
     useEffect(() => {
-        console.log("ProductDetails component mount")
+        console.log("ProductDetails component mount", productInfo)
     }, []);
 
     return productInfo == emptyInfo ? <Spinner/> :
@@ -41,11 +45,16 @@ const ProductDetails = ({id}:{id:number}) => {
                                     {" " + productInfo.product.newPrice + " ГРН!"}
                                 </span>
                             </h2> }
-                        <BorderedBtn color="white" handleClick={isAdmin ?
-                            () => {navigateTo(`ProductForm/${id}`)}:
-                            () => {}}>
-                            {isAdmin ? "Редагувати" : "Замовити"}
-                        </BorderedBtn>
+                        {
+                            isAdmin ?
+                                <BorderedBtn handleClick={() => {} }>
+                                    <Link to={`/ProductForm/${id}`}>Редагувати</Link>
+                                </BorderedBtn>
+                                :
+                                <BorderedBtn color="white" handleClick={() => {}}>
+                                    Замовити
+                                </BorderedBtn>
+                        }
                     </div>
                 </div>
             </div>
