@@ -1,0 +1,13 @@
+{
+	"trailingComma": "none",
+	"tabWidth": 2,
+	"useTabs": true,
+	"semi": false,
+	"singleQuote": true,
+	"arrowParens": "avoid",
+
+	"tailwindConfig": "tailwind.config.js",
+	"tailwindAttributes": ["className"],
+
+	"plugins": ["prettier-plugin-tailwindcss"]
+}

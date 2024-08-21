@@ -1,7 +1,5 @@
 const AboutUs = () => {
-    return <>
-        About
-    </>
+	return <>About</>
 }
 
 export default AboutUs

@@ -1,5 +1,4 @@
-import React from "react";
-import {IBtnProps} from "../../types/IProps";
+import { IBtnProps } from "../../types/IProps";
 interface IBorderedBtnProps extends IBtnProps{
     color?: string
 }

@@ -1,17 +1,17 @@
-import {useEffect, useState} from "react";
-import IProduct from "../types/IProduct";
-import {getProducts} from "../services/ HttpClient/ProductRequests";
+import { useEffect, useState } from 'react'
+import { getProducts } from '../services/ HttpClient/ProductRequests'
+import IProduct from '../types/IProduct'
 
 const useProducts = () => {
-    const [products, setProducts] = useState([] as IProduct[])
+	const [products, setProducts] = useState([] as IProduct[])
 
-    useEffect(() => {
-        getProducts().then(result => {
-            if (result?.length != 0) setProducts(result!)
-        })
-    }, []);
+	useEffect(() => {
+		getProducts().then(result => {
+			if (result?.length != 0) setProducts(result!)
+		})
+	}, [])
 
-    return products
+	return products
 }
 
 export default useProducts

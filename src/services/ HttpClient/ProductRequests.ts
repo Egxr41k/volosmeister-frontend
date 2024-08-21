@@ -1,18 +1,15 @@
-import IProduct from "../../types/IProduct";
-import BaseRequests from "./BaseRequests";
+import IProduct from '../../types/IProduct'
+import BaseRequests from './BaseRequests'
 
-const productRequest = BaseRequests<IProduct>("Product")
-export const getProducts = async () =>
-    productRequest.getAll()
+const productRequest = BaseRequests<IProduct>('Product')
+export const getProducts = async () => productRequest.getAll()
 
-export const getProduct = async (id: number) =>
-    productRequest.get(id)
+export const getProduct = async (id: number) => productRequest.get(id)
 
 export const createProduct = async (newEntity: IProduct) =>
-    productRequest.post(newEntity)
+	productRequest.post(newEntity)
 
 export const updateProduct = async (updateEntity: IProduct) =>
-    productRequest.put(updateEntity)
+	productRequest.put(updateEntity)
 
-export const deleteProduct = async (id: number) =>
-    productRequest.delete(id)
+export const deleteProduct = async (id: number) => productRequest.delete(id)

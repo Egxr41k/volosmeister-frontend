@@ -1,24 +1,25 @@
-import React from 'react';
-import './App.css';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import {CartProvider} from "./context/CartContext";
-import {AdminProvider} from "./context/AdminContext";
-import {BrowserRouter} from "react-router-dom";
-import {CurrentScreen} from "./components/Navigation";
+import { BrowserRouter } from 'react-router-dom'
+import './App.css'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import { CurrentScreen } from './components/Navigation'
+import { AdminProvider } from './context/AdminContext'
+import { CartProvider } from './context/CartContext'
 
 function App() {
-    return <BrowserRouter basename="/TheBloomingHome.UI">
-        <CartProvider>
-            <AdminProvider>
-                <Header/>
-                <main className="bg-fuchsia-200 min-h-[90vh]">
-                    <CurrentScreen/>
-                </main>
-                <Footer/>
-            </AdminProvider>
-        </CartProvider>
-    </BrowserRouter>;
+	return (
+		<BrowserRouter basename="/TheBloomingHome.UI">
+			<CartProvider>
+				<AdminProvider>
+					<Header />
+					<main className="min-h-[90vh] bg-fuchsia-200">
+						<CurrentScreen />
+					</main>
+					<Footer />
+				</AdminProvider>
+			</CartProvider>
+		</BrowserRouter>
+	)
 }
 
-export default App;
+export default App

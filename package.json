@@ -1,5 +1,5 @@
 {
-  "name": "the-blooming-home",
+  "name": "the-blooming-home-front-end",
   "version": "0.1.0",
   "homepage": "https://egxr41k.github.io/TheBloomingHome.UI",
   "private": true,
@@ -11,6 +11,8 @@
     "@types/node": "^16.18.48",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",

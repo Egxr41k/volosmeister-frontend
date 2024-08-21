@@ -1,15 +1,19 @@
-import React from 'react';
-import ProductItem from "../ProductItem";
-import useProducts from "../../hooks/useProducts";
-import Spinner from "../Spinner";
+import useProducts from '../../hooks/useProducts'
+import ProductItem from '../ProductItem'
+import Spinner from '../Spinner'
 
 const ProductList = () => {
-    const products = useProducts()
+	const products = useProducts()
 
-    return products.length == 0 ? <Spinner/> :
-        <div className="flex flex-wrap justify-center items-center">
-            {products.map((item) => <ProductItem item={item} key={item.name}/>)}
-        </div>;
+	return products.length == 0 ? (
+		<Spinner />
+	) : (
+		<div className="flex flex-wrap items-center justify-center">
+			{products.map(item => (
+				<ProductItem item={item} key={item.name} />
+			))}
+		</div>
+	)
 }
 
 export default ProductList

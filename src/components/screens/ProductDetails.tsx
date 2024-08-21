@@ -1,127 +1,143 @@
-import React, {useEffect} from "react";
-import useAdmin from "../../hooks/useAdmin";
-import useProductInfo from "../../hooks/useProductInfo";
-import {emptyInfo} from "../../types/IProductInfo";
-import BorderedBtn from "../btns/BorderedBtn";
-import IProperty from "../../types/IProperty";
-import IFeature from "../../types/IFeature";
-import FilledBtn from "../btns/FilledBtn";
-import {navigateTo} from "../Navigation";
-import Spinner from "../Spinner";
-import {Link, useParams} from "react-router-dom";
+import { useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import useAdmin from '../../hooks/useAdmin'
+import useProductInfo from '../../hooks/useProductInfo'
+import IFeature from '../../types/IFeature'
+import { emptyInfo } from '../../types/IProductInfo'
+import IProperty from '../../types/IProperty'
+import BorderedBtn from '../btns/BorderedBtn'
+import FilledBtn from '../btns/FilledBtn'
+import Spinner from '../Spinner'
 
 const ProductDetails = () => {
-    const { id } = useParams()
-    const intId = parseInt(id ?? "")
+	const { id } = useParams()
+	const intId = parseInt(id ?? '')
 
-    const { isAdmin} = useAdmin()
-    const {productInfo} = useProductInfo(intId)
+	const { isAdmin } = useAdmin()
+	const { productInfo } = useProductInfo(intId)
 
-    useEffect(() => {
-        console.log("ProductDetails component mount", productInfo)
-    }, []);
+	useEffect(() => {
+		console.log('ProductDetails component mount', productInfo)
+	}, [])
 
-    return productInfo == emptyInfo ? <Spinner/> :
-        <div>
-            <div className="relative">
-                <img src="https://static.tildacdn.com/tild3461-3062-4839-a133-623333343030/kak-vibrat-mebel-dly.jpg"
-                     alt="" className="w-full object-cover h-[93vh]"/>
-                <div className="absolute flex -translate-x-2/4 -translate-y-2/4 bg-opacity-80 bg-fuchsia-950
-                                left-1/2 top-1/2 w-full h-full justify-center items-center">
+	return productInfo == emptyInfo ? (
+		<Spinner />
+	) : (
+		<div>
+			<div className="relative">
+				<img
+					src="https://static.tildacdn.com/tild3461-3062-4839-a133-623333343030/kak-vibrat-mebel-dly.jpg"
+					alt=""
+					className="h-[93vh] w-full object-cover"
+				/>
+				<div className="absolute left-1/2 top-1/2 flex h-full w-full -translate-x-2/4 -translate-y-2/4 items-center justify-center bg-fuchsia-950 bg-opacity-80">
+					<div className="text-center text-white">
+						<img
+							src={productInfo.product.imageSrc}
+							alt="ProductImage"
+							className="mx-auto h-72"
+						/>
+						<h2 className="my-6 text-5xl font-semibold">
+							{productInfo.product.name}!
+						</h2>
+						<p className="my-6 whitespace-pre-line font-light">
+							{productInfo.product.description}
+						</p>
+						{productInfo.product.isSale && (
+							<h2 className="my-6 text-4xl">
+								АКЦІЙНА ЦІНА
+								<br />
+								<span className="font-semibold text-red-500">
+									{' ' + productInfo.product.newPrice + ' ГРН!'}
+								</span>
+							</h2>
+						)}
 
-                    <div className="text-center text-white">
-                        <img src={productInfo.product.imageSrc} alt="ProductImage"
-                             className="mx-auto h-72"/>
-                        <h2 className="font-semibold text-5xl my-6">
-                            {productInfo.product.name}!
-                        </h2>
-                        <p className="font-light whitespace-pre-line my-6">
-                            {productInfo.product.description}
-                        </p>
-                        { productInfo.product.isSale &&
-                            <h2 className="text-4xl my-6">
-                                АКЦІЙНА ЦІНА<br/>
-                                <span className="font-semibold text-red-500">
-                                    {" " + productInfo.product.newPrice + " ГРН!"}
-                                </span>
-                            </h2> }
+						{isAdmin ? (
+							<BorderedBtn color="white" handleClick={() => {}}>
+								<Link to={`/ProductForm/${id}`}>Редагувати</Link>
+							</BorderedBtn>
+						) : (
+							<BorderedBtn color="white" handleClick={() => {}}>
+								Замовити
+							</BorderedBtn>
+						)}
+					</div>
+				</div>
+			</div>
 
-                        {
-                            isAdmin ?
-                                <BorderedBtn color="white" handleClick={() => {} }>
-                                    <Link to={`/ProductForm/${id}`}>Редагувати</Link>
-                                </BorderedBtn>
-                                :
-                                <BorderedBtn color="white" handleClick={() => {}}>
-                                    Замовити
-                                </BorderedBtn>
-                        }
-                    </div>
-                </div>
-            </div>
+			<div className="py-16">
+				<h2 className="my-12 text-center text-3xl font-semibold">
+					ЧОМУ ВАРТО ОБРАТИ {productInfo.product.name.toUpperCase()}?
+				</h2>
+				{productInfo.details.features.map(
+					(feature: IFeature, index: number) => {
+						return (
+							<div key={feature.title} className="my-12">
+								<div className="mx-auto w-96">
+									<img
+										src={feature.imageSrc}
+										alt="ProductImage"
+										className="h-72 w-full object-cover"
+									/>
+									<h3 className="my-3 text-xl font-semibold">
+										{feature.title}
+									</h3>
+									<p className="whitespace-pre-line font-light">
+										{feature.description}
+									</p>
+								</div>
+							</div>
+						)
+					}
+				)}
+			</div>
 
-            <div className="py-16">
-                <h2 className="font-semibold text-3xl my-12 text-center">
-                    ЧОМУ ВАРТО ОБРАТИ {productInfo.product.name.toUpperCase()}?
-                </h2>
-                { productInfo.details.features.map((feature: IFeature, index: number) => {
-                    return <div key={feature.title} className="my-12">
-                        <div className="w-96 mx-auto">
-                            <img src={feature.imageSrc} alt="ProductImage"
-                                 className=" h-72 w-full object-cover"/>
-                            <h3 className="font-semibold text-xl my-3">
-                                {feature.title}
-                            </h3>
-                            <p className="font-light whitespace-pre-line">
-                                {feature.description}
-                            </p>
-                        </div>
-                    </div>
-                })}
-            </div>
+			<div className="bg-fuchsia-50 py-24">
+				<h2 className="my-12 text-center text-3xl font-semibold">
+					ХАРАКТЕРИСТИКИ
+				</h2>
+				<div className="flex">
+					<ul className="mx-auto list-disc">
+						{productInfo.details.stats.map((property: IProperty) => {
+							return property.name == '' ? (
+								<li>{property.value}</li>
+							) : (
+								<li>{property.name + ': ' + property.value}</li>
+							)
+						})}
+					</ul>
+				</div>
+			</div>
 
-            <div className="py-24 bg-fuchsia-50">
-                <h2 className="font-semibold text-3xl my-12 text-center">
-                    ХАРАКТЕРИСТИКИ
-                </h2>
-                <div className="flex">
-                    <ul className="list-disc mx-auto">
-                        { productInfo.details.stats.map((property: IProperty) => {
-                            return property.name == "" ?
-                                <li>{property.value}</li> :
-                                <li>{property.name + ": " + property.value}</li>
-                        })}
-                    </ul>
-                </div>
-            </div>
+			{/*Todo: create a image Slider*/}
 
-            {/*Todo: create a image Slider*/}
+			<div className="bg-fuchsia-50 py-10">
+				<img
+					src={productInfo.product.imageSrc}
+					alt="ProductImage"
+					className="mx-auto my-5 h-96"
+				/>
 
-            <div className="py-10 bg-fuchsia-50">
-                <img src={productInfo.product.imageSrc} alt="ProductImage"
-                     className="mx-auto h-96 my-5"/>
+				<h3 className="my-5 text-center font-bold">
+					{productInfo.product.name}
+				</h3>
+				<p className="my-5 text-center">
+					<span className="text-fuchsia-600">
+						{productInfo.product.newPrice} грн. {'  '}
+					</span>
+					<span className="text-gray-400 line-through">
+						{productInfo.product.oldPrice} грн.
+					</span>
+				</p>
+				<div className="mx-auto my-5 w-fit">
+					<FilledBtn handleClick={() => {}}>Замовити зараз</FilledBtn>
+				</div>
+			</div>
 
-                <h3 className="font-bold text-center my-5">
-                    {productInfo.product.name}
-                </h3>
-                <p className="text-center my-5">
-                        <span className="text-fuchsia-600">
-                            {productInfo.product.newPrice} грн. {"  "}
-                        </span>
-                    <span className="line-through text-gray-400">
-                            {productInfo.product.oldPrice} грн.
-                        </span>
-                </p>
-                <div className="mx-auto w-fit my-5">
-                    <FilledBtn handleClick={() => {}}>
-                        Замовити зараз
-                    </FilledBtn>
-                </div>
-            </div>
-
-            {/*Todo: create a "Recent viewed" section*/}
-
-        </div>
+			{/*Todo: create a "Recent viewed" section*/}
+		</div>
+	)
 }
 
 export default ProductDetails
