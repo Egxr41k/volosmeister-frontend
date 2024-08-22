@@ -6,7 +6,7 @@
 	"singleQuote": true,
 	"arrowParens": "avoid",
 
-	"tailwindConfig": "tailwind.config.js",
+	"tailwindConfig": "tailwind.config.ts",
 	"tailwindAttributes": ["className"],
 
 	"plugins": ["prettier-plugin-tailwindcss"]

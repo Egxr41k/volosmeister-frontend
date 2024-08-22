@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import useAdmin from '../hooks/useAdmin'
 import useCart from '../hooks/useCart'
 import useProductInfo from '../hooks/useProductInfo'
-import { checkImageExisting } from '../services/ HttpClient/ImageRequests'
+import { checkImageExisting } from '../services/ImageService'
 import { textFormatter } from '../services/StringService'
-import IProduct from '../types/IProduct'
+import IProduct from '../types/data/IProduct'
 import BorderedBtn from './btns/BorderedBtn'
 import FilledBtn from './btns/FilledBtn'
 
@@ -31,10 +31,10 @@ const ProductItem = ({ item }: { item: IProduct }) => {
 				className="h-96 w-full object-cover"
 			/>
 			<div className="h-64 p-5">
-				<h2 className="text-xl font-semibold text-black">
+				<h2 className="text-xl font-semibold">
 					{textFormatter(item.name, 30)}
 				</h2>
-				<p className="my-2 h-24 font-extralight text-black">
+				<p className="my-2 h-24 font-extralight">
 					{textFormatter(item.description, 120)}{' '}
 				</p>
 				<div className="my-2 flex justify-between">

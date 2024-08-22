@@ -1,4 +1,4 @@
-import { baseUrl } from './BaseRequests'
+import { baseUrl } from '@/api/api.interceptor'
 
 export const saveImage = (img: File) => {
 	return new Promise((resolve, reject) => {

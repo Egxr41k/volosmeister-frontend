@@ -1,28 +1,11 @@
+import { checkImageExisting } from '@/services/InageService'
+import { ProductService } from '@/services/product/product.service'
+import IFeature from '@/types/data/IFeature'
+import IProduct from '@/types/data/IProduct'
 import { useEffect, useState } from 'react'
-import {
-	createDetails,
-	deleteDetails,
-	getDetails,
-	updateDetails
-} from '../services/ HttpClient/DetailsRequests'
-import {
-	checkImageExisting,
-	deleteImage,
-	saveImage
-} from '../services/ HttpClient/ImageRequests'
-import {
-	createProduct,
-	deleteProduct,
-	getProduct,
-	updateProduct
-} from '../services/ HttpClient/ProductRequests'
-import { getIdFromUrl } from '../services/StringService'
-import IFeature from '../types/IFeature'
-import IProductInfo, { emptyInfo } from '../types/IProductInfo'
-import IProperty from '../types/IProperty'
 
 const useProductInfo = (id: number = 0) => {
-	const [productInfo, setProductInfo] = useState(emptyInfo)
+	const [product, setProduct] = useState<IProduct>()
 	const [images, setImages] = useState<(File | undefined)[]>([])
 	const [isImagesExist, setIsImagesExist] = useState([false])
 
@@ -30,50 +13,40 @@ const useProductInfo = (id: number = 0) => {
 		id != 0 &&
 			getProductInfo(id!).then(data => {
 				if (data) {
-					setProductInfo(data)
+					setProduct(data)
 					checkImagesExist(data).catch(error => console.log(error))
 				}
 			})
 	}, [])
 
-	const checkImagesExist = async (productInfo: IProductInfo) => {
-		const isProductImageExist = await checkImageExisting(
-			productInfo.product.imageSrc
-		)
+	const checkImagesExist = async (product: IProduct) => {
+		const isProductImageExist = await checkImageExisting(product.imageSrc)
 		const isFeaturesImagesExist = await Promise.all(
-			productInfo.details.features.map(
-				async (feature: IFeature, index: number) => {
-					return await checkImageExisting(feature.imageSrc)
-				}
-			)
+			product.features.map(async (feature: IFeature, index: number) => {
+				return await checkImageExisting(feature.imageSrc)
+			})
 		)
 		setIsImagesExist([isProductImageExist, ...isFeaturesImagesExist])
 	}
 
 	const getProductInfo = async (id: number) => {
-		const productResult = await getProduct(id)
-		const detailsResult = await getDetails(id)
+		const product = await ProductService.getById(id)
 
-		if (productResult && detailsResult) {
-			return {
-				product: productResult,
-				details: detailsResult
-			} as IProductInfo
-		}
+		return product.data
 	}
+
 	const updateProductInfo = async () => {
 		const infoToSent = await setImagesSrc()
 
-		if (infoToSent !== productInfo) {
-			const productResult = await updateProduct(infoToSent.product)
+		if (infoToSent !== product) {
+			const productResult = await ProductService.update(infoToSent.product)
 			const detailsResult = await updateDetails(infoToSent.details)
 
 			if (productResult && detailsResult) {
-				setProductInfo(prevState => ({
+				setProduct(prevState => ({
 					product: productResult,
 					details: detailsResult
 				}))
-				alert('продукт успішно оновлений')
 			}
 		}
 	}
@@ -85,7 +58,7 @@ const useProductInfo = (id: number = 0) => {
 			const detailsResult = await createDetails(infoToSent.details)
 
 			if (productResult && detailsResult) {
-				setProductInfo(prevState => ({
+				setProduct(prevState => ({
 					product: productResult,
 					details: detailsResult
 				}))
@@ -193,7 +166,7 @@ const useProductInfo = (id: number = 0) => {
 	}
 
 	const setDescription = (value: string) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			product: {
 				...prevState.product,
@@ -202,7 +175,7 @@ const useProductInfo = (id: number = 0) => {
 		}))
 	}
 	const setOldPrice = (value: number) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			product: {
 				...prevState.product,
@@ -212,7 +185,7 @@ const useProductInfo = (id: number = 0) => {
 		}))
 	}
 	const setNewPrice = (value: number) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			product: {
 				...prevState.product,
@@ -221,7 +194,7 @@ const useProductInfo = (id: number = 0) => {
 		}))
 	}
 	const setCount = (value: number) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			product: {
 				...prevState.product,
@@ -231,7 +204,7 @@ const useProductInfo = (id: number = 0) => {
 		}))
 	}
 	const setName = (value: string) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			product: {
 				...prevState.product,
@@ -251,7 +224,7 @@ const useProductInfo = (id: number = 0) => {
 		setFeatures(newFeatures)
 	}
 	const setFeatures = (newFeatures: IFeature[]) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			details: {
 				...prevState.details,
@@ -271,7 +244,7 @@ const useProductInfo = (id: number = 0) => {
 		setStats(newStats)
 	}
 	const setStats = (newStats: IProperty[]) => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			details: {
 				...prevState.details,
@@ -281,7 +254,7 @@ const useProductInfo = (id: number = 0) => {
 	}
 
 	const addFeature = () => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			details: {
 				...prevState.details,
@@ -300,7 +273,7 @@ const useProductInfo = (id: number = 0) => {
 		setImages([...images, undefined])
 	}
 	const deleteFeature = () => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			details: {
 				...prevState.details,
@@ -316,7 +289,7 @@ const useProductInfo = (id: number = 0) => {
 	}
 
 	const addProperty = () => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			details: {
 				...prevState.details,
@@ -333,7 +306,7 @@ const useProductInfo = (id: number = 0) => {
 		}))
 	}
 	const deleteProperty = () => {
-		setProductInfo(prevState => ({
+		setProduct(prevState => ({
 			...prevState,
 			details: {
 				...prevState.details,

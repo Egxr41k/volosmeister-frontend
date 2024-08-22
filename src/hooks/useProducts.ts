@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../services/ HttpClient/ProductRequests'
-import IProduct from '../types/IProduct'
+import { ProductService } from '../services/product/product.service'
+import IProduct from '../types/data/IProduct'
 
 const useProducts = () => {
 	const [products, setProducts] = useState([] as IProduct[])
 
 	useEffect(() => {
-		getProducts().then(result => {
-			if (result?.length != 0) setProducts(result!)
+		ProductService.getAll().then(result => {
+			if (result?.length != 0) setProducts(result.products!)
 		})
 	}, [])
 

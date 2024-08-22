@@ -1,6 +1,6 @@
 import useCart from '../hooks/useCart'
 import useProducts from '../hooks/useProducts'
-import IProduct from '../types/IProduct'
+import IProduct from '../types/data/IProduct'
 import BorderedBtn from './btns/BorderedBtn'
 import FilledBtn from './btns/FilledBtn'
 //import CartItem from "./CartItem";

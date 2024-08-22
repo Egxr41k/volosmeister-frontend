@@ -1,4 +1,4 @@
-import { IBtnProps } from '../../types/IProps'
+import IBtnProps from '../../types/IBtnProps'
 
 const FilledBtn = ({ handleClick, children }: IBtnProps) => {
 	return (

@@ -3,12 +3,10 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import BorderedBtn from '../../../components/btns/BorderedBtn'
 import FilledBtn from '../../../components/btns/FilledBtn'
-import Spinner from '../../../components/Spinner'
 import useAdmin from '../../../hooks/useAdmin'
 import useProductInfo from '../../../hooks/useProductInfo'
-import IFeature from '../../../types/IFeature'
-import { emptyInfo } from '../../../types/IProductInfo'
-import IProperty from '../../../types/IProperty'
+import IFeature from '../../../types/data/IFeature'
+import IProperty from '../../../types/data/IProperty'
 
 const ProductDetails = ({ params }: { params: { id: string } }) => {
 	const { id } = params
@@ -21,9 +19,10 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
 		console.log('ProductDetails component mount', productInfo)
 	}, [])
 
-	return productInfo == emptyInfo ? (
-		<Spinner />
-	) : (
+	// return productInfo == emptyInfo ? (
+	// 	<Spinner />
+	// ) :
+	return (
 		<div>
 			<div className="relative">
 				<img

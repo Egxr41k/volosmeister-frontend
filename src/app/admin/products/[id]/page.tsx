@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import BorderedBtn from '../../../../components/btns/BorderedBtn'
 import FilledBtn from '../../../../components/btns/FilledBtn'
 import useProductInfo from '../../../../hooks/useProductInfo'
-import IFeature from '../../../../types/IFeature'
-import IProperty from '../../../../types/IProperty'
+import IFeature from '../../../../types/data/IFeature'
+import IProperty from '../../../../types/data/IProperty'
 
 const ProductForm = () => {
 	const { id } = useParams()
