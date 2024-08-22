@@ -1,14 +1,14 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
+import AboutUs from '../app/screens/AboutUs'
+import Admin from '../app/screens/Admin'
+import Contacts from '../app/screens/Contacts'
+import Home from '../app/screens/Home'
+import ProductDetails from '../app/screens/ProductDetails'
+import ProductForm from '../app/screens/ProductForm'
+import ProductList from '../app/screens/ProductList'
+import Questions from '../app/screens/Questions'
 import useAdmin from '../hooks/useAdmin'
 import { INavLinkProps } from '../types/IProps'
-import AboutUs from './screens/AboutUs'
-import Admin from './screens/Admin'
-import Contacts from './screens/Contacts'
-import Home from './screens/Home'
-import ProductDetails from './screens/ProductDetails'
-import ProductForm from './screens/ProductForm'
-import ProductList from './screens/ProductList'
-import Questions from './screens/Questions'
 
 const path = window.location.pathname
 

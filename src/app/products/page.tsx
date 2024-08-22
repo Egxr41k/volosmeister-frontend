@@ -1,6 +1,6 @@
+import ProductItem from '../../components/ProductItem'
+import Spinner from '../../components/Spinner'
 import useProducts from '../../hooks/useProducts'
-import ProductItem from '../ProductItem'
-import Spinner from '../Spinner'
 
 const ProductList = () => {
 	const products = useProducts()

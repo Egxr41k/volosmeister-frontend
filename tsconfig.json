@@ -24,7 +24,14 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@/layout/*": ["components/layout/*"],
+      "@/ui/*": ["components/ui/*"],
+      "@/screens/*": ["components/screens/*"],
+      "@/*": ["./*"]
+    },
   },
   "include": [
     "src",

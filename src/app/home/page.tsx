@@ -1,7 +1,4 @@
-import { Link } from 'react-router-dom'
-import BorderedBtn from '../btns/BorderedBtn'
-
-const Home = () => {
+export default function Home() {
 	return (
 		<div className="relative">
 			<img
@@ -22,13 +19,8 @@ const Home = () => {
 						<br />
 						Тільки якісний продукт, перевірений часом та нами особисто!
 					</p>
-					<BorderedBtn color="white" handleClick={() => {}}>
-						<Link to="ProductList">Discover</Link>
-					</BorderedBtn>
 				</div>
 			</div>
 		</div>
 	)
 }
-
-export default Home

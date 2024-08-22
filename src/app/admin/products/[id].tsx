@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import useProductInfo from '../../hooks/useProductInfo'
-import NO_PHOTO_YET from '../../imgs/NO_PHOTO_YET.png'
-import IFeature from '../../types/IFeature'
-import IProperty from '../../types/IProperty'
-import BorderedBtn from '../btns/BorderedBtn'
-import FilledBtn from '../btns/FilledBtn'
+import BorderedBtn from '../../../components/btns/BorderedBtn'
+import FilledBtn from '../../../components/btns/FilledBtn'
+import useProductInfo from '../../../hooks/useProductInfo'
+import IFeature from '../../../types/IFeature'
+import IProperty from '../../../types/IProperty'
 
 const ProductForm = () => {
 	const { id } = useParams()
@@ -55,7 +54,7 @@ const ProductForm = () => {
 							? URL.createObjectURL(images[0]!)
 							: isImagesExist[0]
 								? productInfo.product.imageSrc
-								: NO_PHOTO_YET
+								: ''
 					}
 					alt="Selected image"
 					className="h-72 w-full object-cover"

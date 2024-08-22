@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import BorderedBtn from '../../components/btns/BorderedBtn'
+import FilledBtn from '../../components/btns/FilledBtn'
+import Spinner from '../../components/Spinner'
 import useAdmin from '../../hooks/useAdmin'
 import useProductInfo from '../../hooks/useProductInfo'
 import IFeature from '../../types/IFeature'
 import { emptyInfo } from '../../types/IProductInfo'
 import IProperty from '../../types/IProperty'
-import BorderedBtn from '../btns/BorderedBtn'
-import FilledBtn from '../btns/FilledBtn'
-import Spinner from '../Spinner'
 
 const ProductDetails = () => {
 	const { id } = useParams()
