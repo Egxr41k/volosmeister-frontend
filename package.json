@@ -1,56 +1,26 @@
 {
 	"name": "the-blooming-home-front-end",
 	"version": "0.1.0",
-	"homepage": "https://egxr41k.github.io/TheBloomingHome.UI",
 	"private": true,
-	"dependencies": {
-		"@testing-library/jest-dom": "^5.17.0",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^13.5.0",
-		"@types/jest": "^27.5.2",
-		"@types/node": "^16.18.48",
-		"@types/react": "^18.2.21",
-		"@types/react-dom": "^18.2.7",
-		"autoprefixer": "^10.4.20",
-		"next": "^14.2.5",
-		"postcss": "^8.4.41",
-		"prettier": "^3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.6",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-redux": "^8.1.2",
-		"react-router": "^6.17.0",
-		"react-router-dom": "^6.17.0",
-		"redux": "^4.2.1",
-		"redux-persist": "^6.0.0",
-		"typescript": "^4.9.5",
-		"web-vitals": "^2.1.4"
-	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "npx serve@latest ./build"
+		"start": "next start",
+		"lint": "next lint"
 	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
+	"dependencies": {
+		"react": "^18",
+		"react-dom": "^18",
+		"next": "14.2.6",
+		"prettier": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.6"
 	},
 	"devDependencies": {
-		"gh-pages": "^6.0.0",
-		"tailwindcss": "^3.3.3"
+		"typescript": "^5",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"postcss": "^8",
+		"tailwindcss": "^3.4.1"
 	}
 }

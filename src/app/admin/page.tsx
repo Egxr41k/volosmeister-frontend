@@ -1,5 +1,5 @@
-import BorderedBtn from '../components/btns/BorderedBtn'
-import useAdmin from '../hooks/useAdmin'
+import BorderedBtn from '../../components/btns/BorderedBtn'
+import useAdmin from '../../hooks/useAdmin'
 
 const Admin = () => {
 	const { isAdmin, setAdmin } = useAdmin()
