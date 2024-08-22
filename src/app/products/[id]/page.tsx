@@ -1,16 +1,17 @@
+'use client'
+import Link from 'next/link'
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import BorderedBtn from '../../components/btns/BorderedBtn'
-import FilledBtn from '../../components/btns/FilledBtn'
-import Spinner from '../../components/Spinner'
-import useAdmin from '../../hooks/useAdmin'
-import useProductInfo from '../../hooks/useProductInfo'
-import IFeature from '../../types/IFeature'
-import { emptyInfo } from '../../types/IProductInfo'
-import IProperty from '../../types/IProperty'
+import BorderedBtn from '../../../components/btns/BorderedBtn'
+import FilledBtn from '../../../components/btns/FilledBtn'
+import Spinner from '../../../components/Spinner'
+import useAdmin from '../../../hooks/useAdmin'
+import useProductInfo from '../../../hooks/useProductInfo'
+import IFeature from '../../../types/IFeature'
+import { emptyInfo } from '../../../types/IProductInfo'
+import IProperty from '../../../types/IProperty'
 
-const ProductDetails = () => {
-	const { id } = useParams()
+const ProductDetails = ({ params }: { params: { id: string } }) => {
+	const { id } = params
 	const intId = parseInt(id ?? '')
 
 	const { isAdmin } = useAdmin()
@@ -55,7 +56,7 @@ const ProductDetails = () => {
 
 						{isAdmin ? (
 							<BorderedBtn color="white" handleClick={() => {}}>
-								<Link to={`/ProductForm/${id}`}>Редагувати</Link>
+								<Link href={`/products/${id}`}>Редагувати</Link>
 							</BorderedBtn>
 						) : (
 							<BorderedBtn color="white" handleClick={() => {}}>

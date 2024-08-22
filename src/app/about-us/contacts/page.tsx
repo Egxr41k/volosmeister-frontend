@@ -1,14 +1,14 @@
+'use client'
 import InstagramIcon from '../../icons/instagram.svg'
 import MessengerIcon from '../../icons/messenger.svg'
 import TelegramIcon from '../../icons/telegram.svg'
 import ViberIcon from '../../icons/viber.svg'
-import logo from '../../imgs/logo.png'
 
 const Contacts = () => {
 	return (
 		<div className="relative">
 			<img
-				src={logo}
+				src="/logo.png"
 				alt=""
 				className="mx-auto h-[90vh] object-cover opacity-10"
 			/>

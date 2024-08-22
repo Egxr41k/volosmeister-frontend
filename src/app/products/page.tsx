@@ -1,3 +1,4 @@
+'use client'
 import ProductItem from '../../components/ProductItem'
 import Spinner from '../../components/Spinner'
 import useProducts from '../../hooks/useProducts'

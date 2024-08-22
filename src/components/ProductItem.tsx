@@ -1,9 +1,9 @@
+'use client'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import useAdmin from '../hooks/useAdmin'
 import useCart from '../hooks/useCart'
 import useProductInfo from '../hooks/useProductInfo'
-import NO_PHOTO_YET from '../imgs/NO_PHOTO_YET.png'
 import { checkImageExisting } from '../services/ HttpClient/ImageRequests'
 import { textFormatter } from '../services/StringService'
 import IProduct from '../types/IProduct'
@@ -26,15 +26,15 @@ const ProductItem = ({ item }: { item: IProduct }) => {
 	return (
 		<div key={item.id} className="mx-10 my-5 h-160 w-80 bg-fuchsia-50">
 			<img
-				src={isImageExist ? item.imageSrc : NO_PHOTO_YET}
+				src={isImageExist ? item.imageSrc : '/NO_PHOTO_YET.png'}
 				alt=""
 				className="h-96 w-full object-cover"
 			/>
 			<div className="h-64 p-5">
-				<h2 className="text-xl font-semibold">
+				<h2 className="text-xl font-semibold text-black">
 					{textFormatter(item.name, 30)}
 				</h2>
-				<p className="my-2 h-24 font-extralight">
+				<p className="my-2 h-24 font-extralight text-black">
 					{textFormatter(item.description, 120)}{' '}
 				</p>
 				<div className="my-2 flex justify-between">
@@ -67,7 +67,7 @@ const ProductItem = ({ item }: { item: IProduct }) => {
 					</FilledBtn>
 
 					<BorderedBtn handleClick={() => {}}>
-						<Link to={`/ProductDetails/${item.id}`}>Детальніше</Link>
+						<Link href={`products/${item.id}`}>Детальніше</Link>
 					</BorderedBtn>
 				</div>
 			</div>

@@ -1,5 +1,4 @@
-import CartIcon from '../icons/cart.svg'
-import MenuIcon from '../icons/menu.svg'
+'use client'
 import Cart from './Cart'
 import Drawer from './Drawer'
 import Navigation from './Navigation'
@@ -12,7 +11,7 @@ const Header = () => {
 			</div>
 
 			<div className="flex md:hidden">
-				<Drawer position="left" btnIconSrc={MenuIcon}>
+				<Drawer position="left" btnIconSrc="/icons/menu.svg">
 					<div className="mx-auto w-min">
 						<Navigation />
 					</div>
@@ -20,7 +19,7 @@ const Header = () => {
 			</div>
 
 			<div className="flex">
-				<Drawer position="right" btnIconSrc={CartIcon}>
+				<Drawer position="right" btnIconSrc="/icons/cart.svg">
 					<Cart />
 				</Drawer>
 			</div>

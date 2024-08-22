@@ -1,3 +1,4 @@
+'use client'
 import BorderedBtn from '../../components/btns/BorderedBtn'
 import useAdmin from '../../hooks/useAdmin'
 

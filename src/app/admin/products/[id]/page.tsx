@@ -1,14 +1,14 @@
+'use client'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import BorderedBtn from '../../../components/btns/BorderedBtn'
-import FilledBtn from '../../../components/btns/FilledBtn'
-import useProductInfo from '../../../hooks/useProductInfo'
-import IFeature from '../../../types/IFeature'
-import IProperty from '../../../types/IProperty'
+import BorderedBtn from '../../../../components/btns/BorderedBtn'
+import FilledBtn from '../../../../components/btns/FilledBtn'
+import useProductInfo from '../../../../hooks/useProductInfo'
+import IFeature from '../../../../types/IFeature'
+import IProperty from '../../../../types/IProperty'
 
 const ProductForm = () => {
 	const { id } = useParams()
-	const intId = parseInt(id ?? '')
 	const {
 		productInfo,
 		setProductValues,
@@ -19,9 +19,9 @@ const ProductForm = () => {
 		setStatsValue,
 		editDetails,
 		request
-	} = useProductInfo(intId)
+	} = useProductInfo(+id)
 
-	const isProductExist = useState(intId != 0)[0]
+	const isProductExist = useState(+id)[0]
 
 	useEffect(() => {
 		console.log('ProductForm component mount')

@@ -1,13 +1,13 @@
+'use client'
 import React, { useState } from 'react'
 import ArrowDown from '../../icons/arrow_down.svg'
 import ArrowUp from '../../icons/arrow_up.svg'
-import logo from '../../imgs/logo.png'
 
 const Questions = () => {
 	return (
 		<div className="relative">
 			<img
-				src={logo}
+				src="/logo.png"
 				alt=""
 				className="mx-auto h-[90vh] object-cover opacity-10"
 			/>

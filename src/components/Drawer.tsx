@@ -1,5 +1,5 @@
+'use client'
 import React, { useState } from 'react'
-import CloseIcon from '../icons/close.svg'
 
 interface IDrawerProps {
 	position: 'left' | 'right'
@@ -40,7 +40,7 @@ const Drawer = ({ position, children, btnIconSrc }: IDrawerProps) => {
 					className={closeBtnPos[position]}
 					onClick={() => setIsOpen(false)}
 				>
-					<img src={CloseIcon} className="h-8 w-8" alt="" />
+					<img src="/icons/close.svg" className="h-8 w-8" alt="" />
 				</button>
 				{children}
 			</div>
