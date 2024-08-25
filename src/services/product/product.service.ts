@@ -1,5 +1,5 @@
 import { axiosClassic, instance } from '@/api/api.interceptor'
-import IProduct, { TypePaginationProducts } from '../../types/data/IProduct'
+import IProduct from '../../types/data/IProduct'
 import {
 	PRODUCTS,
 	TypeProductData,
@@ -8,7 +8,7 @@ import {
 
 export const ProductService = {
 	async getAll(queryData = {} as TypeProductDataFilters) {
-		const { data } = await axiosClassic<TypePaginationProducts>({
+		const { data } = await axiosClassic<IProduct[]>({
 			url: PRODUCTS,
 			method: 'GET',
 			params: queryData
