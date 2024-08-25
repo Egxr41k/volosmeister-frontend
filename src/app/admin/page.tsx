@@ -1,15 +1,12 @@
 'use client'
 import BorderedBtn from '../../components/btns/BorderedBtn'
-import useAdmin from '../../hooks/useAdmin'
 
 const Admin = () => {
-	const { isAdmin, setAdmin } = useAdmin()
-
 	return (
 		<div className="flex h-[90vh] items-center justify-center">
 			<div className="text-center">
-				<BorderedBtn handleClick={setAdmin}>Enable admin mode</BorderedBtn>
-				{isAdmin && (
+				<BorderedBtn handleClick={() => {}}>Enable admin mode</BorderedBtn>
+				{true && (
 					<div className="mt-5 flex">
 						<p className="mr-1.5">
 							ви тепер адміністратор, це означає що ви можете
