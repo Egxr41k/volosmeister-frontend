@@ -1,59 +1,78 @@
-'use client'
 import BorderedBtn from '@/components/btns/BorderedBtn'
 import FilledBtn from '@/components/btns/FilledBtn'
-import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
-import IFeature from '@/types/data/IFeature'
 import IProduct from '@/types/data/IProduct'
-import IProperty from '@/types/data/IProperty'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 
 const ProductForm = ({ params }: { params: { id: string } }) => {
 	const { id } = params
 
-	const emptyProduct = {} as IProduct
-	const [product, setProduct] = useState(emptyProduct)
+	const { register, handleSubmit, control, setValue, reset } =
+		useForm<IProduct>({
+			defaultValues: {
+				features: [],
+				properies: []
+			}
+		})
+
+	const {
+		fields: featureFields,
+		append: appendFeature,
+		remove: removeFeature
+	} = useFieldArray({
+		control,
+		name: 'features'
+	})
+
+	const {
+		fields: propertyFields,
+		append: appendProperty,
+		remove: removeProperty
+	} = useFieldArray({
+		control,
+		name: 'properies'
+	})
 
 	useEffect(() => {
 		ProductService.getById(id).then(result => {
-			setProduct(result.data)
+			reset(result.data)
 		})
-	}, [])
+	}, [id, reset])
 
-	const formSubmit = async () => {
-		await ProductService.update(id, product)
+	const onSubmit = async (data: IProduct) => {
+		await ProductService.update(id, data)
 	}
 
-	return product == emptyProduct ? (
-		<Spinner />
-	) : (
+	return (
 		<div className="flex h-[90vh] items-center justify-center">
 			<div className="h-160 w-80 overflow-y-auto bg-fuchsia-50">
 				<form
 					className="h-64 p-5"
 					encType="multipart/form-data"
 					method="post"
-					onSubmit={event => event.preventDefault()}
+					onSubmit={handleSubmit(onSubmit)}
 				>
 					<h2 className="text-xl font-semibold">Оновити товар</h2>
 
-					<img
-						src={product.imageSrc ? product.imageSrc : '/NO_PHOTO_YET.png'}
-						alt="Selected image"
-						className="h-72 w-full object-cover"
-					/>
-
-					<input
-						className="my-2 w-48"
-						placeholder="Посилання на зображення"
-						type="text"
-						onChange={event => {
-							setProduct(prevState => ({
-								...prevState,
-								imageSrc: event.target.value
-							}))
-						}}
-						value={product.imageSrc}
+					<Controller
+						name="imageSrc"
+						control={control}
+						render={({ field }) => (
+							<>
+								<img
+									src={field.value || '/NO_PHOTO_YET.png'}
+									alt="Selected image"
+									className="h-72 w-full object-cover"
+								/>
+								<input
+									className="my-2 w-48"
+									placeholder="Посилання на зображення"
+									type="text"
+									{...field}
+								/>
+							</>
+						)}
 					/>
 
 					<div className="flex flex-wrap justify-between">
@@ -61,254 +80,142 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 							className="my-2 w-48"
 							placeholder="назва"
 							type="text"
-							onChange={event => {
-								setProduct(prevState => ({
-									...prevState,
-									name: event.target.value
-								}))
-							}}
-							value={product.name}
+							{...register('name')}
 						/>
 						<input
 							className="my-2 w-16"
 							placeholder="кількість"
 							type="number"
-							onChange={event => {
-								setProduct(product => ({
-									...product,
-									count: parseInt(event.target.value)
-								}))
-							}}
-							value={product.count}
+							{...register('count', { valueAsNumber: true })}
 						/>
-
 						<input
 							className="my-2 w-32"
 							placeholder="стара ціна"
 							type="number"
-							onChange={event => {
-								setProduct(prevState => ({
-									...prevState,
-									oldPrice: parseInt(event.target.value)
-								}))
-							}}
-							value={product.oldPrice}
+							{...register('oldPrice', { valueAsNumber: true })}
 						/>
-
 						<input
 							className="my-2 w-32"
 							placeholder="нова ціна"
 							type="number"
-							onChange={event => {
-								setProduct(prevState => ({
-									...prevState,
-									newPrice: parseInt(event.target.value)
-								}))
-							}}
-							value={product.newPrice}
+							{...register('newPrice', { valueAsNumber: true })}
 						/>
 					</div>
+
 					<textarea
 						className="my-2 h-20 w-full"
 						placeholder="опис"
-						onChange={event => {
-							setProduct(prevState => ({
-								...prevState,
-								description: event.target.value
-							}))
-						}}
-						value={product.description}
+						{...register('description')}
 					/>
+
 					<div className="my-2">
 						<div className="flex justify-between">
 							<h2 className="my-auto text-xl font-semibold">
-								{product.features.length != 0
-									? 'Оновити cекції'
-									: 'Додати cекції'}
+								{featureFields.length ? 'Оновити cекції' : 'Додати cекції'}
 							</h2>
 							<BorderedBtn
-								handleClick={() => {
-									setProduct(prevState => ({
-										...prevState,
-										features: [
-											...prevState.features,
-											{
-												description: '',
-												id: 0,
-												imageSrc: '',
-												productId: product.id,
-												title: ''
-											}
-										]
-									}))
-								}}
+								handleClick={() =>
+									appendFeature({
+										id: 0,
+										title: '',
+										imageSrc: '',
+										description: '',
+										productId: parseInt(id)
+									})
+								}
 							>
 								+
 							</BorderedBtn>
 						</div>
 
-						{product.features.map((feature: IFeature, i: number) => {
-							return (
-								<div key={i} className="my-2">
-									<div className="my-2 flex justify-between">
-										<h4 className="font-medium">Ceкція {i + 1}</h4>
-										<BorderedBtn
-											handleClick={() => {
-												setProduct(prevState => ({
-													...prevState,
-													features: [
-														...prevState.features.filter(
-															(_, i) => i !== prevState.features.length - 1
-														)
-													]
-												}))
-											}}
-										>
-											-
-										</BorderedBtn>
-									</div>
-									<img
-										src={
-											product.features[i].imageSrc
-												? product.features[i].imageSrc
-												: '/NO_PHOTO_YET.png'
-										}
-										alt="Selected image"
-										className="h-72 w-full object-cover"
-									/>
-									<input
-										className="my-2 w-48"
-										placeholder="послання на зображення"
-										type="text"
-										onChange={event => {
-											const newFeatures = [...product.features]
-											newFeatures[i].imageSrc = event.target.value
-
-											setProduct(prevState => ({
-												...prevState,
-												features: newFeatures
-											}))
-										}}
-										value={feature.imageSrc}
-									/>
-									<input
-										className="my-2 w-48"
-										placeholder="назва"
-										type="text"
-										onChange={event => {
-											const newFeatures = [...product.features]
-											newFeatures[i].title = event.target.value
-
-											setProduct(prevState => ({
-												...prevState,
-												features: newFeatures
-											}))
-										}}
-										value={feature.title}
-									/>
-									<textarea
-										className="my-2 h-20 w-full"
-										placeholder="опис"
-										onChange={event => {
-											const newFeatures = [...product.features]
-											newFeatures[i].description = event.target.value
-
-											setProduct(prevState => ({
-												...prevState,
-												features: newFeatures
-											}))
-										}}
-										value={feature.description}
-									/>
+						{featureFields.map((feature, index) => (
+							<div key={feature.id} className="my-2">
+								<div className="my-2 flex justify-between">
+									<h4 className="font-medium">Ceкція {index + 1}</h4>
+									<BorderedBtn handleClick={() => removeFeature(index)}>
+										-
+									</BorderedBtn>
 								</div>
-							)
-						})}
+								<Controller
+									name={`features.${index}.imageSrc`}
+									control={control}
+									render={({ field }) => (
+										<>
+											<img
+												src={field.value || '/NO_PHOTO_YET.png'}
+												alt="Selected image"
+												className="h-72 w-full object-cover"
+											/>
+											<input
+												className="my-2 w-48"
+												placeholder="послання на зображення"
+												type="text"
+												{...field}
+											/>
+										</>
+									)}
+								/>
+								<input
+									className="my-2 w-48"
+									placeholder="назва"
+									{...register(`features.${index}.title`)}
+								/>
+								<textarea
+									className="my-2 h-20 w-full"
+									placeholder="опис"
+									{...register(`features.${index}.description`)}
+								/>
+							</div>
+						))}
 					</div>
+
 					<div className="my-2">
 						<div className="flex justify-between">
 							<h2 className="my-auto text-lg font-semibold">
-								{product.properies.length != 0
+								{propertyFields.length
 									? 'Оновити характеристики'
 									: 'Додати характеристики'}
 							</h2>
 							<BorderedBtn
-								handleClick={() => {
-									setProduct(prevState => ({
-										...prevState,
-										properies: [
-											...prevState.properies,
-											{
-												id: 0,
-												productId: product.id,
-												name: '',
-												value: ''
-											}
-										]
-									}))
-								}}
+								handleClick={() =>
+									appendProperty({
+										id: 0,
+										name: '',
+										value: '',
+										productId: parseInt(id)
+									})
+								}
 							>
 								+
 							</BorderedBtn>
 						</div>
 
-						{product.properies.map((property: IProperty, i: number) => {
-							return (
-								<div key={i} className="my-2">
-									<div className="my-2 flex justify-between">
-										<h4 className="font-medium">Характеристика {i + 1}</h4>
-										<BorderedBtn
-											handleClick={() =>
-												setProduct(prevState => ({
-													...prevState,
-													stats: [
-														...prevState.properies.filter(
-															(_, i) => i !== prevState.properies.length - 1
-														)
-													]
-												}))
-											}
-										>
-											-
-										</BorderedBtn>
-									</div>
-
-									<input
-										className="my-2 w-32"
-										placeholder="назва"
-										type="text"
-										onChange={event => {
-											const newStats = [...product.properies]
-											newStats[i].name = event.target.value
-
-											setProduct(prevState => ({
-												...prevState,
-												properies: newStats
-											}))
-										}}
-										value={property.name}
-									/>
-									<input
-										className="my-2 w-32"
-										placeholder="значення"
-										type="text"
-										onChange={event => {
-											const newStats = [...product.properies]
-											newStats[i].value = event.target.value
-											setProduct(prevState => ({
-												...prevState,
-												properies: newStats
-											}))
-										}}
-										value={property.value}
-									/>
+						{propertyFields.map((property, index) => (
+							<div key={property.id} className="my-2">
+								<div className="my-2 flex justify-between">
+									<h4 className="font-medium">Характеристика {index + 1}</h4>
+									<BorderedBtn handleClick={() => removeProperty(index)}>
+										-
+									</BorderedBtn>
 								</div>
-							)
-						})}
+								<input
+									className="my-2 w-32"
+									placeholder="назва"
+									{...register(`properies.${index}.name`)}
+								/>
+								<input
+									className="my-2 w-32"
+									placeholder="значення"
+									{...register(`properies.${index}.value`)}
+								/>
+							</div>
+						))}
 					</div>
-					<FilledBtn handleClick={formSubmit}>'Зберегти'</FilledBtn>
+					<FilledBtn handleClick={handleSubmit(onSubmit)}>'Зберегти'</FilledBtn>
 				</form>
 			</div>
 		</div>
 	)
 }
+
 export default ProductForm
