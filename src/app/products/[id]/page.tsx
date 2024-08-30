@@ -17,6 +17,9 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
 		ProductService.getById(id).then(result => {
 			setProduct(result.data)
 		})
+		ProductService.getById(id).then(result => {
+			setProduct(result.data)
+		})
 	}, [])
 
 	return product == emptyProduct ? (

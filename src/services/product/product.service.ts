@@ -1,5 +1,5 @@
 import { axiosClassic, instance } from '@/api/api.interceptor'
-import IProduct from '@/types/data/IProduct'
+import IProduct from '../../types/data/IProduct'
 import { PRODUCTS, TypeProductDataFilters } from './product.types'
 
 export const ProductService = {
