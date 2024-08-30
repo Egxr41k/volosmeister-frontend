@@ -2,7 +2,6 @@
 import BorderedBtn from '@/components/btns/BorderedBtn'
 import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
-import { ImageService } from '@/services/image.service'
 import { ProductService } from '@/services/product/product.service'
 import IFeature from '@/types/data/IFeature'
 import IProduct from '@/types/data/IProduct'
@@ -14,88 +13,15 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 
 	const emptyProduct = {} as IProduct
 	const [product, setProduct] = useState(emptyProduct)
-	const [images, setImages] = useState<(File | undefined)[]>([])
-	const [isImagesExist, setIsImagesExist] = useState([false])
 
 	useEffect(() => {
 		ProductService.getById(id).then(result => {
 			setProduct(result.data)
-			checkImagesExist(result.data).catch(error => console.log(error))
 		})
 	}, [])
 
 	const formSubmit = async () => {
-		const [productImagesSrc, ...featureImagesSrc] = await initImagesSrc()
-
-		setProduct(product => ({
-			...product,
-			imageSrc: productImagesSrc,
-			features: setImagesSrcToFeature(featureImagesSrc)
-		}))
-
 		await ProductService.update(id, product)
-	}
-
-	const checkImagesExist = async (product: IProduct) => {
-		const isProductImageExist = await ImageService.checkImageExisting(
-			product.imageSrc
-		)
-		const isFeaturesImagesExist = await Promise.all(
-			product.features.map(async (feature: IFeature, index: number) => {
-				return await ImageService.checkImageExisting(feature.imageSrc)
-			})
-		)
-		setIsImagesExist([isProductImageExist, ...isFeaturesImagesExist])
-	}
-
-	const setImagesSrcToFeature = (featureImagesSrc: string[]) => {
-		return product.features.map((feature: IFeature, index: number) => {
-			if (index < featureImagesSrc.length) {
-				return { ...feature, imageSrc: featureImagesSrc[index] }
-			} else return feature
-		})
-	}
-
-	const initImagesSrc = async () => {
-		const [productImageFile, ...featureImageFiles] = images
-
-		let productImagesSrc = await initProductImageSrc(productImageFile)
-
-		let featureImagesSrc = await initFeatureImageSrc(featureImageFiles)
-
-		setImages([])
-		return [productImagesSrc, ...featureImagesSrc]
-	}
-
-	const initProductImageSrc = async (productImgFile: File | undefined) => {
-		if (productImgFile) {
-			return (await ImageService.saveImage(productImgFile)) as string
-		} else {
-			return product.imageSrc
-		}
-	}
-
-	const initFeatureImageSrc = async (
-		featureImageFiles: (File | undefined)[]
-	) => {
-		return await Promise.all(
-			product.features.map(async (feature: IFeature, index: number) => {
-				if (featureImageFiles[index]) {
-					return (await ImageService.saveImage(
-						featureImageFiles[index]!
-					)) as string
-				} else {
-					return feature.imageSrc
-				}
-			})
-		)
-	}
-
-	const setImageToPos = (image: File | undefined, i: number) => {
-		const newImages = [...images]
-		if (image) newImages[i] = image
-		else return
-		setImages(newImages)
 	}
 
 	return product == emptyProduct ? (
@@ -112,24 +38,9 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 					<h2 className="text-xl font-semibold">Оновити товар</h2>
 
 					<img
-						src={
-							images[0]
-								? URL.createObjectURL(images[0])
-								: isImagesExist[0]
-									? product.imageSrc
-									: '/NO_PHOTO_YET.png'
-						}
+						src={product.imageSrc ? product.imageSrc : '/NO_PHOTO_YET.png'}
 						alt="Selected image"
 						className="h-72 w-full object-cover"
-					/>
-					<input
-						type="file"
-						id="fileInput"
-						accept=".jpg"
-						className="my-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:duration-300 file:ease-in-out hover:file:bg-fuchsia-600"
-						onChange={event => {
-							setImageToPos(event.target.files?.[0], 0)
-						}}
 					/>
 
 					<input
@@ -230,7 +141,6 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 											}
 										]
 									}))
-									setImages([...images, undefined])
 								}}
 							>
 								+
@@ -252,10 +162,6 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 														)
 													]
 												}))
-
-												setImages(
-													images.filter((_, i) => i !== images.length - 1)
-												)
 											}}
 										>
 											-
@@ -263,23 +169,12 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 									</div>
 									<img
 										src={
-											images[i + 1]
-												? URL.createObjectURL(images[i + 1]!)
-												: isImagesExist[0]
-													? product.imageSrc
-													: '/NO_PHOTO_YET.png'
+											product.features[i].imageSrc
+												? product.features[i].imageSrc
+												: '/NO_PHOTO_YET.png'
 										}
 										alt="Selected image"
 										className="h-72 w-full object-cover"
-									/>
-									<input
-										type="file"
-										id="fileInput"
-										accept=".jpg"
-										className="my-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:duration-300 file:ease-in-out hover:file:bg-fuchsia-600"
-										onChange={event => {
-											setImageToPos(event.target.files?.[0], i + 1)
-										}}
 									/>
 									<input
 										className="my-2 w-48"
