@@ -1,10 +1,6 @@
 import { axiosClassic, instance } from '@/api/api.interceptor'
 import IProduct from '../../types/data/IProduct'
-import {
-	PRODUCTS,
-	TypeProductData,
-	TypeProductDataFilters
-} from './product.types'
+import { PRODUCTS, TypeProductDataFilters } from './product.types'
 
 export const ProductService = {
 	async getAll(queryData = {} as TypeProductDataFilters) {
@@ -45,7 +41,7 @@ export const ProductService = {
 		})
 	},
 
-	async update(productId: string | number, data: TypeProductData) {
+	async update(productId: string | number, data: IProduct) {
 		return instance<IProduct>({
 			url: `${PRODUCTS}/update/${productId}`,
 			method: 'PUT',

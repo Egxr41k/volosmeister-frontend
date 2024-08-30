@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import useCart from '../hooks/useCart'
-import { checkImageExisting } from '../services/ImageService'
+import { ImageService } from '../services/image.service'
 import IProduct from '../types/data/IProduct'
 import BorderedBtn from './btns/BorderedBtn'
 import FilledBtn from './btns/FilledBtn'
@@ -14,7 +14,9 @@ const ProductItem = ({ item }: { item: IProduct }) => {
 
 	useEffect(() => {
 		console.log('ProductItem component mount')
-		checkImageExisting(item.imageSrc).then(result => setIsImageExist(result))
+		ImageService.checkImageExisting(item.imageSrc).then(result =>
+			setIsImageExist(result)
+		)
 	}, [])
 
 	return (
