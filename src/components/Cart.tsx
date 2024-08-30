@@ -1,13 +1,19 @@
-import useCart from '../hooks/useCart'
-import useProducts from '../hooks/useProducts'
-import IProduct from '../types/data/IProduct'
+import useCart from '@/hooks/useCart'
+import { ProductService } from '@/services/product/product.service'
+import IProduct from '@/types/data/IProduct'
+import { useEffect, useState } from 'react'
 import BorderedBtn from './btns/BorderedBtn'
 import FilledBtn from './btns/FilledBtn'
-//import CartItem from "./CartItem";
 
 const Cart = () => {
 	const { cartItems, removeFromCart, increaseCartQuantity } = useCart()
-	const products = useProducts()
+	const [products, setProducts] = useState([] as IProduct[])
+
+	useEffect(() => {
+		ProductService.getAll().then(result => {
+			if (result?.length != 0) setProducts(result)
+		})
+	}, [])
 
 	const removeAll = () => {
 		cartItems.forEach(item => {

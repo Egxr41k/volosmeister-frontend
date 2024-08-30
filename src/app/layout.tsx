@@ -1,6 +1,5 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { AdminProvider } from '@/context/AdminContext'
 import { CartProvider } from '@/context/CartContext'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -22,11 +21,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<CartProvider>
-					<AdminProvider>
-						<Header />
-						<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
-						<Footer />
-					</AdminProvider>
+					<Header />
+					<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
+					<Footer />
 				</CartProvider>
 			</body>
 		</html>

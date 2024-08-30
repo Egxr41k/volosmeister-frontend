@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getContentType } from './api.helper'
 
-export const baseUrl = process.env.SERVER_URL
+export const baseUrl = 'https://thebloominghome.azurewebsites.net/api'
 
 const axiosOptions = {
 	baseURL: baseUrl,
