@@ -1,12 +1,12 @@
-import React from "react";
-
 const Spinner = () => {
-    return <div className="flex items-center justify-center h-[90vh]">
-        <div className="relative">
-            <div className="w-20 h-20 border-fuchsia-300 border-2 rounded-full"></div>
-            <div className="w-20 h-20 border-fuchsia-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
-        </div>
-    </div>
+	return (
+		<div className="flex h-[90vh] items-center justify-center">
+			<div className="relative">
+				<div className="h-20 w-20 rounded-full border-2 border-fuchsia-300"></div>
+				<div className="absolute left-0 top-0 h-20 w-20 animate-spin rounded-full border-t-2 border-fuchsia-500"></div>
+			</div>
+		</div>
+	)
 }
 
-export default Spinner;
+export default Spinner
