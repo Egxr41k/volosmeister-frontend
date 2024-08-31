@@ -1,8 +1,10 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { CartProvider } from '@/context/CartContext'
+import { persistor, store } from '@/store/store'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,11 +22,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<CartProvider>
-					<Header />
-					<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
-					<Footer />
-				</CartProvider>
+				<Provider store={store}>
+					<PersistGate loading={null} persistor={persistor}>
+						<Header />
+						<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
+						<Footer />
+					</PersistGate>
+				</Provider>
 			</body>
 		</html>
 	)

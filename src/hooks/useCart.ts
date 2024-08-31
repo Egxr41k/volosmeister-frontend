@@ -1,6 +1,9 @@
-import { useContext } from 'react'
-import CartContext from '../context/CartContext'
+import { useTypedSelector } from './useTypedSelector'
 
-const useCart = () => useContext(CartContext)
+export const useCart = () => {
+	const items = useTypedSelector(state => state.cart.items)
 
-export default useCart
+	const total = items.reduce((acc, item) => acc * item.price * item.quantity, 0)
+
+	return { items, total }
+}
