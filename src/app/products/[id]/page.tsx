@@ -6,25 +6,28 @@ import { ProductService } from '@/services/product/product.service'
 import IFeature from '@/types/data/IFeature'
 import IProduct from '@/types/data/IProduct'
 import IProperty from '@/types/data/IProperty'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 const ProductDetails = ({ params }: { params: { id: string } }) => {
 	const { id } = params
 	const emptyProduct = {} as IProduct
-	const [product, setProduct] = useState(emptyProduct)
 
-	useEffect(() => {
-		ProductService.getById(id).then(result => {
-			setProduct(result.data)
-		})
-		ProductService.getById(id).then(result => {
-			setProduct(result.data)
-		})
-	}, [])
+	const {
+		isLoading,
+		error,
+		data: product,
+		isSuccess
+	} = useQuery({
+		queryKey: ['products', id],
+		queryFn: () => ProductService.getById(id),
+		select: data => data.data
+	})
 
-	return product == emptyProduct ? (
-		<Spinner />
-	) : (
+	if (isLoading) return <Spinner />
+
+	if (error || !product) return <p>Error loading product</p>
+
+	return (
 		<div>
 			<div className="relative">
 				<img

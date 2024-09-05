@@ -3,24 +3,26 @@ import ProductItem from '@/components/ProductItem'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import IProduct from '@/types/data/IProduct'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 const ProductList = () => {
-	const [products, setProducts] = useState([] as IProduct[])
+	const {
+		isLoading,
+		error,
+		data: products,
+		isSuccess
+	} = useQuery<IProduct[]>({
+		queryKey: ['products'],
+		queryFn: () => ProductService.getAll()
+	})
 
-	useEffect(() => {
-		ProductService.getAll().then(result => {
-			if (result?.length != 0) setProducts(result)
-		})
-	}, [])
+	if (isLoading) return <Spinner />
 
-	return !products || products.length == 0 ? (
-		<Spinner />
-	) : (
+	if (error) return <p>Error loading products</p>
+
+	return (
 		<div className="flex flex-wrap items-center justify-center">
-			{products.map(item => (
-				<ProductItem item={item} key={item.name} />
-			))}
+			{products?.map(item => <ProductItem item={item} key={item.name} />)}
 		</div>
 	)
 }

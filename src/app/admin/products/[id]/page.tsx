@@ -1,12 +1,15 @@
 import BorderedBtn from '@/components/btns/BorderedBtn'
 import FilledBtn from '@/components/btns/FilledBtn'
+import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import IProduct from '@/types/data/IProduct'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 
 const ProductForm = ({ params }: { params: { id: string } }) => {
 	const { id } = params
+	const queryClient = useQueryClient()
 
 	const { register, handleSubmit, control, setValue, reset } =
 		useForm<IProduct>({
@@ -34,15 +37,36 @@ const ProductForm = ({ params }: { params: { id: string } }) => {
 		name: 'properies'
 	})
 
-	useEffect(() => {
-		ProductService.getById(id).then(result => {
-			reset(result.data)
-		})
-	}, [id, reset])
+	const {
+		isLoading,
+		error,
+		data: product,
+		isSuccess
+	} = useQuery({
+		queryKey: ['product'],
+		queryFn: () => ProductService.getById(id),
+		select: data => data.data
+	})
 
-	const onSubmit = async (data: IProduct) => {
-		await ProductService.update(id, data)
+	useEffect(() => {
+		if (isSuccess) reset(product)
+	}, [isSuccess])
+
+	const updateMutation = useMutation({
+		mutationFn: (updatedProduct: IProduct) =>
+			ProductService.update(id, updatedProduct),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['products', id] })
+		}
+	})
+
+	const onSubmit = (product: IProduct) => {
+		updateMutation.mutate(product)
 	}
+
+	if (isLoading) return <Spinner />
+
+	if (error || !product) return <p>Error loading product</p>
 
 	return (
 		<div className="flex h-[90vh] items-center justify-center">
