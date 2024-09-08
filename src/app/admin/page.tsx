@@ -1,3 +1,6 @@
-const Admin = () => {}
+import Admin from "@/components/screens/Admin";
 
-export default Admin
+export default function AdminPage() {
+	return <Admin/>
+}
+

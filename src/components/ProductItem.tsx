@@ -1,3 +1,4 @@
+'use client'
 import { useCart } from '@/hooks/useCart'
 import IProduct from '@/types/data/IProduct'
 import Link from 'next/link'
