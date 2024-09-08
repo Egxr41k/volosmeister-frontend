@@ -1,12 +1,11 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { persistor, store } from '@/store/store'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import QueryProvider from '@/providers/QueryProvider'
+import StoreProvider from '@/providers/StoreProvider'
+import { QueryClient } from '@tanstack/react-query'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -32,16 +31,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<QueryClientProvider client={queryClient}>
-					<Provider store={store}>
-						<PersistGate loading={null} persistor={persistor}>
-							<Header />
-							<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
-							<Footer />
-							<ReactQueryDevtools initialIsOpen={false} />
-						</PersistGate>
-					</Provider>
-				</QueryClientProvider>
+				<QueryProvider>
+					<StoreProvider>
+						<Header />
+						<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
+						<Footer />
+					</StoreProvider>
+				</QueryProvider>
 			</body>
 		</html>
 	)
