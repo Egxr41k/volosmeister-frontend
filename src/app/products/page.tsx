@@ -1,4 +1,3 @@
-'use client'
 import ProductItem from '@/components/ProductItem'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'

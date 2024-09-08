@@ -1,4 +1,3 @@
-'use client'
 import BorderedBtn from '@/components/btns/BorderedBtn'
 import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'

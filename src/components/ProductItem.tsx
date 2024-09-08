@@ -1,5 +1,4 @@
-'use client'
-import useCart from '@/hooks/useCart'
+import { useCart } from '@/hooks/useCart'
 import IProduct from '@/types/data/IProduct'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -8,7 +7,7 @@ import BorderedBtn from './btns/BorderedBtn'
 import FilledBtn from './btns/FilledBtn'
 
 const ProductItem = ({ item }: { item: IProduct }) => {
-	const { increaseCartQuantity } = useCart()
+	const { items } = useCart()
 
 	const [isImageExist, setIsImageExist] = useState(false)
 
@@ -43,11 +42,7 @@ const ProductItem = ({ item }: { item: IProduct }) => {
 					)}
 				</div>
 				<div className="flex justify-between align-bottom">
-					<FilledBtn handleClick={() => increaseCartQuantity(item.id)}>
-						В кошик
-					</FilledBtn>
 					<FilledBtn handleClick={() => {}}>В кошик</FilledBtn>
-
 					<BorderedBtn handleClick={() => {}}>
 						<Link href={`products/${item.id}`}>Детальніше</Link>
 					</BorderedBtn>

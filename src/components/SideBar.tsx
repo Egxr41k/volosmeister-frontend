@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react'
 
-interface IDrawerProps {
+interface ISideBarProps {
 	position: 'left' | 'right'
 	children: React.ReactNode
 	btnIconSrc: string
 }
 
-const Drawer = ({ position, children, btnIconSrc }: IDrawerProps) => {
+const SideBar = ({ position, children, btnIconSrc }: ISideBarProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const drawerPos = {
@@ -33,7 +33,7 @@ const Drawer = ({ position, children, btnIconSrc }: IDrawerProps) => {
 				className={[
 					drawerPos[position],
 					hider[position],
-					'z-10 flex h-screen w-60 items-center justify-center bg-fuchsia-600 shadow-md duration-300'
+					'z-10 flex h-screen w-60 items-center justify-center shadow-md duration-300'
 				].join(' ')}
 			>
 				<button
@@ -48,4 +48,4 @@ const Drawer = ({ position, children, btnIconSrc }: IDrawerProps) => {
 	)
 }
 
-export default Drawer
+export default SideBar

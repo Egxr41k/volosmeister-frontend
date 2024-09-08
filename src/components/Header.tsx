@@ -1,6 +1,6 @@
-'use client'
+import Link from 'next/link'
 import Cart from './Cart'
-import Drawer from './Drawer'
+import SideBar from './SideBar'
 import Navigation from './Navigation'
 
 const Header = () => {
@@ -11,17 +11,17 @@ const Header = () => {
 			</div>
 
 			<div className="flex md:hidden">
-				<Drawer position="left" btnIconSrc="/icons/menu.svg">
+				<SideBar position="left" btnIconSrc="/icons/menu.svg">
 					<div className="mx-auto w-min">
 						<Navigation />
 					</div>
-				</Drawer>
+				</SideBar>
 			</div>
 
 			<div className="flex">
-				<Drawer position="right" btnIconSrc="/icons/cart.svg">
+				<SideBar position="right" btnIconSrc="/icons/cart.svg">
 					<Cart />
-				</Drawer>
+				</SideBar>
 			</div>
 		</header>
 	)
