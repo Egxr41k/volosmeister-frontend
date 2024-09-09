@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query'
 const ProductDetails = ({ id }: { id: string }) => {
 	const emptyProduct = {} as IProduct
 
+	console.log(id)
 	const {
 		isLoading,
 		error,
@@ -27,7 +28,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 	if (error || !product) return <p>Error loading product</p>
 
 	return (
-		<div>
+		<div className="min-h-[90vh] bg-fuchsia-200 text-black">
 			<div className="relative">
 				<img
 					src="https://static.tildacdn.com/tild3461-3062-4839-a133-623333343030/kak-vibrat-mebel-dly.jpg"

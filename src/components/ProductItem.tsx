@@ -27,8 +27,10 @@ const ProductItem = ({ item }: { item: IProduct }) => {
 				className="h-96 w-full object-cover"
 			/>
 			<div className="h-64 p-5">
-				<h2 className="text-xl font-semibold">{item.name}</h2>
-				<p className="my-2 h-24 font-extralight">{item.description} </p>
+				<h2 className="text-xl font-semibold text-black">{item.name}</h2>
+				<p className="my-2 h-24 font-extralight text-black">
+					{item.description}{' '}
+				</p>
 				<div className="my-2 flex justify-between">
 					<div className="flex gap-1">
 						<p className="w-fit text-fuchsia-600">{item.newPrice} грн.</p>

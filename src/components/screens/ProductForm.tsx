@@ -69,8 +69,8 @@ const ProductForm = ({ id }: { id: string }) => {
 	if (error || !product) return <p>Error loading product</p>
 
 	return (
-		<div className="flex h-[90vh] items-center justify-center">
-			<div className="h-160 w-80 overflow-y-auto bg-fuchsia-50">
+		<div className="flex h-[90vh] items-center justify-center bg-fuchsia-200 text-black">
+			<div className="h-[85vh] w-80 overflow-y-auto bg-fuchsia-50">
 				<form
 					className="h-64 p-5"
 					encType="multipart/form-data"

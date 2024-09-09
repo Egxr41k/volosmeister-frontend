@@ -21,7 +21,7 @@ const ProductList = () => {
 	if (error) return <p>Error loading products</p>
 
 	return (
-		<div className="flex flex-wrap items-center justify-center">
+		<div className="flex min-h-[90vh] flex-wrap items-center justify-center bg-fuchsia-200">
 			{products?.map(item => <ProductItem item={item} key={item.name} />)}
 		</div>
 	)

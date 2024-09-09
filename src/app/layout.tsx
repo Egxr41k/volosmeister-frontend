@@ -34,7 +34,7 @@ export default function RootLayout({
 				<QueryProvider>
 					<StoreProvider>
 						<Header />
-						<main className="min-h-[90vh] bg-fuchsia-200">{children}</main>
+						{children}
 						<Footer />
 					</StoreProvider>
 				</QueryProvider>

@@ -1,7 +1,9 @@
 import ProductDetails from '@/components/screens/ProductDetails'
-import { useRouter } from 'next/router'
 
-export default function ProductDetailsPage() {
-	const { query } = useRouter()
-	return <ProductDetails id={query.id?.toString() ?? ''} />
+export default function ProductDetailsPage({
+	params
+}: {
+	params: { id: string }
+}) {
+	return <ProductDetails id={params.id} />
 }
