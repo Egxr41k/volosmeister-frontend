@@ -7,6 +7,7 @@ import IProduct from '@/types/data/IProduct'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import ServerImage from '../ServerImage'
 
 const ProductForm = ({ id }: { id: string }) => {
 	const queryClient = useQueryClient()
@@ -84,11 +85,9 @@ const ProductForm = ({ id }: { id: string }) => {
 						control={control}
 						render={({ field }) => (
 							<>
-								<img
-									src={field.value || '/NO_PHOTO_YET.png'}
-									alt="Selected image"
-									className="h-72 w-full object-cover"
-								/>
+								<div className="h-72">
+									<ServerImage imageSrc={field.value} />
+								</div>
 								<input
 									className="my-2 w-48"
 									placeholder="Посилання на зображення"
@@ -165,11 +164,10 @@ const ProductForm = ({ id }: { id: string }) => {
 									control={control}
 									render={({ field }) => (
 										<>
-											<img
-												src={field.value || '/NO_PHOTO_YET.png'}
-												alt="Selected image"
-												className="h-72 w-full object-cover"
-											/>
+											<div className="h-72">
+												<ServerImage imageSrc={field.value} />
+											</div>
+
 											<input
 												className="my-2 w-48"
 												placeholder="послання на зображення"

@@ -1,5 +1,5 @@
 'use client'
-import ProductItem from '@/components/ProductItem'
+import ProductCard from '@/components/ProductCard'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import IProduct from '@/types/data/IProduct'
@@ -24,7 +24,9 @@ const ProductList = () => {
 			{isLoading && <Spinner />}
 			{error && <p>Error loading products</p>}
 			<div className="flex flex-wrap justify-start">
-				{products?.map(item => <ProductItem item={item} key={item.id} />)}
+				{products?.map(product => (
+					<ProductCard product={product} key={product.id} />
+				))}
 			</div>
 		</div>
 	)
