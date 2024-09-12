@@ -8,22 +8,20 @@ const Cart = () => {
 	const { items, total } = useCart()
 
 	return (
-		<div className="w-48 bg-fuchsia-50 text-center">
+		<div className="w-48 text-center text-black">
 			<div>
 				{items.length ? (
 					items.map(item => <CartItem item={item} key={item.id} />)
 				) : (
-					<div className="font-light">Cart is empty!</div>
+					<div className="">Cart is empty!</div>
 				)}
 			</div>
 			<div>
-				<div className="h-72 overflow-y-auto">{}</div>
-				<p className="text-lg font-semibold">Загалом: {total} грн.</p>
+				<p className="">Загалом: {total} грн.</p>
 				<div className="my-2">
 					<BorderedBtn handleClick={() => {}}>Замовити все</BorderedBtn>
 				</div>
 			</div>
-			)
 		</div>
 	)
 }

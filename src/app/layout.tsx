@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 
 import QueryProvider from '@/providers/QueryProvider'
@@ -35,7 +34,7 @@ export default function RootLayout({
 					<StoreProvider>
 						<Header />
 						{children}
-						<Footer />
+						{/* <Footer /> */}
 					</StoreProvider>
 				</QueryProvider>
 			</body>

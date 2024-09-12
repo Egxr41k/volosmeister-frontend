@@ -15,8 +15,8 @@ const SideBar = ({ position, children, btnIconSrc }: ISideBarProps) => {
 		left: 'fixed top-0 left-0'
 	}
 	const closeBtnPos = {
-		right: 'absolute top-6 left-6',
-		left: 'absolute top-6 right-6'
+		right: 'absolute top-3 left-3',
+		left: 'absolute top-3 right-3'
 	}
 
 	const hider = {
@@ -33,7 +33,7 @@ const SideBar = ({ position, children, btnIconSrc }: ISideBarProps) => {
 				className={[
 					drawerPos[position],
 					hider[position],
-					'z-10 flex h-screen w-60 items-center justify-center shadow-md duration-300'
+					'z-10 flex h-screen w-60 items-center justify-center bg-white shadow-md duration-300'
 				].join(' ')}
 			>
 				<button
