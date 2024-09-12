@@ -70,8 +70,8 @@ const ProductForm = ({ id }: { id: string }) => {
 	if (error || !product) return <p>Error loading product</p>
 
 	return (
-		<div className="flex h-[90vh] items-center justify-center bg-fuchsia-200 text-black">
-			<div className="h-[85vh] w-80 overflow-y-auto bg-fuchsia-50">
+		<div className="flex h-[90vh] items-center justify-center bg-white text-black">
+			<div className="h-[85vh] w-80 overflow-y-auto rounded-lg border border-solid border-gray-300 bg-white">
 				<form
 					className="h-64 p-5"
 					encType="multipart/form-data"
@@ -89,7 +89,7 @@ const ProductForm = ({ id }: { id: string }) => {
 									<ServerImage imageSrc={field.value} />
 								</div>
 								<input
-									className="my-2 w-48"
+									className="my-2 w-48 rounded-lg border border-solid border-gray-300"
 									placeholder="Посилання на зображення"
 									type="text"
 									{...field}
@@ -100,25 +100,25 @@ const ProductForm = ({ id }: { id: string }) => {
 
 					<div className="flex flex-wrap justify-between">
 						<input
-							className="my-2 w-48"
+							className="my-2 w-48 rounded-lg border border-solid border-gray-300"
 							placeholder="назва"
 							type="text"
 							{...register('name')}
 						/>
 						<input
-							className="my-2 w-16"
+							className="my-2 w-16 rounded-lg border border-solid border-gray-300"
 							placeholder="кількість"
 							type="number"
 							{...register('count', { valueAsNumber: true })}
 						/>
 						<input
-							className="my-2 w-32"
+							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 							placeholder="стара ціна"
 							type="number"
 							{...register('oldPrice', { valueAsNumber: true })}
 						/>
 						<input
-							className="my-2 w-32"
+							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 							placeholder="нова ціна"
 							type="number"
 							{...register('newPrice', { valueAsNumber: true })}
@@ -126,7 +126,7 @@ const ProductForm = ({ id }: { id: string }) => {
 					</div>
 
 					<textarea
-						className="my-2 h-20 w-full"
+						className="my-2 h-20 w-full rounded-lg border border-solid border-gray-300"
 						placeholder="опис"
 						{...register('description')}
 					/>
@@ -169,7 +169,7 @@ const ProductForm = ({ id }: { id: string }) => {
 											</div>
 
 											<input
-												className="my-2 w-48"
+												className="my-2 w-48 rounded-lg border border-solid border-gray-300"
 												placeholder="послання на зображення"
 												type="text"
 												{...field}
@@ -178,7 +178,7 @@ const ProductForm = ({ id }: { id: string }) => {
 									)}
 								/>
 								<input
-									className="my-2 w-48"
+									className="my-2 w-48 rounded-lg border border-solid border-gray-300"
 									placeholder="назва"
 									{...register(`features.${index}.title`)}
 								/>
@@ -221,19 +221,19 @@ const ProductForm = ({ id }: { id: string }) => {
 									</BorderedBtn>
 								</div>
 								<input
-									className="my-2 w-32"
+									className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 									placeholder="назва"
 									{...register(`properies.${index}.name`)}
 								/>
 								<input
-									className="my-2 w-32"
+									className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 									placeholder="значення"
 									{...register(`properies.${index}.value`)}
 								/>
 							</div>
 						))}
 					</div>
-					<FilledBtn handleClick={handleSubmit(onSubmit)}>'Зберегти'</FilledBtn>
+					<FilledBtn handleClick={handleSubmit(onSubmit)}>Зберегти</FilledBtn>
 				</form>
 			</div>
 		</div>
