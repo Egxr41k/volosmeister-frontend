@@ -94,8 +94,8 @@ const ProductDetails = ({ id }: { id: string }) => {
 				</h2>
 				<div className="flex">
 					<ul className="mx-auto list-disc">
-						{product.properies &&
-							product.properies.map((property: IProperty) => {
+						{product.properties &&
+							product.properties.map((property: IProperty) => {
 								return property.name == '' ? (
 									<li>{property.value}</li>
 								) : (

@@ -1,4 +1,4 @@
-export const PRODUCTS = '/Product'
+export const PRODUCTS = '/products'
 
 export type TypeProductData = {
 	name: string

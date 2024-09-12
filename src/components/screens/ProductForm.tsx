@@ -16,7 +16,7 @@ const ProductForm = ({ id }: { id: string }) => {
 		useForm<IProduct>({
 			defaultValues: {
 				features: [],
-				properies: []
+				properties: []
 			}
 		})
 
@@ -35,7 +35,7 @@ const ProductForm = ({ id }: { id: string }) => {
 		remove: removeProperty
 	} = useFieldArray({
 		control,
-		name: 'properies'
+		name: 'properties'
 	})
 
 	const {
@@ -223,12 +223,12 @@ const ProductForm = ({ id }: { id: string }) => {
 								<input
 									className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 									placeholder="назва"
-									{...register(`properies.${index}.name`)}
+									{...register(`properties.${index}.name`)}
 								/>
 								<input
 									className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 									placeholder="значення"
-									{...register(`properies.${index}.value`)}
+									{...register(`properties.${index}.value`)}
 								/>
 							</div>
 						))}

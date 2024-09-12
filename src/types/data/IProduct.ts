@@ -13,7 +13,7 @@ interface IProduct {
 	oldPrice: number
 	isSale: boolean
 	features: IFeature[]
-	properies: IProperty[]
+	properties: IProperty[]
 }
 
 // export interface IProductDetails {

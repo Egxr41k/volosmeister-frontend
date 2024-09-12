@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getContentType } from './api.helper'
 
-export const baseUrl = 'https://thebloominghome.azurewebsites.net/api'
+export const baseUrl = 'http://localhost:4200/api'
 
 const axiosOptions = {
 	baseURL: baseUrl,

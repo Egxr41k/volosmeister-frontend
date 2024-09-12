@@ -13,7 +13,7 @@ const ProductList = () => {
 		isSuccess
 	} = useQuery<IProduct[]>({
 		queryKey: ['products'],
-		queryFn: () => ProductService.getMocks()
+		queryFn: () => ProductService.getAll()
 	})
 
 	return (

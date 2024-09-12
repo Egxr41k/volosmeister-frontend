@@ -8,7 +8,6 @@ const ServerImage = ({ imageSrc }: { imageSrc: string }) => {
 		ImageService.checkImageExisting(imageSrc).then(result =>
 			setIsImageValid(result)
 		)
-		console.log(isImageValid)
 	}, [isImageValid])
 
 	if (!imageSrc)
