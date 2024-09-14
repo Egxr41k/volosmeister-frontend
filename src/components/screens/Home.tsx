@@ -1,4 +1,4 @@
-export default function Home() {
+const Home = () => {
 	return (
 		<div className="h-[90vh]">
 			<div className="flex h-full w-full items-center bg-white md:pl-48">
@@ -26,3 +26,5 @@ export default function Home() {
 		</div>
 	)
 }
+
+export default Home

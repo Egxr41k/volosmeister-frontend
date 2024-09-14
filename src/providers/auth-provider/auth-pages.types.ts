@@ -1,9 +1,14 @@
-import { NextPage } from "next";
+import { NextPage } from 'next'
+
+export enum Role {
+	User = 'user',
+	Admin = 'admin'
+}
 
 export type TypeRoles = {
-    isOnlyUser?: boolean
-};
+	isOnlyFor?: Role
+}
 
-export type NextPageAuth<P = {}> = NextPage<P> & TypeRoles;
+export type NextPageAuth<P = {}> = NextPage<P> & TypeRoles
 
-export type TypeComponentAuthFields = { Component: TypeRoles };
+export type TypeComponentAuthFields = { Component: TypeRoles }

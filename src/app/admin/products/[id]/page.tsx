@@ -1,9 +1,10 @@
 import ProductForm from '@/components/screens/ProductForm'
+import { NextPageAuth, Role } from '@/providers/auth-provider/auth-pages.types'
 
-export default function ProductFormPage({
-	params
-}: {
-	params: { id: string }
-}) {
-	return <ProductForm id={params.id} />
+const ProductFormPage: NextPageAuth<{ params: { id: string } }> = params => {
+	return <ProductForm id={params.params.id} />
 }
+
+ProductFormPage.isOnlyFor = Role.Admin
+
+export default ProductFormPage
