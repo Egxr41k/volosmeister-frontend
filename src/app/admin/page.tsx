@@ -1,10 +1,8 @@
 import Admin from '@/components/screens/Admin'
-import { NextPageAuth, Role } from '@/providers/auth-provider/auth-pages.types'
+import { NextPage } from 'next'
 
-const AdminPage: NextPageAuth = () => {
+const AdminPage: NextPage = () => {
 	return <Admin />
 }
-
-AdminPage.isOnlyFor = Role.Admin
 
 export default AdminPage
