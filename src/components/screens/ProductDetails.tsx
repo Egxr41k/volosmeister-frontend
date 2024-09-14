@@ -4,14 +4,10 @@ import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import IFeature from '@/types/data/IFeature'
-import IProduct from '@/types/data/IProduct'
 import IProperty from '@/types/data/IProperty'
 import { useQuery } from '@tanstack/react-query'
 
 const ProductDetails = ({ id }: { id: string }) => {
-	const emptyProduct = {} as IProduct
-
-	console.log(id)
 	const {
 		isLoading,
 		error,

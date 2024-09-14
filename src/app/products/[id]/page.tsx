@@ -1,9 +1,8 @@
 import ProductDetails from '@/components/screens/ProductDetails'
+import { NextPage } from 'next'
 
-export default function ProductDetailsPage({
-	params
-}: {
-	params: { id: string }
-}) {
-	return <ProductDetails id={params.id} />
+const ProductDetailsPage: NextPage<{ params: { id: string } }> = params => {
+	return <ProductDetails id={params.params.id} />
 }
+
+export default ProductDetailsPage

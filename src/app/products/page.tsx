@@ -1,6 +1,8 @@
-import ProductList from "@/components/screens/ProductList";
+import Catalog from '@/components/screens/Catalog'
+import { NextPage } from 'next'
 
-export default function ProductListPage() {
-	return <ProductList/>
+const CatalogPage: NextPage = () => {
+	return <Catalog />
 }
 
+export default CatalogPage

@@ -5,7 +5,7 @@ import { ProductService } from '@/services/product/product.service'
 import IProduct from '@/types/data/IProduct'
 import { useQuery } from '@tanstack/react-query'
 
-const ProductList = () => {
+const Catalog = () => {
 	const {
 		isLoading,
 		error,
@@ -32,4 +32,4 @@ const ProductList = () => {
 	)
 }
 
-export default ProductList
+export default Catalog
