@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
-
+import { TypeComponentAuthFields } from '@/providers/auth-provider/auth-pages.types'
+import AuthProvider from '@/providers/auth-provider/AuthProvider'
 import QueryProvider from '@/providers/QueryProvider'
 import StoreProvider from '@/providers/StoreProvider'
 import { QueryClient } from '@tanstack/react-query'
@@ -25,16 +26,20 @@ const queryClient = new QueryClient({
 export default function RootLayout({
 	children
 }: Readonly<{
-	children: React.ReactNode
+	children: React.ReactNode & TypeComponentAuthFields
 }>) {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
 				<QueryProvider>
 					<StoreProvider>
-						<Header />
-						{children}
-						{/* <Footer /> */}
+						<AuthProvider
+							Component={{ isOnlyUser: children.Component.isOnlyUser }}
+						>
+							<Header />
+							{children}
+							{/* <Footer /> */}
+						</AuthProvider>
 					</StoreProvider>
 				</QueryProvider>
 			</body>
