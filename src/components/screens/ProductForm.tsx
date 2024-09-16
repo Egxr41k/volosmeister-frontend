@@ -3,7 +3,7 @@ import BorderedBtn from '@/components/btns/BorderedBtn'
 import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
-import IProduct from '@/types/data/IProduct'
+import { IProduct } from '@/types/product.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
@@ -55,7 +55,10 @@ const ProductForm = ({ id }: { id: string }) => {
 
 	const updateMutation = useMutation({
 		mutationFn: (updatedProduct: IProduct) =>
-			ProductService.update(id, updatedProduct),
+			ProductService.update(id, {
+				categoryId: updatedProduct.category.id,
+				...updatedProduct
+			}),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['products', id] })
 		}
@@ -81,7 +84,7 @@ const ProductForm = ({ id }: { id: string }) => {
 					<h2 className="text-xl font-semibold">Оновити товар</h2>
 
 					<Controller
-						name="imageSrc"
+						name="image"
 						control={control}
 						render={({ field }) => (
 							<>
@@ -105,23 +108,17 @@ const ProductForm = ({ id }: { id: string }) => {
 							type="text"
 							{...register('name')}
 						/>
-						<input
-							className="my-2 w-16 rounded-lg border border-solid border-gray-300"
-							placeholder="кількість"
-							type="number"
-							{...register('count', { valueAsNumber: true })}
-						/>
-						<input
+						{/* <input
 							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 							placeholder="стара ціна"
 							type="number"
 							{...register('oldPrice', { valueAsNumber: true })}
-						/>
+						/> */}
 						<input
 							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 							placeholder="нова ціна"
 							type="number"
-							{...register('newPrice', { valueAsNumber: true })}
+							{...register('price', { valueAsNumber: true })}
 						/>
 					</div>
 
@@ -141,7 +138,7 @@ const ProductForm = ({ id }: { id: string }) => {
 									appendFeature({
 										id: 0,
 										title: '',
-										imageSrc: '',
+										image: '',
 										description: '',
 										productId: parseInt(id)
 									})
@@ -160,7 +157,7 @@ const ProductForm = ({ id }: { id: string }) => {
 									</BorderedBtn>
 								</div>
 								<Controller
-									name={`features.${index}.imageSrc`}
+									name={`features.${index}.image`}
 									control={control}
 									render={({ field }) => (
 										<>

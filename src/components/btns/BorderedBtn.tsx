@@ -1,4 +1,4 @@
-import IBtnProps from '@/types/IBtnProps'
+import IBtnProps from '@/components/btns/IBtnProps'
 interface IBorderedBtnProps extends IBtnProps {
 	color?: string
 }

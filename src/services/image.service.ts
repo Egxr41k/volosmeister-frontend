@@ -1,4 +1,4 @@
-import { baseUrl } from '@/api/api.interceptor'
+import { baseUrl } from '@/api/api.intercepter'
 
 export const ImageService = {
 	async saveImage(img: File) {

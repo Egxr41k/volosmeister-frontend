@@ -1,4 +1,4 @@
-import { axiosClassic } from '@/api/api.interceptor'
+import { axiosClassic } from '@/api/api.intercepter'
 import { IAuthResponse, IEmailPassword } from '@/store/user/user.interface'
 import Cookies from 'js-cookie'
 import { saveToStorage } from './auth.helper'
