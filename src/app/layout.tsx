@@ -34,7 +34,9 @@ export default function RootLayout({
 				<QueryProvider>
 					<StoreProvider>
 						<AuthProvider
-							Component={{ isOnlyUser: children.Component.isOnlyUser }}
+							Component={{
+								isOnlyUser: children.Component?.isOnlyUser ?? undefined
+							}}
 						>
 							<Header />
 							{children}
