@@ -2,7 +2,6 @@
 import ProductCard from '@/components/ProductCard'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
-import IProduct from '@/types/data/IProduct'
 import { useQuery } from '@tanstack/react-query'
 
 const Catalog = () => {
@@ -11,7 +10,7 @@ const Catalog = () => {
 		error,
 		data: products,
 		isSuccess
-	} = useQuery<IProduct[]>({
+	} = useQuery({
 		queryKey: ['products'],
 		queryFn: () => ProductService.getAll()
 	})
@@ -24,7 +23,7 @@ const Catalog = () => {
 			{isLoading && <Spinner />}
 			{error && <p>Error loading products</p>}
 			<div className="flex flex-wrap justify-start">
-				{products?.map(product => (
+				{products?.products.map(product => (
 					<ProductCard product={product} key={product.id} />
 				))}
 			</div>

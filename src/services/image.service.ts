@@ -1,4 +1,4 @@
-import { baseUrl } from '@/api/api.interceptor'
+const baseUrl = process.env.SERVER_URL
 
 export const ImageService = {
 	async saveImage(img: File) {

@@ -1,10 +1,14 @@
-import { axiosClassic, instance } from '@/api/api.interceptor'
-import IProduct from '../../types/data/IProduct'
-import { PRODUCTS, TypeProductDataFilters } from './product.types'
+import { axiosClassic, instance } from '@/api/api.intercepter'
+import { IProduct, TypePaginationProducts } from '@/types/product.interface'
+import {
+	PRODUCTS,
+	TypeProductData,
+	TypeProductDataFilters
+} from './product.types'
 
 export const ProductService = {
 	async getAll(queryData = {} as TypeProductDataFilters) {
-		const { data } = await axiosClassic<IProduct[]>({
+		const { data } = await axiosClassic<TypePaginationProducts>({
 			url: PRODUCTS,
 			method: 'GET',
 			params: queryData
@@ -41,7 +45,7 @@ export const ProductService = {
 		})
 	},
 
-	async update(productId: string | number, data: IProduct) {
+	async update(productId: string | number, data: TypeProductData) {
 		return instance<IProduct>({
 			url: `${PRODUCTS}/update/${productId}`,
 			method: 'PUT',

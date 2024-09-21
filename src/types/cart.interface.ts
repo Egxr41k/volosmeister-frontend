@@ -1,4 +1,4 @@
-import IProduct from './data/IProduct'
+import { IProduct } from './product.interface'
 
 export interface ICartItem {
 	id: number

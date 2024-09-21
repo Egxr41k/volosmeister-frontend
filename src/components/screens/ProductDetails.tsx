@@ -3,8 +3,8 @@ import BorderedBtn from '@/components/btns/BorderedBtn'
 import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
-import IFeature from '@/types/data/IFeature'
-import IProperty from '@/types/data/IProperty'
+import { IFeature } from '@/types/feature.interface'
+import { IProperty } from '@/types/property.interface'
 import { useQuery } from '@tanstack/react-query'
 
 const ProductDetails = ({ id }: { id: string }) => {
@@ -34,7 +34,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 				<div className="absolute left-1/2 top-1/2 flex h-full w-full -translate-x-2/4 -translate-y-2/4 items-center justify-center bg-fuchsia-950 bg-opacity-80">
 					<div className="text-center text-white">
 						<img
-							src={product.imageSrc}
+							src={product.image}
 							alt="ProductImage"
 							className="mx-auto h-72"
 						/>
@@ -42,15 +42,13 @@ const ProductDetails = ({ id }: { id: string }) => {
 						<p className="my-6 whitespace-pre-line font-light">
 							{product.description}
 						</p>
-						{product.isSale && (
-							<h2 className="my-6 text-4xl">
-								АКЦІЙНА ЦІНА
-								<br />
-								<span className="font-semibold text-red-500">
-									{' ' + product.newPrice + ' ГРН!'}
-								</span>
-							</h2>
-						)}
+						<h2 className="my-6 text-4xl">
+							АКЦІЙНА ЦІНА
+							<br />
+							<span className="font-semibold text-red-500">
+								{' ' + product.price + ' ГРН!'}
+							</span>
+						</h2>
 						<BorderedBtn color="white" handleClick={() => {}}>
 							Замовити
 						</BorderedBtn>
@@ -68,7 +66,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 							<div key={feature.title} className="my-12">
 								<div className="mx-auto w-96">
 									<img
-										src={feature.imageSrc}
+										src={feature.image}
 										alt="ProductImage"
 										className="h-72 w-full object-cover"
 									/>
@@ -106,7 +104,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 
 			<div className="bg-fuchsia-50 py-10">
 				<img
-					src={product.imageSrc}
+					src={product.image}
 					alt="ProductImage"
 					className="mx-auto my-5 h-96"
 				/>
@@ -114,11 +112,11 @@ const ProductDetails = ({ id }: { id: string }) => {
 				<h3 className="my-5 text-center font-bold">{product.name}</h3>
 				<p className="my-5 text-center">
 					<span className="text-fuchsia-600">
-						{product.newPrice} грн. {'  '}
+						{product.price} грн. {'  '}
 					</span>
-					<span className="text-gray-400 line-through">
+					{/* <span className="text-gray-400 line-through">
 						{product.oldPrice} грн.
-					</span>
+					</span> */}
 				</p>
 				<div className="mx-auto my-5 w-fit">
 					<FilledBtn handleClick={() => {}}>Замовити зараз</FilledBtn>
