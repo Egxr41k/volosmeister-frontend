@@ -58,7 +58,6 @@ const ProductForm = ({ id }: { id: string }) => {
 					onSubmit={handleSubmit(onSubmit)}
 				>
 					<h2 className="text-xl font-semibold">Оновити товар</h2>
-
 					<div className="flex flex-wrap justify-between">
 						<input
 							className="my-2 w-48 rounded-lg border border-solid border-gray-300"
@@ -66,9 +65,15 @@ const ProductForm = ({ id }: { id: string }) => {
 							type="text"
 							{...register('name')}
 						/>
-						<input
+						{/* <input
 							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 							placeholder="price"
+							type="number"
+							{...register('oldPrice', { valueAsNumber: true })}
+						/> */}
+						<input
+							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
+							placeholder="нова ціна"
 							type="number"
 							{...register('price', { valueAsNumber: true })}
 						/>

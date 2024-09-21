@@ -3,11 +3,8 @@ import { AuthService } from '@/services/auth/auth.service'
 import axios from 'axios'
 import { errorCatch, getContentType } from './api.helper'
 
-export const baseUrl = 'http://localhost:4200/api'
-
 const axiosOptions = {
-	// baseURL: process.env.SERVER_URL,
-	baseURL: baseUrl,
+	baseURL: process.env.SERVER_URL,
 	headers: getContentType()
 }
 

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -8,6 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -16,17 +18,26 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/layout/*": [
+        "components/layout/*"
+      ],
+      "@/ui/*": [
+        "components/ui/*"
+      ],
+      "@/screens/*": [
+        "components/screens/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    "forceConsistentCasingInFileNames": true
+    ]
   },
   "include": [
     "next-env.d.ts",
