@@ -1,13 +1,13 @@
-'use client'
 import React, { useState } from 'react'
+import { IconType } from 'react-icons/lib/iconBase'
 
-interface ISideBarProps {
+interface ISidebarProps {
 	position: 'left' | 'right'
 	children: React.ReactNode
-	btnIconSrc: string
+	Icon: IconType
 }
 
-const SideBar = ({ position, children, btnIconSrc }: ISideBarProps) => {
+const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const drawerPos = {
@@ -27,7 +27,7 @@ const SideBar = ({ position, children, btnIconSrc }: ISideBarProps) => {
 	return (
 		<div className="z-10 flex">
 			<button className="my-auto h-8 w-8" onClick={() => setIsOpen(true)}>
-				<img src={btnIconSrc} alt="" />
+				<Icon color="black" size={24} />
 			</button>
 			<div
 				className={[
@@ -48,4 +48,4 @@ const SideBar = ({ position, children, btnIconSrc }: ISideBarProps) => {
 	)
 }
 
-export default SideBar
+export default Sidebar

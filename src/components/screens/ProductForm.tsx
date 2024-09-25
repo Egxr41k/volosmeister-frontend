@@ -1,6 +1,5 @@
-'use client'
-import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
+import FilledBtn from '@/components/btns/FilledBtn'
 import { ProductService } from '@/services/product/product.service'
 import { IProduct } from '@/types/product.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -12,12 +11,7 @@ const ProductForm = ({ id }: { id: string }) => {
 
 	const { register, handleSubmit, reset } = useForm<IProduct>()
 
-	const {
-		isLoading,
-		error,
-		data: product,
-		isSuccess
-	} = useQuery({
+	const { isLoading, isError, data, isSuccess } = useQuery({
 		queryKey: ['product'],
 		queryFn: () => ProductService.getById(id),
 		select: data => data.data
@@ -26,7 +20,7 @@ const ProductForm = ({ id }: { id: string }) => {
 	//1. categories = CategoryService.getAll() + createNew
 
 	useEffect(() => {
-		if (isSuccess) reset(product)
+		if (isSuccess) reset(data)
 	}, [isSuccess])
 
 	const updateMutation = useMutation({
@@ -46,7 +40,7 @@ const ProductForm = ({ id }: { id: string }) => {
 
 	if (isLoading) return <Spinner />
 
-	if (error || !product) return <p>Error loading product</p>
+	if (isError) return <p>Error loading product</p>
 
 	return (
 		<div className="flex h-[90vh] items-center justify-center bg-white text-black">
