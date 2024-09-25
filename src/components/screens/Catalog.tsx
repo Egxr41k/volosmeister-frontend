@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 const Catalog = () => {
 	const {
 		isLoading,
-		error,
+		isError,
 		data: products,
 		isSuccess
 	} = useQuery({
@@ -21,7 +21,7 @@ const Catalog = () => {
 				<div className="h-[768px] w-60"></div>
 			</div>
 			{isLoading && <Spinner />}
-			{error && <p>Error loading products</p>}
+			{isError && <p>Error loading products</p>}
 			<div className="flex flex-wrap justify-start">
 				{products?.products.map(product => (
 					<ProductCard product={product} key={product.id} />
