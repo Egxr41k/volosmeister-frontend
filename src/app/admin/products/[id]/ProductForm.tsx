@@ -1,3 +1,4 @@
+'use client'
 import Spinner from '@/components/Spinner'
 import FilledBtn from '@/components/btns/FilledBtn'
 import { ProductService } from '@/services/product/product.service'

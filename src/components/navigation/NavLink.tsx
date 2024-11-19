@@ -1,5 +1,6 @@
+'use client'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
 
 interface INavLinkProps {
@@ -8,13 +9,13 @@ interface INavLinkProps {
 }
 
 const NavLink = ({ href, children }: INavLinkProps) => {
-	const { asPath } = useRouter()
+	const pathname = usePathname()
 
 	return (
 		<Link
 			className={[
 				'my-3 block px-10 text-lg transition-colors duration-200 hover:text-violet-500',
-				asPath === href ? 'text-violet-500' : 'text-black'
+				pathname === href ? 'text-violet-500' : 'text-black'
 			].join(' ')}
 			href={href}
 		>

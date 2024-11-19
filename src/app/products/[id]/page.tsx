@@ -1,4 +1,4 @@
-import ProductDetails from '@/components/screens/ProductDetails'
+import ProductDetails from '@/app/products/[id]/ProductDetails'
 import { NextPage } from 'next'
 
 const ProductDetailsPage: NextPage<{ params: { id: string } }> = params => {

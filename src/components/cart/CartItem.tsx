@@ -1,3 +1,4 @@
+'use client'
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { ICartItem } from '@/types/cart.interface'

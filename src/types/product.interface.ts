@@ -1,4 +1,7 @@
 import { ICategory } from './category.interface'
+import { IFeature } from './feature.interface'
+import { IProperty } from './property.interface'
+import { IReview } from './review.interface'
 
 export interface IProduct {
 	id: number
@@ -9,7 +12,9 @@ export interface IProduct {
 	createAt: Date
 	slug: string
 	category: ICategory
-	// reviews: IReview[];
+	reviews: IReview[]
+	features: IFeature[]
+	properties: IProperty[]
 }
 
 export interface IProductDetails {

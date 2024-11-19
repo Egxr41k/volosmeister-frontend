@@ -1,3 +1,4 @@
+'use client'
 import { useCart } from '@/hooks/useCart'
 import { HiShoppingBag } from 'react-icons/hi2'
 import BorderedBtn from '../btns/BorderedBtn'

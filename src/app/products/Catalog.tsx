@@ -1,12 +1,14 @@
+'use client'
 import ProductCard from '@/components/ProductCard'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import { useQuery } from '@tanstack/react-query'
 
 const Catalog = () => {
-	const { isLoading, isError, data } = useQuery(['products'], () =>
-		ProductService.getAll()
-	)
+	const { isLoading, isError, data } = useQuery({
+		queryKey: ['products'],
+		queryFn: () => ProductService.getAll()
+	})
 
 	return (
 		<div className="flex min-h-[90vh] items-center bg-white md:px-24">

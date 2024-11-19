@@ -1,5 +1,5 @@
-import Catalog from '@/components/screens/Catalog'
 import { NextPage } from 'next'
+import Catalog from './Catalog'
 
 const CatalogPage: NextPage = () => {
 	return <Catalog />

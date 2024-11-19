@@ -1,5 +1,5 @@
-import Admin from '@/components/screens/Admin'
 import { NextPage } from 'next'
+import Admin from './Admin'
 
 const AdminPage: NextPage = () => {
 	return <Admin />
