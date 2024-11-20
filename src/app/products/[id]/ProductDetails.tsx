@@ -33,7 +33,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 				<div className="absolute left-1/2 top-1/2 flex h-full w-full -translate-x-2/4 -translate-y-2/4 items-center justify-center bg-fuchsia-950 bg-opacity-80">
 					<div className="text-center text-white">
 						<img
-							src={product.image}
+							src={product.images[0]}
 							alt="ProductImage"
 							className="mx-auto h-72"
 						/>
@@ -103,7 +103,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 
 			<div className="bg-fuchsia-50 py-10">
 				<img
-					src={product.image}
+					src={product.images[0]}
 					alt="ProductImage"
 					className="mx-auto my-5 h-96"
 				/>
@@ -113,9 +113,6 @@ const ProductDetails = ({ id }: { id: string }) => {
 					<span className="text-fuchsia-600">
 						{product.price} грн. {'  '}
 					</span>
-					{/* <span className="text-gray-400 line-through">
-						{product.oldPrice} грн.
-					</span> */}
 				</p>
 				<div className="mx-auto my-5 w-fit">
 					<FilledBtn handleClick={() => {}}>Замовити зараз</FilledBtn>

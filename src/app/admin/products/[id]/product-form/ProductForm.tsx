@@ -1,16 +1,23 @@
 'use client'
-import Spinner from '@/components/Spinner'
 import FilledBtn from '@/components/btns/FilledBtn'
+import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
-import { IProduct } from '@/types/product.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import FeaturesFields from './FeatureFields'
+import { IFormProduct } from './form.types'
+import PropertyFields from './PropertyFields'
 
 const ProductForm = ({ id }: { id: string }) => {
 	const queryClient = useQueryClient()
 
-	const { register, handleSubmit, reset } = useForm<IProduct>()
+	const { register, handleSubmit, control, reset } = useForm<IFormProduct>({
+		defaultValues: {
+			features: [],
+			properties: []
+		}
+	})
 
 	const { isLoading, isError, data, isSuccess } = useQuery({
 		queryKey: ['product'],
@@ -18,16 +25,13 @@ const ProductForm = ({ id }: { id: string }) => {
 		select: data => data.data
 	})
 
-	//1. categories = CategoryService.getAll() + createNew
-
 	useEffect(() => {
 		if (isSuccess) reset(data)
 	}, [isSuccess])
 
 	const updateMutation = useMutation({
-		mutationFn: (updatedProduct: IProduct) =>
+		mutationFn: (updatedProduct: IFormProduct) =>
 			ProductService.update(id, {
-				categoryId: updatedProduct.category.id,
 				...updatedProduct
 			}),
 		onSuccess: () => {
@@ -35,7 +39,7 @@ const ProductForm = ({ id }: { id: string }) => {
 		}
 	})
 
-	const onSubmit = (product: IProduct) => {
+	const onSubmit = (product: IFormProduct) => {
 		updateMutation.mutate(product)
 	}
 
@@ -46,12 +50,7 @@ const ProductForm = ({ id }: { id: string }) => {
 	return (
 		<div className="flex h-[90vh] items-center justify-center bg-white text-black">
 			<div className="h-[85vh] w-80 overflow-y-auto rounded-lg border border-solid border-gray-300 bg-white">
-				<form
-					className="h-64 p-5"
-					encType="multipart/form-data"
-					method="post"
-					onSubmit={handleSubmit(onSubmit)}
-				>
+				<form className="h-64 p-5" encType="multipart/form-data" method="post">
 					<h2 className="text-xl font-semibold">Оновити товар</h2>
 					<div className="flex flex-wrap justify-between">
 						<input
@@ -60,12 +59,6 @@ const ProductForm = ({ id }: { id: string }) => {
 							type="text"
 							{...register('name')}
 						/>
-						{/* <input
-							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
-							placeholder="price"
-							type="number"
-							{...register('oldPrice', { valueAsNumber: true })}
-						/> */}
 						<input
 							className="my-2 w-32 rounded-lg border border-solid border-gray-300"
 							placeholder="нова ціна"
@@ -79,6 +72,10 @@ const ProductForm = ({ id }: { id: string }) => {
 						placeholder="опис"
 						{...register('description')}
 					/>
+
+					<FeaturesFields register={register} control={control} />
+
+					<PropertyFields register={register} control={control} />
 
 					<FilledBtn handleClick={handleSubmit(onSubmit)}>Зберегти</FilledBtn>
 				</form>
