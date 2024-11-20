@@ -5,6 +5,7 @@ import { ProductService } from '@/services/product/product.service'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { CategoryField } from './CategoryField'
 import FeaturesFields from './FeatureFields'
 import { IFormProduct } from './form.types'
 import PropertyFields from './PropertyFields'
@@ -72,6 +73,8 @@ const ProductForm = ({ id }: { id: string }) => {
 						placeholder="опис"
 						{...register('description')}
 					/>
+
+					<CategoryField register={register} control={control} />
 
 					<FeaturesFields register={register} control={control} />
 
