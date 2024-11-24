@@ -1,16 +1,20 @@
 import { CategoryService } from '@/services/category.service'
+import { ICategory } from '@/types/category.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { Controller } from 'react-hook-form'
 import CreatableSelect from 'react-select/creatable'
-import { IFormField } from './form.types'
 
 interface IOption {
 	readonly label: string
 	readonly value: string
 }
 
-export const CategoryField = ({ control, register }: IFormField) => {
+interface ICategoryField {
+	category: ICategory
+	setCategory: (value: ICategory) => void
+}
+
+export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [options, setOptions] = useState<IOption[]>([])
 
@@ -20,15 +24,17 @@ export const CategoryField = ({ control, register }: IFormField) => {
 	const { data: categories, isSuccess } = useQuery({
 		queryKey: ['categories'],
 		queryFn: () => CategoryService.getAll(),
-		select: data =>
-			data.data.map(category => ({
-				label: category.name,
-				value: category.id.toString() // Используем id для связи с categoryId
-			}))
+		select: data => data.data
 	})
 
 	useEffect(() => {
-		if (isSuccess) setOptions(categories)
+		if (isSuccess)
+			setOptions(
+				categories.map(category => ({
+					label: category.name,
+					value: category.id.toString() // Используем id для связи с categoryId
+				}))
+			)
 	}, [isSuccess])
 
 	// Мутация для создания категории
@@ -49,37 +55,32 @@ export const CategoryField = ({ control, register }: IFormField) => {
 	})
 
 	// Обработка создания новой категории
+	const handleChange = (newValue: IOption | null) => {
+		if (!newValue) return
+
+		const selectedCategory = categories?.find(
+			category => category.id === +newValue.value
+		)
+
+		if (!selectedCategory) return
+		setCategory(selectedCategory)
+	}
+
 	const handleCreate = (inputValue: string) => {
 		setIsLoading(true)
 		createCategoryMutation.mutate(inputValue)
 	}
 
 	return (
-		<Controller
-			name="categoryId"
-			control={control}
-			render={({ field }) => {
-				// Устанавливаем выбранную категорию на основе текущего значения в форме
-				const selectedCategory =
-					options.find(option => option.value === field.value.toString()) ||
-					null
-
-				return (
-					<CreatableSelect
-						isClearable
-						isDisabled={isLoading}
-						isLoading={isLoading}
-						onChange={(newValue: IOption | null) => {
-							// Синхронизация выбранной категории с формой
-							field.onChange(newValue?.value || null)
-						}}
-						onCreateOption={handleCreate}
-						options={options}
-						value={selectedCategory}
-						placeholder="Выберите или создайте категорию"
-					/>
-				)
-			}}
+		<CreatableSelect
+			isClearable
+			isDisabled={isLoading}
+			isLoading={isLoading}
+			onChange={handleChange}
+			onCreateOption={handleCreate}
+			options={options}
+			value={options.find(option => option.value === category.toString())}
+			placeholder="Выберите или создайте категорию"
 		/>
 	)
 }

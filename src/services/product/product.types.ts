@@ -6,6 +6,15 @@ export type TypeProductData = {
 	description?: string
 	images: string[]
 	categoryId: number
+	features: {
+		title: string
+		image: string
+		description: string
+	}[]
+	properties: {
+		name: string
+		value: string
+	}[]
 }
 
 export type TypeProductDataFilters = {

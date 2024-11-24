@@ -1,57 +1,74 @@
 import BorderedBtn from '@/components/btns/BorderedBtn'
-import { useFieldArray } from 'react-hook-form'
-import { IFormField } from './form.types'
+import { IProperty } from '@/types/property.interface'
 
-const PropertyFields = ({ control, register }: IFormField) => {
-	const {
-		fields: propertyFields,
-		append: appendProperty,
-		remove: removeProperty
-	} = useFieldArray({
-		control,
-		name: 'properties'
-	})
+interface IPropertyFields {
+	properties: IProperty[]
+	setProperties: (value: IProperty[]) => void
+}
+
+const PropertyFields = ({ properties, setProperties }: IPropertyFields) => {
+	const appendProperty = () => {
+		setProperties([
+			...properties,
+			{
+				name: '',
+				value: ''
+			} as IProperty
+		])
+	}
+
+	const removeProperty = () => {
+		setProperties(properties.filter((_, i) => i !== properties.length - 1))
+	}
+
+	const setPropertyName = (value: string, i: number) => {
+		const newProperties = [...properties]
+		newProperties[i].name = value
+		setProperties(newProperties)
+	}
+
+	const setPropertyValue = (value: string, i: number) => {
+		const newProperties = [...properties]
+		newProperties[i].value = value
+
+		setProperties(newProperties)
+	}
 
 	return (
 		<div className="my-2">
 			<div className="flex justify-between">
 				<h2 className="my-auto text-lg font-semibold">
-					{propertyFields.length
+					{properties.length != 0
 						? 'Оновити характеристики'
 						: 'Додати характеристики'}
 				</h2>
-				<BorderedBtn
-					handleClick={() =>
-						appendProperty({
-							name: '',
-							value: ''
-						})
-					}
-				>
-					+
-				</BorderedBtn>
+				<BorderedBtn handleClick={appendProperty}>+</BorderedBtn>
 			</div>
+			{properties.map((property: IProperty, i: number) => {
+				return (
+					<div key={i} className="my-2">
+						<div className="my-2 flex justify-between">
+							<h4 className="font-medium">Характеристика {i + 1}</h4>
+							<BorderedBtn handleClick={removeProperty}>-</BorderedBtn>
+						</div>
 
-			{propertyFields.map((property, index) => (
-				<div key={property.id} className="my-2">
-					<div className="my-2 flex justify-between">
-						<h4 className="font-medium">Характеристика {index + 1}</h4>
-						<BorderedBtn handleClick={() => removeProperty(index)}>
-							-
-						</BorderedBtn>
+						<input
+							className="my-2 w-32"
+							placeholder="назва"
+							type="text"
+							onChange={event => setPropertyName(event.target.value, i)}
+							value={property.name}
+						/>
+						<input
+							className="my-2 w-32"
+							placeholder="значення"
+							type="text"
+							onChange={event => setPropertyValue(event.target.value, i)}
+							value={property.value}
+						/>
 					</div>
-					<input
-						className="my-2 w-32 rounded-lg border border-solid border-gray-300"
-						placeholder="назва"
-						{...register(`properties.${index}.name`)}
-					/>
-					<input
-						className="my-2 w-32 rounded-lg border border-solid border-gray-300"
-						placeholder="значення"
-						{...register(`properties.${index}.value`)}
-					/>
-				</div>
-			))}
+				)
+			})}
 		</div>
 	)
 }
