@@ -3,20 +3,33 @@ import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import { IFeature } from '@/types/feature.interface'
+import { IProduct } from '@/types/product.interface'
 import { IProperty } from '@/types/property.interface'
 import { useQuery } from '@tanstack/react-query'
 
-const ProductDetails = ({ id }: { id: string }) => {
+interface IProductPage {
+	initialProduct: IProduct
+	similarProducts: IProduct[]
+	slug?: string
+}
+
+const ProductDetails = ({
+	initialProduct,
+	similarProducts,
+	slug = ''
+}: IProductPage) => {
 	const {
 		isLoading,
 		error,
-		data: product,
-		isSuccess
-	} = useQuery({
-		queryKey: ['products', id],
-		queryFn: () => ProductService.getById(id),
-		select: data => data.data
-	})
+		data: product
+	} = useQuery(
+		['get product', initialProduct.id],
+		() => ProductService.getBySlug(slug),
+		{
+			initialData: initialProduct,
+			enabled: !!slug
+		}
+	)
 
 	if (isLoading) return <Spinner />
 

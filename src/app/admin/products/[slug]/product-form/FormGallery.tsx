@@ -32,7 +32,7 @@ export function FormGallery({
 	return (
 		<div>
 			<ImageInput
-				image={productImages[activeIndex]}
+				image={productImages[activeIndex] ?? ''}
 				onChange={(image: string) => setProductImageToPos(image, activeIndex)}
 				file={productImageFiles[activeIndex]}
 				onFileChange={(file: File | undefined) =>

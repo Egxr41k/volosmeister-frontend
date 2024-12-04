@@ -5,7 +5,6 @@ import { ProductService } from '@/services/product/product.service'
 import { TypeProductData } from '@/services/product/product.types'
 import { IProduct } from '@/types/product.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import { CategoryField } from './CategoryField'
 import FeatureFields from './FeatureFields'
 import { FormGallery } from './FormGallery'
@@ -13,8 +12,27 @@ import PropertyFields from './PropertyFields'
 import { useImageFiles } from './useImageFiles'
 import { useFormProduct } from './useProductFields'
 
-const ProductForm = ({ id }: { id: string }) => {
-	const { product, setProduct, setProductField } = useFormProduct()
+interface IProductPage {
+	initialProduct: IProduct
+	similarProducts: IProduct[]
+	slug?: string
+}
+
+const ProductForm = ({
+	initialProduct,
+	similarProducts,
+	slug = ''
+}: IProductPage) => {
+	const { isLoading, error, data } = useQuery(
+		['get product', initialProduct.id],
+		() => ProductService.getBySlug(slug),
+		{
+			initialData: initialProduct,
+			enabled: !!slug
+		}
+	)
+
+	const { product, setProduct, setProductField } = useFormProduct(data)
 
 	const {
 		productImageFiles,
@@ -24,61 +42,30 @@ const ProductForm = ({ id }: { id: string }) => {
 		setImagesToProduct
 	} = useImageFiles()
 
-	const { isLoading, isError, data, isSuccess } = useQuery({
-		queryKey: ['product'],
-		queryFn: () => ProductService.getById(id),
-		select: data => data.data
-	})
-
-	useEffect(() => {
-		if (isSuccess) setProduct(data)
-	}, [isSuccess])
-
 	const formSubmit = async () => {
 		const newProduct = await setImagesToProduct(product)
+		const { id, category, ...productData } = newProduct
 
 		setProduct(newProduct)
 
-		const productData = FormatProductData(product)
-		updateMutation.mutate(productData)
-	}
-
-	const FormatProductData = (product: IProduct): TypeProductData => {
-		return {
-			name: product.name,
-			price: product.price,
-			description: product.description,
-			images: product.images,
-			categoryId: product.category.id,
-			features: product.features.map(feature => {
-				return {
-					title: feature.title,
-					image: feature.image,
-					description: feature.description
-				}
-			}),
-			properties: product.properties.map(property => {
-				return {
-					name: property.name,
-					value: property.value
-				}
-			})
-		}
+		updateMutation.mutate({ ...productData, categoryId: category.id })
 	}
 
 	const queryClient = useQueryClient()
 
 	const updateMutation = useMutation({
 		mutationFn: (updatedProduct: TypeProductData) =>
-			ProductService.update(id, updatedProduct),
+			ProductService.update(initialProduct.id, updatedProduct),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['products', id] })
+			queryClient.invalidateQueries({
+				queryKey: ['products', initialProduct.id]
+			})
 		}
 	})
 
 	if (isLoading) return <Spinner />
 
-	if (isError) return <p>Error loading product</p>
+	if (error) return <p>Error loading product</p>
 
 	return (
 		<div className="flex h-[90vh] items-center justify-center">
