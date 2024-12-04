@@ -1,28 +1,28 @@
 'use client'
 import FilledBtn from '@/components/btns/FilledBtn'
 import Spinner from '@/components/Spinner'
-import { ImageService } from '@/services/image.service'
 import { ProductService } from '@/services/product/product.service'
 import { TypeProductData } from '@/services/product/product.types'
-import { IFeature } from '@/types/feature.interface'
 import { IProduct } from '@/types/product.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { CategoryField } from './CategoryField'
 import FeatureFields from './FeatureFields'
 import { FormGallery } from './FormGallery'
 import PropertyFields from './PropertyFields'
+import { useImageFiles } from './useImageFiles'
+import { useFormProduct } from './useProductFields'
 
 const ProductForm = ({ id }: { id: string }) => {
-	const [product, setProduct] = useState({} as IProduct)
+	const { product, setProduct, setProductField } = useFormProduct()
 
-	const [productImageFiles, setProductImageFiles] = useState(
-		[] as (File | undefined)[]
-	)
-
-	const [featureImageFiles, setFeatureImageFiles] = useState(
-		[] as (File | undefined)[]
-	)
+	const {
+		productImageFiles,
+		setProductImageFiles,
+		featureImageFiles,
+		setFeatureImageFiles,
+		setImagesToProduct
+	} = useImageFiles()
 
 	const { isLoading, isError, data, isSuccess } = useQuery({
 		queryKey: ['product'],
@@ -35,69 +35,13 @@ const ProductForm = ({ id }: { id: string }) => {
 	}, [isSuccess])
 
 	const formSubmit = async () => {
-		const newProduct = await setImagesToProduct()
+		const newProduct = await setImagesToProduct(product)
 
 		setProduct(newProduct)
 
 		const productData = FormatProductData(product)
 		updateMutation.mutate(productData)
 	}
-
-	const setImagesToProduct = async (): Promise<IProduct> => {
-		const productImagesSrc = await initProductImageSrc(productImageFiles)
-		const featureImagesSrc = await initFeatureImageSrc(featureImageFiles)
-
-		setProductImageFiles([])
-		setFeatureImageFiles([])
-
-		return {
-			...product,
-			images: productImagesSrc,
-			features: setImagesSrcToFeature(featureImagesSrc)
-		}
-	}
-
-	const initProductImageSrc = async (
-		productImageFiles: (File | undefined)[]
-	) => {
-		return await Promise.all(
-			product.images.map(async (image: string, index: number) => {
-				if (productImageFiles[index]) {
-					return (await ImageService.saveImage(
-						productImageFiles[index]!
-					)) as string
-				} else {
-					return image
-				}
-			})
-		)
-	}
-
-	const initFeatureImageSrc = async (
-		featureImageFiles: (File | undefined)[]
-	) => {
-		return await Promise.all(
-			product.features.map(async (feature: IFeature, index: number) => {
-				if (featureImageFiles[index]) {
-					return (await ImageService.saveImage(
-						featureImageFiles[index]!
-					)) as string
-				} else {
-					return feature.image
-				}
-			})
-		)
-	}
-
-	const setImagesSrcToFeature = (featureImagesSrc: string[]) => {
-		return product.features.map((feature: IFeature, index: number) => {
-			if (index < featureImagesSrc.length) {
-				return { ...feature, imageSrc: featureImagesSrc[index] }
-			} else return feature
-		})
-	}
-
-	const queryClient = useQueryClient()
 
 	const FormatProductData = (product: IProduct): TypeProductData => {
 		return {
@@ -121,6 +65,8 @@ const ProductForm = ({ id }: { id: string }) => {
 			})
 		}
 	}
+
+	const queryClient = useQueryClient()
 
 	const updateMutation = useMutation({
 		mutationFn: (updatedProduct: TypeProductData) =>
@@ -147,85 +93,53 @@ const ProductForm = ({ id }: { id: string }) => {
 
 					<FormGallery
 						productImages={product.images}
-						setProductImages={value => {
-							setProduct(prevState => ({
-								...prevState,
-								images: value
-							}))
-						}}
+						setProductImages={value => setProductField('images', value)}
 						productImageFiles={productImageFiles}
 						setProductImageFiles={setProductImageFiles}
 					/>
 
-					<div className="flex flex-wrap justify-between">
-						<input
-							className="my-2 w-48"
-							placeholder="назва"
-							type="text"
-							onChange={event => {
-								setProduct(prevState => ({
-									...prevState,
-									name: event.target.value
-								}))
-							}}
-							value={product.name}
-						/>
+					<input
+						className="my-2 w-48"
+						placeholder="назва"
+						type="text"
+						onChange={event => setProductField('name', event.target.value)}
+						value={product.name}
+					/>
 
-						<input
-							className="my-2 w-32"
-							placeholder="нова ціна"
-							type="number"
-							onChange={event => {
-								setProduct(prevState => ({
-									...prevState,
-									newPrice: parseInt(event.target.value)
-								}))
-							}}
-							value={product.price}
-						/>
-					</div>
+					<input
+						className="my-2 w-32"
+						placeholder="нова ціна"
+						type="number"
+						onChange={event =>
+							setProductField('price', event.target.valueAsNumber)
+						}
+						value={product.price}
+					/>
+
 					<textarea
 						className="my-2 h-20 w-full"
 						placeholder="опис"
-						onChange={event => {
-							setProduct(prevState => ({
-								...prevState,
-								description: event.target.value
-							}))
-						}}
+						onChange={event =>
+							setProductField('description', event.target.value)
+						}
 						value={product.description}
 					/>
 
 					<CategoryField
 						category={product.category}
-						setCategory={value => {
-							setProduct(prevState => ({
-								...prevState,
-								category: value
-							}))
-						}}
+						setCategory={value => setProductField('category', value)}
 					/>
 
 					<FeatureFields
 						features={product.features}
-						setFeatures={value => {
-							setProduct(prevState => ({
-								...prevState,
-								features: value
-							}))
-						}}
+						setFeatures={value => setProductField('features', value)}
 						featureImageFiles={featureImageFiles}
-						setFeatureImageFiles={setProductImageFiles}
+						setFeatureImageFiles={setFeatureImageFiles}
 					/>
 
 					<PropertyFields
 						properties={product.properties}
-						setProperties={value => {
-							setProduct(prevState => ({
-								...prevState,
-								properties: value
-							}))
-						}}
+						setProperties={value => setProductField('properties', value)}
 					/>
 
 					<FilledBtn handleClick={formSubmit}>Зберегти</FilledBtn>
