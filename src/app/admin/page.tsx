@@ -1,8 +1,13 @@
-import { NextPage } from 'next'
-import Admin from './Admin'
+import { Metadata } from 'next'
 
-const AdminPage: NextPage = () => {
-	return <Admin />
+import { NO_INDEX_PAGE } from '@/constants/app.constants'
+import Dashboard from './Dashboard'
+
+export const metadata: Metadata = {
+	title: 'Dashboard',
+	...NO_INDEX_PAGE
 }
 
-export default AdminPage
+export default function DashboardPage() {
+	return <Dashboard />
+}

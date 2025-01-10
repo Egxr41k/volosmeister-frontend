@@ -1,6 +1,6 @@
 'use client'
-import ProductCard from '@/components/ProductCard'
-import Spinner from '@/components/Spinner'
+import ProductCard from '@/components/old-ui/ProductCard'
+import Spinner from '@/components/old-ui/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import { useQuery } from '@tanstack/react-query'
 
@@ -11,8 +11,8 @@ const Catalog = () => {
 	})
 
 	return (
-		<div className="flex min-h-[90vh] items-center bg-white md:px-24">
-			<div className="m-2.5 h-[768px] w-60 rounded-lg border border-solid border-gray-300">
+		<div className="flex min-h-[90vh] items-center bg-white px-24">
+			<div className="border-gray-300 m-2.5 h-[768px] w-60 rounded-lg border border-solid">
 				<div className="h-[768px] w-60"></div>
 			</div>
 			{isLoading && <Spinner />}

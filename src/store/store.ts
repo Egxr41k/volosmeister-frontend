@@ -3,31 +3,43 @@ import {
 	FLUSH,
 	PAUSE,
 	PERSIST,
-	persistReducer,
-	persistStore,
 	PURGE,
 	REGISTER,
-	REHYDRATE
+	REHYDRATE,
+	persistStore
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+
+import { carouselSlice } from './carousel/carousel.slice'
 import { cartSlice } from './cart/cart.slice'
+import { filtersSlice } from './filters/filters.slice'
 import { userSlice } from './user/user.slice'
 
-const persistConfig = {
-	key: 'the-blooming-home',
-	storage,
-	whitelist: ['cart']
-}
+const isClient = typeof window !== undefined
 
-const rootReducer = combineReducers({
+const combinedReducers = combineReducers({
 	user: userSlice.reducer,
-	cart: cartSlice.reducer
+	cart: cartSlice.reducer,
+	carousel: carouselSlice.reducer,
+	filters: filtersSlice.reducer
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+let mainReduser = combinedReducers
+
+if (isClient) {
+	const { persistReducer } = require('redux-persist')
+	const storage = require('redux-persist/lib/storage').default
+
+	const persistConfig = {
+		key: 'amazon-clone',
+		storage,
+		whitelist: ['cart']
+	}
+
+	mainReduser = persistReducer(persistConfig, combinedReducers)
+}
 
 export const store = configureStore({
-	reducer: persistedReducer,
+	reducer: mainReduser,
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({
 			serializableCheck: {
@@ -38,4 +50,4 @@ export const store = configureStore({
 
 export const persistor = persistStore(store)
 
-export type TypeRootStore = ReturnType<typeof rootReducer>
+export type TypeRootStore = ReturnType<typeof mainReduser>

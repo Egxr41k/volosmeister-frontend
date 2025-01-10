@@ -5,6 +5,15 @@ module.exports = {
     SERVER_URL: process.env.SERVER_URL,
     APP_URL: process.env.APP_URL,
   },
-  images: { domains: ['loremflickr.com', 'www.aptronixindia.com'] },
+  images: { domains: ['i.allo.ua'] },
+
+  async rewrites(){
+    return [
+      {
+        source: '/uploads/:path*',
+        destination: 'http://localhost:4200/uploads/:path*'
+      }
+    ]
+  }
 };
 
