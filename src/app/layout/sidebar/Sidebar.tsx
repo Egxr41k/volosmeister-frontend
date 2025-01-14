@@ -21,7 +21,6 @@ const Sidebar: FC = () => {
 	const { isAdminPanel, pathname } = useIsAdminPanel()
 
 	const { user } = useAuth()
-	const { logout } = useActions()
 
 	return (
 		<aside
@@ -61,15 +60,6 @@ const Sidebar: FC = () => {
 					<div>Categories not found!</div>
 				)}
 			</div>
-			{!!user && (
-				<button
-					onClick={() => logout()}
-					className="mb-10 ml-10 flex items-center text-white"
-				>
-					<FiLogOut />
-					<span className="ml-2">Logout</span>
-				</button>
-			)}
 		</aside>
 	)
 }

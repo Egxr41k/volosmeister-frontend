@@ -5,9 +5,9 @@ module.exports = {
     SERVER_URL: process.env.SERVER_URL,
     APP_URL: process.env.APP_URL,
   },
-  images: { domains: ['i.allo.ua'] },
+  images: { domains: ['i.allo.ua', "example.com"] },
 
-  async rewrites(){
+  async rewrites() {
     return [
       {
         source: '/uploads/:path*',

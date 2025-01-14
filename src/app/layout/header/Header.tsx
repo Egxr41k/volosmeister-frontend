@@ -37,20 +37,31 @@ const Header: FC = () => {
 				)}
 			</Link>
 			<Search />
-
-			{user?.isAdmin && !isAdminPanel && (
-				<Link
-					href="/admin"
-					className="hover:text-primary inline-block text-lg transition-colors duration-200"
-				>
-					<MdOutlineAdminPanelSettings size={29} />
-				</Link>
-			)}
-			<Link href="/favorites" className="">
+			<Link
+				href="/favorites"
+				className="transition-colors duration-200 hover:text-violet-500"
+			>
 				<AiOutlineHeart size={28} />
 			</Link>
 			<HeaderCart />
-			<HeaderProfile />
+			{user ? (
+				<HeaderProfile />
+			) : (
+				<Link
+					href="/auth"
+					className="transition-colors duration-200 hover:text-violet-500"
+				>
+					Sign in
+				</Link>
+			)}
+			{user?.isAdmin && !isAdminPanel && (
+				<Link
+					href="/admin"
+					className="inline-block text-lg transition-colors duration-200 hover:text-violet-500"
+				>
+					<MdOutlineAdminPanelSettings size={28} />
+				</Link>
+			)}
 		</header>
 	)
 }
