@@ -16,6 +16,8 @@ import Filters from './filters/Filters'
 import Pagination from './pagination/Pagination'
 import SortDropdown from './sort/SortDropdown'
 import { useFilters } from './useFilters'
+import Search from './Search'
+import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 
 interface IProductExplorer {
 	initialProducts: TypePaginationProducts
@@ -43,16 +45,26 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 						? `Search by query "${queryParams.searchTerm}"`
 						: 'Explorer'}
 				</Heading>
+				<Search />
+			</div>
+			<div className="mb-7 flex items-center justify-between">
+				<Button
+					variant="white"
+					onClick={() => setIsFilterOpen(!isFilterOpen)}
+					className="mb-7 flex items-center gap-2"
+				>
+					{isFilterOpen ? (
+						<>
+							<FaAnglesLeft /> <p>Close filters</p>
+						</>
+					) : (
+						<>
+							<FaAnglesRight /> <p>Open filters</p>
+						</>
+					)}
+				</Button>
 				<SortDropdown />
 			</div>
-			<Button
-				variant="white"
-				onClick={() => setIsFilterOpen(!isFilterOpen)}
-				className="mb-7"
-			>
-				{isFilterOpen ? 'Close' : 'Open'} filters
-			</Button>
-
 			<div
 				className={cn(styles.explorer, {
 					[styles.filterOpened]: isFilterOpen

@@ -18,20 +18,13 @@ export async function generateStaticParams() {
 }
 
 export async function getProduct(params: TypeParamSlug) {
-	const product = await ProductService.getBySlug(params?.slug as string)
-
-	const { data: similarProducts } = await ProductService.getSimilar(product.id)
-
-	return {
-		product,
-		similarProducts
-	}
+	return await ProductService.getBySlug(params?.slug as string)
 }
 
 export async function generateMetadata({
 	params
 }: IPageSlugParam): Promise<Metadata> {
-	const { product } = await getProduct(params)
+	const product = await getProduct(params)
 	return {
 		title: product.name,
 		description: product.description,
@@ -43,12 +36,6 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params }: IPageSlugParam) {
-	const { product, similarProducts } = await getProduct(params)
-	return (
-		<ProductForm
-			initialProduct={product}
-			similarProducts={similarProducts}
-			slug={params.slug}
-		/>
-	)
+	const product = await getProduct(params)
+	return <ProductForm initialProduct={product} slug={params.slug} />
 }

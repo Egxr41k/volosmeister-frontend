@@ -5,7 +5,7 @@ export type TypeProductData = {
 	price: number
 	description?: string
 	images: string[]
-	categoryId: number
+	categoryName: string
 	features: {
 		title: string
 		image: string

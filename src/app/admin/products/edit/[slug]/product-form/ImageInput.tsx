@@ -28,7 +28,7 @@ const ImageInput = ({ image, onChange, file, onFileChange }: IImageInput) => {
 
 			<input
 				className="my-2 w-full"
-				placeholder="Посилання на зображення"
+				placeholder="Image URL"
 				type="text"
 				onChange={event => {
 					onChange(event.target.value)

@@ -14,15 +14,10 @@ import { useFormProduct } from './useProductFields'
 
 interface IProductPage {
 	initialProduct: IProduct
-	similarProducts: IProduct[]
 	slug?: string
 }
 
-const ProductForm = ({
-	initialProduct,
-	similarProducts,
-	slug = ''
-}: IProductPage) => {
+const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 	const { isLoading, error, data } = useQuery(
 		['get product', initialProduct.id],
 		() => ProductService.getBySlug(slug),
@@ -48,7 +43,7 @@ const ProductForm = ({
 
 		setProduct(newProduct)
 
-		updateMutation.mutate({ ...productData, categoryId: category.id })
+		updateMutation.mutate({ ...productData, categoryName: category.name })
 	}
 
 	const queryClient = useQueryClient()
@@ -76,7 +71,7 @@ const ProductForm = ({
 					method="post"
 					onSubmit={event => event.preventDefault()}
 				>
-					<div className="flex">
+					<div className="flex gap-5">
 						<FormGallery
 							productImages={product.images}
 							setProductImages={value => setProductField('images', value)}
@@ -84,11 +79,11 @@ const ProductForm = ({
 							setProductImageFiles={setProductImageFiles}
 						/>
 						<div>
-							<h2 className="text-xl font-semibold">Оновити товар</h2>
+							<h2 className="text-xl font-semibold">Update product</h2>
 
 							<input
 								className="my-2 w-full rounded-md border border-solid border-gray-300"
-								placeholder="назва"
+								placeholder="name"
 								type="text"
 								onChange={event => setProductField('name', event.target.value)}
 								value={product.name}
@@ -96,7 +91,7 @@ const ProductForm = ({
 
 							<input
 								className="my-2 w-full rounded-md border border-solid border-gray-300"
-								placeholder="нова ціна"
+								placeholder="price"
 								type="number"
 								onChange={event =>
 									setProductField('price', event.target.valueAsNumber)
@@ -106,7 +101,7 @@ const ProductForm = ({
 
 							<textarea
 								className="my-2 h-20 w-full rounded-md border border-solid border-gray-300"
-								placeholder="опис"
+								placeholder="description"
 								onChange={event =>
 									setProductField('description', event.target.value)
 								}
@@ -132,7 +127,7 @@ const ProductForm = ({
 						setFeatureImageFiles={setFeatureImageFiles}
 					/>
 
-					<FilledBtn handleClick={formSubmit}>Зберегти</FilledBtn>
+					<FilledBtn handleClick={formSubmit}>Save</FilledBtn>
 				</form>
 			</div>
 		</div>

@@ -1,19 +1,18 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
-  env: {
-    SERVER_URL: process.env.SERVER_URL,
-    APP_URL: process.env.APP_URL,
-  },
-  images: { domains: ['i.allo.ua', "example.com"] },
+	reactStrictMode: true,
+	env: {
+		SERVER_URL: process.env.SERVER_URL,
+		APP_URL: process.env.APP_URL
+	},
+	images: { domains: ['i.allo.ua', 'example.com', 'localhost'] },
 
-  async rewrites() {
-    return [
-      {
-        source: '/uploads/:path*',
-        destination: 'http://localhost:4200/uploads/:path*'
-      }
-    ]
-  }
-};
-
+	async rewrites() {
+		return [
+			{
+				source: '/uploads/:path*',
+				destination: 'http://localhost:4200/uploads/:path*'
+			}
+		]
+	}
+}

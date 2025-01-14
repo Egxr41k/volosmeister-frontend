@@ -38,9 +38,7 @@ const PropertyFields = ({ properties, setProperties }: IPropertyFields) => {
 		<div className="my-2">
 			<div className="flex justify-between">
 				<h2 className="my-auto text-lg font-semibold">
-					{properties.length != 0
-						? 'Оновити характеристики'
-						: 'Додати характеристики'}
+					{properties.length != 0 ? 'Upfate properties' : 'Add properties'}
 				</h2>
 				<BorderedBtn handleClick={appendProperty}>+</BorderedBtn>
 			</div>
@@ -48,20 +46,20 @@ const PropertyFields = ({ properties, setProperties }: IPropertyFields) => {
 				return (
 					<div key={i} className="my-2">
 						<div className="my-2 flex justify-between">
-							<h4 className="font-medium">Характеристика {i + 1}</h4>
+							<h4 className="font-medium">Property {i + 1}</h4>
 							<BorderedBtn handleClick={removeProperty}>-</BorderedBtn>
 						</div>
 
 						<input
 							className="my-2 w-32"
-							placeholder="назва"
+							placeholder="property name"
 							type="text"
 							onChange={event => setPropertyName(event.target.value, i)}
 							value={property.name}
 						/>
 						<input
 							className="my-2 w-32"
-							placeholder="значення"
+							placeholder="property value"
 							type="text"
 							onChange={event => setPropertyValue(event.target.value, i)}
 							value={property.value}

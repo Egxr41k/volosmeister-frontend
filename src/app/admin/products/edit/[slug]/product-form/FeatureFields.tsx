@@ -66,7 +66,7 @@ const FeatureFields = ({
 		<div className="my-2">
 			<div className="flex justify-between">
 				<h2 className="my-auto text-xl font-semibold">
-					{features.length != 0 ? 'Оновити cекції' : 'Додати cекції'}
+					{features.length != 0 ? 'Update fearures' : 'Add features'}
 				</h2>
 				<BorderedBtn handleClick={appendFeature}>+</BorderedBtn>
 			</div>
@@ -75,7 +75,7 @@ const FeatureFields = ({
 				return (
 					<div key={i} className="my-2">
 						<div className="my-2 flex justify-between">
-							<h4 className="font-medium">Ceкція {i + 1}</h4>
+							<h4 className="font-medium">Feature {i + 1}</h4>
 							<BorderedBtn handleClick={removeFeature}>-</BorderedBtn>
 						</div>
 						<ImageInput
@@ -88,14 +88,14 @@ const FeatureFields = ({
 						/>
 						<input
 							className="my-2 w-48"
-							placeholder="назва"
+							placeholder="feature title"
 							type="text"
 							onChange={event => setFeatureTitle(event.target.value, i)}
 							value={feature.title}
 						/>
 						<textarea
 							className="my-2 h-20 w-full"
-							placeholder="опис"
+							placeholder="feature description"
 							onChange={event => {
 								setFeatureDescription(event.target.value, i)
 							}}

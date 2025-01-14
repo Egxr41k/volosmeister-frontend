@@ -1,44 +1,44 @@
 .cartWrapper {
-  @apply absolute -left-[12.5rem] z-20 w-80 rounded-xl bg-gray-900 px-6 py-4 text-sm text-white;
-  animation: 0.7s cartAnimation ease-in-out;
+	@apply absolute -left-[12.5rem] z-20 w-80 rounded-xl bg-white px-6 py-4 text-sm shadow;
+	animation: 0.7s cartAnimation ease-in-out;
 }
 
 .cart {
-  @apply mb-10;
+	@apply mb-10;
 
-  .item {
-    @apply flex  items-center gap-4 border-b border-b-black/30 pb-6 pt-4; 
-  
-    .name {
-      @apply w-36 truncate font-semibold -tracking-widest;
-    }
+	.item {
+		@apply flex items-center gap-4 border-b border-b-black/30 pb-6 pt-4;
 
-    .price {
-      @apply mt-1 text-sm text-white;
-    }
+		.name {
+			@apply w-36 truncate font-semibold -tracking-widest;
+		}
 
-    .variation {
-      @apply text-xs text-white opacity-70
-    }
-  }
+		.price {
+			@apply mt-1 text-sm;
+		}
+
+		.variation {
+			@apply text-xs opacity-70;
+		}
+	}
 }
 
 .footer {
-  > div:first-child{
-    @apply text-sm text-white;
-  }
+	> div:first-child {
+		@apply text-sm text-white;
+	}
 
-  > div:last-child {
-    @apply text-xl font-semibold
-  }
+	> div:last-child {
+		@apply text-xl font-semibold;
+	}
 }
 
 @keyframes CartAnimation {
-  from {
-    transform: translateX(110%);
-  }
+	from {
+		transform: translateX(110%);
+	}
 
-  to {
-    transform: translateX(0);
-  }
+	to {
+		transform: translateX(0);
+	}
 }

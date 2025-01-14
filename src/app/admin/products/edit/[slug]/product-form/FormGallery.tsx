@@ -33,6 +33,8 @@ export function FormGallery({
 	const addProductImage = () => {
 		setProductImages([...productImages, ''])
 		setProductImageFiles([...productImageFiles, undefined])
+
+		setActiveIndex(productImages.length)
 	}
 
 	const removeProductImage = (i: number) => {
@@ -41,6 +43,7 @@ export function FormGallery({
 
 		const newFiles = productImageFiles.filter((_, index) => index !== i)
 		setProductImageFiles(newFiles)
+		setActiveIndex(activeIndex - 1)
 	}
 	return (
 		<div>
@@ -63,7 +66,7 @@ export function FormGallery({
 						className={[
 							'mr-5 inline overflow-hidden rounded-lg border-b-2 border-solid transition-all duration-300 last:mr-0 hover:shadow-md',
 							index === activeIndex
-								? 'border-primary shadow-md'
+								? 'border-violet-500 shadow-md'
 								: 'border-transparent'
 						].join(' ')}
 					>
@@ -85,7 +88,7 @@ export function FormGallery({
 					className="ml-2 rounded-lg bg-gray-200 px-4 py-2"
 					onClick={() => removeProductImage(activeIndex)}
 				>
-					- Remove
+					- Remove selected
 				</button>
 			</div>
 		</div>

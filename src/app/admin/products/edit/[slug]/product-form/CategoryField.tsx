@@ -17,11 +17,14 @@ interface ICategoryField {
 export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [options, setOptions] = useState<IOption[]>([])
+	const initialValue = options.find(
+		option => option.label === category.name.toString()
+	)
 
 	const queryClient = useQueryClient()
 
 	// Получение списка категорий
-	const { data: categories, isSuccess } = useQuery({
+	const { data, isSuccess } = useQuery({
 		queryKey: ['categories'],
 		queryFn: () => CategoryService.getAll(),
 		select: data => data.data
@@ -30,7 +33,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	useEffect(() => {
 		if (isSuccess)
 			setOptions(
-				categories.map(category => ({
+				data.map(category => ({
 					label: category.name,
 					value: category.id.toString() // Используем id для связи с categoryId
 				}))
@@ -58,7 +61,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const handleChange = (newValue: IOption | null) => {
 		if (!newValue) return
 
-		const selectedCategory = categories?.find(
+		const selectedCategory = data?.find(
 			category => category.id === +newValue.value
 		)
 
@@ -79,8 +82,8 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 			onChange={handleChange}
 			onCreateOption={handleCreate}
 			options={options}
-			value={options.find(option => option.value === category.toString())}
-			placeholder="Выберите или создайте категорию"
+			value={initialValue}
+			placeholder="choose or create category"
 		/>
 	)
 }

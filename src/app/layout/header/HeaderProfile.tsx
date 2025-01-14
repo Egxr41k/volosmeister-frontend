@@ -19,7 +19,10 @@ const HeaderProfile: FC = () => {
 
 	return (
 		<div className="relative" ref={ref}>
-			<button onClick={() => setIsShow(!isShow)}>
+			<button
+				onClick={() => setIsShow(!isShow)}
+				className="flex h-10 w-10 items-center justify-center"
+			>
 				{profile?.avatarPath ? (
 					<Image
 						width={43}
