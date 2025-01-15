@@ -14,7 +14,7 @@ const SquareButton: FC<ISquareButton> = ({ Icon, onClick, number }) => {
 			className="relative flex h-10 w-10 items-center justify-center rounded bg-violet-500 transition-colors duration-200 hover:bg-violet-500/90"
 		>
 			{!!number && (
-				<span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-white p-0.5 text-[0.75rem] text-white">
+				<span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-white p-0.5 text-[0.75rem] text-violet-500">
 					{number}
 				</span>
 			)}

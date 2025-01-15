@@ -33,7 +33,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 			<body className={inter.className}>
 				<Providers>
 					<Header />
-					{children}
+					<main className="px-48">{children}</main>
 					<Footer />
 				</Providers>
 				<div id="modal"></div>

@@ -63,7 +63,7 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 	if (error) return <p>Error loading product</p>
 
 	return (
-		<div className="flex items-center justify-center px-48">
+		<div className="flex items-center justify-center">
 			<div className="w-full rounded-md border border-solid border-gray-300">
 				<form
 					className="p-5"

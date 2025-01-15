@@ -1,7 +1,7 @@
 'use client'
 
 import { FC } from 'react'
-import { AiFillMinusSquare, AiFillPlusSquare } from 'react-icons/ai'
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { FiTrash } from 'react-icons/fi'
 
 import { useActions } from '@/hooks/useActions'
@@ -22,23 +22,23 @@ const CartActions: FC<{ item: ICartItem }> = ({ item }) => {
 					onClick={() => changeQuantity({ id: item.id, type: 'minus' })}
 					disabled={quantity === 1}
 				>
-					<AiFillMinusSquare fontSize={13} />
+					<AiOutlineMinus fontSize={13} />
 				</button>
 
 				<input
 					disabled
 					readOnly
 					value={quantity}
-					className="w-10 bg-black text-center"
+					className="w-10 text-center"
 				/>
 
 				<button onClick={() => changeQuantity({ id: item.id, type: 'plus' })}>
-					<AiFillPlusSquare fontSize={13} />
+					<AiOutlinePlus fontSize={13} />
 				</button>
 
 				<button
 					onClick={() => removeFromCart({ id: item.id })}
-					className="text-dark-primary ml-3"
+					className="ml-3"
 				>
 					<FiTrash />
 				</button>

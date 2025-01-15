@@ -35,7 +35,7 @@ export default function Product({
 		}
 	)
 	return (
-		<div className="px-48">
+		<div>
 			<Heading className="m-1">{product.name}</Heading>
 			<ProductReviewsCount product={product} />
 			<div

@@ -12,10 +12,10 @@ import { carouselItems } from './carousel.data'
 
 const Home: FC<TypePaginationProducts> = ({ products }) => {
 	return (
-		<>
+		<div>
 			<div className="h-[90vh]">
-				<div className="flex h-full w-full items-center justify-between bg-white pl-48">
-					<div className="">
+				<div className="flex h-full w-1/2 items-center justify-between bg-gradient-radial">
+					<div>
 						<p className="mb-6 text-5xl">
 							Doing everything
 							<br /> for your
@@ -35,7 +35,7 @@ const Home: FC<TypePaginationProducts> = ({ products }) => {
 							View products
 						</a>
 					</div>
-					<div className="flex">
+					<div className="absolute right-0 flex">
 						<div className="absolute z-10 h-1/2 w-full bg-gradient-to-b from-white to-transparent"></div>
 						<Image
 							src={homeBg}
@@ -45,11 +45,11 @@ const Home: FC<TypePaginationProducts> = ({ products }) => {
 					</div>
 				</div>
 			</div>
-			<div className="px-48" id="main">
+			<div id="main">
 				<Carousel items={carouselItems} className="mb-10" />
 				<Catalog title="Freshed products" products={products} />
 			</div>
-		</>
+		</div>
 	)
 }
 

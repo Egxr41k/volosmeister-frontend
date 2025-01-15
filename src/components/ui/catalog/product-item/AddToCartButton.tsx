@@ -30,7 +30,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 							})
 				}}
 			>
-				{currentElement ? <RiShoppingCartLine /> : <RiShoppingCartFill />}
+				{currentElement ? <RiShoppingCartFill /> : <RiShoppingCartLine />}
 			</button>
 		</div>
 	)

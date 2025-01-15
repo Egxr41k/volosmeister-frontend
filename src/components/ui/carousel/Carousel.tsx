@@ -55,7 +55,7 @@ const Carousel: FC<ICarousel> = ({ items, className = '' }) => {
 							Read more
 						</Link>
 					) : (
-						<Link href="/explorer" className="btn btn-white">
+						<Link href="/explorer?perPage=8" className="btn btn-white">
 							Browse products
 						</Link>
 					)}

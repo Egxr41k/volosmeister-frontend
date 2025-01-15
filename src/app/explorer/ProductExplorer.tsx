@@ -38,7 +38,7 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 	)
 
 	return (
-		<div className="px-48">
+		<div>
 			<div className="mb-7 flex items-center justify-between">
 				<Heading>
 					{queryParams.searchTerm
@@ -79,7 +79,7 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 					<Pagination
 						changePage={page => updateQueryParams('page', page.toString())}
 						currentPage={queryParams.page}
-						numberPages={data.length / +queryParams.perPage}
+						numberPages={Math.ceil(data.length / +queryParams.perPage)}
 					/>
 				</section>
 			</div>
