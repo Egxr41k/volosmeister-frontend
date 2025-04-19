@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import { HiMiniXMark } from 'react-icons/hi2'
 import { IconType } from 'react-icons/lib/iconBase'
 
 interface ISidebarProps {
@@ -41,7 +42,7 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 					className={closeBtnPos[position]}
 					onClick={() => setIsOpen(false)}
 				>
-					<img src="/icons/close.svg" className="h-8 w-8" alt="" />
+					<HiMiniXMark className="h-8 w-8" />
 				</button>
 				{children}
 			</div>

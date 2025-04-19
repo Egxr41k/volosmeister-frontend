@@ -1,15 +1,15 @@
 'use client'
-import { ADMIN_MENU } from '@/app/layout/sidebar/admin-menu.data'
-import { convertToMenuItems } from '@/app/layout/sidebar/conver-to-menu-items'
+import { ADMIN_MENU } from '@/layout/sidebar/admin-menu.data'
+import { convertToMenuItems } from '@/layout/sidebar/conver-to-menu-items'
 import { useCategories } from '@/hooks/queries/useCategory'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
-import Loader from '@/ui/Loader'
 import { FiLogOut } from 'react-icons/fi'
 import { HiOutlineMenu } from 'react-icons/hi'
-import Sidebar from '../Sidebar'
+import Sidebar from '../../sidebar/Sidebar'
 import NavLink from './NavLink'
+import Spinner from '@/ui/Spinner'
 
 const Navigation = () => {
 	const { data, isLoading } = useCategories()
@@ -30,7 +30,7 @@ const Navigation = () => {
 			>
 				<div>
 					{isLoading ? (
-						<Loader />
+						<Spinner />
 					) : data ? (
 						<>
 							<div className="mb-6 ml-6 mt-4 text-xl">

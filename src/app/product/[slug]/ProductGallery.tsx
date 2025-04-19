@@ -1,4 +1,3 @@
-import cn from 'clsx'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -28,13 +27,12 @@ export function ProductGallery({ images }: IProductGallery) {
 					<button
 						key={index}
 						onClick={() => setActiveIndex(index)}
-						className={cn(
+						className={[
 							'owerflow-hidden mr-5 inline rounded-lg border-b-2 border-solid transition-all duration-300 last:mr-0 hover:shadow-md',
-							{
-								'border-primary shadow-md': index === activeIndex,
-								'border-transparent': index !== activeIndex
-							}
-						)}
+							index === activeIndex
+								? 'border-primary shadow-md'
+								: 'border-transparent'
+						].join(' ')}
 					>
 						<Image
 							src={image}

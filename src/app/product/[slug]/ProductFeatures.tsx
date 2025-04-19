@@ -1,5 +1,4 @@
 import { IFeature } from '@/types/feature.interface'
-import Heading from '@/ui/Heading'
 
 interface IProductFeatures {
 	features: IFeature[]
@@ -7,8 +6,8 @@ interface IProductFeatures {
 
 const ProductFeatures = ({ features }: IProductFeatures) => {
 	return (
-		<div className="mt-20">
-			<Heading className="mt-20">Features:</Heading>
+		<>
+			<h1 className="mt-20 text-3xl font-semibold">Features:</h1>
 			{features.length ? (
 				features.map((feature: IFeature) => {
 					return (
@@ -30,7 +29,7 @@ const ProductFeatures = ({ features }: IProductFeatures) => {
 			) : (
 				<div>There are no Features</div>
 			)}
-		</div>
+		</>
 	)
 }
 

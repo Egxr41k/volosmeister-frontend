@@ -1,4 +1,4 @@
-import BorderedBtn from '@/components/old-ui/btns/BorderedBtn'
+import BorderedBtn from '@/ui/button/BorderedBtn'
 import { IFeature } from '@/types/feature.interface'
 import { SetStateAction } from 'react'
 import ImageInput from './ImageInput'

@@ -1,25 +1,24 @@
-import Heading from '@/ui/Heading';
-import ProductItem from '@/ui/catalog/product-item/ProductItem';
+import ProductItem from '@/ui/catalog/product-item/ProductItem'
 
-import { IProduct } from '@/types/product.interface';
+import { IProduct } from '@/types/product.interface'
 
 interface ISimilarProducs {
-  similarProducts: IProduct[];
+	similarProducts: IProduct[]
 }
 
 export default function SimilarProducts({ similarProducts }: ISimilarProducs) {
-  return (
-    <div className="mt-20">
-      <Heading className="mt-20">Similar products:</Heading>
-      {similarProducts.length ? (
-        <div className="grid grid-cols-4 gap-10">
-          {similarProducts.map((product) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <div>There are no Products</div>
-      )}
-    </div>
-  );
+	return (
+		<>
+			<h1 className="mt-20 text-3xl font-semibold">Similar products:</h1>
+			{similarProducts.length ? (
+				<div className="grid grid-cols-4 gap-10">
+					{similarProducts.map(product => (
+						<ProductItem key={product.id} product={product} />
+					))}
+				</div>
+			) : (
+				<div>There are no Products</div>
+			)}
+		</>
+	)
 }

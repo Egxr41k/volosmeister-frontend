@@ -2,11 +2,10 @@
 
 import { FC } from 'react'
 
-import Loader from '@/ui/Loader'
-
 import styles from './AdminList.module.scss'
 import AdminListItem from './AdminListItem'
 import { IListItem } from './admin-list.interface'
+import Spinner from '@/ui/Spinner'
 
 interface IAdminList {
 	listItems?: IListItem[]
@@ -21,9 +20,9 @@ const AdminList: FC<IAdminList> = ({
 	listItems = []
 }) => {
 	return (
-		<div>
+		<>
 			{isLoading ? (
-				<Loader />
+				<Spinner />
 			) : listItems.length ? (
 				listItems.map(listItem => (
 					<AdminListItem
@@ -37,7 +36,7 @@ const AdminList: FC<IAdminList> = ({
 			) : (
 				<div className={styles.notFound}>Elements not found</div>
 			)}
-		</div>
+		</>
 	)
 }
 

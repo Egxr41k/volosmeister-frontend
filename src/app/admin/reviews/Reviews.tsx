@@ -1,21 +1,20 @@
-'use client';
+'use client'
 
-import { FC } from 'react';
+import { FC } from 'react'
 
-import Heading from '@/ui/Heading';
-import AdminList from '@/ui/admin/admin-list/AdminList';
+import AdminList from '@/ui/admin/admin-list/AdminList'
 
-import { useAdminReviews } from './useAdminReviews';
+import { useAdminReviews } from './useAdminReviews'
 
 const Reviews: FC = () => {
-  const { data, isFetching } = useAdminReviews();
+	const { data, isFetching } = useAdminReviews()
 
-  return (
-    <>
-      <Heading className="mb-7">Reviws</Heading>
-      <AdminList isLoading={isFetching} listItems={data} />
-    </>
-  );
-};
+	return (
+		<>
+			<h1 className="mb-7 text-3xl font-semibold">Reviws</h1>
+			<AdminList isLoading={isFetching} listItems={data} />
+		</>
+	)
+}
 
-export default Reviews;
+export default Reviews

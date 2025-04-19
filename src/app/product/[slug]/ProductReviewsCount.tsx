@@ -15,7 +15,7 @@ export default function ProductReviewsCount({ product }: IProductReviews) {
 	if (!reviewsLength) return null
 
 	return (
-		<div>
+		<>
 			<ProductRating product={product} />
 			<div>
 				<Link
@@ -28,6 +28,6 @@ export default function ProductReviewsCount({ product }: IProductReviews) {
 					{reviewsLength} Reviews <FiChevronRight className="inline" />
 				</Link>
 			</div>
-		</div>
+		</>
 	)
 }

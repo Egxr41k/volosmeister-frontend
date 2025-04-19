@@ -11,14 +11,14 @@ import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
 
 import HeaderProfile from './HeaderProfile'
 import HeaderCart from './cart/HeaderCart'
-import Navigation from '@/components/old-ui/navigation/Navigation'
+import Navigation from './navigation/Navigation'
 
 const Header: FC = () => {
 	const { isAdminPanel } = useIsAdminPanel()
 	const { user } = useAuth()
 
 	return (
-		<header className="flex w-full items-center justify-between px-48 py-6">
+		<header className="flex h-[10vh] w-full items-center justify-between px-48 py-6">
 			<Navigation />
 
 			<Link href="/">

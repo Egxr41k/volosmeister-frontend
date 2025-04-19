@@ -16,7 +16,7 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 			<div className="relative overflow-hidden rounded-lg bg-white">
 				<Link href={`product/${product.slug}`}>
 					<Image
-						className="mx-auto block"
+						className="h-[306px] w-[306px]"
 						width={306}
 						height={306}
 						src={product.images[0]}

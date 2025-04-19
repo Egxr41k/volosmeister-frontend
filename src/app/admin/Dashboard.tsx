@@ -3,13 +3,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { FC } from 'react'
 
-import Heading from '@/ui/Heading'
-import Loader from '@/ui/Loader'
-
 import { convertPrice } from '@/utils/convertPrice'
 
 import { StatisticsService } from '@/services/statistics.service'
 import styles from './Dashboard.module.scss'
+import Spinner from '@/ui/Spinner'
 
 const Dashboard: FC = () => {
 	const { data, isFetching } = useQuery(
@@ -22,9 +20,9 @@ const Dashboard: FC = () => {
 
 	return (
 		<>
-			<Heading className="mb-8">Dashboard</Heading>
+			<h1 className="mb-8 text-3xl font-semibold">Dashboard</h1>
 			{isFetching ? (
-				<Loader />
+				<Spinner />
 			) : data?.length ? (
 				<div className={styles.wrapper}>
 					{data.map((item, index) => (

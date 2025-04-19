@@ -3,12 +3,11 @@ import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Rating } from 'react-simple-star-rating'
 
-import Heading from '@/ui/Heading'
-import Loader from '@/ui/Loader'
 import Button from '@/ui/button/Button'
 
 import { ReviewService } from '@/services/review.service'
 import { IReviewFields } from './review-fields.interface'
+import Spinner from '@/ui/Spinner'
 
 const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
 	const {
@@ -41,12 +40,14 @@ const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
 	if (isSuccess) return <div>ReviewSuccessfully published!</div>
 
 	return (
-		<div>
+		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<Heading className="mb-4 text-center">Leave a review</Heading>
+				<h1 className="mb-4 text-center text-3xl font-semibold">
+					Leave a review
+				</h1>
 
 				{isLoading ? (
-					<Loader />
+					<Spinner />
 				) : (
 					<div>
 						<Controller
@@ -73,11 +74,11 @@ const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
 								required: 'Text is required'
 							})}
 							placeholder="your text here..."
-							className="mt-4 block min-h-[110px] resize-none rounded-md border border-gray/70 bg-white p-3 text-sm"
+							className="border-gray/70 mt-4 block min-h-[110px] resize-none rounded-md border bg-white p-3 text-sm"
 						/>
 
 						{Object.entries(errors) && (
-							<ul className="animate-opacity mt-3 list-disc pl-4 text-sm text-red">
+							<ul className="animate-opacity text-red mt-3 list-disc pl-4 text-sm">
 								{Object.entries(errors).map(([_, error]) => (
 									<li>{error?.message}</li>
 								))}
@@ -92,7 +93,7 @@ const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
 					</div>
 				)}
 			</form>
-		</div>
+		</>
 	)
 }
 

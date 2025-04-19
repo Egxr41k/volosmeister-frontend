@@ -1,25 +1,24 @@
-'use client';
+'use client'
 
-import { FC } from 'react';
+import { FC } from 'react'
 
-import Heading from '@/ui/Heading';
-import AdminList from '@/ui/admin/admin-list/AdminList';
+import AdminList from '@/ui/admin/admin-list/AdminList'
 
-import { useAdminCategories } from './useAdminCategories';
+import { useAdminCategories } from './useAdminCategories'
 
 const Categories: FC = () => {
-  const { data, isFetching, mutate } = useAdminCategories();
+	const { data, isFetching, mutate } = useAdminCategories()
 
-  return (
-    <>
-      <Heading className="mb-7">Categories</Heading>
-      <AdminList
-        isLoading={isFetching}
-        listItems={data}
-        removeHandler={mutate}
-      />
-    </>
-  );
-};
+	return (
+		<>
+			<h1 className="mb-7 text-3xl font-semibold">Categories</h1>
+			<AdminList
+				isLoading={isFetching}
+				listItems={data}
+				removeHandler={mutate}
+			/>
+		</>
+	)
+}
 
-export default Categories;
+export default Categories

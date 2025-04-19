@@ -1,4 +1,4 @@
-import BorderedBtn from '@/components/old-ui/btns/BorderedBtn'
+import BorderedBtn from '@/ui/button/BorderedBtn'
 import { IProperty } from '@/types/property.interface'
 
 interface IPropertyFields {

@@ -1,14 +1,13 @@
 import { IProperty } from '@/types/property.interface'
-import Heading from '@/ui/Heading'
 
 interface IProductProperty {
 	properties: IProperty[]
 }
 
-const ProductProperties = ({ properties }: IProductProperty) => (
-	<div className="mt-20">
-		<Heading className="mt-20">Properties:</Heading>
-		<div className="mx-auto">
+const ProductProperties = ({ properties }: IProductProperty) => {
+	return (
+		<>
+			<h1 className="mt-20 text-3xl font-semibold">Properties:</h1>
 			{properties.length ? (
 				properties.map((property: IProperty) => {
 					return property.name == '' ? (
@@ -20,8 +19,8 @@ const ProductProperties = ({ properties }: IProductProperty) => (
 			) : (
 				<div>There are no Properties</div>
 			)}
-		</div>
-	</div>
-)
+		</>
+	)
+}
 
 export default ProductProperties

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import Heading from '@/ui/Heading'
 import Modal from '@/ui/modal/Modal'
 
 import { useAuth } from '@/hooks/useAuth'
@@ -27,7 +26,7 @@ export default function ProductReviews({
 	return (
 		<section id="reviews" className="mt-20">
 			<div className="mb-9">
-				<Heading className="mb-3">Reviews: </Heading>
+				<h1 className="mb-3 text-3xl font-semibold">Reviews: </h1>
 				{user && (
 					<button className="text-aqua" onClick={() => SetModalOpen(true)}>
 						Leave a review

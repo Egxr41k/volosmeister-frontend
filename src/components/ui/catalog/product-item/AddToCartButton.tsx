@@ -17,7 +17,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 	)
 
 	return (
-		<div>
+		<>
 			<button
 				className="text-secondary"
 				onClick={() => {
@@ -32,7 +32,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 			>
 				{currentElement ? <RiShoppingCartFill /> : <RiShoppingCartLine />}
 			</button>
-		</div>
+		</>
 	)
 }
 

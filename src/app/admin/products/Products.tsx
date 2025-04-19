@@ -1,25 +1,24 @@
-'use client';
+'use client'
 
-import { FC } from 'react';
+import { FC } from 'react'
 
-import Heading from '@/ui/Heading';
-import AdminList from '@/ui/admin/admin-list/AdminList';
+import AdminList from '@/ui/admin/admin-list/AdminList'
 
-import { useAdminProducts } from './useAdminProducts';
+import { useAdminProducts } from './useAdminProducts'
 
 const Products: FC = () => {
-  const { data, isFetching, mutate } = useAdminProducts();
+	const { data, isFetching, mutate } = useAdminProducts()
 
-  return (
-    <>
-      <Heading className="mb-7">Products</Heading>
-      <AdminList
-        isLoading={isFetching}
-        listItems={data}
-        removeHandler={mutate}
-      />
-    </>
-  );
-};
+	return (
+		<>
+			<h1 className="mb-7 text-3xl font-semibold">Products</h1>
+			<AdminList
+				isLoading={isFetching}
+				listItems={data}
+				removeHandler={mutate}
+			/>
+		</>
+	)
+}
 
-export default Products;
+export default Products

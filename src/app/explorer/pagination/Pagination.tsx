@@ -18,11 +18,12 @@ const Pagination: FC<IPagination> = ({
 			{Array.from({ length: numberPages > 1 ? numberPages : 1 }).map(
 				(_, index) => {
 					const pageNumber = (index + 1).toString()
+					const isActive = currentPage?.toString() === pageNumber
 					return (
 						<Button
 							key={pageNumber}
 							size="md"
-							variant={currentPage === pageNumber ? 'orange' : 'white'}
+							variant={isActive ? 'orange' : 'white'}
 							onClick={() => changePage(pageNumber)}
 							className="mx-3"
 						>

@@ -1,4 +1,3 @@
-import cn from 'clsx'
 import { useState } from 'react'
 
 import styles from './Select.module.scss'
@@ -17,9 +16,7 @@ function Select<K>({ data, onChange, value, title }: ISelect<K>) {
 					{data.map(item => (
 						<li
 							key={item.key?.toString()}
-							className={cn({
-								[styles.active]: item.key === value?.key
-							})}
+							className={item.key === value?.key ? styles.active : ''}
 						>
 							<button
 								onClick={() => {

@@ -1,4 +1,3 @@
-import cn from 'clsx'
 import type { FC, PropsWithChildren } from 'react'
 
 import styles from './Checkbox.module.scss'
@@ -16,12 +15,11 @@ const Checkbox: FC<PropsWithChildren<ICheckbox>> = ({
 	children
 }) => {
 	return (
-		<button className={cn(styles.checkbox, className)} onClick={onClick}>
-			<span
-				className={cn({
-					[styles.active]: isChecked
-				})}
-			/>
+		<button
+			className={[styles.checkbox, className].join(' ')}
+			onClick={onClick}
+		>
+			<span className={isChecked ? styles.active : ''} />
 			<span>{children}</span>
 		</button>
 	)

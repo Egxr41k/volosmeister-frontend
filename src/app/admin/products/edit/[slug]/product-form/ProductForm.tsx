@@ -1,6 +1,6 @@
 'use client'
-import FilledBtn from '@/components/old-ui/btns/FilledBtn'
-import Spinner from '@/components/old-ui/Spinner'
+import FilledBtn from '@/ui/button/FilledBtn'
+import Spinner from '@/ui/Spinner'
 import { ProductService } from '@/services/product/product.service'
 import { TypeProductData } from '@/services/product/product.types'
 import { IProduct } from '@/types/product.interface'

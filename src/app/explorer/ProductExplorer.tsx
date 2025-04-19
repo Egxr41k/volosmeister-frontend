@@ -1,10 +1,8 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import cn from 'clsx'
 import { FC, useState } from 'react'
 
-import Heading from '@/ui/Heading'
 import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
 
@@ -38,13 +36,13 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 	)
 
 	return (
-		<div>
+		<>
 			<div className="mb-7 flex items-center justify-between">
-				<Heading>
+				<h1 className="text-3xl font-semibold">
 					{queryParams.searchTerm
 						? `Search by query "${queryParams.searchTerm}"`
-						: 'Explorer'}
-				</Heading>
+						: 'Find something cozy for your home'}
+				</h1>
 				<Search />
 			</div>
 			<div className="mb-7 flex items-center justify-between">
@@ -66,9 +64,9 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 				<SortDropdown />
 			</div>
 			<div
-				className={cn(styles.explorer, {
-					[styles.filterOpened]: isFilterOpen
-				})}
+				className={[styles.explorer, isFilterOpen && styles.filterOpened].join(
+					' '
+				)}
 			>
 				<aside>
 					<Filters />
@@ -78,12 +76,12 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 					<Catalog products={data.products} isLoading={isFetching} />
 					<Pagination
 						changePage={page => updateQueryParams('page', page.toString())}
-						currentPage={queryParams.page}
+						currentPage={queryParams.page ?? 1}
 						numberPages={Math.ceil(data.length / +queryParams.perPage)}
 					/>
 				</section>
 			</div>
-		</div>
+		</>
 	)
 }
 

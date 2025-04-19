@@ -2,8 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import Heading from '@/ui/Heading'
-
 import { IProduct } from '@/types/product.interface'
 
 import { ProductService } from '@/services/product/product.service'
@@ -35,8 +33,8 @@ export default function Product({
 		}
 	)
 	return (
-		<div>
-			<Heading className="m-1">{product.name}</Heading>
+		<>
+			<h1 className="m-1 text-3xl font-semibold">{product.name}</h1>
 			<ProductReviewsCount product={product} />
 			<div
 				className="mt-6 grid gap-12"
@@ -54,6 +52,6 @@ export default function Product({
 			<ProductProperties properties={product.properties ?? []} />
 			<SimilarProducts similarProducts={similarProducts} />
 			<ProductReviews reviews={product.reviews} productId={product.id} />
-		</div>
+		</>
 	)
 }

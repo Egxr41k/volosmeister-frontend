@@ -1,6 +1,6 @@
-import '@/assets/styles/globals.scss'
-import Footer from '@/components/old-ui/Footer'
-import Header from './layout/header/Header'
+import './globals.scss'
+import Footer from '../components/layout/footer/Footer'
+import Header from '../components/layout/header/Header'
 
 import { getSiteUrl } from '@/config/url.config'
 import { SITE_NAME } from '@/constants/app.constants'
@@ -34,7 +34,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 				<Providers>
 					<Header />
 					<main className="px-48">{children}</main>
-					<Footer />
+					{/* <Footer /> */}
 				</Providers>
 				<div id="modal"></div>
 			</body>

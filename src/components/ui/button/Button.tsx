@@ -1,4 +1,3 @@
-import cn from 'clsx'
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react'
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,16 +15,14 @@ const Button: FC<PropsWithChildren<IButton>> = ({
 	return (
 		<button
 			{...rest}
-			className={cn(
+			className={[
 				'btn',
-				{
-					'btn-orange': variant === 'orange',
-					'btn-white': variant === 'white',
-					'px-5 py-2 text-sm': size === 'sm',
-					'btn-large': size === 'lg'
-				},
+				variant === 'orange' && 'btn-orange',
+				variant === 'white' && 'btn-white',
+				size === 'sm' && 'px-5 py-2 text-sm',
+				size === 'lg' && 'btn-large',
 				className
-			)}
+			].join(' ')}
 		>
 			{children}
 		</button>

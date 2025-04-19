@@ -46,7 +46,7 @@ export function FormGallery({
 		setActiveIndex(activeIndex - 1)
 	}
 	return (
-		<div>
+		<>
 			<ImageInput
 				image={productImages[activeIndex] ?? ''}
 				onChange={(image: string) => setProductImageToPos(image, activeIndex)}
@@ -91,6 +91,6 @@ export function FormGallery({
 					- Remove selected
 				</button>
 			</div>
-		</div>
+		</>
 	)
 }

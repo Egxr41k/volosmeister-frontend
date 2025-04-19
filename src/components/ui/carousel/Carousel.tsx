@@ -1,6 +1,5 @@
 'use client'
 
-import cn from 'clsx'
 import Link from 'next/link'
 import { FC } from 'react'
 import { TransitionGroup } from 'react-transition-group'
@@ -23,7 +22,7 @@ const Carousel: FC<ICarousel> = ({ items, className = '' }) => {
 	const selectedItem = items[selectedItemIndex]
 
 	return (
-		<section className={cn(className, 'relative')}>
+		<section className={[className, 'relative'].join(' ')}>
 			<CarouselNavigation />
 			<TransitionGroup className="relative h-56">
 				<CSSTransition

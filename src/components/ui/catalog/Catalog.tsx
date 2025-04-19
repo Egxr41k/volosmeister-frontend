@@ -4,10 +4,8 @@ import { FC } from 'react'
 
 import { IProduct } from '@/types/product.interface'
 
-import Heading from '../Heading'
-import Loader from '../Loader'
-
 import ProductItem from './product-item/ProductItem'
+import Spinner from '@/ui/Spinner'
 
 interface ICatalog {
 	products: IProduct[]
@@ -16,11 +14,11 @@ interface ICatalog {
 }
 
 const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
-	if (isLoading) return <Loader />
+	if (isLoading) return <Spinner />
 
 	return (
 		<section>
-			{title && <Heading className="mb-5">{title}</Heading>}
+			{title && <h1 className="mb-5 text-3xl font-semibold">{title}</h1>}
 			{products.length ? (
 				<>
 					<div className="grid grid-cols-4 gap-10">
