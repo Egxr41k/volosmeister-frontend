@@ -1,5 +1,5 @@
-import BorderedBtn from '@/ui/button/BorderedBtn'
 import { IFeature } from '@/types/feature.interface'
+import BorderedBtn from '@/ui/button/BorderedBtn'
 import { SetStateAction } from 'react'
 import ImageInput from './ImageInput'
 
@@ -86,21 +86,26 @@ const FeatureFields = ({
 								setFeatureImageFileToPos(file, i)
 							}}
 						/>
-						<input
-							className="my-2 w-48"
-							placeholder="feature title"
-							type="text"
-							onChange={event => setFeatureTitle(event.target.value, i)}
-							value={feature.title}
-						/>
-						<textarea
-							className="my-2 h-20 w-full"
-							placeholder="feature description"
-							onChange={event => {
-								setFeatureDescription(event.target.value, i)
-							}}
-							value={feature.description}
-						/>
+						<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
+							<input
+								className="w-full px-4 py-2 outline-none"
+								placeholder="feature title"
+								type="text"
+								onChange={event => setFeatureTitle(event.target.value, i)}
+								value={feature.title}
+							/>
+						</div>
+
+						<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
+							<textarea
+								className="w-full px-4 py-2 outline-none"
+								placeholder="feature description"
+								onChange={event => {
+									setFeatureDescription(event.target.value, i)
+								}}
+								value={feature.description}
+							/>
+						</div>
 					</div>
 				)
 			})}

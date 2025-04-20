@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import ServerImage from '@/ui/ServerImage'
 
 interface IImageInput {
 	image: string
@@ -10,7 +10,7 @@ interface IImageInput {
 const ImageInput = ({ image, onChange, file, onFileChange }: IImageInput) => {
 	return (
 		<div className="w-[500px]">
-			<Image
+			<ServerImage
 				src={file ? URL.createObjectURL(file) : image}
 				alt={''}
 				width={500}
@@ -26,15 +26,17 @@ const ImageInput = ({ image, onChange, file, onFileChange }: IImageInput) => {
 				}}
 			/>
 
-			<input
-				className="my-2 w-full"
-				placeholder="Image URL"
-				type="text"
-				onChange={event => {
-					onChange(event.target.value)
-				}}
-				value={file ? URL.createObjectURL(file) : image}
-			/>
+			<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
+				<input
+					className="w-full px-4 py-2 outline-none"
+					placeholder="Image URL"
+					type="text"
+					onChange={event => {
+						onChange(event.target.value)
+					}}
+					value={file ? URL.createObjectURL(file) : image}
+				/>
+			</div>
 		</div>
 	)
 }

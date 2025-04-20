@@ -46,7 +46,7 @@ export function FormGallery({
 		setActiveIndex(activeIndex - 1)
 	}
 	return (
-		<>
+		<div>
 			<ImageInput
 				image={productImages[activeIndex] ?? ''}
 				onChange={(image: string) => setProductImageToPos(image, activeIndex)}
@@ -56,7 +56,7 @@ export function FormGallery({
 				}
 			/>
 			<div
-				className="mt-6"
+				className="my-2"
 				style={{ width: '500px', overflowX: 'auto', whiteSpace: 'nowrap' }}
 			>
 				{productImages.map((image: string, index: number) => (
@@ -78,19 +78,21 @@ export function FormGallery({
 						/>
 					</button>
 				))}
-				<button
-					className="ml-2 rounded-lg bg-gray-200 px-4 py-2"
-					onClick={addProductImage}
-				>
-					+ Add
-				</button>
-				<button
-					className="ml-2 rounded-lg bg-gray-200 px-4 py-2"
-					onClick={() => removeProductImage(activeIndex)}
-				>
-					- Remove selected
-				</button>
+				<div className="my-2 flex gap-5">
+					<button
+						className="rounded-lg bg-gray-200 px-4 py-2"
+						onClick={addProductImage}
+					>
+						+ Add
+					</button>
+					<button
+						className="rounded-lg bg-gray-200 px-4 py-2"
+						onClick={() => removeProductImage(activeIndex)}
+					>
+						- Remove selected
+					</button>
+				</div>
 			</div>
-		</>
+		</div>
 	)
 }

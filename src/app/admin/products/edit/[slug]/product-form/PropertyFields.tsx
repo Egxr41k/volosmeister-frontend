@@ -1,5 +1,5 @@
-import BorderedBtn from '@/ui/button/BorderedBtn'
 import { IProperty } from '@/types/property.interface'
+import BorderedBtn from '@/ui/button/BorderedBtn'
 
 interface IPropertyFields {
 	properties: IProperty[]
@@ -38,7 +38,7 @@ const PropertyFields = ({ properties, setProperties }: IPropertyFields) => {
 		<div className="my-2">
 			<div className="flex justify-between">
 				<h2 className="my-auto text-lg font-semibold">
-					{properties.length != 0 ? 'Upfate properties' : 'Add properties'}
+					{properties.length != 0 ? 'Update properties' : 'Add properties'}
 				</h2>
 				<BorderedBtn handleClick={appendProperty}>+</BorderedBtn>
 			</div>
@@ -50,20 +50,24 @@ const PropertyFields = ({ properties, setProperties }: IPropertyFields) => {
 							<BorderedBtn handleClick={removeProperty}>-</BorderedBtn>
 						</div>
 
-						<input
-							className="my-2 w-32"
-							placeholder="property name"
-							type="text"
-							onChange={event => setPropertyName(event.target.value, i)}
-							value={property.name}
-						/>
-						<input
-							className="my-2 w-32"
-							placeholder="property value"
-							type="text"
-							onChange={event => setPropertyValue(event.target.value, i)}
-							value={property.value}
-						/>
+						<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
+							<input
+								className="w-full px-4 py-2 outline-none"
+								placeholder="property name"
+								type="text"
+								onChange={event => setPropertyName(event.target.value, i)}
+								value={property.name}
+							/>
+						</div>
+						<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
+							<input
+								className="w-full px-4 py-2 outline-none"
+								placeholder="property value"
+								type="text"
+								onChange={event => setPropertyValue(event.target.value, i)}
+								value={property.value}
+							/>
+						</div>
 					</div>
 				)
 			})}
