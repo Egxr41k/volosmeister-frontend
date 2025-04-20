@@ -2,12 +2,7 @@ import { CategoryService } from '@/services/category.service'
 import { ICategory } from '@/types/category.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import CreatableSelect from 'react-select/creatable'
-
-interface IOption {
-	readonly label: string
-	readonly value: string
-}
+import Select, { Option } from './Select'
 
 interface ICategoryField {
 	category: ICategory
@@ -15,75 +10,73 @@ interface ICategoryField {
 }
 
 export const CategoryField = ({ category, setCategory }: ICategoryField) => {
-	const [isLoading, setIsLoading] = useState(false)
-	const [options, setOptions] = useState<IOption[]>([])
-	const initialValue = options.find(
-		option => option.label === category.name.toString()
-	)
+	const [options, setOptions] = useState<Option[]>([])
 
 	const queryClient = useQueryClient()
 
-	// Получение списка категорий
-	const { data, isSuccess } = useQuery({
+	const { data: categories, isSuccess } = useQuery({
 		queryKey: ['categories'],
 		queryFn: () => CategoryService.getAll(),
 		select: data => data.data
 	})
 
 	useEffect(() => {
-		if (isSuccess)
+		if (isSuccess) {
 			setOptions(
-				data.map(category => ({
+				categories.map(category => ({
 					label: category.name,
-					value: category.id.toString() // Используем id для связи с categoryId
+					value: category.id.toString()
 				}))
 			)
+		}
 	}, [isSuccess])
 
-	// Мутация для создания категории
 	const createCategoryMutation = useMutation({
 		mutationFn: (newCategoryName: string) =>
 			CategoryService.create(newCategoryName),
 		onSuccess: newCategory => {
 			queryClient.invalidateQueries(['categories'])
 
-			setIsLoading(false)
-			const newOption: IOption = {
+			const newOption: Option = {
 				label: newCategory.data.name,
-				value: newCategory.data.id.toString() // Получаем id новой категории
+				value: newCategory.data.id.toString()
 			}
-			// Обновляем список опций и устанавливаем новую категорию
 			setOptions(prev => [...prev, newOption])
+			const createdCategory = {
+				id: newCategory.data.id,
+				name: newCategory.data.name,
+				slug: newCategory.data.slug // Ensure slug is included
+			}
+			setCategory(createdCategory)
 		}
 	})
 
-	// Обработка создания новой категории
-	const handleChange = (newValue: IOption | null) => {
-		if (!newValue) return
+	const selectedValue = category?.id?.toString() ?? ''
 
-		const selectedCategory = data?.find(
-			category => category.id === +newValue.value
-		)
-
-		if (!selectedCategory) return
-		setCategory(selectedCategory)
-	}
-
-	const handleCreate = (inputValue: string) => {
-		setIsLoading(true)
-		createCategoryMutation.mutate(inputValue)
+	const handleChange = (value: string) => {
+		const found = categories?.find(c => c.id.toString() === value)
+		if (found) setCategory(found)
 	}
 
 	return (
-		<CreatableSelect
-			isClearable
-			isDisabled={isLoading}
-			isLoading={isLoading}
-			onChange={handleChange}
-			onCreateOption={handleCreate}
-			options={options}
-			value={initialValue}
-			placeholder="choose or create category"
-		/>
+		<div className="mt-2">
+			<Select
+				options={options}
+				value={selectedValue}
+				onChange={handleChange}
+				placeholder="Выберите категорию"
+			/>
+			{/* Пример создания новой категории — временно через prompt */}
+			<button
+				type="button"
+				className="mt-1 text-sm text-emerald-500"
+				onClick={() => {
+					const name = prompt('Введите название новой категории')
+					if (name) createCategoryMutation.mutate(name)
+				}}
+			>
+				+ Создать новую категорию
+			</button>
+		</div>
 	)
 }
