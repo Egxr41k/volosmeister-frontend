@@ -1,17 +1,22 @@
 import { ICategory } from './category.interface'
 import { IFeature } from './feature.interface'
+import { IManufacturer } from './manufacturer.interface'
 import { IProperty } from './property.interface'
 import { IReview } from './review.interface'
 
 export interface IProduct {
 	id: number
-	images: string[]
-	description: string
-	name: string
-	price: number
 	createAt: Date
+	name: string
+	manufacturer: IManufacturer
 	slug: string
+	images: string[]
 	category: ICategory
+	description: string
+	price: number
+	instructionForUse: string
+	availableSizes: number[]
+	ingredients: string[]
 	reviews: IReview[]
 	features: IFeature[]
 	properties: IProperty[]

@@ -1,15 +1,15 @@
 'use client'
 
+import { useProfile } from '@/hooks/useProfile'
+import { UserService } from '@/services/user.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { FC } from 'react'
+import { useRouter } from 'next/navigation'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
-import { useProfile } from '@/hooks/useProfile'
-
-import { UserService } from '@/services/user.service'
-
-const FavoriteButton: FC<{ productId: number }> = ({ productId }) => {
+const FavoriteButton = ({ productId }: { productId: number }) => {
 	const { profile } = useProfile()
+
+	const { push } = useRouter()
 
 	const queryClient = useQueryClient()
 
@@ -23,21 +23,21 @@ const FavoriteButton: FC<{ productId: number }> = ({ productId }) => {
 		}
 	)
 
-	if (!profile) return null
-
-	const isExists = profile.favorites.some(favorite => favorite.id === productId)
+	const isExists = profile?.favorites.some(
+		favorite => favorite.id === productId
+	)
 
 	return (
-		<>
+		<div>
 			<button
 				onClick={() => {
-					mutate()
+					profile ? mutate() : push('/auth')
 				}}
 				className="text-primary"
 			>
 				{isExists ? <AiFillHeart /> : <AiOutlineHeart />}
 			</button>
-		</>
+		</div>
 	)
 }
 

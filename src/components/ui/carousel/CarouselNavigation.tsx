@@ -1,11 +1,8 @@
-import { FC } from 'react'
-import { BsCaretLeftSquare, BsCaretRightSquare } from 'react-icons/bs'
-
 import { useActions } from '@/hooks/useActions'
-
+import { BsCaretLeftSquare, BsCaretRightSquare } from 'react-icons/bs'
 import styles from './carousel.module.scss'
 
-const CarouselNavigation: FC = () => {
+const CarouselNavigation = () => {
 	const { nextSlide, prevSlide } = useActions()
 
 	return (

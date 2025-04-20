@@ -1,11 +1,7 @@
-import { useState } from 'react'
-
-import Modal from '@/ui/modal/Modal'
-
 import { useAuth } from '@/hooks/useAuth'
-
 import { IReview } from '@/types/review.interface'
-
+import Modal from '@/ui/modal/Modal'
+import { useState } from 'react'
 import LeaveReviewForm from './LeaveReviewForm'
 import ReviewItem from './ReviewItem'
 

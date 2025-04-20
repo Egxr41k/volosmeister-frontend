@@ -1,14 +1,11 @@
 'use client'
 
-import { FC } from 'react'
-import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
-
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
-
 import { IProduct } from '@/types/product.interface'
+import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
 
-const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
+const AddToCartButton = ({ product }: { product: IProduct }) => {
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
@@ -17,7 +14,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 	)
 
 	return (
-		<>
+		<div>
 			<button
 				className="text-secondary"
 				onClick={() => {
@@ -32,7 +29,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 			>
 				{currentElement ? <RiShoppingCartFill /> : <RiShoppingCartLine />}
 			</button>
-		</>
+		</div>
 	)
 }
 

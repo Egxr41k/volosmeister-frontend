@@ -1,15 +1,12 @@
+import { ReviewService } from '@/services/review.service'
+import Button from '@/ui/button/Button'
+import Spinner from '@/ui/Spinner'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Rating } from 'react-simple-star-rating'
-
-import Button from '@/ui/button/Button'
-
-import { ReviewService } from '@/services/review.service'
 import { IReviewFields } from './review-fields.interface'
-import Spinner from '@/ui/Spinner'
 
-const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
+const LeaveReviewForm = ({ productId }: { productId: number }) => {
 	const {
 		register: formRegister,
 		handleSubmit,
@@ -86,7 +83,7 @@ const LeaveReviewForm: FC<{ productId: number }> = ({ productId }) => {
 						)}
 
 						<div className="mb-2 mt-8 text-center">
-							<Button typeof="submit" variant="orange">
+							<Button typeof="submit" variant="selected">
 								Leave
 							</Button>
 						</div>

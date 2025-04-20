@@ -1,13 +1,11 @@
-import './globals.scss'
-import Footer from '../components/layout/footer/Footer'
-import Header from '../components/layout/header/Header'
-
 import { getSiteUrl } from '@/config/url.config'
 import { SITE_NAME } from '@/constants/app.constants'
 import Providers from '@/providers/Providers'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { PropsWithChildren } from 'react'
+import Header from '../components/layout/header/Header'
+import './globals.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 

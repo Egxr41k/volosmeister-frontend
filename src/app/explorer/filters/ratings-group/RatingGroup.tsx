@@ -1,19 +1,15 @@
-import { FC } from 'react'
-import { Rating } from 'react-simple-star-rating'
-
 import Checkbox from '@/ui/checkbox/Checkbox'
-
+import { Rating } from 'react-simple-star-rating'
 import { useFilters } from '../../useFilters'
 import FilterWrapper from '../FilterWrapper'
-
 import { RATINGS_VARIANTS } from './ratings-variants.data'
 import { updateRatingsQuery } from './update-ratings-query'
 
-const RatingGroup: FC = () => {
+const RatingGroup = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 
 	return (
-		<FilterWrapper title="number of reviws">
+		<FilterWrapper title="number of reviews">
 			{RATINGS_VARIANTS.map(rating => (
 				<Checkbox
 					isChecked={queryParams.ratings?.includes(rating.toString()) ?? false}
@@ -30,7 +26,7 @@ const RatingGroup: FC = () => {
 						readonly
 						initialValue={rating}
 						SVGstyle={{ display: 'inline-block' }}
-						fillColor="#8b5cf6"
+						fillColor="#10b981"
 						size={20}
 						transition
 					/>

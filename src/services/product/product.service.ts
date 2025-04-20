@@ -55,7 +55,7 @@ export const ProductService = {
 		})
 	},
 
-	async create() {
+	async create(dto: TypeProductData) {
 		return instance<IProduct>({
 			url: `${PRODUCTS}/create`,
 			method: 'POST'

@@ -1,6 +1,5 @@
-import ProductItem from '@/ui/catalog/product-item/ProductItem'
-
 import { IProduct } from '@/types/product.interface'
+import ProductItem from '@/ui/catalog/product-item/ProductItem'
 
 interface ISimilarProducs {
 	similarProducts: IProduct[]

@@ -1,10 +1,8 @@
+import { IReview } from '@/types/review.interface'
 import Image from 'next/image'
-import { FC } from 'react'
 import { Rating } from 'react-simple-star-rating'
 
-import { IReview } from '@/types/review.interface'
-
-const ReviewItem: FC<{ review: IReview }> = ({ review }) => {
+const ReviewItem = ({ review }: { review: IReview }) => {
 	return (
 		<div className="rounded-lg bg-white p-6 shadow-md">
 			<div className="mb-2 flex items-center">

@@ -1,12 +1,9 @@
 'use client'
 
-import { FC } from 'react'
-
 import AdminList from '@/ui/admin/admin-list/AdminList'
-
 import { useAdminReviews } from './useAdminReviews'
 
-const Reviews: FC = () => {
+const Reviews = () => {
 	const { data, isFetching } = useAdminReviews()
 
 	return (

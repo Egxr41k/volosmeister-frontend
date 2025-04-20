@@ -1,10 +1,8 @@
-import { FC } from 'react'
-
 import styles from './AdminList.module.scss'
 import AdminActions from './admin-actions/AdminActions'
 import { IAdminListItem } from './admin-list.interface'
 
-const AdminListItem: FC<IAdminListItem> = ({ removeHandler, listItem }) => {
+const AdminListItem = ({ removeHandler, listItem }: IAdminListItem) => {
 	return (
 		<div className={styles.item}>
 			{listItem.items.map(value => (

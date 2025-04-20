@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import styles from './Select.module.scss'
 import { ISelect } from './select.interface'
 
@@ -12,7 +11,7 @@ function Select<K>({ data, onChange, value, title }: ISelect<K>) {
 				{value?.label || 'Default'}
 			</button>
 			{isOpen && (
-				<ul>
+				<ul className="bg-white">
 					{data.map(item => (
 						<li
 							key={item.key?.toString()}

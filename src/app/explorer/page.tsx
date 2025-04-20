@@ -1,11 +1,10 @@
-import { Metadata } from 'next'
-
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { ProductService } from '@/services/product/product.service'
 import {
 	TypeParamsFilters,
 	TypeProductDataFilters
 } from '@/services/product/product.types'
+import { Metadata } from 'next'
 import ProductExplorer from './ProductExplorer'
 
 export const metadata: Metadata = {

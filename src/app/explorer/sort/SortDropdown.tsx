@@ -1,10 +1,7 @@
-import { Dispatch, FC, SetStateAction } from 'react'
-
-import Select from '@/ui/select/Select'
-
-import { useFilters } from '../useFilters'
-
 import { EnumProductSort } from '@/services/product/product.types'
+import Select from '@/ui/select/Select'
+import { Dispatch, SetStateAction } from 'react'
+import { useFilters } from '../useFilters'
 import { SORT_SELECT_DATA } from './sort.select.data'
 
 interface ISortType {
@@ -13,7 +10,7 @@ interface ISortType {
 }
 
 // const SortDropdown: FC<ISortType> = ({ sortType, setSortType }) => {
-const SortDropdown: FC = () => {
+const SortDropdown = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 
 	return (

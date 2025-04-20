@@ -1,13 +1,9 @@
-import { FC } from 'react'
-
-import Checkbox from '@/ui/checkbox/Checkbox'
-
 import { useCategories } from '@/hooks/queries/useCategory'
-
+import Checkbox from '@/ui/checkbox/Checkbox'
 import { useFilters } from '../../useFilters'
 import FilterWrapper from '../FilterWrapper'
 
-const CategoryGroup: FC = () => {
+const CategoryGroup = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 	const { data, isLoading } = useCategories()
 

@@ -1,15 +1,12 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { FC } from 'react'
-
-import { convertPrice } from '@/utils/convertPrice'
-
 import { StatisticsService } from '@/services/statistics.service'
-import styles from './Dashboard.module.scss'
 import Spinner from '@/ui/Spinner'
+import { convertPrice } from '@/utils/convertPrice'
+import { useQuery } from '@tanstack/react-query'
+import styles from './Dashboard.module.scss'
 
-const Dashboard: FC = () => {
+const Dashboard = () => {
 	const { data, isFetching } = useQuery(
 		['statictics'],
 		() => StatisticsService.getMain(),

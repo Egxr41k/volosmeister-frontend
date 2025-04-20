@@ -1,7 +1,6 @@
-import { FC, PropsWithChildren, useRef } from 'react'
+import { PropsWithChildren, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { RiCloseFill } from 'react-icons/ri'
-
 import styles from './Modal.module.scss'
 
 interface IModal {
@@ -9,11 +8,7 @@ interface IModal {
 	closeModal: () => void
 }
 
-const Modal: FC<PropsWithChildren<IModal>> = ({
-	children,
-	isOpen,
-	closeModal
-}) => {
+const Modal = ({ children, isOpen, closeModal }: PropsWithChildren<IModal>) => {
 	const modalRef = useRef<HTMLElement | null>(document.getElementById('modal'))
 
 	if (!isOpen || !modalRef.current) {

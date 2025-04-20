@@ -1,15 +1,12 @@
 'use client'
 
-import { FC } from 'react'
+import { useActions } from '@/hooks/useActions'
+import { useCart } from '@/hooks/useCart'
+import { ICartItem } from '@/types/cart.interface'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { FiTrash } from 'react-icons/fi'
 
-import { useActions } from '@/hooks/useActions'
-import { useCart } from '@/hooks/useCart'
-
-import { ICartItem } from '@/types/cart.interface'
-
-const CartActions: FC<{ item: ICartItem }> = ({ item }) => {
+const CartActions = ({ item }: { item: ICartItem }) => {
 	const { removeFromCart, changeQuantity } = useActions()
 
 	const { items } = useCart()

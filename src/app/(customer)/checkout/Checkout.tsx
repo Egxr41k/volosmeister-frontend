@@ -1,24 +1,18 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
-import { FC } from 'react'
-
-import Button from '@/ui/button/Button'
-import ProductItem from '@/ui/catalog/product-item/ProductItem'
-
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
-
+import { OrderService } from '@/services/order.service'
 import { IProduct } from '@/types/product.interface'
-
+import Button from '@/ui/button/Button'
+import ProductItem from '@/ui/catalog/product-item/ProductItem'
 import { convertPrice } from '@/utils/convertPrice'
-
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import styles from './Checkout.module.scss'
 import CheckoutItem from './CheckoutItem'
-import { OrderService } from '@/services/order.service'
 
-const Checkout: FC<{ products: IProduct[] }> = ({ products = [] }) => {
+const Checkout = ({ products = [] }: { products: IProduct[] }) => {
 	const { items, total } = useCart()
 
 	const { reset } = useActions()

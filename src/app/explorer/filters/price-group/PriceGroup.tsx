@@ -1,11 +1,8 @@
-import { FC } from 'react'
-
 import Range from '@/ui/range/Range'
-
 import { useFilters } from '../../useFilters'
 import FilterWrapper from '../FilterWrapper'
 
-const PriceGroup: FC = () => {
+const PriceGroup = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 
 	return (

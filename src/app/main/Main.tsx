@@ -1,10 +1,7 @@
-import { FC } from 'react'
-
+import { TypePaginationProducts } from '@/types/product.interface'
 import Carousel from '@/ui/carousel/Carousel'
 import Catalog from '@/ui/catalog/Catalog'
-
-import { TypePaginationProducts } from '@/types/product.interface'
-
+import { FC } from 'react'
 import { carouselItems } from '../carousel.data'
 
 const Main: FC<TypePaginationProducts> = ({ products }) => {

@@ -1,12 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-
-import { IListItem } from '@/ui/admin/admin-list/admin-list.interface'
-
 import { getAdminUrl } from '@/config/url.config'
-
-import { formatDate } from '@/utils/format-date'
-
 import { ProductService } from '@/services/product/product.service'
+import { IListItem } from '@/ui/admin/admin-list/admin-list.interface'
+import { formatDate } from '@/utils/format-date'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useAdminProducts = () => {
 	const { data, isFetching, refetch } = useQuery(

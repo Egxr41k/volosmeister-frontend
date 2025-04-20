@@ -1,6 +1,5 @@
-import { ISelectItem } from '@/ui/select/select.interface'
-
 import { EnumProductSort } from '@/services/product/product.types'
+import { ISelectItem } from '@/ui/select/select.interface'
 
 export const SORT_SELECT_DATA: ISelectItem<EnumProductSort>[] = [
 	{

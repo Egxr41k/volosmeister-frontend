@@ -1,14 +1,13 @@
-import { FC, useState } from 'react'
-import { Rating } from 'react-simple-star-rating'
-
 import { IProduct } from '@/types/product.interface'
+import { useState } from 'react'
+import { Rating } from 'react-simple-star-rating'
 
 interface IProductRaiteing {
 	product: IProduct
 	isText?: boolean
 }
 
-const ProductRating: FC<IProductRaiteing> = ({ product, isText = false }) => {
+const ProductRating = ({ product, isText = false }: IProductRaiteing) => {
 	const [rating, setRating] = useState(
 		Math.round(
 			product.reviews.reduce((acc, review) => acc + review.rating, 0) /

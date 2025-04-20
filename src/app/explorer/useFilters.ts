@@ -1,10 +1,8 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
-
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
-
 import { TypeProductDataFilters } from '@/services/product/product.types'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 
 export const useFilters = () => {
 	const pathname = usePathname()

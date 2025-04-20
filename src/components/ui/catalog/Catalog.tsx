@@ -1,11 +1,8 @@
 'use client'
 
-import { FC } from 'react'
-
 import { IProduct } from '@/types/product.interface'
-
-import ProductItem from './product-item/ProductItem'
 import Spinner from '@/ui/Spinner'
+import ProductItem from './product-item/ProductItem'
 
 interface ICatalog {
 	products: IProduct[]
@@ -13,7 +10,7 @@ interface ICatalog {
 	title?: string
 }
 
-const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
+const Catalog = ({ products, isLoading, title }: ICatalog) => {
 	if (isLoading) return <Spinner />
 
 	return (

@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import Button from '@/ui/button/Button'
 
 interface IPagination {
@@ -8,11 +6,7 @@ interface IPagination {
 	currentPage?: number | string
 }
 
-const Pagination: FC<IPagination> = ({
-	numberPages,
-	changePage,
-	currentPage
-}: IPagination) => {
+const Pagination = ({ numberPages, changePage, currentPage }: IPagination) => {
 	return (
 		<div className="mt-16 text-center">
 			{Array.from({ length: numberPages > 1 ? numberPages : 1 }).map(
@@ -23,9 +17,9 @@ const Pagination: FC<IPagination> = ({
 						<Button
 							key={pageNumber}
 							size="md"
-							variant={isActive ? 'orange' : 'white'}
+							variant={isActive ? 'selected' : 'white'}
 							onClick={() => changePage(pageNumber)}
-							className="mx-3"
+							className="mx-3 text-emerald-500"
 						>
 							{pageNumber}
 						</Button>

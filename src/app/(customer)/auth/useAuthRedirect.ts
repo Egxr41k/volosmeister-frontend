@@ -1,14 +1,13 @@
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export const useAuthRedirect = () => {
-  const { user } = useAuth();
+	const { user } = useAuth()
 
-  const { replace } = useRouter();
+	const { replace } = useRouter()
 
-  useEffect(() => {
-    if (user) replace('/');
-  }, [user]);
-};
+	useEffect(() => {
+		if (user) replace('/')
+	}, [user])
+}

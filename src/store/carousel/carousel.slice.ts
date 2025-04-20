@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
 import { ICarouselInitialState } from './carousel.types'
 
 const initialState: ICarouselInitialState = {

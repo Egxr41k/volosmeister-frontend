@@ -1,20 +1,13 @@
 import { useRouter } from 'next/navigation'
-import { FC } from 'react'
 import { RiDeleteRow, RiEdit2Line, RiExternalLinkLine } from 'react-icons/ri'
-
 import { IListItem } from '../admin-list.interface'
-
 import styles from './AdminActions.module.scss'
 
 interface IAdminActions extends Pick<IListItem, 'editUrl' | 'viewUrl'> {
 	removeHandler?: () => void
 }
 
-const AdminActions: FC<IAdminActions> = ({
-	editUrl,
-	removeHandler,
-	viewUrl
-}) => {
+const AdminActions = ({ editUrl, removeHandler, viewUrl }: IAdminActions) => {
 	const { push } = useRouter()
 
 	return (

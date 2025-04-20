@@ -1,15 +1,10 @@
-import Image from 'next/image'
-import { FC } from 'react'
-
 import { ICartItem } from '@/types/cart.interface'
-
 import { convertPrice } from '@/utils/convertPrice'
-
+import Image from 'next/image'
+import styles from '../Cart.module.scss'
 import CartActions from './cart-actions/CartActions'
 
-import styles from '../Cart.module.scss'
-
-const CartItem: FC<{ item: ICartItem }> = ({ item }) => {
+const CartItem = ({ item }: { item: ICartItem }) => {
 	return (
 		<div className={styles.item}>
 			<Image

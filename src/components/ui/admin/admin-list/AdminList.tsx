@@ -1,11 +1,9 @@
 'use client'
 
-import { FC } from 'react'
-
+import Spinner from '@/ui/Spinner'
 import styles from './AdminList.module.scss'
 import AdminListItem from './AdminListItem'
 import { IListItem } from './admin-list.interface'
-import Spinner from '@/ui/Spinner'
 
 interface IAdminList {
 	listItems?: IListItem[]
@@ -14,11 +12,11 @@ interface IAdminList {
 	removeHandler?: (id: number) => void
 }
 
-const AdminList: FC<IAdminList> = ({
+const AdminList = ({
 	isLoading,
 	removeHandler,
 	listItems = []
-}) => {
+}: IAdminList) => {
 	return (
 		<>
 			{isLoading ? (

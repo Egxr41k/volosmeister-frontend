@@ -1,6 +1,5 @@
-import { Metadata } from 'next'
-
 import { ProductService } from '@/services/product/product.service'
+import { Metadata } from 'next'
 import Main from './Main'
 
 export const metadat: Metadata = {

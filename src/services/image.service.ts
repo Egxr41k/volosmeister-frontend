@@ -1,30 +1,24 @@
 const baseUrl = process.env.SERVER_URL
 
-interface IUploadImage {
-	message: string
-	imageUrl: string
-}
-
 export const ImageService = {
-	async saveImage(img: File): Promise<any> {
-		const formData = new FormData()
-		formData.append('file', img)
+	async saveImage(img: File) {
+		return new Promise((resolve, reject) => {
+			const formData = new FormData()
+			formData.append('image', img)
+			console.log(formData)
 
-		try {
-			const response = await fetch(`${baseUrl}/minio/image`, {
-				method: 'POST',
-				body: formData
-			})
+			const request = new XMLHttpRequest()
+			request.open('POST', `${baseUrl}SaveImage`, true)
+			request.responseType = 'json'
 
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`)
+			request.onload = () => {
+				resolve(request.response)
 			}
-
-			return (await response.json()) as IUploadImage
-		} catch (error) {
-			console.error('Error uploading image:', error)
-			throw error
-		}
+			request.onerror = () => {
+				reject(request.response)
+			}
+			request.send(formData)
+		})
 	},
 
 	async checkImageExisting(imageSrc: string) {

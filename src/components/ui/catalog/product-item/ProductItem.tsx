@@ -1,22 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { FC } from 'react'
-
 import { IProduct } from '@/types/product.interface'
-
-import { convertPrice } from '@/utils/convertPrice'
-
+import ServerImage from '@/ui/ServerImage'
+import Link from 'next/link'
 import AddToCartButton from './AddToCartButton'
 import FavoriteButton from './FavoriteButton'
 import ProductRating from './ProductRating'
 
-const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
+const ProductItem = ({ product }: { product: IProduct }) => {
 	return (
 		<div className="animate-scaleIn rounded-lg border border-solid border-gray-300">
 			<div className="relative overflow-hidden rounded-lg bg-white">
 				<Link href={`product/${product.slug}`}>
-					<Image
-						className="h-[306px] w-[306px]"
+					<ServerImage
+						className="mx-auto block"
 						width={306}
 						height={306}
 						src={product.images[0]}
@@ -36,9 +31,7 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 				</Link>
 				<ProductRating product={product} isText />
 				<div className="mt-2 flex items-center justify-between">
-					<div className="text-xl font-semibold">
-						{convertPrice(product.price)}
-					</div>
+					<div className="">{product.price}</div>
 					<div className="flex gap-2">
 						<FavoriteButton productId={product.id} />
 						<AddToCartButton product={product} />

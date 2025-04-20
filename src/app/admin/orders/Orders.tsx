@@ -1,12 +1,9 @@
 'use client'
 
-import { FC } from 'react'
-
 import AdminList from '@/ui/admin/admin-list/AdminList'
-
 import { useAdminOrders } from './useAdminOrders'
 
-const Orders: FC = () => {
+const Orders = () => {
 	const { data, isFetching } = useAdminOrders()
 
 	return (

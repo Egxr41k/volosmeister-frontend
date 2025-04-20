@@ -1,10 +1,8 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-
-import { IProduct } from '@/types/product.interface'
-
 import { ProductService } from '@/services/product/product.service'
+import { IProduct } from '@/types/product.interface'
+import { useQuery } from '@tanstack/react-query'
 import ProductInformation from './product-information/ProductInformation'
 import ProductReviews from './product-reviews/ProductReviews'
 import ProductFeatures from './ProductFeatures'

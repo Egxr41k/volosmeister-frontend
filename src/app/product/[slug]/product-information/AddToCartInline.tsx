@@ -1,13 +1,9 @@
-import { FC } from 'react'
-
-import Button from '@/ui/button/Button'
-
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
-
 import { IProduct } from '@/types/product.interface'
+import Button from '@/ui/button/Button'
 
-const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
+const AddToCartInline = ({ product }: { product: IProduct }) => {
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
@@ -18,7 +14,7 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
 	return (
 		<div className="mt-5">
 			<Button
-				variant="orange"
+				variant="selected"
 				onClick={() =>
 					currentElement
 						? removeFromCart({ id: currentElement.id })

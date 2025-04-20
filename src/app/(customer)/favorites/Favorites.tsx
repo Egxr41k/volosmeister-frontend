@@ -1,15 +1,14 @@
-'use client';
+'use client'
 
-import Catalog from '@/ui/catalog/Catalog';
-
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/useProfile'
+import Catalog from '@/ui/catalog/Catalog'
 
 export default function Favorites() {
-  const { profile } = useProfile();
+	const { profile } = useProfile()
 
-  return (
-    <>
-      <Catalog products={profile?.favorites || []} title="Favorites" />
-    </>
-  );
+	return (
+		<>
+			<Catalog products={profile?.favorites || []} title="Favorites" />
+		</>
+	)
 }

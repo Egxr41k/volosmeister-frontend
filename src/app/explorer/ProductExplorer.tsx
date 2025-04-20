@@ -1,27 +1,24 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { FC, useState } from 'react'
-
+import { ProductService } from '@/services/product/product.service'
+import { TypePaginationProducts } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
-
-import { TypePaginationProducts } from '@/types/product.interface'
-
-import { ProductService } from '@/services/product/product.service'
+import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 import styles from './ProductExplorer.module.scss'
+import Search from './Search'
 import Filters from './filters/Filters'
 import Pagination from './pagination/Pagination'
 import SortDropdown from './sort/SortDropdown'
 import { useFilters } from './useFilters'
-import Search from './Search'
-import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 
 interface IProductExplorer {
 	initialProducts: TypePaginationProducts
 }
 
-const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
+const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 
 	const { isFilterUpdated, queryParams, updateQueryParams } = useFilters()

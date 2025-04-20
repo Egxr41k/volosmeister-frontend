@@ -1,17 +1,23 @@
 'use client'
 
-import { FC } from 'react'
-
 import AdminList from '@/ui/admin/admin-list/AdminList'
-
+import Link from 'next/link'
 import { useAdminProducts } from './useAdminProducts'
 
-const Products: FC = () => {
+const Products = () => {
 	const { data, isFetching, mutate } = useAdminProducts()
 
 	return (
 		<>
-			<h1 className="mb-7 text-3xl font-semibold">Products</h1>
+			<div className="mb-7 flex items-center justify-between">
+				<h1 className="text-3xl font-semibold">Products</h1>
+				<Link
+					className="rounded-md border-0 bg-emerald-500 px-4 py-2 font-semibold text-white duration-300 ease-in-out"
+					href={'/admin/products/create'}
+				>
+					Add product
+				</Link>
+			</div>
 			<AdminList
 				isLoading={isFetching}
 				listItems={data}

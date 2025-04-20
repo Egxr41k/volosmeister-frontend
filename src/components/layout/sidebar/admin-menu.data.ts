@@ -1,5 +1,4 @@
 import { getAdminUrl } from '@/config/url.config'
-
 import { IMenuItem } from './menu.interface'
 
 export const ADMIN_MENU: IMenuItem[] = [

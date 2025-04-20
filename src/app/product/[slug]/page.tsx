@@ -1,8 +1,6 @@
-import { Metadata } from 'next'
-
-import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
-
 import { ProductService } from '@/services/product/product.service'
+import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
+import { Metadata } from 'next'
 import Product from './Product'
 
 export const revalidate = 60

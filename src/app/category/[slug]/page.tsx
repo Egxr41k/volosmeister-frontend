@@ -1,11 +1,8 @@
-import { Metadata } from 'next'
-
-import Catalog from '@/ui/catalog/Catalog'
-
-import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
-
 import { CategoryService } from '@/services/category.service'
 import { ProductService } from '@/services/product/product.service'
+import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
+import Catalog from '@/ui/catalog/Catalog'
+import { Metadata } from 'next'
 
 export const revalidate = 60
 

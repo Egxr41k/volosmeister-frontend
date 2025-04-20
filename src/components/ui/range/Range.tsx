@@ -1,7 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-
 import { useDebounds } from '@/hooks/useDebounds'
-
+import { useEffect, useState } from 'react'
 import styles from './Range.module.scss'
 
 interface IRange {
@@ -13,14 +11,14 @@ interface IRange {
 	onChangeToValue: (value: string) => void
 }
 
-const Range: FC<IRange> = ({
+const Range = ({
 	min = 0,
 	max,
 	fromInitialValue,
 	toInitialValue,
 	onChangeFromValue,
 	onChangeToValue
-}) => {
+}: IRange) => {
 	const [fromValue, setFromValue] = useState(fromInitialValue || '')
 	const [toValue, setToValue] = useState(toInitialValue || '')
 

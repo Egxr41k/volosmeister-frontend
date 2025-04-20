@@ -8,7 +8,6 @@ import {
 	REHYDRATE,
 	persistStore
 } from 'redux-persist'
-
 import { carouselSlice } from './carousel/carousel.slice'
 import { cartSlice } from './cart/cart.slice'
 import { filtersSlice } from './filters/filters.slice'

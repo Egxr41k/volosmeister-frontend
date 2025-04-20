@@ -1,21 +1,17 @@
 'use client'
 
-import { FC, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-
-import Button from '@/ui/button/Button'
-import Field from '@/ui/input/Field'
-
-import { IEmailPassword } from '@/store/user/user.interface'
-
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
-
+import { IEmailPassword } from '@/store/user/user.interface'
+import Button from '@/ui/button/Button'
+import Field from '@/ui/input/Field'
+import Spinner from '@/ui/Spinner'
+import { useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAuthRedirect } from './useAuthRedirect'
 import { validEmail } from './valid-email'
-import Spinner from '@/ui/Spinner'
 
-const Auth: FC = () => {
+const Auth = () => {
 	useAuthRedirect()
 
 	const { isLoading } = useAuth()
@@ -52,7 +48,6 @@ const Auth: FC = () => {
 				<h1 className="mb-4 text-center text-3xl font-semibold capitalize">
 					{type}
 				</h1>
-
 				{isLoading ? (
 					<Spinner />
 				) : (
@@ -80,7 +75,7 @@ const Auth: FC = () => {
 							placeholder="Password"
 							error={errors.password?.message}
 						/>
-						<Button variant="orange">Lets go!</Button>
+						<Button variant="selected">Lets go!</Button>
 						<div>
 							<button
 								type="button"

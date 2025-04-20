@@ -1,13 +1,9 @@
 'use client'
 
-import Link from 'next/link'
-import { FC } from 'react'
-import { TransitionGroup } from 'react-transition-group'
-
 import { useTypedSelector } from '@/hooks/useTypedSelector'
-
+import Link from 'next/link'
+import { TransitionGroup } from 'react-transition-group'
 import CSSTransition from '../CSSTransitionGroup'
-
 import CarouselNavigation from './CarouselNavigation'
 import { ICarouselItem } from './carousel.interface'
 import styles from './carousel.module.scss'
@@ -17,7 +13,7 @@ interface ICarousel {
 	className?: string
 }
 
-const Carousel: FC<ICarousel> = ({ items, className = '' }) => {
+const Carousel = ({ items, className = '' }: ICarousel) => {
 	const { selectedItemIndex } = useTypedSelector(state => state.carousel)
 	const selectedItem = items[selectedItemIndex]
 
@@ -54,7 +50,7 @@ const Carousel: FC<ICarousel> = ({ items, className = '' }) => {
 							Read more
 						</Link>
 					) : (
-						<Link href="/explorer?perPage=8" className="btn btn-white">
+						<Link href="/explorer" className="btn btn-white">
 							Browse products
 						</Link>
 					)}

@@ -1,10 +1,8 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-
-import { convertPrice } from '@/utils/convertPrice'
-
 import { OrderService } from '@/services/order.service'
+import { convertPrice } from '@/utils/convertPrice'
+import { useQuery } from '@tanstack/react-query'
 
 export default function MyOrders() {
 	const { data: orders } = useQuery(
