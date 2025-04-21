@@ -65,7 +65,7 @@ const FeatureFields = ({
 	return (
 		<div className="my-2">
 			<div className="flex justify-between">
-				<h2 className="my-auto text-xl font-semibold">
+				<h2 className="my-auto text-lg font-semibold">
 					{features.length != 0 ? 'Update fearures' : 'Add features'}
 				</h2>
 				<BorderedBtn handleClick={appendFeature}>+</BorderedBtn>

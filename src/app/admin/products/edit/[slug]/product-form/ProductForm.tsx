@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { CategoryField } from './CategoryField'
 import FeatureFields from './FeatureFields'
 import { FormGallery } from './FormGallery'
+import { ManufacturerField } from './ManufacturerField'
 import PropertyFields from './PropertyFields'
 import { useImageFiles } from './useImageFiles'
 import { useFormProduct } from './useProductFields'
@@ -126,6 +127,13 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 							<CategoryField
 								category={product.category}
 								setCategory={value => setProductField('category', value)}
+							/>
+
+							<ManufacturerField
+								manufacturer={product.manufacturer}
+								setManufacturer={value =>
+									setProductField('manufacturer', value)
+								}
 							/>
 
 							<PropertyFields
