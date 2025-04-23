@@ -1,4 +1,4 @@
-import { ICategory } from '@/types/category.interface'
+import { ICategory, ICategoryWithChildren } from '@/types/category.interface'
 
 import { axiosClassic, instance } from '@/api/api.intercepter'
 
@@ -26,11 +26,32 @@ export const CategoryService = {
 		})
 	},
 
-	async create(name: string) {
+	async getRoot() {
+		return axiosClassic<ICategory[]>({
+			url: `${CATEGORIES}/root`,
+			method: 'GET'
+		})
+	},
+
+	async getChildren(parentId: number | string) {
+		return axiosClassic<ICategory[]>({
+			url: `${CATEGORIES}/children/${parentId}`,
+			method: 'GET'
+		})
+	},
+
+	async getChain(id: string | number) {
+		return axiosClassic<ICategoryWithChildren[]>({
+			url: `${CATEGORIES}/chain/${id}`,
+			method: 'GET'
+		})
+	},
+
+	async create(name: string, parentId?: number | string) {
 		return instance<ICategory>({
 			url: CATEGORIES,
 			method: 'POST',
-			data: { name }
+			data: { name, parentId }
 		})
 	},
 

@@ -1,44 +1,23 @@
-import { HTMLProps } from 'react'
-
 export interface Option {
 	value: string
 	label: string
 }
 
-interface SelectProps extends Omit<HTMLProps<HTMLSelectElement>, 'onChange'> {
+interface SelectProps {
 	options: Option[]
-	value: string
+	value?: string
 	onChange: (value: string) => void
 	placeholder?: string
-	disabled?: boolean
 }
 
-export const cn = (...args: (string | undefined | false)[]) =>
-	args.filter(Boolean).join(' ')
-
-const Select = ({
-	options,
-	value,
-	onChange,
-	placeholder = 'Выберите вариант',
-	disabled = false,
-	className,
-	...rest
-}: SelectProps) => {
+const Select = ({ options, value, onChange, placeholder }: SelectProps) => {
 	return (
 		<select
-			className={cn(
-				'mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200',
-				className
-			)}
-			value={value}
+			value={value ?? ''}
 			onChange={e => onChange(e.target.value)}
-			disabled={disabled}
-			{...rest}
+			className="w-full rounded border border-gray-300 p-2"
 		>
-			<option disabled value="">
-				{placeholder}
-			</option>
+			<option value="">{placeholder || 'Выберите'}</option>
 			{options.map(option => (
 				<option key={option.value} value={option.value}>
 					{option.label}

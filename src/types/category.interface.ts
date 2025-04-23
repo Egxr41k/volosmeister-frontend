@@ -4,3 +4,7 @@ export interface ICategory {
 	slug: string
 	parentId?: number
 }
+
+export interface ICategoryWithChildren extends ICategory {
+	children: ICategory[]
+}
