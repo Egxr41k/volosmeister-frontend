@@ -8,7 +8,7 @@ export const ImageService = {
 			console.log(formData)
 
 			const request = new XMLHttpRequest()
-			request.open('POST', `${baseUrl}SaveImage`, true)
+			request.open('POST', `${baseUrl}/minio/image`, true)
 			request.responseType = 'json'
 
 			request.onload = () => {
@@ -26,7 +26,7 @@ export const ImageService = {
 	},
 
 	async deleteImage(id: number | string) {
-		const response = await fetch(`${baseUrl}DeleteImage/${id}`, {
+		const response = await fetch(`${baseUrl}/minio/image/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'content-type': 'application/json'

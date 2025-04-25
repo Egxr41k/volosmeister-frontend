@@ -5,6 +5,8 @@ import Spinner from '@/ui/Spinner'
 import { convertPrice } from '@/utils/convertPrice'
 import { useQuery } from '@tanstack/react-query'
 import styles from './Dashboard.module.scss'
+import ExportDataButton from './ExportDataButton'
+import ImportDataButton from './ImportDataButton'
 
 const Dashboard = () => {
 	const { data, isFetching } = useQuery(
@@ -36,6 +38,10 @@ const Dashboard = () => {
 			) : (
 				<div>Statistics not loaded!</div>
 			)}
+			<div className="flex gap-5">
+				<ExportDataButton />
+				<ImportDataButton />
+			</div>
 		</>
 	)
 }
