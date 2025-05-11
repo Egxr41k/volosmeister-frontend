@@ -67,7 +67,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	}
 
 	const loadChildren = async (categoryId: string) => {
-		if (categoryCache[category.id]) return categoryCache[category.id]
+		if (categoryCache[category?.id]) return categoryCache[category.id]
 
 		const children = await CategoryService.getChildren(categoryId).then(
 			res => res.data

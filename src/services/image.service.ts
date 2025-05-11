@@ -1,7 +1,7 @@
 const baseUrl = process.env.SERVER_URL
 
 export const ImageService = {
-	async saveImage(img: File) {
+	async saveImage(img: File): Promise<string> {
 		return new Promise((resolve, reject) => {
 			const formData = new FormData()
 			formData.append('image', img)
@@ -12,7 +12,7 @@ export const ImageService = {
 			request.responseType = 'json'
 
 			request.onload = () => {
-				resolve(request.response)
+				resolve(request.response as string)
 			}
 			request.onerror = () => {
 				reject(request.response)

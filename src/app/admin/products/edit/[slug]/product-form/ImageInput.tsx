@@ -1,5 +1,4 @@
-import ServerImage from '@/ui/ServerImage'
-
+import Image from 'next/image'
 interface IImageInput {
 	image: string
 	onChange: (value: string) => void
@@ -10,7 +9,7 @@ interface IImageInput {
 const ImageInput = ({ image, onChange, file, onFileChange }: IImageInput) => {
 	return (
 		<div className="w-[500px]">
-			<ServerImage
+			<Image
 				src={file ? URL.createObjectURL(file) : image}
 				alt={''}
 				width={500}

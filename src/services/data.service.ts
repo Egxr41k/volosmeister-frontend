@@ -3,11 +3,10 @@ import { instance } from '@/api/api.intercepter'
 const baseUrl = process.env.SERVER_URL
 
 export const DataService = {
-	async import(img: File) {
+	async import(file: File) {
 		return new Promise((resolve, reject) => {
 			const formData = new FormData()
-			formData.append('file', img)
-			console.log(formData)
+			formData.append('file', file)
 
 			const request = new XMLHttpRequest()
 			request.open('POST', `${baseUrl}/data/import`, true)
