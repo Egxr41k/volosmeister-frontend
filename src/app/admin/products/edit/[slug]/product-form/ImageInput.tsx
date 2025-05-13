@@ -1,4 +1,8 @@
+'use client'
+
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
+
 interface IImageInput {
 	image: string
 	onChange: (value: string) => void
@@ -6,7 +10,19 @@ interface IImageInput {
 	onFileChange: (file: File | undefined) => void
 }
 
-const ImageInput = ({ image, onChange, file, onFileChange }: IImageInput) => {
+const ImageInput = ({
+	image: initialImage,
+	onChange,
+	file,
+	onFileChange
+}: IImageInput) => {
+	const [image, setImage] = useState(initialImage)
+
+	useEffect(() => {
+		const timeOutId = setTimeout(() => onChange(image), 500)
+		return () => clearTimeout(timeOutId)
+	}, [image])
+
 	return (
 		<div className="w-[500px]">
 			<Image
@@ -31,7 +47,7 @@ const ImageInput = ({ image, onChange, file, onFileChange }: IImageInput) => {
 					placeholder="Image URL"
 					type="text"
 					onChange={event => {
-						onChange(event.target.value)
+						setImage(event.target.value)
 					}}
 					value={file ? URL.createObjectURL(file) : image}
 				/>
