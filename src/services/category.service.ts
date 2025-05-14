@@ -1,4 +1,4 @@
-import { ICategory, ICategoryWithChildren } from '@/types/category.interface'
+import { ICategory, ICategoryTree } from '@/types/category.interface'
 
 import { axiosClassic, instance } from '@/api/api.intercepter'
 
@@ -40,9 +40,9 @@ export const CategoryService = {
 		})
 	},
 
-	async getChain(id: string | number) {
-		return axiosClassic<ICategoryWithChildren[]>({
-			url: `${CATEGORIES}/chain/${id}`,
+	async getTree(id: string | number) {
+		return axiosClassic<ICategoryTree>({
+			url: `${CATEGORIES}/tree/${id}`,
 			method: 'GET'
 		})
 	},

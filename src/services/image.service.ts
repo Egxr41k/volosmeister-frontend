@@ -5,7 +5,6 @@ export const ImageService = {
 		return new Promise((resolve, reject) => {
 			const formData = new FormData()
 			formData.append('image', img)
-			console.log(formData)
 
 			const request = new XMLHttpRequest()
 			request.open('POST', `${baseUrl}/minio/image`, true)

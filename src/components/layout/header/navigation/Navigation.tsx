@@ -1,19 +1,26 @@
 'use client'
 
-import { useCategories } from '@/hooks/queries/useCategory'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import { useIsAdminPanel } from '@/hooks/useIsAdminPanel'
 import { ADMIN_MENU } from '@/layout/sidebar/admin-menu.data'
 import { convertToMenuItems } from '@/layout/sidebar/conver-to-menu-items'
+import { CategoryService } from '@/services/category.service'
 import Spinner from '@/ui/Spinner'
+import { useQuery } from '@tanstack/react-query'
 import { FiLogOut } from 'react-icons/fi'
 import { HiOutlineMenu } from 'react-icons/hi'
 import Sidebar from '../../sidebar/Sidebar'
 import NavLink from './NavLink'
 
 const Navigation = () => {
-	const { data, isLoading } = useCategories()
+	const { data, isLoading } = useQuery(
+		['get categories'],
+		() => CategoryService.getRoot(),
+		{
+			select: ({ data }) => data
+		}
+	)
 
 	const { isAdminPanel, pathname } = useIsAdminPanel()
 

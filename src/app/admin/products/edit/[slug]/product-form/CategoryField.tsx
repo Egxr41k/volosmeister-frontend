@@ -1,5 +1,5 @@
 import { CategoryService } from '@/services/category.service'
-import { ICategory } from '@/types/category.interface'
+import { ICategory, ICategoryTree } from '@/types/category.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select from './Select'
@@ -13,32 +13,65 @@ interface ICategoryField {
 export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const queryClient = useQueryClient()
 
-	const [selectedCategoryParents, setSelectedCategoryParents] = useState<
+	const [selectedCategoryChain, setSelectedCategoryChain] = useState<
 		ICategory[]
 	>([])
 
 	const { categoryCache, addToCategoryCache } = useCategoryCache()
 
 	const { data: rootCategories = [] } = useQuery({
-		queryKey: ['categories'],
+		queryKey: ['get categories'],
 		queryFn: () => CategoryService.getRoot(),
 		select: data => data.data
 	})
 
 	useEffect(() => {
 		if (!category) return
-		fetchCategoryParents()
+		initChainAndCache()
 	}, [category])
 
-	const fetchCategoryParents = async () => {
-		const result = await CategoryService.getChain(category.id)
+	const initChainAndCache = async () => {
+		const categoryTree = await CategoryService.getTree(category.id)
 
-		setSelectedCategoryParents(result.data)
+		initCache(categoryTree.data)
+		initSelectedChain(categoryTree.data)
+	}
 
-		for (const category of result.data) {
-			if (category.children.length > 0) {
-				addToCategoryCache(category.id, category.children)
-			}
+	const initSelectedChain = (categoryTree: ICategoryTree | undefined) => {
+		let currentTreeHead = categoryTree
+
+		const chain: ICategory[] = []
+		while (currentTreeHead) {
+			const { children, ...category } = currentTreeHead
+			chain.push(category)
+
+			currentTreeHead = currentTreeHead.children.find(
+				child => child.children.length !== 0
+			)
+		}
+		const lastIdInChain = chain.at(-1)?.id
+		if (category.parentId == lastIdInChain) {
+			chain.push(category)
+		}
+		setSelectedCategoryChain(chain)
+	}
+
+	const initCache = (categoryTree: ICategoryTree | undefined) => {
+		for (const category of rootCategories) {
+			addToCategoryCache(category.id.toString(), [])
+		}
+
+		let currentTreeHead = categoryTree
+
+		while (currentTreeHead) {
+			addToCategoryCache(
+				currentTreeHead.id.toString(),
+				currentTreeHead.children
+			)
+
+			currentTreeHead = currentTreeHead.children.find(
+				child => child.children.length !== 0
+			)
 		}
 	}
 
@@ -46,11 +79,8 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		const selected = findById(categoryId)
 		if (!selected) return
 
-		const updatedSelected = [
-			...selectedCategoryParents.slice(0, level),
-			selected
-		]
-		setSelectedCategoryParents(updatedSelected)
+		const updatedSelected = [...selectedCategoryChain.slice(0, level), selected]
+		setSelectedCategoryChain(updatedSelected)
 
 		const children = await loadChildren(categoryId)
 		if (children.length === 0) {
@@ -99,7 +129,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 					label: c.name,
 					value: c.id.toString()
 				}))}
-				value={selectedCategoryParents[0]?.id.toString()}
+				value={selectedCategoryChain[0]?.id.toString()}
 				onChange={value => handleChange(0, value)}
 				placeholder="Выберите категорию"
 			/>
@@ -112,8 +142,8 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 			</button>
 
 			{/*nested level */}
-			{selectedCategoryParents &&
-				selectedCategoryParents.map((category, index) => {
+			{selectedCategoryChain &&
+				selectedCategoryChain.map((category, index) => {
 					const children = categoryCache[category.id] || []
 					if (children.length === 0) return null
 
@@ -125,7 +155,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 									label: c.name,
 									value: c.id.toString()
 								}))}
-								value={selectedCategoryParents[index + 1]?.id.toString()}
+								value={selectedCategoryChain[index + 1]?.id.toString()}
 								onChange={value => handleChange(index + 1, value)}
 								placeholder="Выберите подкатегорию"
 							/>
@@ -134,8 +164,8 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 								className="text-sm text-emerald-500"
 								onClick={() =>
 									handleCreate(
-										selectedCategoryParents[
-											selectedCategoryParents.length - 1
+										selectedCategoryChain[
+											selectedCategoryChain.length - 1
 										].id.toString()
 									)
 								}

@@ -5,6 +5,6 @@ export interface ICategory {
 	parentId?: number
 }
 
-export interface ICategoryWithChildren extends ICategory {
-	children: ICategory[]
+export interface ICategoryTree extends ICategory {
+	children: ICategoryTree[]
 }
