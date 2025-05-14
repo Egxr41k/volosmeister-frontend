@@ -27,21 +27,23 @@ const Header = () => {
 
 			<div className="flex items-center gap-4">
 				{user ? (
-					<HeaderProfile />
+					<>
+						{user.isAdmin && !isAdminPanel && (
+							<Link
+								href="/admin"
+								className="relative flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90"
+							>
+								<MdOutlineAdminPanelSettings size={21} />
+							</Link>
+						)}
+						<HeaderProfile />
+					</>
 				) : (
 					<Link
 						href="/auth"
-						className="transition-colors duration-200 hover:text-emerald-500"
+						className="relative flex h-10 w-20 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90"
 					>
 						Sign in
-					</Link>
-				)}
-				{user?.isAdmin && !isAdminPanel && (
-					<Link
-						href="/admin"
-						className="hover:text-primary inline-block text-lg transition-colors duration-200"
-					>
-						<MdOutlineAdminPanelSettings size={29} />
 					</Link>
 				)}
 				<Link
@@ -51,7 +53,6 @@ const Header = () => {
 					<AiOutlineHeart size={21} />
 				</Link>
 				<HeaderCart />
-				<HeaderProfile />
 			</div>
 		</header>
 	)
