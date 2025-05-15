@@ -42,7 +42,7 @@ export const CategoryService = {
 
 	async getTree(id: string | number) {
 		return axiosClassic<ICategoryTree>({
-			url: `${CATEGORIES}/tree/${id}`,
+			url: `${CATEGORIES}/tree-from-leaf/${id}`,
 			method: 'GET'
 		})
 	},

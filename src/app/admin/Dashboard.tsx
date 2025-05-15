@@ -38,7 +38,7 @@ const Dashboard = () => {
 			) : (
 				<div>Statistics not loaded!</div>
 			)}
-			<div className="flex gap-5">
+			<div className="m-5 flex gap-5">
 				<ExportDataButton />
 				<ImportDataButton />
 			</div>

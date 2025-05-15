@@ -1,4 +1,5 @@
 import { DataService } from '@/services/data.service'
+import { getArchiveName } from '@/utils/get-archive-name'
 
 const ExportDataButton = () => {
 	const handleExport = async () => {
@@ -8,7 +9,7 @@ const ExportDataButton = () => {
 
 			const a = document.createElement('a')
 			a.href = url
-			a.download = 'backup.zip'
+			a.download = getArchiveName()
 			document.body.appendChild(a)
 			a.click()
 			document.body.removeChild(a)
