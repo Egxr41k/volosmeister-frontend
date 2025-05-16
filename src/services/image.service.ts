@@ -1,23 +1,15 @@
+import { sendFileXml } from './send-file-xml'
+
 const baseUrl = process.env.SERVER_URL
+const endpoint = 'minio/image'
+const url = `${baseUrl}/${endpoint}`
 
 export const ImageService = {
-	async saveImage(img: File): Promise<string> {
-		return new Promise((resolve, reject) => {
-			const formData = new FormData()
-			formData.append('image', img)
+	async saveImage(file: File) {
+		await sendFileXml(file, url)
 
-			const request = new XMLHttpRequest()
-			request.open('POST', `${baseUrl}/minio/image`, true)
-			request.responseType = 'json'
-
-			request.onload = () => {
-				resolve(request.response as string)
-			}
-			request.onerror = () => {
-				reject(request.response)
-			}
-			request.send(formData)
-		})
+		const response = await fetch(`${url}/${file.name}`)
+		return await response.text()
 	},
 
 	async checkImageExisting(imageSrc: string) {
@@ -25,7 +17,7 @@ export const ImageService = {
 	},
 
 	async deleteImage(id: number | string) {
-		const response = await fetch(`${baseUrl}/minio/image/${id}`, {
+		const response = await fetch(`${url}/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'content-type': 'application/json'

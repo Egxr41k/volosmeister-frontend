@@ -1,11 +1,16 @@
-import { useCategories } from '@/hooks/queries/useCategory'
+import { CategoryService } from '@/services/category.service'
 import Checkbox from '@/ui/checkbox/Checkbox'
+import { useQuery } from '@tanstack/react-query'
 import { useFilters } from '../../useFilters'
 import FilterWrapper from '../FilterWrapper'
 
 const CategoryGroup = () => {
 	const { queryParams, updateQueryParams } = useFilters()
-	const { data, isLoading } = useCategories()
+	const { data = [], isLoading } = useQuery({
+		queryKey: ['get categories'],
+		queryFn: () => CategoryService.getRoot(),
+		select: data => data.data
+	})
 
 	return (
 		<FilterWrapper title="Category">

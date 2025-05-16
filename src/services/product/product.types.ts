@@ -4,8 +4,10 @@ export type TypeProductData = {
 	name: string
 	price: number
 	description?: string
+	instructionForUse?: string
 	images: string[]
 	categoryName: string
+	manufacturerName: string
 	features: {
 		title: string
 		image: string

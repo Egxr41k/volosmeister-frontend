@@ -39,8 +39,8 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 	} = useImageFiles()
 
 	const updateMutation = useMutation({
-		mutationFn: (updatedProduct: TypeProductData) =>
-			ProductService.update(product.id!, updatedProduct),
+		mutationFn: (data: TypeProductData) =>
+			ProductService.update(product.id, data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: ['products', product.id]
@@ -52,16 +52,20 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 		mutationFn: (data: TypeProductData) => ProductService.create(data),
 		onSuccess: created => {
 			router.push(`/admin/products/edit/${created.data.slug}`)
+			queryClient.invalidateQueries({
+				queryKey: ['products', product.id]
+			})
 		}
 	})
 
 	const formSubmit = async () => {
 		const newProduct = await setImagesToProduct(product)
-		const { id, category, ...productData } = newProduct
-		const data: TypeProductData = {
+		const { id, category, manufacturer, ...productData } = newProduct
+		const data = {
 			...productData,
-			categoryName: category.name
-		}
+			categoryName: category.name,
+			manufacturerName: manufacturer.name
+		} as TypeProductData
 
 		isEditMode ? updateMutation.mutate(data) : createMutation.mutate(data)
 	}
@@ -121,6 +125,17 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 										setProductField('description', event.target.value)
 									}
 									value={product.description}
+								/>
+							</div>
+
+							<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
+								<textarea
+									className="w-full px-4 py-2 outline-none"
+									placeholder="instruction for use"
+									onChange={event =>
+										setProductField('instructionForUse', event.target.value)
+									}
+									value={product.instructionForUse}
 								/>
 							</div>
 
