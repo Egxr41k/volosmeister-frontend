@@ -8,12 +8,12 @@ export interface IProduct {
 	id: number
 	createAt: Date
 	name: string
-	manufacturer: IManufacturer
 	slug: string
 	images: string[]
-	category: ICategory
-	description: string
 	price: number
+	category: ICategory
+	manufacturer: IManufacturer
+	description: string
 	instructionForUse: string
 	availableSizes: number[]
 	ingredients: string[]

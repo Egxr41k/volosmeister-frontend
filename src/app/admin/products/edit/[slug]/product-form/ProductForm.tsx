@@ -41,7 +41,8 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 	const updateMutation = useMutation({
 		mutationFn: (data: TypeProductData) =>
 			ProductService.update(product.id, data),
-		onSuccess: () => {
+		onSuccess: updated => {
+			router.push(`/admin/products/edit/${updated.data.slug}`)
 			queryClient.invalidateQueries({
 				queryKey: ['products', product.id]
 			})
