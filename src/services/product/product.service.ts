@@ -1,13 +1,19 @@
 import { axiosClassic, instance } from '@/api/api.intercepter'
 import { IProduct, TypePaginationProducts } from '@/types/product.interface'
 import {
+	EnumProductSort,
 	PRODUCTS,
 	TypeProductData,
 	TypeProductDataFilters
 } from './product.types'
 
 export const ProductService = {
-	async getAll(queryData = {} as TypeProductDataFilters) {
+	async getAll(
+		queryData = {
+			sort: EnumProductSort.NEWEST,
+			perPage: ''
+		} as TypeProductDataFilters
+	) {
 		const { data } = await axiosClassic<TypePaginationProducts>({
 			url: PRODUCTS,
 			method: 'GET',
@@ -55,10 +61,11 @@ export const ProductService = {
 		})
 	},
 
-	async create(dto: TypeProductData) {
+	async create(data: TypeProductData) {
 		return instance<IProduct>({
 			url: `${PRODUCTS}/create`,
-			method: 'POST'
+			method: 'POST',
+			data
 		})
 	},
 

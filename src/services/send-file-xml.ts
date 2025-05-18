@@ -8,7 +8,6 @@ export function sendFileXml(file: File, url: string) {
 		request.responseType = 'json'
 
 		request.onload = () => {
-			console.log(request.response)
 			resolve(request.response)
 		}
 		request.onerror = () => {

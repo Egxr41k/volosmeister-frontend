@@ -16,7 +16,11 @@ export const ManufacturerField = ({
 	const [options, setOptions] = useState<Option[]>([])
 	const queryClient = useQueryClient()
 
-	const { data: manufacturers, isSuccess } = useQuery({
+	const {
+		data: manufacturers,
+		isSuccess,
+		refetch
+	} = useQuery({
 		queryKey: ['manufacturers'],
 		queryFn: () => ManufacturerService.getAll(),
 		select: data => data.data
@@ -74,6 +78,7 @@ export const ManufacturerField = ({
 				onClick={() => {
 					const name = prompt('Введите название нового производителя')
 					if (name) createManufacturerMutation.mutate(name)
+					refetch()
 				}}
 			>
 				+ Создать нового производителя

@@ -4,7 +4,6 @@ import { ProductService } from '@/services/product/product.service'
 import { TypeProductData } from '@/services/product/product.types'
 import { IProduct } from '@/types/product.interface'
 import FilledBtn from '@/ui/button/FilledBtn'
-import Spinner from '@/ui/Spinner'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { CategoryField } from './CategoryField'
@@ -71,9 +70,7 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 		isEditMode ? updateMutation.mutate(data) : createMutation.mutate(data)
 	}
 
-	if (isEditMode && !product.id) return <Spinner />
-
-	//if (error) return <p>Error loading product</p>
+	if (slug && !initialProduct) return <p>Error loading product</p>
 
 	return (
 		<div className="flex items-center justify-center">

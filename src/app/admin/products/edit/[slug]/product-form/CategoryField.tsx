@@ -20,18 +20,32 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const { categoryCache, addToCategoryCache } = useCategoryCache()
 
 	const { data: rootCategories = [] } = useQuery({
-		queryKey: ['get categories'],
+		queryKey: ['root categories'],
 		queryFn: () => CategoryService.getRoot(),
-		select: data => data.data
+		select: data => data.data,
+		onSuccess: data => {
+			console.log('root categories', data)
+		}
 	})
 
 	useEffect(() => {
+		console.log('category', category)
 		if (!category) return
 		initChainAndCache()
-	}, [category])
+	}, [category, rootCategories])
 
 	const initChainAndCache = async () => {
-		const categoryTree = await CategoryService.getTree(category.id)
+		const isRootCategory = rootCategories.find(
+			rootCategory => rootCategory.id === category.id
+		)
+		const categoryTree = isRootCategory
+			? await CategoryService.getTreeFromRoot(category.id)
+			: await CategoryService.getTreeFromLeaf(category.id)
+
+		console.log('isRootCategory:', isRootCategory)
+		console.log('category', category)
+		console.log('rootCategories in useEffect:', rootCategories)
+		console.log('categoryTree', categoryTree)
 
 		initCache(categoryTree.data)
 		initSelectedChain(categoryTree.data)
@@ -78,14 +92,17 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const handleChange = async (level: number, categoryId: string) => {
 		const selected = findById(categoryId)
 		if (!selected) return
+		console.log('selected', selected)
 
 		const updatedSelected = [...selectedCategoryChain.slice(0, level), selected]
 		setSelectedCategoryChain(updatedSelected)
+		console.log('updatedSelected', updatedSelected)
 
 		const children = await loadChildren(categoryId)
-		if (children.length === 0) {
-			setCategory(selected)
-		}
+		//if (children.length === 0) {
+		console.log('setting cetegory:', selected)
+		setCategory(selected)
+		//}
 	}
 
 	const findById = (id: string) => {
@@ -106,7 +123,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		return children
 	}
 
-	const handleCreate = (parentId?: string) => {
+	const handleCreate = (parentId?: number) => {
 		const name = prompt('Введите название новой категории')
 		if (name) {
 			createCategoryMutation.mutate({ name, parentId })
@@ -114,10 +131,10 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	}
 
 	const createCategoryMutation = useMutation({
-		mutationFn: (data: { name: string; parentId?: string }) =>
+		mutationFn: (data: { name: string; parentId?: number }) =>
 			CategoryService.create(data.name, data.parentId),
 		onSuccess: () => {
-			queryClient.invalidateQueries(['categories'])
+			queryClient.invalidateQueries(['root categories'])
 		}
 	})
 
@@ -145,10 +162,9 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 			{selectedCategoryChain &&
 				selectedCategoryChain.map((category, index) => {
 					const children = categoryCache[category.id] || []
-					if (children.length === 0) return null
 
 					return (
-						<div className="ml-2">
+						<div className={`ml-${index + 2}`} key={category.id}>
 							<Select
 								key={category.id}
 								options={children.map(c => ({
@@ -164,9 +180,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 								className="text-sm text-emerald-500"
 								onClick={() =>
 									handleCreate(
-										selectedCategoryChain[
-											selectedCategoryChain.length - 1
-										].id.toString()
+										selectedCategoryChain[selectedCategoryChain.length - 1].id
 									)
 								}
 							>

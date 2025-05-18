@@ -40,9 +40,16 @@ export const CategoryService = {
 		})
 	},
 
-	async getTree(id: string | number) {
+	async getTreeFromLeaf(id: string | number) {
 		return axiosClassic<ICategoryTree>({
 			url: `${CATEGORIES}/tree-from-leaf/${id}`,
+			method: 'GET'
+		})
+	},
+
+	async getTreeFromRoot(id: string | number) {
+		return axiosClassic<ICategoryTree>({
+			url: `${CATEGORIES}/tree-from-root/${id}`,
 			method: 'GET'
 		})
 	},
