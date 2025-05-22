@@ -51,10 +51,10 @@ export const useImageFiles = () => {
 				return []
 			}
 			const filteredImages = productImageFiles.filter(
-				(image: File | undefined) => image !== undefined
+				(image: File | undefined): image is File => image !== undefined
 			)
 			return await Promise.all(
-				filteredImages.map(async (image: File) => {
+				filteredImages.map(async image => {
 					return await ImageService.saveImage(image)
 				})
 			)
@@ -80,10 +80,10 @@ export const useImageFiles = () => {
 				return []
 			}
 			const filteredImages = featureImageFiles.filter(
-				(image: File | undefined) => image !== undefined
+				(image: File | undefined): image is File => image !== undefined
 			)
 			return await Promise.all(
-				filteredImages.map(async (image: File) => {
+				filteredImages.map(async image => {
 					return await ImageService.saveImage(image)
 				})
 			)

@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 
 export const revalidate = 60
 
-export async function generateStaticParams() {
+async function generateStaticParams() {
 	const categories = await CategoryService.getAll()
 
 	const paths = categories.data.map(category => {
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 	return paths
 }
 
-export async function getProduts(params: TypeParamSlug) {
+async function getProduts(params: TypeParamSlug) {
 	const { data: products } = await ProductService.getByCategory(
 		params?.slug as string
 	)

@@ -1,8 +1,9 @@
 import { ProductService } from '@/services/product/product.service'
+import { EnumProductSort } from '@/services/product/product.types'
 import { Metadata } from 'next'
 import Main from './Main'
 
-export const metadat: Metadata = {
+export const metadata: Metadata = {
 	description:
 		'Free shopping on milliond of items. get the best of Shopping and Entertainment with Prime'
 }
@@ -13,7 +14,8 @@ async function getProduts() {
 	const data = await ProductService.getAll({
 		page: 1,
 		perPage: 4,
-		ratings: ''
+		ratings: '',
+		sort: EnumProductSort.NEWEST
 	})
 
 	return data

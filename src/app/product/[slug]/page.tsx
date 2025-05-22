@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 	return paths
 }
 
-export async function getProdut(params: TypeParamSlug) {
+async function getProdut(params: TypeParamSlug) {
 	const product = await ProductService.getBySlug(params?.slug as string)
 
 	const { data: similarProducts } = await ProductService.getSimilar(product.id)
