@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { errorCatch } from '@/api/api.helper'
+import { errorCatch } from '@/services/api/api.helper'
 
 import { IAuthResponse, IEmailPassword } from './user.interface'
 

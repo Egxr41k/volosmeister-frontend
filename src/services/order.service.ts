@@ -1,4 +1,4 @@
-import { instance } from '@/api/api.intercepter'
+import { instance } from '@/services/api/api.intercepter'
 import { IOrder, IOrderItem } from '@/types/order.interface'
 
 const ORDERS = '/orders'

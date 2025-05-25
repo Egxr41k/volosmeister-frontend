@@ -1,4 +1,4 @@
-import { instance } from '@/api/api.intercepter'
+import { instance } from '@/services/api/api.intercepter'
 import { TypeStatisticsResponse } from '@/types/statistics.interface'
 
 const STATISTICS = '/statistics'

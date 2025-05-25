@@ -1,4 +1,4 @@
-import { axiosClassic, instance } from '@/api/api.intercepter'
+import { axiosClassic, instance } from '@/services/api/api.intercepter'
 import { IManufacturer } from '@/types/manufacturer.interface'
 
 const MANUFACTURERS = '/manufacturers'

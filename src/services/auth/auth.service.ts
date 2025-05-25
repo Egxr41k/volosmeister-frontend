@@ -1,5 +1,5 @@
-import { axiosClassic } from '@/api/api.intercepter'
 import { REFRESH_TOKEN } from '@/constants/token.constants'
+import { axiosClassic } from '@/services/api/api.intercepter'
 import { IAuthResponse, IEmailPassword } from '@/store/user/user.interface'
 import Cookies from 'js-cookie'
 import { saveToStorage } from './auth.helper'

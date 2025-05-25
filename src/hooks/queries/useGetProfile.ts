@@ -1,4 +1,4 @@
-import { errorCatch } from '@/api/api.helper'
+import { errorCatch } from '@/services/api/api.helper'
 import { UserService } from '@/services/user.service'
 import { useQuery } from '@tanstack/react-query'
 

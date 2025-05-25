@@ -1,4 +1,4 @@
-import { instance } from '@/api/api.intercepter'
+import { instance } from '@/services/api/api.intercepter'
 import { IFullUser, IUser, TypeUserData } from '@/types/user.interface'
 
 const USERS = '/users'

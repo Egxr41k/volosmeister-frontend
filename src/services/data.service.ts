@@ -1,4 +1,4 @@
-import { axiosClassic } from '@/api/api.intercepter'
+import { axiosClassic } from '@/services/api/api.intercepter'
 import { sendFileXml } from './send-file-xml'
 
 const baseUrl = process.env.SERVER_URL

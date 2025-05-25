@@ -1,4 +1,4 @@
-import { instance } from '@/api/api.intercepter'
+import { instance } from '@/services/api/api.intercepter'
 import { IReview, TypeReviewData } from '@/types/review.interface'
 
 const REVIEWS = '/reviews'
