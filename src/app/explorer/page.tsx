@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 60
 
-async function getProduts(serchParams: TypeProductDataFilters) {
+async function getProducts(serchParams: TypeProductDataFilters) {
 	const data = await ProductService.getAll(serchParams)
 	return data
 }
@@ -22,6 +22,6 @@ async function getProduts(serchParams: TypeProductDataFilters) {
 export default async function ExplorerPage({
 	searchParams
 }: TypeParamsFilters) {
-	const data = await getProduts(searchParams)
+	const data = await getProducts(searchParams)
 	return <ProductExplorer initialProducts={data} />
 }

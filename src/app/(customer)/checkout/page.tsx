@@ -12,14 +12,18 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 async function getProduts() {
-	const data = await ProductService.getAll({
-		page: 1,
-		perPage: 4,
-		ratings: '',
-		sort: EnumProductSort.NEWEST
-	})
+	try {
+		const data = await ProductService.getAll({
+			page: 1,
+			perPage: 4,
+			ratings: '',
+			sort: EnumProductSort.NEWEST
+		})
 
-	return data
+		return data
+	} catch (error) {
+		return { products: [], length: 0 }
+	}
 }
 
 export default async function CheckoutPage() {

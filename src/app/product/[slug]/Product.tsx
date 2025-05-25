@@ -11,7 +11,7 @@ import ProductReviewsCount from './ProductReviewsCount'
 import SimilarProducts from './SimilarProducts'
 
 interface IProductPage {
-	initialProduct: IProduct
+	initialProduct: IProduct | undefined
 	similarProducts: IProduct[]
 	slug?: string
 }

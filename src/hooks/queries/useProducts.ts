@@ -24,7 +24,10 @@ export const useGetAllProductsQuery = (
 	}
 }
 
-export const useGetProductBySlug = (slug: string, initialData: IProduct) => {
+export const useGetProductBySlug = (
+	slug: string,
+	initialData: IProduct | undefined
+) => {
 	const { data } = useQuery({
 		queryKey: ['get product', slug],
 		queryFn: () => ProductService.getBySlug(slug),

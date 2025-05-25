@@ -10,7 +10,7 @@ export const useAdminProducts = () => {
 		() => ProductService.getAll(),
 		{
 			select: data =>
-				data.data.products.map((product): IListItem => {
+				data.products.map((product): IListItem => {
 					return {
 						id: product.id,
 						viewUrl: `/product/${product.slug}`,
