@@ -1,8 +1,7 @@
 'use client'
 
+import { useToggleFavorite } from '@/hooks/mutations/useUserMutations'
 import { useProfile } from '@/hooks/useProfile'
-import { UserService } from '@/services/user.service'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
@@ -11,17 +10,7 @@ const FavoriteButton = ({ productId }: { productId: number }) => {
 
 	const { push } = useRouter()
 
-	const queryClient = useQueryClient()
-
-	const { mutate } = useMutation(
-		['toggle favorite'],
-		() => UserService.toggleFavorite(productId),
-		{
-			onSuccess() {
-				queryClient.invalidateQueries(['get profile'])
-			}
-		}
-	)
+	const { mutate: toggleFavorite } = useToggleFavorite(productId)
 
 	const isExists = profile?.favorites.some(
 		favorite => favorite.id === productId
@@ -31,7 +20,7 @@ const FavoriteButton = ({ productId }: { productId: number }) => {
 		<div>
 			<button
 				onClick={() => {
-					profile ? mutate() : push('/auth')
+					profile ? toggleFavorite() : push('/auth')
 				}}
 				className="text-primary"
 			>

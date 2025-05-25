@@ -1,15 +1,7 @@
 import { instance } from '@/api/api.intercepter'
-import { IFullUser, IUser } from '@/types/user.interface'
+import { IFullUser, IUser, TypeUserData } from '@/types/user.interface'
 
 const USERS = '/users'
-
-type TypeData = {
-	email: string
-	password?: string
-	avatarPath?: string
-	phone?: string
-	name?: string
-}
 
 export const UserService = {
 	async getProfile() {
@@ -19,7 +11,7 @@ export const UserService = {
 		})
 	},
 
-	async updateProfile(data: TypeData) {
+	async updateProfile(data: TypeUserData) {
 		return instance<IUser>({
 			url: `${USERS}/profile`,
 			method: 'PUT',

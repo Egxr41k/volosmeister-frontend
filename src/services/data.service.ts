@@ -1,4 +1,4 @@
-import { instance } from '@/api/api.intercepter'
+import { axiosClassic } from '@/api/api.intercepter'
 import { sendFileXml } from './send-file-xml'
 
 const baseUrl = process.env.SERVER_URL
@@ -9,7 +9,7 @@ export const DataService = {
 	},
 
 	async export() {
-		return instance({
+		return axiosClassic({
 			url: '/data/export',
 			method: 'POST',
 			responseType: 'blob'

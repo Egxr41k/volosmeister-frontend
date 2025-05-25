@@ -1,4 +1,4 @@
-import { EnumProductSort } from '@/services/product/product.types'
+import { EnumProductSort } from '@/types/product.interface'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { IFiltersActionsPayload, IFiltersState } from './filters.types'
 

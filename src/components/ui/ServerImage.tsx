@@ -14,7 +14,7 @@ const ServerImage = ({ src, alt, className, width, height }: IServerImage) => {
 	const [isImageValid, setIsImageValid] = useState(false)
 
 	useEffect(() => {
-		ImageService.checkImageExisting(src).then(result => setIsImageValid(result))
+		ImageService.checkExisting(src).then(result => setIsImageValid(result))
 	}, [isImageValid])
 
 	if (!src)

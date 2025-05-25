@@ -1,6 +1,6 @@
 import { useActions } from '@/hooks/useActions'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
-import { TypeProductDataFilters } from '@/services/product/product.types'
+import { TypeProductDataFilters } from '@/types/product.interface'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 

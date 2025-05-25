@@ -1,5 +1,5 @@
 import { getAdminUrl } from '@/config/url.config'
-import { ProductService } from '@/services/product/product.service'
+import { ProductService } from '@/services/product.service'
 import { IListItem } from '@/ui/admin/admin-list/admin-list.interface'
 import { formatDate } from '@/utils/format-date'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -10,7 +10,7 @@ export const useAdminProducts = () => {
 		() => ProductService.getAll(),
 		{
 			select: data =>
-				data.products.map((product): IListItem => {
+				data.data.products.map((product): IListItem => {
 					return {
 						id: product.id,
 						viewUrl: `/product/${product.slug}`,

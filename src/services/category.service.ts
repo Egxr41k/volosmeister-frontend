@@ -1,6 +1,5 @@
-import { ICategory, ICategoryTree } from '@/types/category.interface'
-
 import { axiosClassic, instance } from '@/api/api.intercepter'
+import { ICategory, ICategoryTree } from '@/types/category.interface'
 
 const CATEGORIES = '/categories'
 

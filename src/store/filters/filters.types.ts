@@ -1,4 +1,4 @@
-import { TypeProductDataFilters } from '@/services/product/product.types'
+import { TypeProductDataFilters } from '@/types/product.interface'
 
 export interface IFiltersState {
 	isFilterUpdated: boolean

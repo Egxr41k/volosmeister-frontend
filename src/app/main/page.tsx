@@ -1,5 +1,5 @@
-import { ProductService } from '@/services/product/product.service'
-import { EnumProductSort } from '@/services/product/product.types'
+import { ProductService } from '@/services/product.service'
+import { EnumProductSort } from '@/types/product.interface'
 import { Metadata } from 'next'
 import Main from './Main'
 

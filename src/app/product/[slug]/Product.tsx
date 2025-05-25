@@ -1,8 +1,7 @@
 'use client'
 
-import { ProductService } from '@/services/product/product.service'
+import { useGetProductBySlug } from '@/hooks/queries/useProducts'
 import { IProduct } from '@/types/product.interface'
-import { useQuery } from '@tanstack/react-query'
 import ProductInformation from './product-information/ProductInformation'
 import ProductReviews from './product-reviews/ProductReviews'
 import ProductFeatures from './ProductFeatures'
@@ -22,15 +21,9 @@ export default function Product({
 	similarProducts,
 	slug = ''
 }: IProductPage) {
-	const { data: product } = useQuery(
-		['get product', initialProduct.id],
-		() => ProductService.getBySlug(slug),
-		{
-			initialData: initialProduct,
-			enabled: !!slug
-		}
-	)
-	return (
+	const { data: product } = useGetProductBySlug(slug, initialProduct)
+
+	return product ? (
 		<>
 			<h1 className="m-1 text-3xl font-semibold">{product.name}</h1>
 			<ProductReviewsCount product={product} />
@@ -51,5 +44,9 @@ export default function Product({
 			<SimilarProducts similarProducts={similarProducts} />
 			<ProductReviews reviews={product.reviews} productId={product.id} />
 		</>
+	) : (
+		<div className="flex h-full w-full items-center justify-center">
+			<h1 className="text-3xl font-semibold">Product not found</h1>
+		</div>
 	)
 }

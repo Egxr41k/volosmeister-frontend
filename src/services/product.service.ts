@@ -1,11 +1,13 @@
 import { axiosClassic, instance } from '@/api/api.intercepter'
-import { IProduct, TypePaginationProducts } from '@/types/product.interface'
 import {
 	EnumProductSort,
-	PRODUCTS,
+	IProduct,
+	TypePaginationProducts,
 	TypeProductData,
 	TypeProductDataFilters
-} from './product.types'
+} from '@/types/product.interface'
+
+const PRODUCTS = '/products'
 
 export const ProductService = {
 	async getAll(

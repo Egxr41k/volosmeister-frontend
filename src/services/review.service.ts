@@ -1,13 +1,7 @@
-import { IReview } from '@/types/review.interface'
-
 import { instance } from '@/api/api.intercepter'
+import { IReview, TypeReviewData } from '@/types/review.interface'
 
 const REVIEWS = '/reviews'
-
-type TypeData = {
-	text: string
-	rating: number
-}
 
 export const ReviewService = {
 	async getAll() {
@@ -24,7 +18,7 @@ export const ReviewService = {
 		})
 	},
 
-	async leave(productId: string | number, data: TypeData) {
+	async leave(productId: string | number, data: TypeReviewData) {
 		return instance<IReview>({
 			url: `${REVIEWS}/leave/${productId}`,
 			method: 'POST',

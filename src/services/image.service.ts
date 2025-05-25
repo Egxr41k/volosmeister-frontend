@@ -5,14 +5,14 @@ const endpoint = 'minio/image'
 const url = `${baseUrl}/${endpoint}`
 
 export const ImageService = {
-	async saveImage(file: File) {
+	async save(file: File) {
 		await sendFileXml(file, url)
 
 		const response = await fetch(`${url}/${file.name}`)
 		return await response.text()
 	},
 
-	async checkImageExisting(imageSrc: string) {
+	async checkExisting(imageSrc: string) {
 		return imageSrc != '' ? (await fetch(imageSrc)).ok : false
 	},
 

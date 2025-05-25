@@ -1,6 +1,6 @@
-import { ManufacturerService } from '@/services/manufacturer.service'
+import { useCreateManufacturerMutation } from '@/hooks/mutations/useManufacturerMutations'
+import { useGetAllManufacturers } from '@/hooks/queries/useManufacturer'
 import { IManufacturer } from '@/types/manufacturer.interface'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select, { Option } from './Select'
 
@@ -14,17 +14,16 @@ export const ManufacturerField = ({
 	setManufacturer
 }: IManufacturerField) => {
 	const [options, setOptions] = useState<Option[]>([])
-	const queryClient = useQueryClient()
 
 	const {
-		data: manufacturers,
+		data: manufacturers = [],
 		isSuccess,
 		refetch
-	} = useQuery({
-		queryKey: ['manufacturers'],
-		queryFn: () => ManufacturerService.getAll(),
-		select: data => data.data
-	})
+	} = useGetAllManufacturers()
+
+	const { data, mutate: create } = useCreateManufacturerMutation()
+
+	const selectedValue = manufacturer?.id?.toString() ?? ''
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -36,28 +35,6 @@ export const ManufacturerField = ({
 			)
 		}
 	}, [isSuccess])
-
-	const createManufacturerMutation = useMutation({
-		mutationFn: (name: string) => ManufacturerService.create(name),
-		onSuccess: newManufacturer => {
-			queryClient.invalidateQueries(['manufacturers'])
-
-			const newOption: Option = {
-				label: newManufacturer.data.name,
-				value: newManufacturer.data.id.toString()
-			}
-			setOptions(prev => [...prev, newOption])
-
-			const createdManufacturer = {
-				id: newManufacturer.data.id,
-				name: newManufacturer.data.name,
-				slug: newManufacturer.data.slug
-			}
-			setManufacturer(createdManufacturer)
-		}
-	})
-
-	const selectedValue = manufacturer?.id?.toString() ?? ''
 
 	const handleChange = (value: string) => {
 		const found = manufacturers?.find(m => m.id.toString() === value)
@@ -77,7 +54,7 @@ export const ManufacturerField = ({
 				className="mt-1 text-sm text-emerald-500"
 				onClick={() => {
 					const name = prompt('Введите название нового производителя')
-					if (name) createManufacturerMutation.mutate(name)
+					if (name) create(name)
 					refetch()
 				}}
 			>

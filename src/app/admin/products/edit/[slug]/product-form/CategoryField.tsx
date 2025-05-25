@@ -1,6 +1,7 @@
+import { useCreateCategoryMutation } from '@/hooks/mutations/useCategoryMutations'
+import { useGetRootCategories } from '@/hooks/queries/useCategories'
 import { CategoryService } from '@/services/category.service'
 import { ICategory, ICategoryTree } from '@/types/category.interface'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select from './Select'
 import { useCategoryCache } from './useCategoryCache'
@@ -11,22 +12,14 @@ interface ICategoryField {
 }
 
 export const CategoryField = ({ category, setCategory }: ICategoryField) => {
-	const queryClient = useQueryClient()
-
 	const [selectedCategoryChain, setSelectedCategoryChain] = useState<
 		ICategory[]
 	>([])
 
 	const { categoryCache, addToCategoryCache } = useCategoryCache()
 
-	const { data: rootCategories = [] } = useQuery({
-		queryKey: ['root categories'],
-		queryFn: () => CategoryService.getRoot(),
-		select: data => data.data,
-		onSuccess: data => {
-			console.log('root categories', data)
-		}
-	})
+	const { data: rootCategories = [] } = useGetRootCategories()
+	const { mutate: create } = useCreateCategoryMutation()
 
 	useEffect(() => {
 		console.log('category', category)
@@ -126,17 +119,9 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const handleCreate = (parentId?: number) => {
 		const name = prompt('Введите название новой категории')
 		if (name) {
-			createCategoryMutation.mutate({ name, parentId })
+			create({ name, parentId })
 		}
 	}
-
-	const createCategoryMutation = useMutation({
-		mutationFn: (data: { name: string; parentId?: number }) =>
-			CategoryService.create(data.name, data.parentId),
-		onSuccess: () => {
-			queryClient.invalidateQueries(['root categories'])
-		}
-	})
 
 	return (
 		<div className="space-y-2">

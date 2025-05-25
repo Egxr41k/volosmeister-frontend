@@ -40,7 +40,7 @@ export const useImageFiles = () => {
 			return await Promise.all(
 				product.images.map(async (image: string, index: number) => {
 					if (productImageFiles[index]) {
-						return await ImageService.saveImage(productImageFiles[index]!)
+						return await ImageService.save(productImageFiles[index]!)
 					} else {
 						return image
 					}
@@ -55,7 +55,7 @@ export const useImageFiles = () => {
 			)
 			return await Promise.all(
 				filteredImages.map(async image => {
-					return await ImageService.saveImage(image)
+					return await ImageService.save(image)
 				})
 			)
 		}
@@ -69,7 +69,7 @@ export const useImageFiles = () => {
 			return await Promise.all(
 				product.features.map(async (feature: IFeature, index: number) => {
 					if (featureImageFiles[index]) {
-						return await ImageService.saveImage(featureImageFiles[index]!)
+						return await ImageService.save(featureImageFiles[index]!)
 					} else {
 						return feature.image
 					}
@@ -84,7 +84,7 @@ export const useImageFiles = () => {
 			)
 			return await Promise.all(
 				filteredImages.map(async image => {
-					return await ImageService.saveImage(image)
+					return await ImageService.save(image)
 				})
 			)
 		}

@@ -1,11 +1,13 @@
 'use client'
 
-import { ProductService } from '@/services/product/product.service'
-import { TypeProductData } from '@/services/product/product.types'
-import { IProduct } from '@/types/product.interface'
+import {
+	useCreateProductMutation,
+	useUpdateProductMutation
+} from '@/hooks/mutations/useProductMutations'
+import { IProduct, TypeProductData } from '@/types/product.interface'
 import FilledBtn from '@/ui/button/FilledBtn'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { CategoryField } from './CategoryField'
 import FeatureFields from './FeatureFields'
 import { FormGallery } from './FormGallery'
@@ -22,7 +24,6 @@ interface IProductPage {
 
 const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 	const router = useRouter()
-	const queryClient = useQueryClient()
 
 	const isEditMode = !!initialProduct
 
@@ -37,26 +38,15 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 		setImagesToProduct
 	} = useImageFiles()
 
-	const updateMutation = useMutation({
-		mutationFn: (data: TypeProductData) =>
-			ProductService.update(product.id, data),
-		onSuccess: updated => {
-			router.push(`/admin/products/edit/${updated.data.slug}`)
-			queryClient.invalidateQueries({
-				queryKey: ['products', product.id]
-			})
-		}
-	})
+	const { mutate: update, isSuccess: isSuccessUpdate } =
+		useUpdateProductMutation(product.id)
 
-	const createMutation = useMutation({
-		mutationFn: (data: TypeProductData) => ProductService.create(data),
-		onSuccess: created => {
-			router.push(`/admin/products/edit/${created.data.slug}`)
-			queryClient.invalidateQueries({
-				queryKey: ['products', product.id]
-			})
-		}
-	})
+	const { mutate: create, isSuccess: isSuccessCreate } =
+		useCreateProductMutation()
+
+	useEffect(() => {
+		router.push(`/admin/products/edit/${product.slug}`)
+	}, [isSuccessUpdate, isSuccessCreate])
 
 	const formSubmit = async () => {
 		const newProduct = await setImagesToProduct(product)
@@ -67,7 +57,7 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 			manufacturerName: manufacturer.name
 		} as TypeProductData
 
-		isEditMode ? updateMutation.mutate(data) : createMutation.mutate(data)
+		isEditMode ? update(data) : create(data)
 	}
 
 	if (slug && !initialProduct) return <p>Error loading product</p>

@@ -1,4 +1,4 @@
-import { EnumProductSort } from '@/services/product/product.types'
+import { EnumProductSort } from '@/types/product.interface'
 import Select from '@/ui/select/Select'
 import { Dispatch, SetStateAction } from 'react'
 import { useFilters } from '../useFilters'

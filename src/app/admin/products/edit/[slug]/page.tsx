@@ -1,4 +1,4 @@
-import { ProductService } from '@/services/product/product.service'
+import { ProductService } from '@/services/product.service'
 import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
 import { Metadata } from 'next'
 import ProductForm from './product-form/ProductForm'

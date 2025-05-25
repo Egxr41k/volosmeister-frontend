@@ -1,10 +1,9 @@
 'use client'
 
-import { ProductService } from '@/services/product/product.service'
+import { useGetAllProductsQuery } from '@/hooks/queries/useProducts'
 import { TypePaginationProducts } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 import styles from './ProductExplorer.module.scss'
@@ -23,13 +22,10 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 
 	const { isFilterUpdated, queryParams, updateQueryParams } = useFilters()
 
-	const { data, isFetching } = useQuery(
-		['product explorer', queryParams],
-		() => ProductService.getAll(queryParams),
-		{
-			initialData: initialProducts,
-			enabled: isFilterUpdated
-		}
+	const { data, isFetching } = useGetAllProductsQuery(
+		queryParams,
+		isFilterUpdated,
+		initialProducts
 	)
 
 	return (

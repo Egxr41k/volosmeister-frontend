@@ -1,13 +1,7 @@
 import { instance } from '@/api/api.intercepter'
+import { TypeStatisticsResponse } from '@/types/statistics.interface'
 
 const STATISTICS = '/statistics'
-
-// TODO переделать это плохо!!!!
-// вынести в отдельные интерфейсы
-export type TypeStatisticsResponse = {
-	name: string
-	value: number
-}[]
 
 export const StatisticsService = {
 	async getMain() {
