@@ -36,6 +36,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 The page will reload if you make edits.
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Egxr41k/volosmeister-fontend)
 You will also see any lint errors in the console.
 
 ###@Egxr41k 2023
