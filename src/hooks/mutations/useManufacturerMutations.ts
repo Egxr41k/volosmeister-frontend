@@ -1,9 +1,8 @@
 import { ManufacturerService } from '@/services/manufacturer.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-const queryClient = useQueryClient()
-
 export const useCreateManufacturerMutation = () => {
+	const queryClient = useQueryClient()
 	const { mutate, data } = useMutation({
 		mutationFn: (name: string) => ManufacturerService.create(name),
 		onSuccess: () => {

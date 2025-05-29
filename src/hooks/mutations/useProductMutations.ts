@@ -2,9 +2,8 @@ import { ProductService } from '@/services/product.service'
 import { TypeProductData } from '@/types/product.interface'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-const queryClient = useQueryClient()
-
 export const useUpdateProductMutation = (productId: number) => {
+	const queryClient = useQueryClient()
 	const { isSuccess, mutate } = useMutation({
 		mutationFn: (data: TypeProductData) =>
 			ProductService.update(productId, data),
@@ -20,6 +19,7 @@ export const useUpdateProductMutation = (productId: number) => {
 }
 
 export const useCreateProductMutation = () => {
+	const queryClient = useQueryClient()
 	const { isSuccess, mutate } = useMutation({
 		mutationFn: (data: TypeProductData) => ProductService.create(data),
 		onSuccess: created => {

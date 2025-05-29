@@ -1,10 +1,15 @@
 'use client'
 
-import { useGetOrders } from '@/hooks/queries/useGetOrders'
+import { OrderService } from '@/services/order.service'
 import { convertPrice } from '@/utils/convertPrice'
+import { useQuery } from '@tanstack/react-query'
 
 export default function MyOrders() {
-	const { data: orders } = useGetOrders()
+	const { data: orders } = useQuery(
+		['my orders'],
+		() => OrderService.getByUserId(),
+		{ select: ({ data }) => data }
+	)
 
 	return (
 		<>
