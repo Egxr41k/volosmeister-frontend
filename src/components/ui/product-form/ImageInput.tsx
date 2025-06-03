@@ -19,6 +19,12 @@ const ImageInput = ({
 	const [image, setImage] = useState(initialImage)
 
 	useEffect(() => {
+		if (initialImage) {
+			setImage(initialImage)
+		}
+	}, [initialImage])
+
+	useEffect(() => {
 		const timeOutId = setTimeout(() => onChange(image), 500)
 		return () => clearTimeout(timeOutId)
 	}, [image])
@@ -30,6 +36,7 @@ const ImageInput = ({
 				alt={''}
 				width={500}
 				height={500}
+				unoptimized
 			/>
 			<input
 				type="file"

@@ -1,32 +1,32 @@
-import { NextPage } from 'next'
+import { ProductService } from '@/services/product.service'
+import { EnumProductSort } from '@/types/product.interface'
+import { Metadata } from 'next'
+import Home from './Home'
 
-const HomePage: NextPage = () => {
-	return (
-		<div className="h-[90vh]">
-			<div className="flex h-full w-full items-center justify-between bg-white">
-				<div className="">
-					<p className="mb-6 text-5xl">
-						Doing everything
-						<br /> for your
-						<span className="font-bold text-emerald-500"> comfort</span>
-					</p>
-					<p className="my-6 font-light">
-						Many products to make your life easier! <br />
-						Regular promotions and discounts!
-						<br /> Only a quality product, tested by time and us personally!
-					</p>
-					<a
-						href="/main"
-						className={
-							'rounded-md border-0 bg-emerald-500 px-4 py-2 font-semibold text-white duration-300 ease-in-out hover:bg-emerald-600 focus:bg-emerald-700'
-						}
-					>
-						View products
-					</a>
-				</div>
-			</div>
-		</div>
-	)
+export const metadata: Metadata = {
+	description:
+		'Free shopping on milliond of items. get the best of Shopping and Entertainment with Prime'
 }
 
-export default HomePage
+export const dynamic = 'force-dynamic'
+
+export const revalidate = 60
+
+async function getProducts() {
+	try {
+		return await ProductService.getAll({
+			page: 1,
+			perPage: 4,
+			ratings: '',
+			sort: EnumProductSort.NEWEST
+		})
+	} catch (error) {
+		console.error('Error fetching products:', error)
+		return undefined
+	}
+}
+
+export default async function Page() {
+	const data = await getProducts()
+	return <Home initialProducts={data} />
+}

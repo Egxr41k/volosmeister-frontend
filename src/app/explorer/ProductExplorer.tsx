@@ -1,9 +1,11 @@
 'use client'
 
-import { useGetAllProductsQuery } from '@/hooks/queries/useProducts'
+import { ProductService } from '@/services/product.service'
 import { TypePaginationProducts } from '@/types/product.interface'
+import Spinner from '@/ui/Spinner'
 import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
+import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 import styles from './ProductExplorer.module.scss'
@@ -14,7 +16,7 @@ import SortDropdown from './sort/SortDropdown'
 import { useFilters } from './useFilters'
 
 interface IProductExplorer {
-	initialProducts: TypePaginationProducts
+	initialProducts?: TypePaginationProducts
 }
 
 const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
@@ -22,11 +24,17 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 
 	const { isFilterUpdated, queryParams, updateQueryParams } = useFilters()
 
-	const { data, isFetching } = useGetAllProductsQuery(
-		queryParams,
-		isFilterUpdated,
-		initialProducts
-	)
+	const { data, isFetching, isError } = useQuery({
+		queryKey: ['product explorer', queryParams],
+		queryFn: () => ProductService.getAll(queryParams),
+		enabled: isFilterUpdated || !initialProducts,
+		initialData: initialProducts
+	})
+
+	if (!data)
+		return <p className="text-2xl font-semibold">Error loading products</p>
+
+	if (isFetching) return <Spinner />
 
 	return (
 		<>

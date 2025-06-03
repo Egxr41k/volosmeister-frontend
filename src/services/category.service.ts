@@ -5,74 +5,94 @@ const CATEGORIES = '/categories'
 
 export const CategoryService = {
 	async getAll() {
-		return axiosClassic<ICategory[]>({
+		const { data } = await axiosClassic<ICategory[]>({
 			url: CATEGORIES,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getById(id: string | number) {
-		return axiosClassic<ICategory>({
+		const { data } = await axiosClassic<ICategory>({
 			url: `${CATEGORIES}/${id}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getBySlug(slug: string) {
-		return axiosClassic<ICategory>({
+		const { data } = await axiosClassic<ICategory>({
 			url: `${CATEGORIES}/by-slug/${slug}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getRoot() {
-		return axiosClassic<ICategory[]>({
+		const { data } = await axiosClassic<ICategory[]>({
 			url: `${CATEGORIES}/root`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getChildren(parentId: number | string) {
-		return axiosClassic<ICategory[]>({
+		const { data } = await axiosClassic<ICategory[]>({
 			url: `${CATEGORIES}/children/${parentId}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getTreeFromLeaf(id: string | number) {
-		return axiosClassic<ICategoryTree>({
+		const { data } = await axiosClassic<ICategoryTree>({
 			url: `${CATEGORIES}/tree-from-leaf/${id}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getTreeFromRoot(id: string | number) {
-		return axiosClassic<ICategoryTree>({
+		const { data } = await axiosClassic<ICategoryTree>({
 			url: `${CATEGORIES}/tree-from-root/${id}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async create(name: string, parentId?: number | string) {
-		return instance<ICategory>({
+		const { data } = await instance<ICategory>({
 			url: CATEGORIES,
 			method: 'POST',
 			data: { name, parentId }
 		})
+
+		return data
 	},
 
 	async update(id: string | number, name: string) {
-		return instance<ICategory>({
+		const { data } = await instance<ICategory>({
 			url: `${CATEGORIES}/${id}`,
 			method: 'PUT',
 			data: { name }
 		})
+
+		return data
 	},
 
 	async delete(id: string | number) {
-		return instance<ICategory>({
+		const { data } = await instance<ICategory>({
 			url: `${CATEGORIES}/${id}`,
 			method: 'DELETE'
 		})
+
+		return data
 	}
 }

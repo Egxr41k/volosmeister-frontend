@@ -4,6 +4,8 @@ import { EnumProductSort } from '@/types/product.interface'
 import { Metadata } from 'next'
 import Checkout from './Checkout'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
 	title: 'Checkout',
 	...NO_INDEX_PAGE
@@ -13,20 +15,19 @@ export const revalidate = 60
 
 async function getProduts() {
 	try {
-		const data = await ProductService.getAll({
+		return await ProductService.getAll({
 			page: 1,
 			perPage: 4,
 			ratings: '',
 			sort: EnumProductSort.NEWEST
 		})
-
-		return data
 	} catch (error) {
-		return { products: [], length: 0 }
+		console.error('Error fetching products:', error)
+		return undefined
 	}
 }
 
-export default async function CheckoutPage() {
+export default async function Page() {
 	const data = await getProduts()
-	return <Checkout products={data.products} />
+	return <Checkout products={data} />
 }

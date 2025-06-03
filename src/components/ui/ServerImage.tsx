@@ -36,6 +36,7 @@ const ServerImage = ({ src, alt, className, width, height }: IServerImage) => {
 			className={[className, 'object-cover'].join('')}
 			width={width ?? 0}
 			height={height ?? 0}
+			unoptimized
 		/>
 	) : (
 		<div

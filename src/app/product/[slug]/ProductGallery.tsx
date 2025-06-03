@@ -18,6 +18,7 @@ export function ProductGallery({ images }: IProductGallery) {
 				className="overflow-hidden rounded-lg"
 				priority
 				draggable={false}
+				unoptimized
 			/>
 			<div
 				className="mt-6"
@@ -41,6 +42,7 @@ export function ProductGallery({ images }: IProductGallery) {
 							height={100}
 							priority
 							draggable={false}
+							unoptimized
 						/>
 					</button>
 				))}

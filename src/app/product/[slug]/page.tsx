@@ -1,5 +1,5 @@
 import { ProductService } from '@/services/product.service'
-import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
+import { IPageSlugParam } from '@/types/page-params'
 import { Metadata } from 'next'
 import Product from './Product'
 
@@ -16,37 +16,19 @@ export async function generateStaticParams() {
 	}
 }
 
-async function getProduct(params: TypeParamSlug) {
-	if (!params?.slug) return null
-
-	try {
-		const product = await ProductService.getBySlug(params.slug)
-		const { data: similarProducts } = await ProductService.getSimilar(
-			product.id
-		)
-
-		return {
-			product,
-			similarProducts
-		}
-	} catch {
-		return null
-	}
-}
-
 export async function generateMetadata({
 	params
 }: IPageSlugParam): Promise<Metadata> {
-	const result = await getProduct(params)
+	if (!params?.slug) return {}
 
-	if (!result?.product) {
+	const product = await getProduct(params.slug)
+
+	if (!product) {
 		return {
 			title: 'Product not found',
 			description: 'No product found'
 		}
 	}
-
-	const { product } = result
 
 	return {
 		title: product.name,
@@ -58,14 +40,35 @@ export async function generateMetadata({
 	}
 }
 
-export default async function ProductPage({ params }: IPageSlugParam) {
-	const result = await getProduct(params)
+export default async function Page({ params }: IPageSlugParam) {
+	if (!params?.slug) return <div>Product not found</div>
+
+	const product = await getProduct(params.slug)
+	const similarProducts = product ? await getSimilarProducts(product?.id) : []
 
 	return (
 		<Product
-			initialProduct={result?.product}
-			similarProducts={result?.similarProducts || []}
+			initialProduct={product}
+			similarProducts={similarProducts}
 			slug={params.slug}
 		/>
 	)
+}
+
+async function getProduct(slug: string) {
+	try {
+		return await ProductService.getBySlug(slug)
+	} catch (error) {
+		console.error('Error fetching product:', error)
+		return undefined
+	}
+}
+
+async function getSimilarProducts(productId: number) {
+	try {
+		return await ProductService.getSimilar(productId)
+	} catch (error) {
+		console.error('Error fetching product:', error)
+		return undefined
+	}
 }

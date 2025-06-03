@@ -3,16 +3,23 @@
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { OrderService } from '@/services/order.service'
-import { IProduct } from '@/types/product.interface'
+import { ProductService } from '@/services/product.service'
+import { TypePaginationProducts } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
 import ProductItem from '@/ui/catalog/product-item/ProductItem'
 import { convertPrice } from '@/utils/convertPrice'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import styles from './Checkout.module.scss'
 import CheckoutItem from './CheckoutItem'
 
-const Checkout = ({ products = [] }: { products: IProduct[] }) => {
+const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
+	const { data } = useQuery({
+		queryKey: ['product checkout'],
+		queryFn: () => ProductService.getAll(),
+		initialData: products
+	})
+
 	const { items, total } = useCart()
 
 	const { reset } = useActions()
@@ -66,7 +73,7 @@ const Checkout = ({ products = [] }: { products: IProduct[] }) => {
 					<div>
 						<h1 className="mb-6 text-2xl font-semibold">Recomended products</h1>
 						<div className={styles.recomended}>
-							{products
+							{data?.products
 								.filter(
 									product =>
 										!items.map(item => item.product.id).includes(product.id)

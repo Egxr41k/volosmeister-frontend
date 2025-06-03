@@ -1,7 +1,8 @@
 'use client'
 
-import { useGetProductBySlug } from '@/hooks/queries/useProducts'
+import { ProductService } from '@/services/product.service'
 import { IProduct } from '@/types/product.interface'
+import { useQuery } from '@tanstack/react-query'
 import ProductInformation from './product-information/ProductInformation'
 import ProductReviews from './product-reviews/ProductReviews'
 import ProductFeatures from './ProductFeatures'
@@ -11,8 +12,8 @@ import ProductReviewsCount from './ProductReviewsCount'
 import SimilarProducts from './SimilarProducts'
 
 interface IProductPage {
-	initialProduct: IProduct | undefined
-	similarProducts: IProduct[]
+	initialProduct?: IProduct
+	similarProducts?: IProduct[]
 	slug?: string
 }
 
@@ -21,9 +22,21 @@ export default function Product({
 	similarProducts,
 	slug = ''
 }: IProductPage) {
-	const { data: product } = useGetProductBySlug(slug, initialProduct)
+	const { data: product } = useQuery({
+		queryKey: ['get product', slug],
+		queryFn: () => ProductService.getBySlug(slug),
+		enabled: !!slug,
+		initialData: initialProduct
+	})
 
-	return product ? (
+	if (!product)
+		return (
+			<div className="flex h-full w-full items-center justify-center">
+				<h1 className="text-3xl font-semibold">Product not found</h1>
+			</div>
+		)
+
+	return (
 		<>
 			<h1 className="m-1 text-3xl font-semibold">{product.name}</h1>
 			<ProductReviewsCount product={product} />
@@ -41,12 +54,8 @@ export default function Product({
 
 			<ProductFeatures features={product.features ?? []} />
 			<ProductProperties properties={product.properties ?? []} />
-			<SimilarProducts similarProducts={similarProducts} />
+			<SimilarProducts similarProducts={similarProducts ?? []} />
 			<ProductReviews reviews={product.reviews} productId={product.id} />
 		</>
-	) : (
-		<div className="flex h-full w-full items-center justify-center">
-			<h1 className="text-3xl font-semibold">Product not found</h1>
-		</div>
 	)
 }

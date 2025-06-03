@@ -1,5 +1,6 @@
 import { getSiteUrl } from '@/config/url.config'
 import { SITE_NAME } from '@/constants/app.constants'
+import Footer from '@/layout/footer/Footer'
 import Providers from '@/providers/Providers'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 				<Providers>
 					<Header />
 					<main className="px-48">{children}</main>
-					{/* <Footer /> */}
+					<Footer />
 				</Providers>
 				<div id="modal"></div>
 			</body>

@@ -5,9 +5,11 @@ const STATISTICS = '/statistics'
 
 export const StatisticsService = {
 	async getMain() {
-		return instance<TypeStatisticsResponse>({
+		const { data } = await instance<TypeStatisticsResponse>({
 			url: `${STATISTICS}/main`,
 			method: 'GET'
 		})
+
+		return data
 	}
 }

@@ -45,6 +45,7 @@ export function FormGallery({
 		setProductImageFiles(newFiles)
 		setActiveIndex(activeIndex - 1)
 	}
+
 	return (
 		<div>
 			<ImageInput

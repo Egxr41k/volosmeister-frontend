@@ -7,6 +7,8 @@ import {
 import { Metadata } from 'next'
 import ProductExplorer from './ProductExplorer'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
 	title: 'Explorer',
 	...NO_INDEX_PAGE
@@ -14,14 +16,16 @@ export const metadata: Metadata = {
 
 export const revalidate = 60
 
-async function getProducts(serchParams: TypeProductDataFilters) {
-	const data = await ProductService.getAll(serchParams)
-	return data
-}
-
-export default async function ExplorerPage({
-	searchParams
-}: TypeParamsFilters) {
+export default async function Page({ searchParams }: TypeParamsFilters) {
 	const data = await getProducts(searchParams)
 	return <ProductExplorer initialProducts={data} />
+}
+
+async function getProducts(serchParams: TypeProductDataFilters) {
+	try {
+		return await ProductService.getAll(serchParams)
+	} catch (error) {
+		console.error('Error fetching products:', error)
+		return undefined
+	}
 }

@@ -1,13 +1,11 @@
 'use client'
 
-import {
-	useCreateProductMutation,
-	useUpdateProductMutation
-} from '@/hooks/mutations/useProductMutations'
+import { ProductService } from '@/services/product.service'
 import { IProduct, TypeProductData } from '@/types/product.interface'
 import FilledBtn from '@/ui/button/FilledBtn'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import Spinner from '../Spinner'
 import { CategoryField } from './CategoryField'
 import FeatureFields from './FeatureFields'
 import { FormGallery } from './FormGallery'
@@ -18,17 +16,23 @@ import { useFormProduct } from './useProductFields'
 
 interface IProductPage {
 	initialProduct?: IProduct
-	similarProducts: IProduct[]
 	slug?: string
 }
 
-const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
+const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 	const router = useRouter()
 
-	const isEditMode = !!initialProduct
+	const isEditMode = !!slug
 
-	const { product, setProduct, setProductField } =
-		useFormProduct(initialProduct)
+	const { data, isFetching } = useQuery({
+		queryKey: ['get product', slug],
+		queryFn: () => ProductService.getBySlug(slug!),
+		select: data => data,
+		enabled: isEditMode,
+		initialData: initialProduct
+	})
+
+	const { product, setProductField } = useFormProduct(data)
 
 	const {
 		productImageFiles,
@@ -38,15 +42,28 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 		setImagesToProduct
 	} = useImageFiles()
 
-	const { mutate: update, isSuccess: isSuccessUpdate } =
-		useUpdateProductMutation(product.id)
+	const queryClient = useQueryClient()
 
-	const { mutate: create, isSuccess: isSuccessCreate } =
-		useCreateProductMutation()
+	const { mutate: update } = useMutation({
+		mutationFn: (data: TypeProductData) =>
+			ProductService.update(product.id, data),
+		onSuccess: updated => {
+			router.push(`/admin/products/edit/${updated.slug}`)
+			queryClient.invalidateQueries({
+				queryKey: ['products', product.id]
+			})
+		}
+	})
 
-	useEffect(() => {
-		router.push(`/admin/products/edit/${product.slug}`)
-	}, [isSuccessUpdate, isSuccessCreate])
+	const { mutate: create } = useMutation({
+		mutationFn: (data: TypeProductData) => ProductService.create(data),
+		onSuccess: created => {
+			router.push(`/admin/products/edit/${created.slug}`)
+			queryClient.invalidateQueries({
+				queryKey: ['products', product.id]
+			})
+		}
+	})
 
 	const formSubmit = async () => {
 		const newProduct = await setImagesToProduct(product)
@@ -60,7 +77,9 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 		isEditMode ? update(data) : create(data)
 	}
 
-	if (slug && !initialProduct) return <p>Error loading product</p>
+	if (isFetching) return <Spinner />
+
+	if (isEditMode && !product) return <p>Error loading product</p>
 
 	return (
 		<div className="flex items-center justify-center">
@@ -79,7 +98,9 @@ const ProductForm = ({ initialProduct, slug = '' }: IProductPage) => {
 							setProductImageFiles={setProductImageFiles}
 						/>
 						<div>
-							<h2 className="text-xl font-semibold">Update product</h2>
+							<h2 className="text-xl font-semibold">
+								{isEditMode ? 'Update product' : 'Create product'}
+							</h2>
 
 							<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
 								<input

@@ -23,6 +23,7 @@ const HeaderProfile = () => {
 						src={profile?.avatarPath}
 						alt="profile"
 						className="border-primary animate opacity rounded-full border border-solid"
+						unoptimized
 					/>
 				) : (
 					<div className="relative flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90">

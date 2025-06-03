@@ -10,7 +10,7 @@ export const useAdminOrders = () => {
 		['get admin products'],
 		() => OrderService.getAll(),
 		{
-			select: ({ data }) =>
+			select: data =>
 				data.map((order): IListItem => {
 					return {
 						id: order.id,

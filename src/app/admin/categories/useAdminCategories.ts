@@ -8,7 +8,7 @@ export const useAdminCategories = () => {
 		['get admin categories'],
 		() => CategoryService.getAll(),
 		{
-			select: ({ data }) =>
+			select: data =>
 				data.map((category): IListItem => {
 					return {
 						id: category.id,

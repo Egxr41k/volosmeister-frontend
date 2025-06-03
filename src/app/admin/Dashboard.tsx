@@ -1,14 +1,18 @@
 'use client'
 
-import { useGetStatistics } from '@/hooks/queries/useGetStatistics'
+import { StatisticsService } from '@/services/statistics.service'
 import Spinner from '@/ui/Spinner'
 import { convertPrice } from '@/utils/convertPrice'
+import { useQuery } from '@tanstack/react-query'
 import styles from './Dashboard.module.scss'
 import ExportDataButton from './ExportDataButton'
 import ImportDataButton from './ImportDataButton'
 
 const Dashboard = () => {
-	const { data, isFetching } = useGetStatistics()
+	const { data, isFetching } = useQuery({
+		queryKey: ['get statictics'],
+		queryFn: () => StatisticsService.getMain()
+	})
 
 	return (
 		<>

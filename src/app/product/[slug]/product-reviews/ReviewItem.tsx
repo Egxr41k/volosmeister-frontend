@@ -12,6 +12,7 @@ const ReviewItem = ({ review }: { review: IReview }) => {
 					width={40}
 					height={40}
 					className="mr-3 block rounded-full"
+					unoptimized
 				/>
 				<span>{review.user.name}</span>
 			</div>

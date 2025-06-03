@@ -1,6 +1,6 @@
-import { useCreateManufacturerMutation } from '@/hooks/mutations/useManufacturerMutations'
-import { useGetAllManufacturers } from '@/hooks/queries/useManufacturer'
+import { ManufacturerService } from '@/services/manufacturer.service'
 import { IManufacturer } from '@/types/manufacturer.interface'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select, { Option } from './Select'
 
@@ -16,13 +16,21 @@ export const ManufacturerField = ({
 	const [options, setOptions] = useState<Option[]>([])
 
 	const {
-		data: manufacturers = [],
+		data: manufacturers,
 		isSuccess,
 		refetch
-	} = useGetAllManufacturers()
+	} = useQuery({
+		queryKey: ['manufacturers'],
+		queryFn: () => ManufacturerService.getAll()
+	})
 
-	const { data, mutate: create } = useCreateManufacturerMutation()
-
+	const queryClient = useQueryClient()
+	const { mutate: create } = useMutation({
+		mutationFn: (name: string) => ManufacturerService.create(name),
+		onSuccess: () => {
+			queryClient.invalidateQueries(['manufacturer'])
+		}
+	})
 	const selectedValue = manufacturer?.id?.toString() ?? ''
 
 	useEffect(() => {

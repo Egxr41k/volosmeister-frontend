@@ -12,6 +12,7 @@ const CartItem = ({ item }: { item: ICartItem }) => {
 				width={100}
 				height={100}
 				alt={item.product.name}
+				unoptimized
 			/>
 			<div>
 				<div className={styles.name}>{item.product.name}</div>

@@ -1,55 +1,35 @@
 import { CategoryService } from '@/services/category.service'
 import { ProductService } from '@/services/product.service'
-import { IPageSlugParam, TypeParamSlug } from '@/types/page-params'
-import Catalog from '@/ui/catalog/Catalog'
+import { IPageSlugParam } from '@/types/page-params'
 import { Metadata } from 'next'
+import Category from './Category'
 
 export const revalidate = 60
 
 export async function generateStaticParams() {
-	try {
-		const categories = await CategoryService.getAll()
-
-		return categories.data.map(category => {
-			return {
-				params: { slug: category.slug }
-			}
-		})
-	} catch {
-		return []
-	}
-}
-
-async function getProduts(params: TypeParamSlug) {
-	if (!params?.slug) return null
-
-	try {
-		const { data: products } = await ProductService.getByCategory(params.slug)
-
-		const { data: category } = await CategoryService.getBySlug(params.slug)
-
+	const categories = await getCategories()
+	if (!categories) return []
+	return categories.map(category => {
 		return {
-			products,
-			category
+			params: { slug: category.slug }
 		}
-	} catch {
-		return null
-	}
+	})
 }
 
 export async function generateMetadata({
 	params
 }: IPageSlugParam): Promise<Metadata> {
-	const result = await getProduts(params)
+	if (!params?.slug) return {}
 
-	if (!result?.category) {
+	const category = await getCategory(params.slug)
+	const products = await getProducts(params.slug)
+
+	if (!category || !products) {
 		return {
 			title: 'Products not found',
 			description: 'No products found'
 		}
 	}
-
-	const { category, products } = result
 
 	return {
 		title: category.name,
@@ -61,12 +41,44 @@ export async function generateMetadata({
 	}
 }
 
-export default async function CategoryPage({ params }: IPageSlugParam) {
-	const data = await getProduts(params)
+export default async function Page({ params }: IPageSlugParam) {
+	if (!params?.slug) return <div>Category not found</div>
+
+	const category = await getCategory(params.slug)
+	const products = await getProducts(params.slug)
 
 	return (
-		<>
-			<Catalog products={data?.products || []} title={data?.category.name} />
-		</>
+		<Category
+			slug={params.slug}
+			initialCategory={category}
+			initialProducts={products}
+		/>
 	)
+}
+
+async function getCategories() {
+	try {
+		return await CategoryService.getAll()
+	} catch (error) {
+		console.error('Error fetching categories:', error)
+		return undefined
+	}
+}
+
+async function getCategory(slug: string) {
+	try {
+		return await CategoryService.getBySlug(slug)
+	} catch (error) {
+		console.error('Error fetching category:', error)
+		return undefined
+	}
+}
+
+async function getProducts(slug: string) {
+	try {
+		return await ProductService.getByCategory(slug)
+	} catch (error) {
+		console.error('Error fetching products:', error)
+		return undefined
+	}
 }

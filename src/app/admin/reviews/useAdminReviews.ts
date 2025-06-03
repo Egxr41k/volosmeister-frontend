@@ -7,7 +7,7 @@ export const useAdminReviews = () => {
 		['get admin reviews'],
 		() => ReviewService.getAll(),
 		{
-			select: ({ data }) =>
+			select: data =>
 				data.map((review): IListItem => {
 					return {
 						id: review.id,

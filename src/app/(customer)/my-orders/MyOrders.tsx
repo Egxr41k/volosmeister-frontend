@@ -5,10 +5,9 @@ import { convertPrice } from '@/utils/convertPrice'
 import { useQuery } from '@tanstack/react-query'
 
 export default function MyOrders() {
-	const { data: orders } = useQuery(
-		['my orders'],
-		() => OrderService.getByUserId(),
-		{ select: ({ data }) => data }
+	//const profile = useProfile()
+	const { data: orders } = useQuery(['my orders'], () =>
+		OrderService.getByUserId()
 	)
 
 	return (

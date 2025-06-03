@@ -11,6 +11,7 @@ const CheckoutItem = ({ product }: { product: IProduct }) => {
 				width={100}
 				height={100}
 				alt={product.name}
+				unoptimized
 			/>
 			<div className={styles.row}>
 				<div className={styles.information}>

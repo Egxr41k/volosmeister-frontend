@@ -1,6 +1,7 @@
-import { useLeaveReview } from '@/hooks/mutations/useLeaveReview'
+import { ReviewService } from '@/services/review.service'
 import Button from '@/ui/button/Button'
 import Spinner from '@/ui/Spinner'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Rating } from 'react-simple-star-rating'
 import { IReviewFields } from './review-fields.interface'
@@ -16,7 +17,17 @@ const LeaveReviewForm = ({ productId }: { productId: number }) => {
 		mode: 'onChange'
 	})
 
-	const { mutate, isSuccess, isLoading } = useLeaveReview(productId)
+	const queryClient = useQueryClient()
+
+	const { mutate, isSuccess, isLoading } = useMutation(
+		['leave review'],
+		(data: IReviewFields) => ReviewService.leave(productId, data),
+		{
+			onSuccess() {
+				queryClient.refetchQueries(['get product', productId])
+			}
+		}
+	)
 
 	const onSubmit: SubmitHandler<IReviewFields> = data => {
 		mutate(data)

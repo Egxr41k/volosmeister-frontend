@@ -5,24 +5,30 @@ const USERS = '/users'
 
 export const UserService = {
 	async getProfile() {
-		return instance<IFullUser>({
+		const { data } = await instance<IFullUser>({
 			url: `${USERS}/profile`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
-	async updateProfile(data: TypeUserData) {
-		return instance<IUser>({
+	async updateProfile(dataToUpdate: TypeUserData) {
+		const { data } = await instance<IUser>({
 			url: `${USERS}/profile`,
 			method: 'PUT',
-			data
+			data: dataToUpdate
 		})
+
+		return data
 	},
 
 	async toggleFavorite(productId: string | number) {
-		return instance<IUser>({
+		const { data } = await instance<IUser>({
 			url: `${USERS}/profile/favorites/${productId}`,
 			method: 'PATCH'
 		})
+
+		return data
 	}
 }

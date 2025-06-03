@@ -5,24 +5,30 @@ const ORDERS = '/orders'
 
 export const OrderService = {
 	async getAll() {
-		return instance<IOrder[]>({
+		const { data } = await instance<IOrder[]>({
 			url: ORDERS,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getByUserId() {
-		return instance<IOrder[]>({
+		const { data } = await instance<IOrder[]>({
 			url: `${ORDERS}/by-user`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
-	async place(data: { items: IOrderItem[] }) {
-		return instance({
+	async place(orderData: { items: IOrderItem[] }) {
+		const { data } = await instance<IOrder>({
 			url: ORDERS,
 			method: 'POST',
-			data
+			data: orderData
 		})
+
+		return data
 	}
 }

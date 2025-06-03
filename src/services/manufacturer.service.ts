@@ -5,46 +5,58 @@ const MANUFACTURERS = '/manufacturers'
 
 export const ManufacturerService = {
 	async getAll() {
-		return axiosClassic<IManufacturer[]>({
+		const { data } = await axiosClassic<IManufacturer[]>({
 			url: MANUFACTURERS,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getById(id: string | number) {
-		return axiosClassic<IManufacturer>({
+		const { data } = await axiosClassic<IManufacturer>({
 			url: `${MANUFACTURERS}/${id}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getBySlug(slug: string) {
-		return axiosClassic<IManufacturer>({
+		const { data } = await axiosClassic<IManufacturer>({
 			url: `${MANUFACTURERS}/by-slug/${slug}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async create(name: string) {
-		return instance<IManufacturer>({
+		const { data } = await instance<IManufacturer>({
 			url: MANUFACTURERS,
 			method: 'POST',
 			data: { name }
 		})
+
+		return data
 	},
 
 	async update(id: string | number, name: string) {
-		return instance<IManufacturer>({
+		const { data } = await instance<IManufacturer>({
 			url: `${MANUFACTURERS}/${id}`,
 			method: 'PUT',
 			data: { name }
 		})
+
+		return data
 	},
 
 	async delete(id: string | number) {
-		return instance<IManufacturer>({
+		const { data } = await instance<IManufacturer>({
 			url: `${MANUFACTURERS}/${id}`,
 			method: 'DELETE'
 		})
+
+		return data
 	}
 }

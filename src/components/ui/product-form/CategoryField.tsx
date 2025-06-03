@@ -1,7 +1,6 @@
-import { useCreateCategoryMutation } from '@/hooks/mutations/useCategoryMutations'
-import { useGetRootCategories } from '@/hooks/queries/useCategories'
 import { CategoryService } from '@/services/category.service'
 import { ICategory, ICategoryTree } from '@/types/category.interface'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select from './Select'
 import { useCategoryCache } from './useCategoryCache'
@@ -18,11 +17,21 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 
 	const { categoryCache, addToCategoryCache } = useCategoryCache()
 
-	const { data: rootCategories = [] } = useGetRootCategories()
-	const { mutate: create } = useCreateCategoryMutation()
+	const queryClient = useQueryClient()
+	const { data: rootCategories = [] } = useQuery({
+		queryKey: ['get root categories'],
+		queryFn: () => CategoryService.getRoot()
+	})
+
+	const { mutate: create } = useMutation({
+		mutationFn: (data: { name: string; parentId?: number }) =>
+			CategoryService.create(data.name, data.parentId),
+		onSuccess: () => {
+			queryClient.invalidateQueries(['root categories'])
+		}
+	})
 
 	useEffect(() => {
-		console.log('category', category)
 		if (!category) return
 		initChainAndCache()
 	}, [category, rootCategories])
@@ -35,13 +44,8 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 			? await CategoryService.getTreeFromRoot(category.id)
 			: await CategoryService.getTreeFromLeaf(category.id)
 
-		console.log('isRootCategory:', isRootCategory)
-		console.log('category', category)
-		console.log('rootCategories in useEffect:', rootCategories)
-		console.log('categoryTree', categoryTree)
-
-		initCache(categoryTree.data)
-		initSelectedChain(categoryTree.data)
+		initCache(categoryTree)
+		initSelectedChain(categoryTree)
 	}
 
 	const initSelectedChain = (categoryTree: ICategoryTree | undefined) => {
@@ -85,15 +89,12 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const handleChange = async (level: number, categoryId: string) => {
 		const selected = findById(categoryId)
 		if (!selected) return
-		console.log('selected', selected)
 
 		const updatedSelected = [...selectedCategoryChain.slice(0, level), selected]
 		setSelectedCategoryChain(updatedSelected)
-		console.log('updatedSelected', updatedSelected)
 
 		const children = await loadChildren(categoryId)
 		//if (children.length === 0) {
-		console.log('setting cetegory:', selected)
 		setCategory(selected)
 		//}
 	}
@@ -110,7 +111,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		if (categoryCache[category?.id]) return categoryCache[category.id]
 
 		const children = await CategoryService.getChildren(categoryId).then(
-			res => res.data
+			res => res
 		)
 		addToCategoryCache(categoryId, children)
 		return children

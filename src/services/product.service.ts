@@ -26,10 +26,12 @@ export const ProductService = {
 	},
 
 	async getSimilar(productId: string | number) {
-		return axiosClassic<IProduct[]>({
+		const { data } = await axiosClassic<IProduct[]>({
 			url: `${PRODUCTS}/similar/${productId}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getBySlug(slug: string) {
@@ -42,39 +44,49 @@ export const ProductService = {
 	},
 
 	async getByCategory(categorySlug: string) {
-		return instance<IProduct[]>({
+		const { data } = await instance<IProduct[]>({
 			url: `${PRODUCTS}/by-category/${categorySlug}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
 	async getById(productId: string | number) {
-		return instance<IProduct>({
+		const { data } = await instance<IProduct>({
 			url: `${PRODUCTS}/${productId}`,
 			method: 'GET'
 		})
+
+		return data
 	},
 
-	async update(productId: string | number, data: TypeProductData) {
-		return instance<IProduct>({
+	async update(productId: string | number, productdata: TypeProductData) {
+		const { data } = await instance<IProduct>({
 			url: `${PRODUCTS}/update/${productId}`,
 			method: 'PUT',
-			data
+			data: productdata
 		})
+
+		return data
 	},
 
-	async create(data: TypeProductData) {
-		return instance<IProduct>({
+	async create(productdata: TypeProductData) {
+		const { data } = await instance<IProduct>({
 			url: `${PRODUCTS}/create`,
 			method: 'POST',
-			data
+			data: productdata
 		})
+
+		return data
 	},
 
 	async delete(productId: string | number) {
-		return instance<IProduct>({
+		const { data } = await instance<IProduct>({
 			url: `${PRODUCTS}/delete/${productId}`,
 			method: 'DELETE'
 		})
+
+		return data
 	}
 }

@@ -1,14 +1,13 @@
 'use client'
 
 import Auth from '@/app/(customer)/auth/Auth'
-import NotFound from '@/app/not-found'
 import { ADMIN_PANEL_URL } from '@/config/url.config'
 import { REFRESH_TOKEN } from '@/constants/token.constants'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import { getAccessToken } from '@/services/auth/auth.helper'
 import Cookies from 'js-cookie'
-import { usePathname, useRouter } from 'next/navigation'
+import { notFound, usePathname, useRouter } from 'next/navigation'
 import { PropsWithChildren, useEffect } from 'react'
 import { protectedRoutes } from './protected-routes.data'
 
@@ -44,7 +43,7 @@ const AuthProvider = ({ children }: PropsWithChildren<unknown>) => {
 
 	if (user?.isAdmin) return <>{children}</>
 	if (user && isProtectedRoute) return <>{children}</>
-	if (user && isAdminRoute) return <NotFound />
+	if (user && isAdminRoute) return notFound()
 	if (pathname !== '/auth') return <Auth />
 
 	return null
