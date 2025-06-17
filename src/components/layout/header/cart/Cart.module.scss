@@ -1,5 +1,5 @@
 .cartWrapper {
-	@apply absolute -left-[12.5rem] z-20 w-80 rounded-xl bg-white px-6 py-4 text-sm shadow;
+	@apply absolute right-0 z-20 w-80 rounded-xl bg-white px-6 py-4 text-sm shadow;
 	animation: 0.7s cartAnimation ease-in-out;
 }
 

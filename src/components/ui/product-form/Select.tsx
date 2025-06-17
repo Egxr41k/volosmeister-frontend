@@ -17,7 +17,7 @@ const Select = ({ options, value, onChange, placeholder }: SelectProps) => {
 			onChange={e => onChange(e.target.value)}
 			className="w-full rounded border border-gray-300 bg-white p-2"
 		>
-			<option value="">{placeholder || 'Выберите'}</option>
+			<option value="">{placeholder || 'Select'}</option>
 			{options.map(option => (
 				<option key={option.value} value={option.value}>
 					{option.label}

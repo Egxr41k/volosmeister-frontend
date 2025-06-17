@@ -5,35 +5,37 @@
 
 	> h2 {
 		@apply mb-2 text-3xl font-semibold text-white drop-shadow;
-		animation: slideFormLeft 0.5s linear;
+		//animation: slideFromLeft 0.5s linear;
 	}
 
 	> p {
 		@apply mb-6 text-white;
 		max-width: 38%;
-		animation: slideFromLeft 0.6s linear;
+		//animation: slideFromLeft 0.6s linear;
 	}
 
 	> a {
-		animation: slideFromLeft 0.7s linear;
+		@apply rounded-xl bg-white px-10 py-2 font-medium text-emerald-500;
+		max-width: 38%;
+		//animation: slideFromLeft 0.7s linear;
 	}
 }
 
 .nav {
-	@apply absolute right-10 top-6 z-10 flex items-center;
+	@apply mt-5 flex items-center justify-center;
 
 	> button {
-		@apply text-lg text-white shadow-sm transition-colors duration-300 ease-in-out hover:text-cyan-600;
-	}
+		@apply relative flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90;
 
-	&:first-child {
-		@apply mr-5;
+		&:first-child {
+			@apply mr-5;
+		}
 	}
 }
 
 .item-enter {
 	opacity: 0;
-	transform: scale(0.9);
+	transform: translateX(-100px);
 }
 
 .item-enter-active {
@@ -50,7 +52,7 @@
 
 .item-exit-active {
 	opacity: 0;
-	transform: scale(0.9);
+	transform: translateX(-100px);
 	transition:
 		opacity 300ms,
 		transform 300ms;

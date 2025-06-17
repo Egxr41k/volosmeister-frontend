@@ -28,24 +28,24 @@ export default function ImportDataButton() {
 		try {
 			const result = await DataService.import(file)
 			//if (result.status === 200) {
-			setMessage('Импорт завершён успешно!')
+			setMessage('Import completed successfully!')
 			//push('/explorer')
 			//}
 		} catch (err) {
-			setMessage(`Ошибка при импорте: ${err}`)
+			setMessage(`Import error: ${err}`)
 		} finally {
 			setLoading(false)
 		}
 	}
 
 	return (
-		<div className="space-y-2">
+		<>
 			<button
 				onClick={handleClick}
 				className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
 				disabled={loading}
 			>
-				{loading ? 'Импорт...' : 'Импортировать данные'}
+				{loading ? 'Import...' : 'Import data'}
 			</button>
 			<input
 				type="file"
@@ -55,6 +55,6 @@ export default function ImportDataButton() {
 				onChange={handleFileChange}
 			/>
 			{message && <p className="text-sm text-gray-700">{message}</p>}
-		</div>
+		</>
 	)
 }

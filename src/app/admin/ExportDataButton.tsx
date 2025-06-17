@@ -16,7 +16,7 @@ const ExportDataButton = () => {
 
 			URL.revokeObjectURL(url)
 		} catch (err) {
-			console.error('Ошибка при экспорте данных', err)
+			console.error('Export error:', err)
 		}
 	}
 
@@ -25,7 +25,7 @@ const ExportDataButton = () => {
 			onClick={handleExport}
 			className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
 		>
-			Экспортировать данные
+			Export data
 		</button>
 	)
 }

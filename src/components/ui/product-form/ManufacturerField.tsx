@@ -55,18 +55,18 @@ export const ManufacturerField = ({
 				options={options}
 				value={selectedValue}
 				onChange={handleChange}
-				placeholder="Выберите производителя"
+				placeholder="Select manufacturer"
 			/>
 			<button
 				type="button"
 				className="mt-1 text-sm text-emerald-500"
 				onClick={() => {
-					const name = prompt('Введите название нового производителя')
+					const name = prompt('Enter new manufacturer name')
 					if (name) create(name)
 					refetch()
 				}}
 			>
-				+ Создать нового производителя
+				+ Create new manufacturer
 			</button>
 		</div>
 	)

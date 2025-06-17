@@ -9,7 +9,7 @@ const RatingGroup = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 
 	return (
-		<FilterWrapper title="number of reviews">
+		<FilterWrapper title="Number of reviews">
 			{RATINGS_VARIANTS.map(rating => (
 				<Checkbox
 					isChecked={queryParams.ratings?.includes(rating.toString()) ?? false}

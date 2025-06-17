@@ -1,5 +1,5 @@
 import { useActions } from '@/hooks/useActions'
-import { BsCaretLeftSquare, BsCaretRightSquare } from 'react-icons/bs'
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2'
 import styles from './carousel.module.scss'
 
 const CarouselNavigation = () => {
@@ -7,11 +7,11 @@ const CarouselNavigation = () => {
 
 	return (
 		<div className={styles.nav}>
-			<button onClick={() => prevSlide()}>
-				<BsCaretLeftSquare />
+			<button onClick={() => prevSlide({ carouselLength: 2 })}>
+				<HiChevronLeft />
 			</button>
 			<button onClick={() => nextSlide({ carouselLength: 2 })}>
-				<BsCaretRightSquare />
+				<HiChevronRight />
 			</button>
 		</div>
 	)

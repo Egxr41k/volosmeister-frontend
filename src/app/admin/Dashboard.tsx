@@ -35,7 +35,7 @@ const Dashboard = () => {
 			) : (
 				<div>Statistics not loaded!</div>
 			)}
-			<div className="m-5 flex gap-5">
+			<div className={styles.btns}>
 				<ExportDataButton />
 				<ImportDataButton />
 			</div>

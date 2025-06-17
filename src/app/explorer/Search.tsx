@@ -17,8 +17,8 @@ const Search = () => {
 				onChange={e => updateQueryParams('searchTerm', e.target.value)}
 				placeholder="Search..."
 			/>
-			<button className="flex items-center justify-center bg-emerald-100 p-2.5 text-white">
-				<BsSearch color="#10b981" />
+			<button className="flex items-center justify-center bg-emerald-100 p-2.5 text-emerald-500">
+				<BsSearch />
 			</button>
 		</div>
 	)

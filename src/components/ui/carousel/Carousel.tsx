@@ -19,7 +19,6 @@ const Carousel = ({ items, className = '' }: ICarousel) => {
 
 	return (
 		<section className={[className, 'relative'].join(' ')}>
-			<CarouselNavigation />
 			<TransitionGroup className="relative h-56">
 				<CSSTransition
 					key={selectedItem.title}
@@ -32,30 +31,32 @@ const Carousel = ({ items, className = '' }: ICarousel) => {
 					}}
 					unmountOnExit
 					mountOnEnter
-				/>
-				<div
-					className={styles.item}
-					style={
-						selectedItem.image
-							? {
-									backgroundImage: `url(${selectedItem.image})`
-								}
-							: {}
-					}
 				>
-					<h2>{selectedItem.title}</h2>
-					<p>{selectedItem.description}</p>
-					{selectedItem.link ? (
-						<Link href={selectedItem.link} className="btn btn-white">
-							Read more
-						</Link>
-					) : (
-						<Link href="/explorer" className="btn btn-white">
-							Browse products
-						</Link>
-					)}
-				</div>
+					<div
+						className={styles.item}
+						style={
+							selectedItem.image
+								? {
+										backgroundImage: `url(${selectedItem.image})`
+									}
+								: {}
+						}
+					>
+						<h2>{selectedItem.title}</h2>
+						<p>{selectedItem.description}</p>
+						{selectedItem.link ? (
+							<Link href={selectedItem.link} className="btn btn-white">
+								Read more
+							</Link>
+						) : (
+							<Link href="/explorer" className="btn btn-white">
+								Browse products
+							</Link>
+						)}
+					</div>
+				</CSSTransition>
 			</TransitionGroup>
+			<CarouselNavigation />
 		</section>
 	)
 }

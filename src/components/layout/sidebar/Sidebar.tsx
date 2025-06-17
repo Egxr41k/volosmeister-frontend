@@ -29,8 +29,11 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 
 	return (
 		<div className="z-10 flex">
-			<button className="my-auto h-8 w-8" onClick={() => setIsOpen(true)}>
-				<Icon color="black" size={24} />
+			<button
+				className="relative flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90"
+				onClick={() => setIsOpen(true)}
+			>
+				<Icon size={21} />
 			</button>
 			<div
 				className={[
@@ -40,10 +43,13 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 				].join(' ')}
 			>
 				<button
-					className={closeBtnPos[position]}
+					className={[
+						closeBtnPos[position],
+						'flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90'
+					].join(' ')}
 					onClick={() => setIsOpen(false)}
 				>
-					<HiMiniXMark className="h-8 w-8" />
+					<HiMiniXMark size={21} />
 				</button>
 				{children}
 			</div>

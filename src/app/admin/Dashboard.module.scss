@@ -16,14 +16,14 @@
 	}
 
 	> div {
-		// &:first-child {
-		//   @apply mb-2;
-		// }
-
 		&:last-child {
 			@apply text-2xl font-semibold;
 		}
 	}
+}
+
+.btns {
+	@apply my-5 flex justify-center gap-5;
 }
 
 @keyframes sligeInLeft {

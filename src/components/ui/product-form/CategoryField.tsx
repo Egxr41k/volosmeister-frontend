@@ -118,7 +118,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	}
 
 	const handleCreate = (parentId?: number) => {
-		const name = prompt('Введите название новой категории')
+		const name = prompt('Enter new category name')
 		if (name) {
 			create({ name, parentId })
 		}
@@ -134,14 +134,14 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 				}))}
 				value={selectedCategoryChain[0]?.id.toString()}
 				onChange={value => handleChange(0, value)}
-				placeholder="Выберите категорию"
+				placeholder="Select category"
 			/>
 			<button
 				type="button"
 				className="text-sm text-emerald-500"
 				onClick={() => handleCreate()}
 			>
-				+ Создать корневую категорию
+				+ Create category
 			</button>
 
 			{/*nested level */}
@@ -159,7 +159,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 								}))}
 								value={selectedCategoryChain[index + 1]?.id.toString()}
 								onChange={value => handleChange(index + 1, value)}
-								placeholder="Выберите подкатегорию"
+								placeholder="Select subcategory"
 							/>
 							<button
 								type="button"
@@ -170,7 +170,7 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 									)
 								}
 							>
-								+ Создать подкатегорию
+								+ Create subcategory
 							</button>
 						</div>
 					)
