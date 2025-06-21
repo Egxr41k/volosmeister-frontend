@@ -9,7 +9,6 @@ import Button from '@/ui/button/Button'
 import ProductItem from '@/ui/catalog/product-item/ProductItem'
 import { convertPrice } from '@/utils/convertPrice'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
 import styles from './Checkout.module.scss'
 import CheckoutItem from './CheckoutItem'
 
@@ -23,8 +22,6 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 	const { items, total } = useCart()
 
 	const { reset } = useActions()
-
-	const { push } = useRouter()
 
 	const { mutate } = useMutation(
 		['create order and payment'],
