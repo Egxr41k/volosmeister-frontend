@@ -1,5 +1,5 @@
 import { CategoryService } from '@/services/category.service'
-import { ICategory, ICategoryTree } from '@/types/category.interface'
+import { ICategory } from '@/types/category.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select from './Select'
@@ -15,120 +15,53 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		ICategory[]
 	>([])
 
-	const { categoryCache, addToCategoryCache } = useCategoryCache()
-
 	const queryClient = useQueryClient()
-	const { data: rootCategories = [] } = useQuery({
-		queryKey: ['get root categories'],
-		queryFn: () => CategoryService.getRoot()
+	const { data = [], isSuccess } = useQuery({
+		queryKey: ['get all categories'],
+		queryFn: () => CategoryService.getAll()
 	})
+
+	const { cache, addToCache, findPathToCategory, findCategoryById } =
+		useCategoryCache(data)
 
 	const { mutate: create } = useMutation({
 		mutationFn: (data: { name: string; parentId?: number }) =>
 			CategoryService.create(data.name, data.parentId),
-		onSuccess: () => {
-			queryClient.invalidateQueries(['root categories'])
+		onSuccess: data => {
+			addToCache(data)
+			//queryClient.invalidateQueries(['get all categories'])
 		}
 	})
 
 	useEffect(() => {
 		if (!category) return
-		initChainAndCache()
-	}, [category, rootCategories])
 
-	const initChainAndCache = async () => {
-		const isRootCategory = rootCategories.find(
-			rootCategory => rootCategory.id === category.id
-		)
-		const categoryTree = isRootCategory
-			? await CategoryService.getTreeFromRoot(category.id)
-			: await CategoryService.getTreeFromLeaf(category.id)
-
-		initCache(categoryTree)
-		initSelectedChain(categoryTree)
-	}
-
-	const initSelectedChain = (categoryTree: ICategoryTree | undefined) => {
-		let currentTreeHead = categoryTree
-
-		const chain: ICategory[] = []
-		while (currentTreeHead) {
-			const { children, ...category } = currentTreeHead
-			chain.push(category)
-
-			currentTreeHead = currentTreeHead.children.find(
-				child => child.children.length !== 0
-			)
+		if (isSuccess) {
+			const path = findPathToCategory(category.id)
+			setSelectedCategoryChain(path)
 		}
-		const lastIdInChain = chain.at(-1)?.id
-		if (category.parentId == lastIdInChain) {
-			chain.push(category)
-		}
-		setSelectedCategoryChain(chain)
-	}
-
-	const initCache = (categoryTree: ICategoryTree | undefined) => {
-		for (const category of rootCategories) {
-			addToCategoryCache(category.id.toString(), [])
-		}
-
-		let currentTreeHead = categoryTree
-
-		while (currentTreeHead) {
-			addToCategoryCache(
-				currentTreeHead.id.toString(),
-				currentTreeHead.children
-			)
-
-			currentTreeHead = currentTreeHead.children.find(
-				child => child.children.length !== 0
-			)
-		}
-	}
+	}, [data])
 
 	const handleChange = async (level: number, categoryId: string) => {
-		const selected = findById(categoryId)
+		const selected = findCategoryById(+categoryId)
 		if (!selected) return
 
 		const updatedSelected = [...selectedCategoryChain.slice(0, level), selected]
 		setSelectedCategoryChain(updatedSelected)
 
-		const children = await loadChildren(categoryId)
-		//if (children.length === 0) {
 		setCategory(selected)
-		//}
-	}
-
-	const findById = (id: string) => {
-		const allCategories = [
-			rootCategories,
-			...Object.values(categoryCache)
-		].flat()
-		return allCategories.find(c => c.id.toString() === id)
-	}
-
-	const loadChildren = async (categoryId: string) => {
-		if (categoryCache[category?.id]) return categoryCache[category.id]
-
-		const children = await CategoryService.getChildren(categoryId).then(
-			res => res
-		)
-		addToCategoryCache(categoryId, children)
-		return children
 	}
 
 	const handleCreate = (parentId?: number) => {
 		const name = prompt('Enter new category name')
-		if (name) {
-			create({ name, parentId })
-		}
+		if (name) create({ name, parentId })
 	}
 
 	return (
-		<div className="space-y-2">
+		<div className="my-2">
 			{/* Root level */}
 			<Select
-				options={rootCategories.map(c => ({
+				options={data.map(c => ({
 					label: c.name,
 					value: c.id.toString()
 				}))}
@@ -147,10 +80,10 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 			{/*nested level */}
 			{selectedCategoryChain &&
 				selectedCategoryChain.map((category, index) => {
-					const children = categoryCache[category.id] || []
+					const children = cache[category.id] || []
 
 					return (
-						<div className={`ml-${index + 2}`} key={category.id}>
+						<div className={`ml-${index + 4}`} key={category.id}>
 							<Select
 								key={category.id}
 								options={children.map(c => ({

@@ -5,7 +5,7 @@ const CATEGORIES = '/categories'
 
 export const CategoryService = {
 	async getAll() {
-		const { data } = await axiosClassic<ICategory[]>({
+		const { data } = await axiosClassic<ICategoryTree[]>({
 			url: CATEGORIES,
 			method: 'GET'
 		})
