@@ -30,7 +30,13 @@ export const useFilters = () => {
 		const newParams = new URLSearchParams(searchParams.toString())
 
 		if (value) newParams.set(key, String(value))
-		else newParams.delete(key)
+		else {
+			if (newParams.has(key)) {
+				if (newParams.get(key)) {
+					newParams.delete(key)
+				} else return
+			} else return
+		}
 
 		replace(pathname + `?${newParams.toString().replace(/%7C/g, '|')}`)
 
