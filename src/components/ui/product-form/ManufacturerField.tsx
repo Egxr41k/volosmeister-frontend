@@ -28,7 +28,8 @@ export const ManufacturerField = ({
 	const { mutate: create } = useMutation({
 		mutationFn: (name: string) => ManufacturerService.create(name),
 		onSuccess: () => {
-			queryClient.invalidateQueries(['manufacturer'])
+			//queryClient.invalidateQueries(['manufacturers'])
+			refetch()
 		}
 	})
 	const selectedValue = manufacturer?.id?.toString() ?? ''
@@ -42,7 +43,7 @@ export const ManufacturerField = ({
 				}))
 			)
 		}
-	}, [isSuccess])
+	}, [manufacturers])
 
 	const handleChange = (value: string) => {
 		const found = manufacturers?.find(m => m.id.toString() === value)
@@ -50,7 +51,7 @@ export const ManufacturerField = ({
 	}
 
 	return (
-		<div className="mt-2">
+		<div className="my-2">
 			<Select
 				options={options}
 				value={selectedValue}

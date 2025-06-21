@@ -10,12 +10,12 @@ export interface IProduct {
 	name: string
 	slug: string
 	images: string[]
-	price: number
+	prices: number[]
+	sizes: string[]
 	category: ICategory
 	manufacturer: IManufacturer
 	description: string
 	instructionForUse: string
-	availableSizes: number[]
 	ingredients: string[]
 	reviews: IReview[]
 	features: IFeature[]
@@ -37,12 +37,14 @@ export type TypePaginationProducts = {
 
 export type TypeProductData = {
 	name: string
-	price: number
+	prices: number[]
+	sizes: string[]
 	description?: string
 	instructionForUse?: string
 	images: string[]
 	categoryName: string
 	manufacturerName: string
+	ingredients: string[]
 	features: {
 		title: string
 		image: string
@@ -62,7 +64,7 @@ export type TypeProductDataFilters = {
 	ratings?: string
 	minPrice?: string
 	maxPrice?: string
-	categoryId?: string
+	categoriesIds?: string
 }
 
 export enum EnumProductSort {
