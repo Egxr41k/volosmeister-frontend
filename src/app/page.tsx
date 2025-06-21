@@ -1,7 +1,7 @@
+import Home from '@/components/pages/home/Home'
 import { ProductService } from '@/services/product.service'
 import { EnumProductSort } from '@/types/product.interface'
 import { Metadata } from 'next'
-import Home from './Home'
 
 export const metadata: Metadata = {
 	description:

@@ -1,6 +1,6 @@
+import Favorites from '@/components/pages/favorites/Favorites'
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { Metadata } from 'next'
-import Favorites from './Favorites'
 
 export const dynamic = 'force-dynamic'
 

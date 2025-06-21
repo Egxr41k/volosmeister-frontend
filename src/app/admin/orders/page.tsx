@@ -1,6 +1,6 @@
+import Orders from '@/components/pages/admin/orders/Orders'
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { Metadata } from 'next'
-import Orders from './Orders'
 
 export const dynamic = 'force-dynamic'
 

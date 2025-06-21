@@ -1,8 +1,8 @@
+import Category from '@/components/pages/category-slug/Category'
 import { CategoryService } from '@/services/category.service'
 import { ProductService } from '@/services/product.service'
 import { IPageSlugParam } from '@/types/page-params'
 import { Metadata } from 'next'
-import Category from './Category'
 
 export const revalidate = 60
 

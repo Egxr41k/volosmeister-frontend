@@ -1,3 +1,4 @@
+import ProductExplorer from '@/components/pages/explorer/ProductExplorer'
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { ProductService } from '@/services/product.service'
 import {
@@ -5,7 +6,6 @@ import {
 	TypeProductDataFilters
 } from '@/types/product.interface'
 import { Metadata } from 'next'
-import ProductExplorer from './ProductExplorer'
 
 export const dynamic = 'force-dynamic'
 

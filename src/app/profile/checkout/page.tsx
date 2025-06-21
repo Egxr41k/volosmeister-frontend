@@ -1,8 +1,8 @@
+import Checkout from '@/components/pages/checkout/Checkout'
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { ProductService } from '@/services/product.service'
 import { EnumProductSort } from '@/types/product.interface'
 import { Metadata } from 'next'
-import Checkout from './Checkout'
 
 export const dynamic = 'force-dynamic'
 

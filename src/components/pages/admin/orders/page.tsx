@@ -1,14 +1,14 @@
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { Metadata } from 'next'
-import MyOrders from './MyOrders'
+import Orders from './Orders'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-	title: 'My orders',
+	title: 'Orders',
 	...NO_INDEX_PAGE
 }
 
 export default function Page() {
-	return <MyOrders />
+	return <Orders />
 }

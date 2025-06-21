@@ -1,6 +1,6 @@
+import Auth from '@/components/pages/auth/Auth'
 import { NO_INDEX_PAGE } from '@/constants/app.constants'
 import { Metadata } from 'next'
-import Auth from './Auth'
 
 export const dynamic = 'force-dynamic'
 

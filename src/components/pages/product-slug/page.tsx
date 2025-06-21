@@ -1,7 +1,7 @@
-import Product from '@/components/pages/product-slug/Product'
 import { ProductService } from '@/services/product.service'
 import { IPageSlugParam } from '@/types/page-params'
 import { Metadata } from 'next'
+import Product from './Product'
 
 export const revalidate = 60
 

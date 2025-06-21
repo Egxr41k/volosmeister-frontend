@@ -1,6 +1,6 @@
 'use client'
 
-import Auth from '@/app/auth/Auth'
+import Auth from '@/components/pages/auth/Auth'
 import { ADMIN_PANEL_URL } from '@/config/url.config'
 import { REFRESH_TOKEN } from '@/constants/token.constants'
 import { useActions } from '@/hooks/useActions'
