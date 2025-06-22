@@ -4,7 +4,7 @@ import RatingGroup from './ratings-group/RatingGroup'
 
 const Filters = () => {
 	return (
-		<div className="rounded-lg border border-solid border-gray-300 p-2">
+		<div className="rounded-lg bg-white p-2">
 			<PriceGroup />
 			<CategoryGroup />
 			<RatingGroup />

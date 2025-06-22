@@ -7,11 +7,8 @@ import ProductRating from './ProductRating'
 
 const ProductItem = ({ product }: { product: IProduct }) => {
 	return (
-		<div className="animate-scaleIn rounded-lg border border-solid border-gray-300">
-			<Link
-				href={`product/${product.slug}`}
-				className="flex rounded-lg bg-white"
-			>
+		<div className="animate-scaleIn rounded-lg bg-white">
+			<Link href={`product/${product.slug}`} className="flex rounded-lg">
 				<Image
 					className="mx-auto h-52 w-52 object-contain"
 					width={100}
@@ -31,7 +28,7 @@ const ProductItem = ({ product }: { product: IProduct }) => {
 				>
 					{product.category.name}
 				</Link>
-				<ProductRating product={product} isText />
+				<ProductRating product={product} />
 				<div className="mt-2 flex items-center justify-between">
 					<p className="">{product.prices[0]} грн</p>
 					<div className="flex gap-2">

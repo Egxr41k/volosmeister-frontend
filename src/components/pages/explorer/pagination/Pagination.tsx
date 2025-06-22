@@ -1,4 +1,4 @@
-import Button from '@/ui/button/Button'
+import { PaginationButton } from '@/ui/button/PaginationButton'
 
 interface IPagination {
 	numberPages: number // pagesCount
@@ -12,17 +12,15 @@ const Pagination = ({ numberPages, changePage, currentPage }: IPagination) => {
 			{Array.from({ length: numberPages > 1 ? numberPages : 1 }).map(
 				(_, index) => {
 					const pageNumber = (index + 1).toString()
-					const isActive = currentPage?.toString() === pageNumber
 					return (
-						<Button
+						<PaginationButton
 							key={pageNumber}
-							size="md"
-							variant={isActive ? 'selected' : 'white'}
+							isActive={currentPage?.toString() === pageNumber}
 							onClick={() => changePage(pageNumber)}
-							className="mx-3 text-emerald-500"
+							className="mx-3"
 						>
 							{pageNumber}
-						</Button>
+						</PaginationButton>
 					)
 				}
 			)}

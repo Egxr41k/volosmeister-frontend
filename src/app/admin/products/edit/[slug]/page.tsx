@@ -1,6 +1,6 @@
+import ProductForm from '@/components/pages/product-form/ProductForm'
 import { ProductService } from '@/services/product.service'
 import { IPageSlugParam } from '@/types/page-params'
-import ProductForm from '@/ui/product-form/ProductForm'
 import { Metadata } from 'next'
 
 export const revalidate = 60

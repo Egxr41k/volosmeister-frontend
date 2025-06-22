@@ -1,9 +1,9 @@
+import { useCategoryCache } from '@/hooks/useCategoryCache'
 import { CategoryService } from '@/services/category.service'
 import { ICategory } from '@/types/category.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Select from './Select'
-import { useCategoryCache } from './useCategoryCache'
 
 interface ICategoryField {
 	category: ICategory

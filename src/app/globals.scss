@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-	@apply overflow-x-hidden text-base text-black;
+	@apply overflow-x-hidden bg-gray-50 text-base text-black;
 	font-family: var(--font-golos), sans-serif;
 }
 
@@ -12,24 +12,4 @@ body {
 	cursor: default;
 	text-decoration: none;
 	opacity: 0.2 !important;
-}
-
-.btn {
-	@apply rounded-xl px-10 py-2 font-medium shadow transition duration-300 ease-out;
-
-	&:not(&:disabled) {
-		@apply hover:shadow-lg;
-	}
-
-	&.btn-white {
-		@apply bg-white text-emerald-500;
-	}
-
-	&.btn-orange {
-		@apply bg-violet-500 text-white;
-	}
-
-	&.btn-large {
-		@apply px-12 py-4 text-xl;
-	}
 }

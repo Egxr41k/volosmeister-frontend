@@ -18,7 +18,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
 			{...rest}
 			className={[
 				styles.btn,
-				variant === 'selected' && 'styles.btn.',
+				variant === 'selected' && styles['btn-selected'],
 				variant === 'white' && 'btn-white',
 				size === 'sm' && 'px-5 py-2 text-sm',
 				size === 'lg' && 'btn-large',

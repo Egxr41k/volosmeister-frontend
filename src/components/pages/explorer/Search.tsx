@@ -1,5 +1,5 @@
-import { useFilters } from '@/app/explorer/useFilters'
 import { BsSearch } from 'react-icons/bs'
+import { useFilters } from './useFilters'
 
 const Search = () => {
 	const { queryParams, updateQueryParams } = useFilters()

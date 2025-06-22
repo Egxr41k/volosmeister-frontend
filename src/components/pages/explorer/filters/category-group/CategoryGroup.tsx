@@ -1,7 +1,7 @@
+import { useCategoryCache } from '@/hooks/useCategoryCache'
 import { CategoryService } from '@/services/category.service'
 import { ICategoryTree } from '@/types/category.interface'
 import Checkbox from '@/ui/checkbox/Checkbox'
-import { useCategoryCache } from '@/ui/product-form/useCategoryCache'
 import Spinner from '@/ui/Spinner'
 import { useQuery } from '@tanstack/react-query'
 import { useFilters } from '../../useFilters'

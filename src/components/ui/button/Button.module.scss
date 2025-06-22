@@ -1,8 +1,20 @@
 .btn {
-	@apply rounded-xl px-10 py-2 font-medium shadow transition duration-300 ease-out;
+	@apply rounded-lg px-10 py-2 font-medium transition duration-300 ease-out;
 
-	&:not(&:disabled) {
-		@apply hover:shadow-lg;
+	&.btn-paginanation {
+		@apply rounded-sm bg-white px-4 py-2;
+	}
+
+	&.btn-primary {
+		@apply bg-emerald-500 text-white;
+	}
+
+	&.btn-active {
+		@apply bg-emerald-100 text-emerald-500;
+
+		&:not(&:disabled) {
+			@apply hover:bg-emerald-200;
+		}
 	}
 
 	&.btn-white {

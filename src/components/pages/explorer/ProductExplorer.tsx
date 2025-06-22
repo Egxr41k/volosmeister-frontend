@@ -75,13 +75,13 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 
 				<section>
 					<Catalog products={data.products} isLoading={isFetching} />
-					<Pagination
-						changePage={page => updateQueryParams('page', page.toString())}
-						currentPage={queryParams.page ?? 1}
-						numberPages={Math.ceil(data.length / +queryParams.perPage)}
-					/>
 				</section>
 			</div>
+			<Pagination
+				changePage={page => updateQueryParams('page', page.toString())}
+				currentPage={queryParams.page ?? 1}
+				numberPages={Math.ceil(data.length / +queryParams.perPage)}
+			/>
 		</>
 	)
 }

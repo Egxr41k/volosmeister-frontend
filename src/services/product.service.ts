@@ -13,7 +13,7 @@ export const ProductService = {
 	async getAll(
 		queryData = {
 			sort: EnumProductSort.NEWEST,
-			perPage: ''
+			perPage: 4
 		} as TypeProductDataFilters
 	) {
 		const { data } = await axiosClassic<TypePaginationProducts>({
