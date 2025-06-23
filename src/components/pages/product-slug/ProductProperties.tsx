@@ -5,20 +5,18 @@ interface IProductProperty {
 }
 
 const ProductProperties = ({ properties }: IProductProperty) => {
+	if (!properties.length) return null
+
 	return (
 		<>
 			<h1 className="mt-20 text-3xl font-semibold">Properties:</h1>
-			{properties.length ? (
-				properties.map((property: IProperty) => {
-					return property.name == '' ? (
-						<p>{property.value}</p>
-					) : (
-						<p>{property.name + ': ' + property.value}</p>
-					)
-				})
-			) : (
-				<div>There are no Properties</div>
-			)}
+			{properties.map((property: IProperty) => {
+				return property.name == '' ? (
+					<p>{property.value}</p>
+				) : (
+					<p>{property.name + ': ' + property.value}</p>
+				)
+			})}
 		</>
 	)
 }

@@ -1,8 +1,9 @@
 import { IProduct } from '@/types/product.interface'
-import FavoriteButton from '@/ui/catalog/product-item/FavoriteButton'
-import { convertPrice } from '@/utils/convertPrice'
+import Button from '@/ui/button/Button'
 import Link from 'next/link'
-import { FaLock } from 'react-icons/fa'
+import { useState } from 'react'
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi2'
+import ProductReviewsCount from '../ProductReviewsCount'
 import AddToCartInline from './AddToCartInline'
 
 interface IProductInformation {
@@ -10,28 +11,66 @@ interface IProductInformation {
 }
 
 export default function ProductInformation({ product }: IProductInformation) {
+	//const {} = useCategoryCache()
+	const [isShowIngredients, setIsShowIngredients] = useState(true)
+
 	return (
-		<div className="shadow-md-md relative h-max rounded-lg bg-white p-6">
-			<div className="text-3xl font-semibold">
-				{convertPrice(product.price)}
-			</div>
-			<div className="mt-2">
-				$6.88 Shiping{' '}
-				<Link href="/" className="text-aqua ml-2 font-semibold">
-					Details
+		<div className="flex flex-col gap-4 rounded-lg bg-white p-6">
+			<h1 className="text-4xl font-medium">{product.name}</h1>
+			<div className="flex gap-1">
+				<Link
+					href={`manufacturer/${product.manufacturer.name}`}
+					className="duration-300 hover:text-emerald-500 hover:underline"
+				>
+					{product.manufacturer.name}
+				</Link>
+				<p>:</p>
+				<Link
+					href={`category/${product.category.slug}`}
+					className="duration-300 hover:text-emerald-500 hover:underline"
+				>
+					{product.category.name}
 				</Link>
 			</div>
-			<span className="mt-1 block text-sm opacity-50">
-				Sales taxes may apple in checkout
-			</span>
-			<div className="mt-4 text-sm">
-				<span className="mr-1 opacity-50">Delivery</span> Thursday, June 10
+
+			<p className="text-sm">{product.description}</p>
+
+			<ProductIngredients product={product} />
+
+			<div className="flex gap-5">
+				<p className="text-2xl font-medium">{product.prices[0]} грн</p>
+				<AddToCartInline product={product} />
+				<Button variant="primary">Buy Now</Button>
 			</div>
-			<AddToCartInline product={product} />
-			<p className="items center mt-2 flex text-sm opacity-40">
-				<FaLock className="mr-2" /> Secure transition
-			</p>
-			<FavoriteButton productId={product.id} />
+
+			{/* <FavoriteButton productId={product.id} /> */}
+			<ProductReviewsCount reviews={product.reviews} />
+		</div>
+	)
+}
+
+export const ProductIngredients = ({ product }: { product: IProduct }) => {
+	const [isShowIngredients, setIsShowIngredients] = useState(true)
+
+	return (
+		<div className="text-sm">
+			<button
+				className="flex items-center gap-2"
+				onClick={() => setIsShowIngredients(!isShowIngredients)}
+			>
+				<p>Ingredients</p>
+				{isShowIngredients ? <HiChevronDown /> : <HiChevronUp />}
+			</button>
+
+			{isShowIngredients && (
+				<ul className="my-2 ml-6 list-disc">
+					{product.ingredients.map((ingredient, index) => (
+						<li key={index} className="my-1 list-disc">
+							{ingredient}
+						</li>
+					))}
+				</ul>
+			)}
 		</div>
 	)
 }

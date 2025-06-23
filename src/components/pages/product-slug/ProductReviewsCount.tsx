@@ -1,20 +1,18 @@
-import { IProduct } from '@/types/product.interface'
+import { IReview } from '@/types/review.interface'
 import ProductRating from '@/ui/catalog/product-item/ProductRating'
 import { FiChevronRight } from 'react-icons/fi'
 import { Link } from 'react-scroll'
 
 interface IProductReviews {
-	product: IProduct
+	reviews: IReview[]
 }
 
-export default function ProductReviewsCount({ product }: IProductReviews) {
-	const reviewsLength = product.reviews.length
-
-	if (!reviewsLength) return null
+export default function ProductReviewsCount({ reviews }: IProductReviews) {
+	if (!reviews.length) return null
 
 	return (
 		<>
-			<ProductRating product={product} />
+			<ProductRating reviews={reviews} />
 			<div>
 				<Link
 					className="cursor-pointer text-sm font-semibold opacity-50"
@@ -23,7 +21,7 @@ export default function ProductReviewsCount({ product }: IProductReviews) {
 					offset={-50}
 					duration={1000}
 				>
-					{reviewsLength} Reviews <FiChevronRight className="inline" />
+					{reviews.length} Reviews <FiChevronRight className="inline" />
 				</Link>
 			</div>
 		</>

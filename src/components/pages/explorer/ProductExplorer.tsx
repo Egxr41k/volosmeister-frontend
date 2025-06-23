@@ -48,7 +48,7 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 			</div>
 			<div className="mb-7 flex items-center justify-between">
 				<Button
-					variant="white"
+					variant="active"
 					onClick={() => setIsFilterOpen(!isFilterOpen)}
 					className="mb-7 flex items-center gap-2"
 				>

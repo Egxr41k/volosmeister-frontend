@@ -83,7 +83,7 @@ const LeaveReviewForm = ({ productId }: { productId: number }) => {
 						)}
 
 						<div className="mb-2 mt-8 text-center">
-							<Button typeof="submit" variant="selected">
+							<Button typeof="submit" variant="active">
 								Leave
 							</Button>
 						</div>

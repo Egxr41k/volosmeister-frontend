@@ -18,18 +18,18 @@
 		top: calc(100% + 1rem);
 
 		> li {
-			@apply m-1.5 rounded-lg border border-solid border-emerald-300 px-5 py-1 text-center font-medium text-emerald-500 transition duration-300 ease-out;
+			@apply m-1.5 rounded-lg bg-white px-5 py-1 text-center font-medium text-black transition duration-300 ease-out;
 
 			transform: translateX(100%);
 			opacity: 0;
 			animation: slideInRight 0.5s forwards;
 
 			&:hover:not(&.active) {
-				@apply bg-emerald-100;
+				@apply bg-emerald-50;
 			}
 
 			&.active {
-				@apply bg-emerald-100;
+				@apply bg-emerald-100 text-emerald-500;
 			}
 
 			@for $i from 1 through 4 {

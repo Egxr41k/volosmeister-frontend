@@ -1,5 +1,5 @@
 .btn {
-	@apply rounded-lg px-10 py-2 font-medium transition duration-300 ease-out;
+	@apply rounded-lg px-10 py-2 text-base font-medium transition duration-300 ease-out;
 
 	&.btn-paginanation {
 		@apply rounded-sm bg-white px-4 py-2;

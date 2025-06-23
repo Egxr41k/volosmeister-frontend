@@ -75,7 +75,7 @@ const Auth = () => {
 							placeholder="Password"
 							error={errors.password?.message}
 						/>
-						<Button variant="selected">Lets go!</Button>
+						<Button variant="active">Lets go!</Button>
 						<div>
 							<button
 								type="button"

@@ -8,7 +8,6 @@ import ProductReviews from './product-reviews/ProductReviews'
 import ProductFeatures from './ProductFeatures'
 import { ProductGallery } from './ProductGallery'
 import ProductProperties from './ProductProperties'
-import ProductReviewsCount from './ProductReviewsCount'
 import SimilarProducts from './SimilarProducts'
 
 interface IProductPage {
@@ -29,6 +28,8 @@ export default function Product({
 		initialData: initialProduct
 	})
 
+	console.log('Product data:', product)
+
 	if (!product)
 		return (
 			<div className="flex h-full w-full items-center justify-center">
@@ -38,17 +39,8 @@ export default function Product({
 
 	return (
 		<>
-			<h1 className="m-1 text-3xl font-semibold">{product.name}</h1>
-			<ProductReviewsCount product={product} />
-			<div
-				className="mt-6 grid gap-12"
-				style={{ gridTemplateColumns: '1fr 1fr 1fr' }}
-			>
+			<div className="my-10 flex gap-5 sm:flex-wrap lg:flex-nowrap">
 				<ProductGallery images={product.images} />
-				<div className="font-light opacity-80">
-					<div className="mb-1 font-semibold">Description:</div>
-					{product.description}
-				</div>
 				<ProductInformation product={product} />
 			</div>
 

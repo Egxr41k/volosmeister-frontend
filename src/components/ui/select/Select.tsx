@@ -11,7 +11,7 @@ function Select<K>({ data, onChange, value, title }: ISelect<K>) {
 				{value?.label || 'Default'}
 			</button>
 			{isOpen && (
-				<ul className="bg-white">
+				<ul>
 					{data.map(item => (
 						<li
 							key={item.key?.toString()}

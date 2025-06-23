@@ -12,18 +12,16 @@ const AddToCartInline = ({ product }: { product: IProduct }) => {
 	)
 
 	return (
-		<div className="mt-5">
-			<Button
-				variant="selected"
-				onClick={() =>
-					currentElement
-						? removeFromCart({ id: currentElement.id })
-						: addToCart({ product, quantity: 1, price: product.price })
-				}
-			>
-				{currentElement ? 'Remove from cart' : 'Add to cart'}
-			</Button>
-		</div>
+		<Button
+			variant="active"
+			onClick={() =>
+				currentElement
+					? removeFromCart({ id: currentElement.id })
+					: addToCart({ product, quantity: 1, price: product.prices[0] })
+			}
+		>
+			{currentElement ? 'Remove from cart' : 'Add to cart'}
+		</Button>
 	)
 }
 

@@ -15,7 +15,7 @@ export function ProductGallery({ images }: IProductGallery) {
 				alt=""
 				width={500}
 				height={500}
-				className="overflow-hidden rounded-lg"
+				className="h-[500px] w-[500px] rounded-lg bg-white object-contain"
 				priority
 				draggable={false}
 				unoptimized
@@ -25,21 +25,18 @@ export function ProductGallery({ images }: IProductGallery) {
 				style={{ width: '500px', overflowX: 'auto', whiteSpace: 'nowrap' }}
 			>
 				{images.map((image, index) => (
-					<button
-						key={index}
-						onClick={() => setActiveIndex(index)}
-						className={[
-							'owerflow-hidden mr-5 inline rounded-lg border-b-2 border-solid transition-all duration-300 last:mr-0 hover:shadow-md',
-							index === activeIndex
-								? 'border-primary shadow-md'
-								: 'border-transparent'
-						].join(' ')}
-					>
+					<button key={index} onClick={() => setActiveIndex(index)}>
 						<Image
 							src={image}
 							alt=""
 							width={100}
 							height={100}
+							className={[
+								'owerflow-hidden mr-5 inline h-[100px] w-[100px] rounded-lg border-b-2 border-solid bg-white object-contain transition-all duration-300 last:mr-0',
+								index === activeIndex
+									? 'border-emerald-500'
+									: 'border-transparent'
+							].join(' ')}
 							priority
 							draggable={false}
 							unoptimized

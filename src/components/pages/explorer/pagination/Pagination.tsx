@@ -8,7 +8,7 @@ interface IPagination {
 
 const Pagination = ({ numberPages, changePage, currentPage }: IPagination) => {
 	return (
-		<div className="mt-16 text-center">
+		<div className="my-16 text-center">
 			{Array.from({ length: numberPages > 1 ? numberPages : 1 }).map(
 				(_, index) => {
 					const pageNumber = (index + 1).toString()

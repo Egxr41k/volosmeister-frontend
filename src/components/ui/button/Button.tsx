@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react'
 import styles from './Button.module.scss'
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-	variant: 'selected' | 'white'
+	variant: 'active' | 'primary'
 	size?: 'sm' | 'md' | 'lg'
 }
 
@@ -18,8 +18,8 @@ const Button: FC<PropsWithChildren<IButton>> = ({
 			{...rest}
 			className={[
 				styles.btn,
-				variant === 'selected' && styles['btn-selected'],
-				variant === 'white' && 'btn-white',
+				variant === 'active' && styles['btn-active'],
+				variant === 'primary' && styles['btn-primary'],
 				size === 'sm' && 'px-5 py-2 text-sm',
 				size === 'lg' && 'btn-large',
 				className

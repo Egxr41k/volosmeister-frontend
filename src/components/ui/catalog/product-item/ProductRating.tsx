@@ -1,23 +1,22 @@
-import { IProduct } from '@/types/product.interface'
+import { IReview } from '@/types/review.interface'
 import { useState } from 'react'
 import { Rating } from 'react-simple-star-rating'
 
 interface IProductRaiteing {
-	product: IProduct
+	reviews: IReview[]
 	isText?: boolean
 }
 
-const ProductRating = ({ product, isText = false }: IProductRaiteing) => {
+const ProductRating = ({ reviews, isText = false }: IProductRaiteing) => {
 	const [rating, setRating] = useState(
 		Math.round(
-			product.reviews.reduce((acc, review) => acc + review.rating, 0) /
-				product.reviews.length
+			reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
 		) || 0
 	)
 
 	return (
 		<div className="mb-2">
-			{!!product.reviews.length && (
+			{!!reviews.length && (
 				<span className="mr-1">
 					<Rating
 						readonly
@@ -35,9 +34,7 @@ const ProductRating = ({ product, isText = false }: IProductRaiteing) => {
 					</span>
 				</span>
 			)}
-			{isText && (
-				<span className="text-xs">({product.reviews.length} reviews)</span>
-			)}
+			{isText && <span className="text-xs">({reviews.length} reviews)</span>}
 		</div>
 	)
 }

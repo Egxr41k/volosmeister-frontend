@@ -28,7 +28,7 @@ const ProductItem = ({ product }: { product: IProduct }) => {
 				>
 					{product.category.name}
 				</Link>
-				<ProductRating product={product} />
+				<ProductRating reviews={product.reviews} />
 				<div className="mt-2 flex items-center justify-between">
 					<p className="">{product.prices[0]} грн</p>
 					<div className="flex gap-2">
