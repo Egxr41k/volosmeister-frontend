@@ -8,12 +8,12 @@ interface IFormGallery {
 	setProductImageFiles: (value: SetStateAction<(File | undefined)[]>) => void
 }
 
-export function FormGallery({
+const FormGallery = ({
 	productImages,
 	setProductImages,
 	productImageFiles,
 	setProductImageFiles
-}: IFormGallery) {
+}: IFormGallery) => {
 	const [activeIndex, setActiveIndex] = useState(0)
 
 	const setProductImageFileToPos = (image: File | undefined, i: number) => {
@@ -97,3 +97,5 @@ export function FormGallery({
 		</div>
 	)
 }
+
+export default FormGallery

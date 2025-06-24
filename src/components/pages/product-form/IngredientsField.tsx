@@ -5,7 +5,7 @@ interface IIngredientsFields {
 	setIngredients: (value: string[]) => void
 }
 
-export const IngredientsField = ({
+const IngredientsField = ({
 	ingredients,
 	setIngredients
 }: IIngredientsFields) => {
@@ -48,3 +48,5 @@ export const IngredientsField = ({
 		</div>
 	)
 }
+
+export default IngredientsField

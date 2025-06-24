@@ -10,7 +10,7 @@ interface ICategoryField {
 	setCategory: (value: ICategory) => void
 }
 
-export const CategoryField = ({ category, setCategory }: ICategoryField) => {
+const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const [selectedCategoryChain, setSelectedCategoryChain] = useState<
 		ICategory[]
 	>([])
@@ -111,3 +111,5 @@ export const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		</div>
 	)
 }
+
+export default CategoryField

@@ -1,4 +1,4 @@
-import { PaginationButton } from '@/ui/button/PaginationButton'
+import PaginationButton from '@/ui/button/PaginationButton'
 
 interface IPagination {
 	numberPages: number // pagesCount

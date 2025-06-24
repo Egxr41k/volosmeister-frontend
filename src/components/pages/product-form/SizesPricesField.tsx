@@ -7,7 +7,7 @@ interface ISizesPricesField {
 	setPrices: (value: number[]) => void
 }
 
-export const SizesPricesField = ({
+const SizesPricesField = ({
 	sizes,
 	setSizes,
 	prices,
@@ -70,3 +70,5 @@ export const SizesPricesField = ({
 		</div>
 	)
 }
+
+export default SizesPricesField

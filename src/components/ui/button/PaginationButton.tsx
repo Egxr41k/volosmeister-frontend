@@ -5,7 +5,7 @@ interface IPaginationButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	isActive: boolean
 }
 
-export const PaginationButton = ({
+const PaginationButton = ({
 	children,
 	isActive,
 	className,
@@ -23,3 +23,5 @@ export const PaginationButton = ({
 		{children}
 	</button>
 )
+
+export default PaginationButton

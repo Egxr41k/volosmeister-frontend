@@ -9,7 +9,7 @@ interface IManufacturerField {
 	setManufacturer: (value: IManufacturer) => void
 }
 
-export const ManufacturerField = ({
+const ManufacturerField = ({
 	manufacturer,
 	setManufacturer
 }: IManufacturerField) => {
@@ -72,3 +72,5 @@ export const ManufacturerField = ({
 		</div>
 	)
 }
+
+export default ManufacturerField

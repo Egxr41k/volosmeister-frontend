@@ -1,4 +1,4 @@
-import ProductForm from '@/ui/product-form/ProductForm'
+import ProductForm from '@/components/pages/product-form/ProductForm'
 
 export const dynamic = 'force-dynamic'
 
