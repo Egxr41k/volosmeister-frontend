@@ -1,4 +1,3 @@
-import { useCategoryCache } from '@/hooks/useCategoryCache'
 import { CategoryService } from '@/services/category.service'
 import { ICategoryTree } from '@/types/category.interface'
 import Checkbox from '@/ui/checkbox/Checkbox'
@@ -29,7 +28,10 @@ const CategoryGroup = () => {
 
 const CategoryTree = ({ category }: { category: ICategoryTree }) => {
 	const { queryParams, updateQueryParams } = useFilters()
-	const { getAllCategoryIds } = useCategoryCache([category])
+
+	const dfs = (node: ICategoryTree): number[] => {
+		return [node.id].concat(...node.children.map(child => dfs(child)))
+	}
 
 	return (
 		<div key={category.id} className="ml-2">
@@ -40,13 +42,13 @@ const CategoryTree = ({ category }: { category: ICategoryTree }) => {
 				onClick={() => {
 					const categoriesQuery = updateCategoriesQuery(
 						queryParams.categoriesIds ?? '',
-						getAllCategoryIds().map(String)
+						dfs(category).map(String)
 					)
 					updateQueryParams('categoriesIds', categoriesQuery)
 				}}
 				className="mb-2 text-sm"
 			>
-				{category.name}/{category.id}{' '}
+				{category.name}
 			</Checkbox>
 			{category.children.map(category => (
 				<div className="ml-4">

@@ -1,11 +1,8 @@
 'use client'
 
-import { ProductService } from '@/services/product.service'
 import { TypePaginationProducts } from '@/types/product.interface'
-import Spinner from '@/ui/Spinner'
 import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 import styles from './ProductExplorer.module.scss'
@@ -24,17 +21,18 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 
 	const { isFilterUpdated, queryParams, updateQueryParams } = useFilters()
 
-	const { data, isFetching, isError } = useQuery({
-		queryKey: ['product explorer', queryParams],
-		queryFn: () => ProductService.getAll(queryParams),
-		enabled: isFilterUpdated || !initialProducts,
-		initialData: initialProducts
-	})
+	// const { data, isFetching, isError } = useQuery({
+	// 	queryKey: ['product explorer', queryParams],
+	// 	queryFn: () => ProductService.getAll(queryParams),
+	// 	enabled: isFilterUpdated || !initialProducts,
+	// 	initialData: initialProducts
+	// })
 
+	const data = initialProducts
 	if (!data)
 		return <p className="text-2xl font-semibold">Error loading products</p>
 
-	if (isFetching) return <Spinner />
+	//if (isFetching) return <Spinner />
 
 	return (
 		<>
@@ -74,7 +72,7 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 				</aside>
 
 				<section>
-					<Catalog products={data.products} isLoading={isFetching} />
+					<Catalog products={data.products} isLoading={false} />
 				</section>
 			</div>
 			<Pagination

@@ -1,5 +1,3 @@
-'use client'
-
 import { IProduct } from '@/types/product.interface'
 import Spinner from '@/ui/Spinner'
 import ProductItem from './product-item/ProductItem'
