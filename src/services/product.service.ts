@@ -1,6 +1,5 @@
 import { axiosClassic, instance } from '@/services/api/api.intercepter'
 import {
-	EnumProductSort,
 	IProduct,
 	TypePaginationProducts,
 	TypeProductData,
@@ -10,12 +9,7 @@ import {
 const PRODUCTS = '/products'
 
 export const ProductService = {
-	async getAll(
-		queryData = {
-			sort: EnumProductSort.NEWEST,
-			perPage: 4
-		} as TypeProductDataFilters
-	) {
+	async getAll(queryData?: TypeProductDataFilters) {
 		const { data } = await axiosClassic<TypePaginationProducts>({
 			url: PRODUCTS,
 			method: 'GET',

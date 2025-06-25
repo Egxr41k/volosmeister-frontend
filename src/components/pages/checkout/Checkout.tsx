@@ -41,51 +41,45 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 		}
 	)
 
+	if (!items.length) return <div>Fill your cart first!</div>
+
 	return (
-		<>
-			{items.length ? (
-				<section className={styles.checkout}>
-					<div>
-						<h1 className="mb-6 text-3xl font-semibold">Checkout</h1>
-						<div className={styles.list}>
-							{items.map(item => (
-								<CheckoutItem cartItem={item} />
-							))}
-						</div>
-						<div className={styles.footer}>
-							<div className={styles.total}>
-								<div>Total Cost</div>
-								<div>{convertPrice(total)}</div>
-							</div>
-							<Button
-								variant="primary"
-								size="lg"
-								className="mb-2 mt-5"
-								onClick={() => mutate()}
-							>
-								Place order
-							</Button>
-						</div>
+		<section className={styles.checkout}>
+			<div>
+				<h1 className="mb-6 text-3xl font-semibold">Checkout</h1>
+				<div className={styles.list}>
+					{items.map(item => (
+						<CheckoutItem cartItem={item} />
+					))}
+				</div>
+				<div className={styles.footer}>
+					<div className={styles.total}>
+						<div>Total Cost</div>
+						<div>{convertPrice(total)}</div>
 					</div>
-					<div>
-						<h1 className="mb-6 text-2xl font-semibold">Recomended products</h1>
-						<div className={styles.recomended}>
-							{data?.products
-								.filter(
-									product =>
-										!items.map(item => item.product.id).includes(product.id)
-								)
-								.slice(0.2)
-								.map(product => (
-									<ProductItem product={product} key={product.id} />
-								))}
-						</div>
-					</div>
-				</section>
-			) : (
-				<div>Fill your cart first!</div>
-			)}
-		</>
+					<Button
+						variant="primary"
+						size="lg"
+						className="mb-2 mt-5"
+						onClick={() => mutate()}
+					>
+						Place order
+					</Button>
+				</div>
+			</div>
+			<div>
+				<h1 className="mb-6 text-2xl font-semibold">Recomended products</h1>
+				<div className="grid grid-cols-2 gap-10">
+					{data?.products
+						.filter(
+							product =>
+								!items.map(item => item.product.id).includes(product.id)
+						)
+						.slice(0.2)
+						.map(product => <ProductItem product={product} key={product.id} />)}
+				</div>
+			</div>
+		</section>
 	)
 }
 

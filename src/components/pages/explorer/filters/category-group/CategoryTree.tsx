@@ -10,12 +10,14 @@ const CategoryTree = ({ category }: { category: ICategoryTree }) => {
 		return [node.id].concat(...node.children.map(child => dfs(child)))
 	}
 
+	const isChecked = !!queryParams.categoriesIds
+		?.split('|')
+		.find(x => x === category.id.toString())
+
 	return (
 		<div key={category.id} className="ml-2">
 			<Checkbox
-				isChecked={
-					queryParams.categoriesIds?.includes(category.id.toString()) ?? false
-				}
+				isChecked={isChecked}
 				onClick={() => {
 					const categoriesQuery = updateCategoriesQuery(
 						queryParams.categoriesIds ?? '',

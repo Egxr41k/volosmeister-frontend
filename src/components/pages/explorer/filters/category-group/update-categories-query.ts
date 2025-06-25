@@ -7,11 +7,12 @@ export function updateCategoriesQuery(
 		: []
 
 	newCategories.forEach(category => {
-		const categoryIndex = categoriesArray.indexOf(category)
-		if (categoryIndex === -1) {
+		const existingCategory = categoriesArray.find(arrEl => arrEl === category)
+		if (!existingCategory) {
 			categoriesArray.push(category)
 		} else {
-			categoriesArray.splice(categoryIndex, 1)
+			const existingCategoryIndex = categoriesArray.indexOf(existingCategory)
+			categoriesArray.splice(existingCategoryIndex, 1)
 		}
 	})
 
