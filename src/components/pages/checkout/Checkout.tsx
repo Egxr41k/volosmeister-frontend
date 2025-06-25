@@ -58,7 +58,7 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 								<div>{convertPrice(total)}</div>
 							</div>
 							<Button
-								variant="white"
+								variant="primary"
 								size="lg"
 								className="mb-2 mt-5"
 								onClick={() => mutate()}

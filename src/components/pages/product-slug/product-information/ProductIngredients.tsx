@@ -1,9 +1,14 @@
-import { IProduct } from '@/types/product.interface'
 import { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi2'
 
-export const ProductIngredients = ({ product }: { product: IProduct }) => {
+export const ProductIngredients = ({
+	ingredients
+}: {
+	ingredients: string[]
+}) => {
 	const [isShowIngredients, setIsShowIngredients] = useState(true)
+
+	if (!ingredients.length) return null
 
 	return (
 		<div className="text-sm">
@@ -17,7 +22,7 @@ export const ProductIngredients = ({ product }: { product: IProduct }) => {
 
 			{isShowIngredients && (
 				<ul className="my-2 ml-6 list-disc">
-					{product.ingredients.map((ingredient, index) => (
+					{ingredients.map((ingredient, index) => (
 						<li key={index} className="my-1 list-disc">
 							{ingredient}
 						</li>

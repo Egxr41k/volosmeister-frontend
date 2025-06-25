@@ -1,5 +1,6 @@
 import { IProduct } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
+import { convertPrice } from '@/utils/convertPrice'
 import Link from 'next/link'
 import ProductReviewsCount from '../ProductReviewsCount'
 import AddToCartInline from './AddToCartInline'
@@ -15,7 +16,7 @@ export default function ProductInformation({ product }: IProductInformation) {
 			<h1 className="text-4xl font-medium">{product.name}</h1>
 			<div className="flex gap-1 font-medium">
 				<Link
-					href={`/manufacturer/${product.manufacturer.name}`}
+					href={`/manufacturer/${product.manufacturer.slug}`}
 					className="duration-300 hover:text-emerald-500 hover:underline"
 				>
 					{product.manufacturer.name}
@@ -31,10 +32,12 @@ export default function ProductInformation({ product }: IProductInformation) {
 
 			<p className="text-sm">{product.description}</p>
 
-			<ProductIngredients product={product} />
+			<ProductIngredients ingredients={product.ingredients} />
 
 			<div className="flex gap-5">
-				<p className="text-2xl font-medium">{product.prices[0]} грн</p>
+				<p className="text-2xl font-medium">
+					{convertPrice(product.prices[0])}
+				</p>
 				<Button variant="primary">Buy Now</Button>
 				<AddToCartInline product={product} />
 			</div>

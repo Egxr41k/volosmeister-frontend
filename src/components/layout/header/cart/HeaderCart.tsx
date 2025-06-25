@@ -45,7 +45,7 @@ const HeaderCart = () => {
 							<div className="mb-5 mt-7 text-center">
 								<Link
 									className="btn btn-white"
-									href="/checkout"
+									href="/profile/checkout"
 									onClick={() => setIsShow(false)}
 								>
 									Go to checkout

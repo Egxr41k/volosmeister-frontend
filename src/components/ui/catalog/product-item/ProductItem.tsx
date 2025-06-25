@@ -1,4 +1,5 @@
 import { IProduct } from '@/types/product.interface'
+import { convertPrice } from '@/utils/convertPrice'
 import Image from 'next/image'
 import Link from 'next/link'
 import AddToCartButton from './AddToCartButton'
@@ -33,7 +34,7 @@ const ProductItem = ({ product }: { product: IProduct }) => {
 				</Link>
 				<ProductRating reviews={product.reviews} />
 				<div className="mt-2 flex items-center justify-between">
-					<p className="">{product.prices[0]} грн</p>
+					<p className="">{convertPrice(product.prices[0])}</p>
 					<div className="flex gap-2">
 						<FavoriteButton productId={product.id} />
 						<AddToCartButton product={product} />

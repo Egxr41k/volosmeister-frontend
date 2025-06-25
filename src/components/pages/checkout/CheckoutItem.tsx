@@ -18,7 +18,7 @@ const CheckoutItem = ({ product }: { product: IProduct }) => {
 					<div>{product.name}</div>
 					<div>{product.category.name}</div>
 				</div>
-				<div className={styles.price}>{convertPrice(product.price)}</div>
+				<div className={styles.price}>{convertPrice(product.prices[0])}</div>
 			</div>
 		</div>
 	)
