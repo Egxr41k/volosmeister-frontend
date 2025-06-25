@@ -17,8 +17,8 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 
 	const queryClient = useQueryClient()
 	const { data = [], isSuccess } = useQuery({
-		queryKey: ['get all categories'],
-		queryFn: () => CategoryService.getAll()
+		queryKey: ['get all as tree categories'],
+		queryFn: () => CategoryService.getAllAsTree()
 	})
 
 	const { cache, addToCache, findPathToCategory, findCategoryById } =

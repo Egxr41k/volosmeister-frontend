@@ -15,8 +15,8 @@ import NavLink from './NavLink'
 
 const Navigation = () => {
 	const { data, isFetching, refetch } = useQuery({
-		queryKey: ['get all categories'],
-		queryFn: () => CategoryService.getAll()
+		queryKey: ['get root categories'],
+		queryFn: () => CategoryService.getRoot()
 	})
 
 	const { isAdminPanel, pathname } = useIsAdminPanel()

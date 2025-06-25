@@ -7,7 +7,7 @@ import CategoryTree from './CategoryTree'
 const CategoryGroup = () => {
 	const { data, isFetching } = useQuery({
 		queryKey: ['get all categories'],
-		queryFn: () => CategoryService.getAll()
+		queryFn: () => CategoryService.getAllAsTree()
 	})
 
 	return (

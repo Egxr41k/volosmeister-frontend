@@ -3,7 +3,7 @@
 	transition: gap 0.5s ease-in;
 
 	> aside {
-		@apply w-0 whitespace-nowrap opacity-0;
+		@apply invisible w-0 whitespace-nowrap opacity-0;
 		transition:
 			width 0.5s ease-in,
 			opacity 0.5s ease-in;
@@ -18,7 +18,7 @@
 		@apply gap-5;
 
 		> aside {
-			@apply w-2/6 opacity-100;
+			@apply visible w-2/6 opacity-100;
 		}
 	}
 }
