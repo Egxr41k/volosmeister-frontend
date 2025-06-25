@@ -15,7 +15,7 @@ const Select = ({ options, value, onChange, placeholder }: SelectProps) => {
 		<select
 			value={value ?? ''}
 			onChange={e => onChange(e.target.value)}
-			className="w-full rounded border border-gray-300 bg-white p-2"
+			className="w-min rounded border border-gray-300 bg-white p-2"
 		>
 			<option value="">{placeholder || 'Select'}</option>
 			{options.map(option => (

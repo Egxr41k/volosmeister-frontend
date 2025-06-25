@@ -6,6 +6,8 @@ export interface ICartInitialState {
 
 export interface IAddToCartPayload extends Omit<ICartItem, 'id'> {}
 
+export interface IAddToCart extends Omit<IAddToCartPayload, 'quantity'> {}
+
 export interface IChangeQuantityPayload extends Pick<ICartItem, 'id'> {
 	type: 'minus' | 'plus'
 }

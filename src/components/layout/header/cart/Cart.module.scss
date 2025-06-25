@@ -10,7 +10,11 @@
 		@apply flex items-center gap-4 border-b border-b-black/30 pb-6 pt-4;
 
 		.name {
-			@apply w-36 truncate font-semibold -tracking-widest;
+			@apply w-36 truncate font-semibold;
+		}
+
+		.size {
+			@apply mt-1 text-sm;
 		}
 
 		.price {

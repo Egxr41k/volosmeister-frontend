@@ -24,7 +24,9 @@ const ProductItem = ({ product }: { product: IProduct }) => {
 			</Link>
 			<div className="p-2">
 				<Link href={`/product/${product.slug}`}>
-					<h3 className="mt-2 font-semibold">{product.name}</h3>
+					<h3 className="mt-2 font-semibold">
+						{product.name} ({product.sizes[0]})
+					</h3>
 				</Link>
 				<Link
 					href={`/category/${product.category.slug}`}
@@ -37,7 +39,11 @@ const ProductItem = ({ product }: { product: IProduct }) => {
 					<p className="">{convertPrice(product.prices[0])}</p>
 					<div className="flex gap-2">
 						<FavoriteButton productId={product.id} />
-						<AddToCartButton product={product} />
+						<AddToCartButton
+							product={product}
+							price={product.prices[0]}
+							size={product.sizes[0]}
+						/>
 					</div>
 				</div>
 			</div>

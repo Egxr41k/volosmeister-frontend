@@ -49,7 +49,7 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 						<h1 className="mb-6 text-3xl font-semibold">Checkout</h1>
 						<div className={styles.list}>
 							{items.map(item => (
-								<CheckoutItem key={item.id} product={item.product} />
+								<CheckoutItem cartItem={item} />
 							))}
 						</div>
 						<div className={styles.footer}>

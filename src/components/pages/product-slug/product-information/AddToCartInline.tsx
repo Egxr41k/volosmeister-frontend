@@ -1,9 +1,9 @@
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
-import { IProduct } from '@/types/product.interface'
+import { IAddToCart } from '@/store/cart/cart.types'
 import Button from '@/ui/button/Button'
 
-const AddToCartInline = ({ product }: { product: IProduct }) => {
+const AddToCartInline = ({ product, size, price }: IAddToCart) => {
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
@@ -17,7 +17,7 @@ const AddToCartInline = ({ product }: { product: IProduct }) => {
 			onClick={() =>
 				currentElement
 					? removeFromCart({ id: currentElement.id })
-					: addToCart({ product, quantity: 1, price: product.prices[0] })
+					: addToCart({ product, quantity: 1, price, size })
 			}
 		>
 			{currentElement ? 'Remove from cart' : 'Add to cart'}

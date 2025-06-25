@@ -2,10 +2,10 @@
 
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
-import { IProduct } from '@/types/product.interface'
+import { IAddToCart } from '@/store/cart/cart.types'
 import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
 
-const AddToCartButton = ({ product }: { product: IProduct }) => {
+const AddToCartButton = ({ product, price, size }: IAddToCart) => {
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
@@ -23,7 +23,8 @@ const AddToCartButton = ({ product }: { product: IProduct }) => {
 						: addToCart({
 								product,
 								quantity: 1,
-								price: product.price
+								price,
+								size
 							})
 				}}
 			>

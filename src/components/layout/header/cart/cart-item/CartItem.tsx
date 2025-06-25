@@ -16,9 +16,8 @@ const CartItem = ({ item }: { item: ICartItem }) => {
 			/>
 			<div>
 				<div className={styles.name}>{item.product.name}</div>
-				<div className={styles.price}>
-					{convertPrice(item.product.prices[0])}
-				</div>
+				<div className={styles.size}>{item.size}</div>
+				<div className={styles.price}>{convertPrice(item.price)}</div>
 				<CartActions item={item} />
 			</div>
 		</div>

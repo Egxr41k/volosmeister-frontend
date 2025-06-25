@@ -1,24 +1,26 @@
-import { IProduct } from '@/types/product.interface'
+import { ICartItem } from '@/types/cart.interface'
 import { convertPrice } from '@/utils/convertPrice'
 import Image from 'next/image'
 import styles from './Checkout.module.scss'
 
-const CheckoutItem = ({ product }: { product: IProduct }) => {
+const CheckoutItem = ({ cartItem }: { cartItem: ICartItem }) => {
 	return (
-		<div className={styles.item}>
+		<div key={cartItem.id} className={styles.item}>
 			<Image
-				src={product.images[0]}
+				src={cartItem.product.images[0]}
 				width={100}
 				height={100}
-				alt={product.name}
+				alt={cartItem.product.name}
 				unoptimized
 			/>
 			<div className={styles.row}>
 				<div className={styles.information}>
-					<div>{product.name}</div>
-					<div>{product.category.name}</div>
+					<div>
+						{cartItem.product.name} ({cartItem.size})
+					</div>
+					<div>{cartItem.product.category.name}</div>
 				</div>
-				<div className={styles.price}>{convertPrice(product.prices[0])}</div>
+				<div className={styles.price}>{convertPrice(cartItem.price)}</div>
 			</div>
 		</div>
 	)
