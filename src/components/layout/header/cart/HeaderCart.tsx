@@ -19,7 +19,7 @@ const HeaderCart = () => {
 				onClick={() => {
 					setIsShow(!isShow)
 				}}
-				className="relative flex h-10 w-10 items-center justify-center rounded text-black transition-colors hover:text-emerald-500"
+				className="relative flex h-10 w-10 items-center justify-center rounded text-black transition-colors duration-300 hover:text-emerald-500"
 			>
 				{!!items.length ? (
 					<RiShoppingCartFill size={21} />

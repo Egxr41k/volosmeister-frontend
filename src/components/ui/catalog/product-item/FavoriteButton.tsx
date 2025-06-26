@@ -34,7 +34,11 @@ const FavoriteButton = ({ productId }: { productId: number }) => {
 				}}
 				className="text-primary"
 			>
-				{isExists ? <AiFillHeart /> : <AiOutlineHeart />}
+				{isExists ? (
+					<AiFillHeart className="text-emerald-500" />
+				) : (
+					<AiOutlineHeart className="transition-colors duration-300 hover:text-emerald-500" />
+				)}
 			</button>
 		</div>
 	)

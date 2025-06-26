@@ -30,7 +30,7 @@ const ProductItem = ({ product }: { product: IProduct }) => {
 				</Link>
 				<Link
 					href={`/category/${product.category.slug}`}
-					className="text-aqua mb-2 text-xs"
+					className="mb-2 text-xs transition-colors duration-300 hover:text-emerald-500"
 				>
 					{product.category.name}
 				</Link>

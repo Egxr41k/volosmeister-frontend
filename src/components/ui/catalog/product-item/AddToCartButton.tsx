@@ -28,7 +28,11 @@ const AddToCartButton = ({ product, price, size }: IAddToCart) => {
 							})
 				}}
 			>
-				{currentElement ? <RiShoppingCartFill /> : <RiShoppingCartLine />}
+				{currentElement ? (
+					<RiShoppingCartFill className="text-emerald-500" />
+				) : (
+					<RiShoppingCartLine className="transition-colors duration-300 hover:text-emerald-500" />
+				)}
 			</button>
 		</div>
 	)
