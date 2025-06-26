@@ -2,10 +2,9 @@
 
 import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
-import SquareButton from '@/ui/button/SquareButton'
 import { convertPrice } from '@/utils/convertPrice'
 import Link from 'next/link'
-import { RiShoppingCartLine } from 'react-icons/ri'
+import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
 import styles from './Cart.module.scss'
 import CartItem from './cart-item/CartItem'
 
@@ -16,13 +15,18 @@ const HeaderCart = () => {
 
 	return (
 		<div className="relative" ref={ref}>
-			<SquareButton
-				Icon={RiShoppingCartLine}
+			<button
 				onClick={() => {
 					setIsShow(!isShow)
 				}}
-				number={items.length}
-			/>
+				className="relative flex h-10 w-10 items-center justify-center rounded text-black transition-colors hover:text-emerald-500"
+			>
+				{!!items.length ? (
+					<RiShoppingCartFill size={21} />
+				) : (
+					<RiShoppingCartLine size={21} />
+				)}
+			</button>
 
 			{isShow && (
 				<div className={styles.cartWrapper}>
@@ -44,7 +48,7 @@ const HeaderCart = () => {
 						{!!items.length && (
 							<div className="mb-5 mt-7 text-center">
 								<Link
-									className="btn btn-white"
+									className="duration-300 hover:text-emerald-500 hover:underline"
 									href="/profile/checkout"
 									onClick={() => setIsShow(false)}
 								>

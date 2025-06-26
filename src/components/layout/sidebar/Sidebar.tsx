@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { HiMiniXMark } from 'react-icons/hi2'
+import { HiXMark } from 'react-icons/hi2'
 import { IconType } from 'react-icons/lib/iconBase'
 
 interface ISidebarProps {
@@ -17,9 +17,15 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 		right: 'fixed top-0 right-0',
 		left: 'fixed top-0 left-0'
 	}
+
 	const closeBtnPos = {
 		right: 'absolute top-3 left-3',
 		left: 'absolute top-3 right-3'
+	}
+
+	const justify = {
+		right: 'justify-end',
+		left: 'justify-start'
 	}
 
 	const hider = {
@@ -30,7 +36,7 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 	return (
 		<div className="z-10 flex">
 			<button
-				className="relative flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90"
+				className="relative flex h-10 w-10 items-center justify-center rounded text-black transition-colors duration-300 hover:text-emerald-500"
 				onClick={() => setIsOpen(true)}
 			>
 				<Icon size={21} />
@@ -39,17 +45,18 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 				className={[
 					drawerPos[position],
 					hider[position],
-					'z-10 flex h-screen w-60 items-center justify-center bg-white shadow-md duration-300'
+					justify[position],
+					'z-10 flex h-screen w-60 bg-white p-5 pt-10 shadow-md duration-300'
 				].join(' ')}
 			>
 				<button
 					className={[
 						closeBtnPos[position],
-						'flex h-10 w-10 items-center justify-center rounded border border-solid border-emerald-200/90 border-emerald-300 text-emerald-500 transition-colors duration-200 hover:bg-emerald-200/90'
+						'flex h-10 w-10 items-center justify-center rounded text-black transition-colors duration-300 hover:text-emerald-500'
 					].join(' ')}
 					onClick={() => setIsOpen(false)}
 				>
-					<HiMiniXMark size={21} />
+					<HiXMark size={21} />
 				</button>
 				{children}
 			</div>

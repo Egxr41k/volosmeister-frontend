@@ -15,7 +15,7 @@ const NavLink = ({ href, children }: INavLinkProps) => {
 	return (
 		<Link
 			className={[
-				'my-3 block px-10 text-lg transition-colors duration-200 hover:text-emerald-500',
+				'flex items-center gap-2 transition-colors duration-200 hover:text-emerald-500',
 				pathname === href ? 'text-emerald-500' : 'text-black'
 			].join(' ')}
 			href={href}
