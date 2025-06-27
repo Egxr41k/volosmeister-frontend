@@ -1,5 +1,5 @@
 import { instance } from '@/services/api/api.intercepter'
-import { IOrder, IOrderItem } from '@/types/order.interface'
+import { IOrder, IOrderData } from '@/types/order.interface'
 
 const ORDERS = '/orders'
 
@@ -22,7 +22,7 @@ export const OrderService = {
 		return data
 	},
 
-	async place(orderData: { items: IOrderItem[] }) {
+	async place(orderData: IOrderData) {
 		const { data } = await instance<IOrder>({
 			url: ORDERS,
 			method: 'POST',

@@ -1,64 +1,51 @@
 .checkout {
-	@apply grid gap-20;
+	@apply grid gap-10;
 	grid-template-columns: 2fr 1.2fr;
 
+	.header {
+		@apply mb-6 font-semibold;
+	}
+
+	h1.header {
+		@apply text-3xl;
+	}
+	h2.header {
+		@apply text-2xl;
+	}
+
 	.list {
-		.item {
-			@apply mb-4 flex items-center rounded-lg bg-white px-6 py-3 pr-[-10px];
-
-			.row {
-				@apply flex w-full items-center justify-between;
-
-				.information {
-					@apply ml-6;
-
-					> div {
-						&:first-child {
-							@apply text-lg font-semibold;
-						}
-
-						&:last-child {
-							@apply text-sm opacity-40;
-						}
-					}
-				}
-
-				.price {
-					@apply text-lg;
-				}
-			}
-		}
-	}
-
-	.form {
-		@apply flex flex-wrap;
-
-		> input {
-			@apply m-2 w-1/3 rounded-md border border-solid border-gray-300 px-4 py-2 outline-none transition-all placeholder:text-gray-300 focus:border-emerald-500;
-		}
-	}
-
-	.footer {
-		@apply flex items-center gap-10;
-
-		.total {
-			> div {
-				&:first-child {
-					@apply text-sm opacity-40;
-				}
-
-				&:last-child {
-					@apply text-2xl font-semibold;
-				}
-			}
-		}
-
-		> button {
-			@apply mb-2 mt-5;
-		}
+		@apply flex h-min flex-col gap-2;
 	}
 
 	.recomended {
-		@apply grid grid-cols-2 gap-10;
+		@apply grid grid-cols-3 gap-10;
+	}
+
+	.form {
+		@apply flex h-min flex-col gap-2 rounded-lg bg-white p-5;
+
+		> input {
+			@apply my-2 w-full rounded-md border border-solid border-gray-300 px-4 py-2 outline-none transition-all placeholder:text-gray-300 focus:border-emerald-500;
+		}
+
+		.footer {
+			@apply flex items-center gap-10;
+
+			.total {
+				> div {
+					&:first-child {
+						@apply text-sm opacity-40;
+					}
+
+					&:last-child {
+						@apply text-2xl font-semibold;
+					}
+				}
+			}
+
+			> button {
+				@apply mb-2 mt-5;
+			}
+		}
 	}
 }

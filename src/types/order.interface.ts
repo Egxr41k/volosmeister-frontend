@@ -1,6 +1,20 @@
 import { ICartItem } from './cart.interface'
 import { IUser } from './user.interface'
 
+interface OrderGuest {
+	firstName: string
+	lastName: string
+	phoneNumber: string
+	city: string
+	deliveryType: 'nova_poshta' | 'ukr_poshta'
+	branchNumber: string
+	products: Array<{
+		productId: string
+		quantity: number
+	}>
+	status: 'not_confirmed' | 'confirmed' | 'sent' | 'received'
+}
+
 export enum EnumOrderStatus {
 	PENDING = 'PENDING',
 	PAYED = 'PAYED',
@@ -17,8 +31,22 @@ export interface IOrder {
 	user: IUser
 }
 
+export interface IOrderData {
+	items: IOrderItem[]
+	info: IOrderInfo
+}
+
 export interface IOrderItem {
 	price: number
 	quantity: number
 	productId: number
+}
+
+export interface IOrderInfo {
+	firstname: string
+	lastname: string
+	phone: string
+	email: string
+	city: string
+	novaPoshtaBranchNumber: string
 }

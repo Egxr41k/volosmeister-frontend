@@ -1,0 +1,20 @@
+.checkoutItem {
+	@apply mb-4 flex items-center rounded-lg bg-white px-6 py-3 pr-[-10px];
+
+	.row {
+		@apply ml-6 w-full items-center justify-between;
+
+		.information {
+			> h1 {
+				@apply text-lg font-semibold;
+			}
+			> p {
+				@apply text-sm opacity-40;
+			}
+		}
+
+		.price {
+			@apply text-lg;
+		}
+	}
+}

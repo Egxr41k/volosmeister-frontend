@@ -2,13 +2,17 @@ import { ProductService } from '@/services/product.service'
 import { IProduct, TypePaginationProducts } from '@/types/product.interface'
 import ProductItem from '@/ui/catalog/product-item/ProductItem'
 import { useQuery } from '@tanstack/react-query'
+import styles from './Checkout.module.scss'
+
+interface IRecomendedProducts {
+	products?: TypePaginationProducts
+	excludeProducts: IProduct[]
+}
 
 const RecomendedProducts = ({
 	products,
 	excludeProducts = []
-}: {
-	products?: TypePaginationProducts
-} & { excludeProducts: IProduct[] }) => {
+}: IRecomendedProducts) => {
 	const { data } = useQuery({
 		queryKey: ['product checkout'],
 		queryFn: () => ProductService.getAll(),
@@ -16,9 +20,9 @@ const RecomendedProducts = ({
 	})
 
 	return (
-		<div>
-			<h1 className="mb-6 text-2xl font-semibold">Recomended products</h1>
-			<div className="grid grid-cols-2 gap-10">
+		<>
+			<h2 className={styles.header}>Recomended products</h2>
+			<div className={styles.recomended}>
 				{data?.products
 					.filter(
 						product =>
@@ -29,7 +33,7 @@ const RecomendedProducts = ({
 					.slice(0.2)
 					.map(product => <ProductItem product={product} key={product.id} />)}
 			</div>
-		</div>
+		</>
 	)
 }
 
