@@ -7,19 +7,20 @@ import { useQuery } from '@tanstack/react-query'
 
 export const useAdminOrders = () => {
 	const { data, isFetching, refetch } = useQuery(
-		['get admin products'],
+		['get admin orders'],
 		() => OrderService.getAll(),
 		{
 			select: data =>
 				data.map((order): IListItem => {
+					console.log(order)
 					return {
 						id: order.id,
-						//viewUrl: `/orders/${order.id}`,
+						viewUrl: `/orders/${order.id}`,
 						editUrl: getAdminUrl(`/orders/edit/${order.id}`),
 						items: [
 							`# ${order.id}`,
 							order.status,
-							formatDate(order.craetedAt),
+							formatDate(order.createAt),
 							convertPrice(order.total)
 						]
 					}

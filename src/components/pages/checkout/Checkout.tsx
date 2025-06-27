@@ -3,7 +3,7 @@
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { OrderService } from '@/services/order.service'
-import { IOrderData, IOrderInfo } from '@/types/order.interface'
+import { IOrderData } from '@/types/order.interface'
 import { TypePaginationProducts } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
 import { convertPrice } from '@/utils/convertPrice'
@@ -12,6 +12,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import styles from './Checkout.module.scss'
 import CheckoutItemList from './CheckoutItemList'
 import RecomendedProducts from './RecomendedProducts'
+
+interface IOrderInfo extends Omit<IOrderData, 'items' | 'total'> {}
 
 const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 	const { register, handleSubmit } = useForm<IOrderInfo>()
@@ -31,12 +33,13 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 
 	const onSubmit: SubmitHandler<IOrderInfo> = (data: IOrderInfo) => {
 		const orderData: IOrderData = {
-			info: data,
 			items: items.map(item => ({
 				price: item.price,
 				quantity: item.quantity,
 				productId: item.product.id
-			}))
+			})),
+			total,
+			...data
 		}
 		console.log(orderData)
 		mutate(orderData)
