@@ -18,7 +18,7 @@ export const useAdminProducts = () => {
 						items: [
 							product.name,
 							product.category.name,
-							formatDate(product.createAt.toString())
+							formatDate(product.createdAt.toString())
 						]
 					}
 				})

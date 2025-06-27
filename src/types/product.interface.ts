@@ -6,7 +6,7 @@ import { IReview } from './review.interface'
 
 export interface IProduct {
 	id: number
-	createAt: Date
+	createdAt: Date
 	name: string
 	slug: string
 	images: string[]

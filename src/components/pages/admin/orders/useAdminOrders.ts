@@ -20,7 +20,7 @@ export const useAdminOrders = () => {
 						items: [
 							`# ${order.id}`,
 							order.status,
-							formatDate(order.createAt),
+							formatDate(order.createdAt),
 							convertPrice(order.total)
 						]
 					}

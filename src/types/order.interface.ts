@@ -24,7 +24,7 @@ export enum EnumOrderStatus {
 
 export interface IOrder {
 	id: number
-	createAt: string
+	createdAt: string
 	items: ICartItem[]
 	status: EnumOrderStatus
 	total: number
