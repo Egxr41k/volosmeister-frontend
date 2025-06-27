@@ -15,7 +15,7 @@ export const useAdminOrders = () => {
 					console.log(order)
 					return {
 						id: order.id,
-						viewUrl: `/orders/${order.id}`,
+						viewUrl: getAdminUrl(`/orders/${order.id}`),
 						editUrl: getAdminUrl(`/orders/edit/${order.id}`),
 						items: [
 							`# ${order.id}`,
