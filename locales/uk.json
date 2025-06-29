@@ -1,0 +1,107 @@
+{
+	"home": {
+		"title": "Свіжі продукти"
+	},
+	"carousel": {
+		"carouselItems": {
+			"freeDelivery": {
+				"title": "Безкоштовна доставка",
+				"description": "Не пропустіть! Тільки сьогодні — безкоштовна доставка наступного дня на всі замовлення."
+			},
+			"newProducts": {
+				"title": "Нові товари",
+				"description": "Нові товари вже чекають на вас на наших полицях"
+			}
+		},
+		"readMore": "Читати далі",
+		"browseProducts": "Переглянути товари"
+	},
+	"explorer": {
+		"title": "Знайдіть те, що підходить саме вам",
+		"searchByQuery": "Пошук за запитом",
+		"searchPlaceholder": "Пошук...",
+		"error": "Помилка завантаження товарів",
+		"openFilters": "Відкрити фільтри",
+		"closeFilters": "Закрити фільтри",
+		"sort": {
+			"sortBy": "Сортувати за",
+			"sortOptions": {
+				"highPrice": "Від дорогих",
+				"lowPrice": "Від дешевих",
+				"newest": "Від Новіших",
+				"oldest": "Від Старіших"
+			}
+		},
+		"filters": {
+			"price": {
+				"title": "Ціна від/до",
+				"from": "Від",
+				"to": "До"
+			},
+			"category": {
+				"title": "Категорія"
+			},
+			"ratings": {
+				"title": "Кількість відгуків"
+			}
+		}
+	},
+	"product": {
+		"ingredients": "Інгредієнти",
+		"sizePlaceholder": "Оберіть відповідний розмір",
+		"buyNow": "Купити зараз",
+		"addToCart": "Додати в кошик",
+		"removeFromCart": "Видалити з кошика"
+	},
+	"navigation": {
+		"profile": "Профіль",
+		"favorites": "Улюблені",
+		"orders": "Замовлення",
+		"adminPanel": "Панель адміністратора",
+		"signIn": "Увійти",
+		"logout": "Вийти",
+		"catalog": "Каталог",
+		"manufacturers": "Виробники",
+		"categoires": "Категорії",
+		"adminMenu": {
+			"dashboard": "Панель",
+			"products": "Товари",
+			"categories": "Категорії",
+			"reviews": "Відгуки",
+			"orders": "Замовлення"
+		}
+	},
+	"cart": {
+		"title": "Мій кошик",
+		"cartIsEmpty": "Кошик порожній!",
+		"total": "Разом",
+		"goToCheckout": "Перейти до оформлення"
+	},
+	"checkout": {
+		"title": "Оформлення замовлення",
+		"recomended": "Рекомендовані товари",
+		"details": "Деталі",
+		"firstnamePlaceholder": "Введіть ім’я",
+		"lastnamePlaceholder": "Введіть прізвище",
+		"phonePlaceholder": "Введіть номер телефону",
+		"emailPlaceholder": "Введіть email",
+		"cityPlaceholder": "Введіть місто",
+		"novaPoshtaBranchNumberPlaceholder": "Введіть номер відділення Нової Пошти",
+		"total": "Загальна сума",
+		"placeOrder": "Оформити замовлення",
+		"success": "Дякуємо за ваше замовлення. Наш менеджер зателефонує для підтвердження."
+	},
+	"auth": {
+		"login": "вхід",
+		"register": "реєстрація",
+		"passwordPlaceholder": "Пароль",
+		"emailPlaceholder": "Email",
+		"submit": "Поїхали!"
+	},
+	"orders": {
+		"title": "Мої замовлення"
+	},
+	"favorites": {
+		"title": "Улюблені"
+	}
+}
