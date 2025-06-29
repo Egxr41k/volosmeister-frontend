@@ -1,11 +1,13 @@
 import { getAdminUrl } from '@/config/url.config'
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { OrderService } from '@/services/order.service'
 import { IListItem } from '@/ui/admin/admin-list/admin-list.interface'
-import { convertPrice } from '@/utils/convertPrice'
 import { formatDate } from '@/utils/format-date'
 import { useQuery } from '@tanstack/react-query'
 
 export const useAdminOrders = () => {
+	const convertPrice = usePriceConverter()
+
 	const { data, isFetching, refetch } = useQuery(
 		['get admin orders'],
 		() => OrderService.getAll(),

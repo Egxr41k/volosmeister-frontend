@@ -1,6 +1,6 @@
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { IProduct } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
-import { convertPrice } from '@/utils/convertPrice'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -19,6 +19,7 @@ interface IPriceSize {
 
 export default function ProductInformation({ product }: IProductInformation) {
 	const t = useTranslations('product')
+	const convertPrice = usePriceConverter()
 
 	const { prices, sizes } = product
 	const priceSize: IPriceSize = sizes.reduce((acc, size, index) => {

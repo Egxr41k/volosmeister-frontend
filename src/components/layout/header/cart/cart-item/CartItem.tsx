@@ -1,10 +1,11 @@
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { ICartItem } from '@/types/cart.interface'
-import { convertPrice } from '@/utils/convertPrice'
 import Image from 'next/image'
 import styles from '../Cart.module.scss'
 import CartActions from './cart-actions/CartActions'
 
 const CartItem = ({ item }: { item: ICartItem }) => {
+	const convertPrice = usePriceConverter()
 	return (
 		<div className={styles.item}>
 			<Image

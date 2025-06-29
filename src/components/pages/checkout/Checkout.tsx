@@ -2,11 +2,11 @@
 
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { OrderService } from '@/services/order.service'
 import { IOrderData } from '@/types/order.interface'
 import { TypePaginationProducts } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
-import { convertPrice } from '@/utils/convertPrice'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -18,6 +18,7 @@ interface IOrderInfo extends Omit<IOrderData, 'items' | 'total'> {}
 
 const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 	const t = useTranslations('checkout')
+	const convertPrice = usePriceConverter()
 
 	const { register, handleSubmit } = useForm<IOrderInfo>()
 	const { items, total } = useCart()

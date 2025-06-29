@@ -2,7 +2,7 @@
 
 import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
-import { convertPrice } from '@/utils/convertPrice'
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
@@ -11,6 +11,8 @@ import CartItem from './cart-item/CartItem'
 
 const HeaderCart = () => {
 	const t = useTranslations('cart')
+	const convertPrice = usePriceConverter()
+
 	const { isShow, setIsShow, ref } = useOutside(false)
 
 	const { items, total } = useCart()

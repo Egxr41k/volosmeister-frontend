@@ -1,5 +1,5 @@
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { IProduct } from '@/types/product.interface'
-import { convertPrice } from '@/utils/convertPrice'
 import Image from 'next/image'
 import Link from 'next/link'
 import AddToCartButton from './AddToCartButton'
@@ -7,6 +7,7 @@ import FavoriteButton from './FavoriteButton'
 import ProductRating from './ProductRating'
 
 const ProductItem = ({ product }: { product: IProduct }) => {
+	const convertPrice = usePriceConverter()
 	return (
 		<div className="animate-scaleIn rounded-lg bg-white">
 			<Link

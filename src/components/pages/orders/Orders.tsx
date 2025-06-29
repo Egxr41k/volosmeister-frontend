@@ -1,7 +1,7 @@
 'use client'
 
+import { usePriceConverter } from '@/hooks/usePriceConverter'
 import { OrderService } from '@/services/order.service'
-import { convertPrice } from '@/utils/convertPrice'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 
@@ -9,6 +9,8 @@ export default function Orders() {
 	//const profile = useProfile()
 
 	const t = useTranslations('orders')
+
+	const convertPrice = usePriceConverter()
 
 	const { data: orders } = useQuery(['my orders'], () =>
 		OrderService.getByUserId()
