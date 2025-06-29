@@ -5,6 +5,7 @@ import { TypePaginationProducts } from '@/types/product.interface'
 import Carousel from '@/ui/carousel/Carousel'
 import Catalog from '@/ui/catalog/Catalog'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { carouselItems } from './carousel.data'
 
 interface IHomeProps {
@@ -12,6 +13,8 @@ interface IHomeProps {
 }
 
 const Home = ({ initialProducts }: IHomeProps) => {
+	const t = useTranslations('homepage')
+
 	const { data } = useQuery({
 		queryKey: ['home page'],
 		queryFn: () => ProductService.getAll(),
@@ -21,7 +24,7 @@ const Home = ({ initialProducts }: IHomeProps) => {
 	return (
 		<>
 			<Carousel items={carouselItems} className="mb-10" />
-			<Catalog title="Freshed products" products={data?.products ?? []} />
+			<Catalog title={t('title')} products={data?.products ?? []} />
 		</>
 	)
 }
