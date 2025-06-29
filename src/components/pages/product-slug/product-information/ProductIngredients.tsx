@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi2'
 
@@ -6,6 +7,8 @@ export const ProductIngredients = ({
 }: {
 	ingredients: string[]
 }) => {
+	const t = useTranslations('product')
+
 	const [isShowIngredients, setIsShowIngredients] = useState(true)
 
 	if (!ingredients.length) return null
@@ -16,7 +19,7 @@ export const ProductIngredients = ({
 				className="flex items-center gap-2 font-medium"
 				onClick={() => setIsShowIngredients(!isShowIngredients)}
 			>
-				<p>Ingredients</p>
+				<p>{t('ingredients')}</p>
 				{isShowIngredients ? <HiChevronDown /> : <HiChevronUp />}
 			</button>
 

@@ -1,6 +1,7 @@
 import { IProduct } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
 import { convertPrice } from '@/utils/convertPrice'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState } from 'react'
 import Select from '../../product-form/Select'
@@ -17,6 +18,8 @@ interface IPriceSize {
 }
 
 export default function ProductInformation({ product }: IProductInformation) {
+	const t = useTranslations('product')
+
 	const { prices, sizes } = product
 	const priceSize: IPriceSize = sizes.reduce((acc, size, index) => {
 		acc[size] = prices[index]
@@ -56,7 +59,7 @@ export default function ProductInformation({ product }: IProductInformation) {
 			<ProductIngredients ingredients={product.ingredients} />
 
 			<Select
-				placeholder="Choose the correct size"
+				placeholder={t('sizePlaceholder')}
 				options={sizes.map(size => ({
 					label: size,
 					value: size
@@ -69,7 +72,7 @@ export default function ProductInformation({ product }: IProductInformation) {
 				<p className="text-2xl font-medium">
 					{convertPrice(selectedPriceSize[1])}
 				</p>
-				<Button variant="primary">Buy Now</Button>
+				<Button variant="primary">{t('buyNow')}</Button>
 				<AddToCartInline
 					product={product}
 					size={selectedPriceSize[0]}

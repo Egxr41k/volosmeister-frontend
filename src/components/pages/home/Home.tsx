@@ -6,14 +6,15 @@ import Carousel from '@/ui/carousel/Carousel'
 import Catalog from '@/ui/catalog/Catalog'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { carouselItems } from './carousel.data'
+import { getCarouselItems } from './carousel.data'
 
 interface IHomeProps {
 	initialProducts: TypePaginationProducts | undefined
 }
 
 const Home = ({ initialProducts }: IHomeProps) => {
-	const t = useTranslations('homepage')
+	const t = useTranslations('home')
+	const carouselItems = getCarouselItems()
 
 	const { data } = useQuery({
 		queryKey: ['home page'],

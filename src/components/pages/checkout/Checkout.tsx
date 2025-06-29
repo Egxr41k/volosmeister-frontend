@@ -8,6 +8,7 @@ import { TypePaginationProducts } from '@/types/product.interface'
 import Button from '@/ui/button/Button'
 import { convertPrice } from '@/utils/convertPrice'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import styles from './Checkout.module.scss'
 import CheckoutItemList from './CheckoutItemList'
@@ -16,8 +17,9 @@ import RecomendedProducts from './RecomendedProducts'
 interface IOrderInfo extends Omit<IOrderData, 'items' | 'total'> {}
 
 const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
-	const { register, handleSubmit } = useForm<IOrderInfo>()
+	const t = useTranslations('checkout')
 
+	const { register, handleSubmit } = useForm<IOrderInfo>()
 	const { items, total } = useCart()
 	const { reset } = useActions()
 
@@ -27,6 +29,7 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 		{
 			onSuccess() {
 				reset()
+				alert(t('success'))
 			}
 		}
 	)
@@ -41,60 +44,59 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 			total,
 			...data
 		}
-		console.log(orderData)
 		mutate(orderData)
 	}
 
 	return (
 		<section className={styles.checkout}>
 			<div>
+				<h1 className={styles.header}>{t('title')}</h1>
 				<CheckoutItemList items={items} />
+				<h2 className={styles.header}>{t('recomended')}</h2>
 				<RecomendedProducts
 					products={products}
 					excludeProducts={items.map(item => item.product)}
 				/>
 			</div>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-				<h2 className={styles.header}>Details</h2>
+				<h2 className={styles.header}>{t('details')}</h2>
 				<input
 					type="text"
-					placeholder="Enter first name"
-					{...register('firstname', { required: 'This field is required' })}
+					placeholder={t('firstnamePlaceholder')}
+					{...register('firstname', { required: true })}
 				/>
 				<input
 					type="text"
-					placeholder="Enter last name"
-					{...register('lastname', { required: 'This field is required' })}
+					placeholder={t('lastnamePlaceholder')}
+					{...register('lastname', { required: true })}
 				/>
 				<input
 					type="tel"
-					placeholder="Enter phone"
-					{...register('phone', { required: 'This field is required' })}
+					placeholder={t('phonePlaceholder')}
+					{...register('phone', { required: true })}
 				/>
 				<input
 					type="email"
-					placeholder="Enter email"
-					{...register('email', { required: 'This field is required' })}
+					placeholder={t('emailPlaceholder')}
+					{...register('email', { required: true })}
 				/>
 				<input
 					type="text"
-					placeholder="Enter city"
-					{...register('city', { required: 'This field is required' })}
+					placeholder={t('cityPlaceholder')}
+					{...register('city', { required: true })}
 				/>
 				<input
 					type="text"
-					placeholder="Enter Nova Poshta branch number"
-					{...register('novaPoshtaBranchNumber', {
-						required: 'This field is required'
-					})}
+					placeholder={t('novaPoshtaBranchNumberPlaceholder')}
+					{...register('novaPoshtaBranchNumber', { required: true })}
 				/>
 				<div className={styles.footer}>
 					<div className={styles.total}>
-						<div>Total Cost</div>
+						<div>{t('total')}</div>
 						<div>{convertPrice(total)}</div>
 					</div>
 					<Button type="submit" variant="primary">
-						Place order
+						{t('placeOrder')}
 					</Button>
 				</div>
 			</form>

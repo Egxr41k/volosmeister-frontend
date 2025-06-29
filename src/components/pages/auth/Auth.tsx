@@ -6,12 +6,15 @@ import { IEmailPassword } from '@/store/user/user.interface'
 import Button from '@/ui/button/Button'
 import Field from '@/ui/input/Field'
 import Spinner from '@/ui/Spinner'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAuthRedirect } from './useAuthRedirect'
 import { validEmail } from './valid-email'
 
 const Auth = () => {
+	const t = useTranslations('auth')
+
 	useAuthRedirect()
 
 	const { isLoading } = useAuth()
@@ -46,7 +49,7 @@ const Auth = () => {
 				className="m-auto rounded-lg bg-white p-8 shadow-sm"
 			>
 				<h1 className="mb-4 text-center text-3xl font-semibold capitalize">
-					{type}
+					{t(type)}
 				</h1>
 				{isLoading ? (
 					<Spinner />
@@ -60,7 +63,7 @@ const Auth = () => {
 									message: 'Please enter a valid email address'
 								}
 							})}
-							placeholder="Email"
+							placeholder={t('emailPlaceholder')}
 							error={errors.email?.message}
 						/>
 						<Field
@@ -72,17 +75,17 @@ const Auth = () => {
 								}
 							})}
 							type="password"
-							placeholder="Password"
+							placeholder={t('passwordPlaceholder')}
 							error={errors.password?.message}
 						/>
-						<Button variant="active">Lets go!</Button>
+						<Button variant="active">{t('submit')}</Button>
 						<div>
 							<button
 								type="button"
-								className="mt-3 inline-block text-sm opacity-20"
+								className="mt-3 inline-block text-sm capitalize opacity-20"
 								onClick={() => setType(type === 'login' ? 'register' : 'login')}
 							>
-								{type === 'login' ? 'Register' : 'Login'}
+								{type === 'login' ? t('register') : t('login')}
 							</button>
 						</div>
 					</>

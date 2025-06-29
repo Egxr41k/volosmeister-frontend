@@ -3,16 +3,20 @@
 import { OrderService } from '@/services/order.service'
 import { convertPrice } from '@/utils/convertPrice'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 
 export default function Orders() {
 	//const profile = useProfile()
+
+	const t = useTranslations('orders')
+
 	const { data: orders } = useQuery(['my orders'], () =>
 		OrderService.getByUserId()
 	)
 
 	return (
 		<>
-			<h1 className="text-3xl font-semibold">My order</h1>
+			<h1 className="text-3xl font-semibold">{t('title')}</h1>
 
 			<section>
 				{orders?.length ? (
@@ -24,7 +28,7 @@ export default function Orders() {
 							<span>#{order.id}</span>
 							<span>{order.status}</span>
 							<span>
-								{new Date(order.craetedAt).toLocaleDateString('ru-RU')}
+								{new Date(order.createdAt).toLocaleDateString('ru-RU')}
 							</span>
 							<span>{convertPrice(order.total)}</span>
 						</div>

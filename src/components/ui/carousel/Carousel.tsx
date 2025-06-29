@@ -1,6 +1,7 @@
 'use client'
 
 import { useTypedSelector } from '@/hooks/useTypedSelector'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { TransitionGroup } from 'react-transition-group'
 import CSSTransition from '../CSSTransitionGroup'
@@ -14,6 +15,8 @@ interface ICarousel {
 }
 
 const Carousel = ({ items, className = '' }: ICarousel) => {
+	const t = useTranslations('carousel')
+
 	const { selectedItemIndex } = useTypedSelector(state => state.carousel)
 	const selectedItem = items[selectedItemIndex]
 
@@ -46,11 +49,11 @@ const Carousel = ({ items, className = '' }: ICarousel) => {
 						<p>{selectedItem.description}</p>
 						{selectedItem.link ? (
 							<Link href={selectedItem.link} className="btn btn-white">
-								Read more
+								{t('readMore')}
 							</Link>
 						) : (
 							<Link href="/explorer" className="btn btn-white">
-								Browse products
+								{t('browseProducts')}
 							</Link>
 						)}
 					</div>

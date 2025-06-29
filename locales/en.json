@@ -1,5 +1,108 @@
 {
-	"homepage": {
+	"home": {
 		"title": "Freshed products"
+	},
+	"carousel": {
+		"carouselItems": {
+			"freeDelivery": {
+				"title": "Free Delivery",
+				"description": "Don't miss it out! Only today, get free Next Day delivery on all of your orders."
+			},
+			"readMore": "Read more",
+			"browseProducts": "Browse products"
+		},
+
+		"newProducts": {
+			"title": "New products",
+			"description": "New products are already waiting for you on our shelves"
+		}
+	},
+	"explorer": {
+		"title": "Find what works for you",
+		"searchByQuery": "Search by query ",
+		"searchPlaceholder": "Search...",
+		"error": "Error loading products",
+		"openFilters": "Open filters",
+		"closeFilters": "Close filters",
+		"sort": {
+			"sortBy": "Sort by",
+			"sortOptions": {
+				"highPrice": "High price",
+				"lowPrice": "Low price",
+				"newest": "Newest",
+				"oldest": "Oldest"
+			}
+		},
+		"filters": {
+			"price": {
+				"title": "Price from/to",
+				"from": "From",
+				"to": "To"
+			},
+			"category": {
+				"title": "Category"
+			},
+			"ratings": {
+				"title": "Number of reviews"
+			}
+		}
+	},
+	"product": {
+		"ingredients": "Ingredients",
+		"sizePlaceholder": "Choose the correct size",
+		"buyNow": "Buy Now",
+		"addToCart": "Add to cart",
+		"removeFromCart": "Remove from cart"
+	},
+	"navigation": {
+		"profile": "Profile",
+		"favorites": "Favorites",
+		"orders": "Orders",
+		"adminPanel": "Admin Panel",
+		"signIn": "Sign in",
+		"logout": "Logout",
+		"catalog": "Catalog",
+		"manufacturers": "Manufacturers",
+		"categoires": "Categoires",
+		"adminMenu": {
+			"dashboard": "Dashboard",
+			"products": "Products",
+			"categories": "Categories",
+			"reviews": "Reviews",
+			"orders": "Orders"
+		}
+	},
+	"cart": {
+		"title": "My cart",
+		"cartIsEmpty": "Cart is empty!",
+		"total": "Total",
+		"goToCheckout": "Go to checkout"
+	},
+	"checkout": {
+		"title": "Checkout",
+		"recomended": "Recomended products",
+		"details": "Details",
+		"firstnamePlaceholder": "Enter first name",
+		"lastnamePlaceholder": "Enter last name",
+		"phonePlaceholder": "Enter phone",
+		"emailPlaceholder": "Enter email",
+		"cityPlaceholder": "Enter city",
+		"novaPoshtaBranchNumberPlaceholder": "Enter Nova Poshta branch number",
+		"total": "Total Cost",
+		"placeOrder": "Place order",
+		"success": "Thank you for your order. Our manager will call you to confirm."
+	},
+	"auth": {
+		"login": "login",
+		"register": "register",
+		"passwordPlaceholder": "Password",
+		"emailPlaceholder": "Email",
+		"submit": "Lets go!"
+	},
+	"orders": {
+		"title": "My orders"
+	},
+	"favorites": {
+		"title": "Favorites"
 	}
 }

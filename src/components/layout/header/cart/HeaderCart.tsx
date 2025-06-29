@@ -3,12 +3,14 @@
 import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
 import { convertPrice } from '@/utils/convertPrice'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
 import styles from './Cart.module.scss'
 import CartItem from './cart-item/CartItem'
 
 const HeaderCart = () => {
+	const t = useTranslations('cart')
 	const { isShow, setIsShow, ref } = useOutside(false)
 
 	const { items, total } = useCart()
@@ -30,18 +32,18 @@ const HeaderCart = () => {
 
 			{isShow && (
 				<div className={styles.cartWrapper}>
-					<div className="mb-5 text-lg font-normal">My cart</div>
+					<div className="mb-5 text-lg font-normal">{t('title')}</div>
 
 					<div className={styles.cart}>
 						{items.length ? (
 							items.map(item => <CartItem item={item} key={item.id} />)
 						) : (
-							<div className="font-light">Cart is empty!</div>
+							<div className="font-light">{t('cartIsEmpty')}</div>
 						)}
 					</div>
 
 					<div className={styles.footer}>
-						<div>Total:</div>
+						<div>{t('total')}:</div>
 						<div>{convertPrice(total)}</div>
 					</div>
 					<div className="text-center">
@@ -52,7 +54,7 @@ const HeaderCart = () => {
 									href="/profile/checkout"
 									onClick={() => setIsShow(false)}
 								>
-									Go to checkout
+									{t('goToCheckout')}
 								</Link>
 							</div>
 						)}

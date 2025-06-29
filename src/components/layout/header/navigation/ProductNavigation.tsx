@@ -6,6 +6,7 @@ import { CategoryService } from '@/services/category.service'
 import { ManufacturerService } from '@/services/manufacturer.service'
 import Spinner from '@/ui/Spinner'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import {
 	HiOutlineBuildingStorefront,
 	HiOutlineCube,
@@ -14,6 +15,8 @@ import {
 import NavLink from './NavLink'
 
 const ProductNavigation = () => {
+	const t = useTranslations('navigation')
+
 	const { data: categories, isFetching: isFetchingCategories } = useQuery({
 		queryKey: ['get root categories'],
 		queryFn: () => CategoryService.getRoot()
@@ -31,7 +34,7 @@ const ProductNavigation = () => {
 			<li className="my-2 flex items-center gap-2">
 				<NavLink href="/explorer">
 					<HiOutlineSquares2X2 size={21} />
-					<p>Catalog</p>
+					<p>{t('catalog')}</p>
 				</NavLink>
 			</li>
 			{isFetchingCategories && isFetchingManufacturers ? (
@@ -43,7 +46,7 @@ const ProductNavigation = () => {
 						<li className="my-2 flex items-center gap-2">
 							<NavLink href={'/manufacturer'}>
 								<HiOutlineBuildingStorefront size={21} />
-								<p>Manufacturers</p>
+								<p>{t('manufacturers')}</p>
 							</NavLink>
 						</li>
 						<ul>
@@ -56,7 +59,7 @@ const ProductNavigation = () => {
 						<li className="my-2 flex items-center gap-2">
 							<NavLink href="/category">
 								<HiOutlineCube size={21} />
-								<p>Categoires</p>
+								<p>{t('categoires')}</p>
 							</NavLink>
 						</li>
 						<ul>

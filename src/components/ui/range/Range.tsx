@@ -1,4 +1,5 @@
 import { useDebounds } from '@/hooks/useDebounds'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import styles from './Range.module.scss'
 
@@ -19,6 +20,8 @@ const Range = ({
 	onChangeFromValue,
 	onChangeToValue
 }: IRange) => {
+	const t = useTranslations('explorer.filters.price')
+
 	const [fromValue, setFromValue] = useState(fromInitialValue || '')
 	const [toValue, setToValue] = useState(toInitialValue || '')
 
@@ -39,7 +42,7 @@ const Range = ({
 				min={min}
 				max={max}
 				type="number"
-				placeholder="From"
+				placeholder={t('from')}
 				value={fromValue}
 				onChange={e => setFromValue(e.target.value)}
 			/>
@@ -48,7 +51,7 @@ const Range = ({
 				min={min}
 				max={max}
 				type="number"
-				placeholder="To"
+				placeholder={t('to')}
 				value={toValue}
 				onChange={e => setToValue(e.target.value)}
 			/>

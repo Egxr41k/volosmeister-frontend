@@ -1,4 +1,5 @@
 import Checkbox from '@/ui/checkbox/Checkbox'
+import { useTranslations } from 'next-intl'
 import { Rating } from 'react-simple-star-rating'
 import { useFilters } from '../../useFilters'
 import FilterWrapper from '../FilterWrapper'
@@ -6,10 +7,12 @@ import { RATINGS_VARIANTS } from './ratings-variants.data'
 import { updateRatingsQuery } from './update-ratings-query'
 
 const RatingGroup = () => {
+	const t = useTranslations('explorer.filters.ratings')
+
 	const { queryParams, updateQueryParams } = useFilters()
 
 	return (
-		<FilterWrapper title="Number of reviews">
+		<FilterWrapper title={t('title')}>
 			{RATINGS_VARIANTS.map(rating => (
 				<Checkbox
 					isChecked={queryParams.ratings?.includes(rating.toString()) ?? false}

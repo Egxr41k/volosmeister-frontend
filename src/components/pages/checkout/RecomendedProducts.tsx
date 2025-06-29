@@ -20,20 +20,17 @@ const RecomendedProducts = ({
 	})
 
 	return (
-		<>
-			<h2 className={styles.header}>Recomended products</h2>
-			<div className={styles.recomended}>
-				{data?.products
-					.filter(
-						product =>
-							!excludeProducts
-								.map(excProduct => excProduct.id)
-								.includes(product.id)
-					)
-					.slice(0.2)
-					.map(product => <ProductItem product={product} key={product.id} />)}
-			</div>
-		</>
+		<div className={styles.recomended}>
+			{data?.products
+				.filter(
+					product =>
+						!excludeProducts
+							.map(excProduct => excProduct.id)
+							.includes(product.id)
+				)
+				.slice(0.2)
+				.map(product => <ProductItem product={product} key={product.id} />)}
+		</div>
 	)
 }
 

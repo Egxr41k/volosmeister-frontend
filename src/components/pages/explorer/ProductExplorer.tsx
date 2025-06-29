@@ -6,6 +6,7 @@ import Spinner from '@/ui/Spinner'
 import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 import styles from './ProductExplorer.module.scss'
@@ -20,6 +21,8 @@ interface IProductExplorer {
 }
 
 const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
+	const t = useTranslations('explorer')
+
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
 
 	const { isFilterUpdated, queryParams, updateQueryParams } = useFilters()
@@ -32,7 +35,7 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 	})
 
 	if (isError || !data)
-		return <p className="text-2xl font-semibold">Error loading products</p>
+		return <p className="text-2xl font-semibold">{t('error')}</p>
 
 	if (isFetching) return <Spinner />
 
@@ -41,8 +44,8 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 			<div className="mb-7 flex items-center justify-between">
 				<h1 className="text-3xl font-semibold">
 					{queryParams.searchTerm
-						? `Search by query "${queryParams.searchTerm}"`
-						: 'Find something cozy for your home'}
+						? t('search') + queryParams.searchTerm
+						: t('title')}
 				</h1>
 				<Search />
 			</div>
@@ -54,11 +57,11 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 				>
 					{isFilterOpen ? (
 						<>
-							<FaAnglesLeft /> <p>Close filters</p>
+							<FaAnglesLeft /> <p>{t('closeFilters')}</p>
 						</>
 					) : (
 						<>
-							<FaAnglesRight /> <p>Open filters</p>
+							<FaAnglesRight /> <p>{t('openFilters')}</p>
 						</>
 					)}
 				</Button>

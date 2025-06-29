@@ -1,8 +1,9 @@
 import { EnumProductSort } from '@/types/product.interface'
 import Select from '@/ui/select/Select'
+import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
 import { useFilters } from '../useFilters'
-import { SORT_SELECT_DATA } from './sort.select.data'
+import { getSortOptions } from './sort.select.data'
 
 interface ISortType {
 	sortType: EnumProductSort
@@ -13,13 +14,16 @@ interface ISortType {
 const SortDropdown = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 
+	const t = useTranslations('explorer.sort')
+
+	const sortOptions = getSortOptions()
 	return (
 		<div className="z-10 text-right">
 			<Select<EnumProductSort>
-				data={SORT_SELECT_DATA}
+				data={sortOptions}
 				onChange={value => updateQueryParams('sort', value.key.toString())}
-				value={SORT_SELECT_DATA.find(value => value.key === queryParams.sort)}
-				title="Sort by"
+				value={sortOptions.find(value => value.key === queryParams.sort)}
+				title={t('sortBy')}
 			/>
 		</div>
 	)
