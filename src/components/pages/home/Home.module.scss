@@ -9,14 +9,14 @@
 		}
 	}
 
-	.news {
+	.newProducts {
 		@apply w-1/2;
 
 		> h1 {
 			@apply text-2xl font-semibold;
 		}
 
-		.recomended {
+		.list {
 			@apply flex flex-row gap-10 overflow-scroll py-5;
 		}
 	}

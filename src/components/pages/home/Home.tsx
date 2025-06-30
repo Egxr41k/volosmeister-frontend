@@ -18,26 +18,27 @@ const Home = ({ initialProducts }: IHomeProps) => {
 	const { data } = useQuery({
 		queryKey: ['recomended products'],
 		queryFn: () => ProductService.getAll(),
-		initialData: initialProducts
+		initialData: initialProducts,
+		enabled: !initialProducts
 	})
 
 	return (
-		<div className={styles.home}>
+		<main className={styles.home}>
 			<div className={styles.offer}>
 				<h1>{t('offer.title')}</h1>
 				<p>{t('offer.description')}</p>
 				<Button variant="primary">{t('offer.button')}</Button>
 			</div>
 
-			<div className={styles.news}>
+			<div className={styles.newProducts}>
 				<h1>{t('title')}</h1>
-				<div className={styles.recomended}>
+				<div className={styles.list}>
 					{data?.products.map(product => (
 						<ProductItem product={product} key={product.id} />
 					))}
 				</div>
 			</div>
-		</div>
+		</main>
 	)
 }
 

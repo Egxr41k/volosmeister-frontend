@@ -52,11 +52,14 @@
 		}
 	},
 	"product": {
-		"ingredients": "Інгредієнти",
-		"sizePlaceholder": "Оберіть відповідний розмір",
-		"buyNow": "Купити зараз",
-		"addToCart": "Додати в кошик",
-		"removeFromCart": "Видалити з кошика"
+		"error": "Product not found",
+		"productInformation": {
+			"ingredients": "Інгредієнти",
+			"sizePlaceholder": "Оберіть відповідний розмір",
+			"buyNow": "Купити зараз",
+			"addToCart": "Додати в кошик",
+			"removeFromCart": "Видалити з кошика"
+		}
 	},
 	"navigation": {
 		"profile": "Профіль",
@@ -84,7 +87,7 @@
 	},
 	"checkout": {
 		"title": "Оформлення замовлення",
-		"recomended": "Рекомендовані товари",
+		"recomended": "Tакож купують",
 		"details": "Деталі",
 		"firstnamePlaceholder": "Введіть ім’я",
 		"lastnamePlaceholder": "Введіть прізвище",
@@ -104,9 +107,11 @@
 		"submit": "Поїхали!"
 	},
 	"orders": {
-		"title": "Мої замовлення"
+		"title": "Мої замовлення",
+		"alternativeTitle": "Зробіть ваше перше замовлення"
 	},
 	"favorites": {
-		"title": "Улюблені"
+		"title": "Улюблені",
+		"alternativeTitle": "Додайте свій перший товар до улюблених"
 	}
 }

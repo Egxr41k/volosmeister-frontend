@@ -1,0 +1,43 @@
+.error {
+	@apply flex h-full w-full items-center justify-center;
+
+	> h1 {
+		@apply font-semibold first-letter:text-3xl;
+	}
+}
+
+.product {
+	@apply px-48;
+
+	.content {
+		@apply flex gap-5 sm:flex-wrap lg:flex-nowrap;
+
+		.productInformation {
+			@apply flex flex-col gap-4 rounded-lg bg-white p-6;
+
+			.header {
+				@apply text-4xl font-medium;
+			}
+
+			.meta {
+				@apply flex gap-1 font-medium;
+
+				a {
+					@apply duration-300 hover:text-emerald-500 hover:underline;
+				}
+			}
+
+			.description {
+				@apply text-sm;
+			}
+
+			.priceRow {
+				@apply flex items-center gap-5;
+			}
+
+			.price {
+				@apply text-2xl font-medium;
+			}
+		}
+	}
+}

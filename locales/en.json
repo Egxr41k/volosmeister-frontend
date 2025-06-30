@@ -48,11 +48,14 @@
 		}
 	},
 	"product": {
-		"ingredients": "Ingredients",
-		"sizePlaceholder": "Choose the correct size",
-		"buyNow": "Buy Now",
-		"addToCart": "Add to cart",
-		"removeFromCart": "Remove from cart"
+		"error": "Product not found",
+		"productInformation": {
+			"ingredients": "Ingredients",
+			"sizePlaceholder": "Choose the correct size",
+			"buyNow": "Buy Now",
+			"addToCart": "Add to cart",
+			"removeFromCart": "Remove from cart"
+		}
 	},
 	"navigation": {
 		"profile": "Profile",
@@ -80,7 +83,7 @@
 	},
 	"checkout": {
 		"title": "Checkout",
-		"recomended": "Recomended products",
+		"recomended": "Also buy",
 		"details": "Details",
 		"firstnamePlaceholder": "Enter first name",
 		"lastnamePlaceholder": "Enter last name",
@@ -100,9 +103,11 @@
 		"submit": "Lets go!"
 	},
 	"orders": {
-		"title": "My orders"
+		"title": "My orders",
+		"alternativeTitle": "Place your first order"
 	},
 	"favorites": {
-		"title": "Favorites"
+		"title": "Favorites",
+		"alternativeTitle": "Add your first product to favorites"
 	}
 }

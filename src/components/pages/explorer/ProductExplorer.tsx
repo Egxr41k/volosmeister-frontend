@@ -40,21 +40,17 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 	if (isFetching) return <Spinner />
 
 	return (
-		<>
-			<div className="mb-7 flex items-center justify-between">
-				<h1 className="text-3xl font-semibold">
+		<main className={styles.explorer}>
+			<div className={styles.controls}>
+				<h1 className={styles.header}>
 					{queryParams.searchTerm
 						? t('search') + queryParams.searchTerm
 						: t('title')}
 				</h1>
 				<Search />
 			</div>
-			<div className="mb-7 flex items-center justify-between">
-				<Button
-					variant="active"
-					onClick={() => setIsFilterOpen(!isFilterOpen)}
-					className="mb-7 flex items-center gap-2"
-				>
+			<div className={styles.controls}>
+				<Button variant="active" onClick={() => setIsFilterOpen(!isFilterOpen)}>
 					{isFilterOpen ? (
 						<>
 							<FaAnglesLeft /> <p>{t('closeFilters')}</p>
@@ -69,7 +65,7 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 			</div>
 			<div
 				className={[
-					styles.explorer,
+					styles.content,
 					isFilterOpen ? styles.filterOpened : ''
 				].join(' ')}
 			>
@@ -86,7 +82,7 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 				currentPage={queryParams.page ?? 1}
 				numberPages={Math.ceil(data.length / +queryParams.perPage)}
 			/>
-		</>
+		</main>
 	)
 }
 

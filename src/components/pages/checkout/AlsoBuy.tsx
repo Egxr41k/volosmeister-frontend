@@ -2,25 +2,22 @@ import { ProductService } from '@/services/product.service'
 import { IProduct, TypePaginationProducts } from '@/types/product.interface'
 import ProductItem from '@/ui/catalog/product-item/ProductItem'
 import { useQuery } from '@tanstack/react-query'
-import styles from './Checkout.module.scss'
 
-interface IRecomendedProducts {
+interface IAlsoBuy {
 	products?: TypePaginationProducts
-	excludeProducts: IProduct[]
+	excludeProducts?: IProduct[]
 }
 
-const RecomendedProducts = ({
-	products,
-	excludeProducts = []
-}: IRecomendedProducts) => {
+const AlsoBuy = ({ products, excludeProducts = [] }: IAlsoBuy) => {
 	const { data } = useQuery({
 		queryKey: ['recomended products'],
 		queryFn: () => ProductService.getAll(),
-		initialData: products
+		initialData: products,
+		enabled: !products
 	})
 
 	return (
-		<div className={styles.recomended}>
+		<div className="grid grid-cols-2 gap-10">
 			{data?.products
 				.filter(
 					product =>
@@ -34,4 +31,4 @@ const RecomendedProducts = ({
 	)
 }
 
-export default RecomendedProducts
+export default AlsoBuy

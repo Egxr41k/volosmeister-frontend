@@ -6,7 +6,7 @@ const CheckoutItemList = ({ items }: { items: ICartItem[] }) => {
 	if (!items.length) return null
 
 	return (
-		<div className={styles.list}>
+		<div className={styles.orderItems}>
 			{items.map(item => (
 				<CheckoutItem cartItem={item} />
 			))}

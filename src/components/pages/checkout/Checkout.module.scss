@@ -1,6 +1,5 @@
 .checkout {
-	@apply grid gap-10;
-	grid-template-columns: 2fr 1.2fr;
+	@apply flex gap-10 px-48;
 
 	.header {
 		@apply mb-6 font-semibold;
@@ -13,12 +12,12 @@
 		@apply text-2xl;
 	}
 
-	.list {
+	.orderItems {
 		@apply flex h-min flex-col gap-2;
 	}
 
 	.recomended {
-		@apply grid grid-cols-3 gap-10;
+		@apply grid grid-cols-2 gap-10;
 	}
 
 	.form {

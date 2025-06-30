@@ -2,6 +2,7 @@
 
 import { useProfile } from '@/hooks/useProfile'
 import Catalog from '@/ui/catalog/Catalog'
+import RecomendedProducts from '@/ui/RecomendedProducts'
 import { useTranslations } from 'next-intl'
 
 export default function Favorites() {
@@ -9,5 +10,12 @@ export default function Favorites() {
 
 	const { profile } = useProfile()
 
-	return <Catalog products={profile?.favorites || []} title={t('title')} />
+	if (!profile?.favorites.length)
+		return <RecomendedProducts title={t('alternativeTitle')} />
+
+	return (
+		<main className="flex-grow px-48">
+			<Catalog products={profile?.favorites || []} title={t('title')} />
+		</main>
+	)
 }

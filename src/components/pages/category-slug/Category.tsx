@@ -39,11 +39,13 @@ const Category = ({
 	}
 
 	return (
-		<Catalog
-			products={products ?? []}
-			title={category.name}
-			isLoading={isLoadingCategory || isLoadingProducts}
-		/>
+		<main className="px-48">
+			<Catalog
+				products={products ?? []}
+				title={category.name}
+				isLoading={isLoadingCategory || isLoadingProducts}
+			/>
+		</main>
 	)
 }
 

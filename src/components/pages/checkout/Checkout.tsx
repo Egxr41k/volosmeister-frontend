@@ -10,9 +10,9 @@ import Button from '@/ui/button/Button'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import AlsoBuy from './AlsoBuy'
 import styles from './Checkout.module.scss'
 import CheckoutItemList from './CheckoutItemList'
-import RecomendedProducts from './RecomendedProducts'
 
 interface IOrderInfo extends Omit<IOrderData, 'items' | 'total'> {}
 
@@ -49,12 +49,12 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 	}
 
 	return (
-		<section className={styles.checkout}>
+		<main className={styles.checkout}>
 			<div>
 				<h1 className={styles.header}>{t('title')}</h1>
 				<CheckoutItemList items={items} />
 				<h2 className={styles.header}>{t('recomended')}</h2>
-				<RecomendedProducts
+				<AlsoBuy
 					products={products}
 					excludeProducts={items.map(item => item.product)}
 				/>
@@ -101,7 +101,7 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 					</Button>
 				</div>
 			</form>
-		</section>
+		</main>
 	)
 }
 

@@ -7,7 +7,7 @@ export const ProductIngredients = ({
 }: {
 	ingredients: string[]
 }) => {
-	const t = useTranslations('product')
+	const t = useTranslations('product.productInformation')
 
 	const [isShowIngredients, setIsShowIngredients] = useState(true)
 

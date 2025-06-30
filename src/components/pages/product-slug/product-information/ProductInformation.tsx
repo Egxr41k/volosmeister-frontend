@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState } from 'react'
 import Select from '../../product-form/Select'
+import styles from '../Product.module.scss'
 import ProductReviewsCount from '../ProductReviewsCount'
 import AddToCartInline from './AddToCartInline'
 import { ProductIngredients } from './ProductIngredients'
@@ -18,7 +19,7 @@ interface IPriceSize {
 }
 
 export default function ProductInformation({ product }: IProductInformation) {
-	const t = useTranslations('product')
+	const t = useTranslations('product.productInformation')
 	const convertPrice = usePriceConverter()
 
 	const { prices, sizes } = product
@@ -37,25 +38,19 @@ export default function ProductInformation({ product }: IProductInformation) {
 	}
 
 	return (
-		<div className="flex flex-col gap-4 rounded-lg bg-white p-6">
-			<h1 className="text-4xl font-medium">{product.name}</h1>
-			<div className="flex gap-1 font-medium">
-				<Link
-					href={`/manufacturer/${product.manufacturer.slug}`}
-					className="duration-300 hover:text-emerald-500 hover:underline"
-				>
+		<div className={styles.productInformation}>
+			<h1 className={styles.header}>{product.name}</h1>
+			<div className={styles.meta}>
+				<Link href={`/manufacturer/${product.manufacturer.slug}`}>
 					{product.manufacturer.name}
 				</Link>
 				<p>:</p>
-				<Link
-					href={`/category/${product.category.slug}`}
-					className="duration-300 hover:text-emerald-500 hover:underline"
-				>
+				<Link href={`/category/${product.category.slug}`}>
 					{product.category.name}
 				</Link>
 			</div>
 
-			<p className="text-sm">{product.description}</p>
+			<p className={styles.description}>{product.description}</p>
 
 			<ProductIngredients ingredients={product.ingredients} />
 
@@ -69,10 +64,8 @@ export default function ProductInformation({ product }: IProductInformation) {
 				onChange={handleChangeSize}
 			/>
 
-			<div className="flex gap-5">
-				<p className="text-2xl font-medium">
-					{convertPrice(selectedPriceSize[1])}
-				</p>
+			<div className={styles.priceRow}>
+				<p className={styles.price}>{convertPrice(selectedPriceSize[1])}</p>
 				<Button variant="primary">{t('buyNow')}</Button>
 				<AddToCartInline
 					product={product}
@@ -81,7 +74,6 @@ export default function ProductInformation({ product }: IProductInformation) {
 				/>
 			</div>
 
-			{/* <FavoriteButton productId={product.id} /> */}
 			<ProductReviewsCount reviews={product.reviews} />
 		</div>
 	)

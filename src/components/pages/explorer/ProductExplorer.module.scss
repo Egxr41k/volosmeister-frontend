@@ -1,24 +1,40 @@
 .explorer {
-	@apply flex gap-0;
-	transition: gap 0.5s ease-in;
+	@apply px-48;
 
-	> aside {
-		@apply invisible w-0 whitespace-nowrap opacity-0;
-		transition:
-			width 0.5s ease-in,
-			opacity 0.5s ease-in;
+	.header {
+		@apply text-3xl font-semibold;
 	}
 
-	> section {
-		@apply w-full;
-		transition: width 0.5s ease-in;
+	.controls {
+		@apply mb-7 flex items-center justify-between;
+
+		> button {
+			@apply flex items-center gap-2;
+		}
 	}
 
-	&.filterOpened {
-		@apply gap-5;
+	.content {
+		@apply flex gap-0;
+		transition: gap 0.5s ease-in;
 
 		> aside {
-			@apply visible w-2/6 opacity-100;
+			@apply invisible w-0 whitespace-nowrap opacity-0;
+			transition:
+				width 0.5s ease-in,
+				opacity 0.5s ease-in;
+		}
+
+		> section {
+			@apply w-full;
+			transition: width 0.5s ease-in;
+		}
+
+		&.filterOpened {
+			@apply gap-5;
+
+			> aside {
+				@apply visible w-2/6 opacity-100;
+			}
 		}
 	}
 }

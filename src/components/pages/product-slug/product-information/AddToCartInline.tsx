@@ -5,12 +5,12 @@ import Button from '@/ui/button/Button'
 import { useTranslations } from 'next-intl'
 
 const AddToCartInline = ({ product, size, price }: IAddToCart) => {
-	const t = useTranslations('product')
+	const t = useTranslations('product.productInformation')
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
 	const currentElement = items.find(
-		CartItem => CartItem.product.id === product.id
+		cartItem => cartItem.product.id === product.id
 	)
 
 	return (
