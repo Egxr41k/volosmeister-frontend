@@ -38,7 +38,7 @@ export default async function RootLayout({
 				<NextIntlClientProvider>
 					<Providers>
 						<Header />
-						<main className="px-48">{children}</main>
+						{children}
 						<Footer />
 					</Providers>
 				</NextIntlClientProvider>

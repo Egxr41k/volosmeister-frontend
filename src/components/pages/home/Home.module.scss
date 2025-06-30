@@ -1,0 +1,23 @@
+.home {
+	@apply flex flex-grow items-center gap-10 px-48;
+
+	.offer {
+		@apply my-auto flex h-min w-1/2 flex-col items-start gap-5;
+
+		> h1 {
+			@apply text-3xl font-semibold;
+		}
+	}
+
+	.news {
+		@apply w-1/2;
+
+		> h1 {
+			@apply text-2xl font-semibold;
+		}
+
+		.recomended {
+			@apply flex flex-row gap-10 overflow-scroll py-5;
+		}
+	}
+}

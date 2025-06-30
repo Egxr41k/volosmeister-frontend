@@ -14,7 +14,7 @@ const RecomendedProducts = ({
 	excludeProducts = []
 }: IRecomendedProducts) => {
 	const { data } = useQuery({
-		queryKey: ['product checkout'],
+		queryKey: ['recomended products'],
 		queryFn: () => ProductService.getAll(),
 		initialData: products
 	})

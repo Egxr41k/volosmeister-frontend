@@ -9,7 +9,7 @@ import ProductRating from './ProductRating'
 const ProductItem = ({ product }: { product: IProduct }) => {
 	const convertPrice = usePriceConverter()
 	return (
-		<div className="animate-scaleIn rounded-lg bg-white">
+		<div className="animate-scaleIn min-w-60 rounded-lg bg-white">
 			<Link
 				href={`product/${product.slug}`}
 				className="flex overflow-hidden rounded-lg"
