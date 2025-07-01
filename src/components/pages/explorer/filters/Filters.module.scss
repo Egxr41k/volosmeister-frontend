@@ -1,0 +1,12 @@
+.filters {
+	@apply pointer-events-none absolute left-0 z-20 mt-2 w-[350px] rounded-md bg-white p-4 opacity-0 shadow-lg;
+	transition:
+		opacity 0.3s ease,
+		transform 0.3s ease;
+	transform: translateY(-10px);
+
+	&.opened {
+		@apply pointer-events-auto opacity-100;
+		transform: translateY(0);
+	}
+}

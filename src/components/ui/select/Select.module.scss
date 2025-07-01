@@ -14,28 +14,38 @@
 	}
 
 	> ul {
-		@apply absolute right-0 z-20 w-max;
-		top: calc(100% + 1rem);
+		@apply absolute left-0 z-10 mt-2 w-max overflow-hidden rounded-md bg-white shadow-lg;
+		top: calc(100% + 0.5rem);
+		opacity: 0;
+		transform-origin: top right;
+		animation: fadeInScale 0.3s forwards;
 
 		> li {
-			@apply m-1.5 rounded-lg bg-white px-5 py-1 text-center font-medium text-black transition duration-300 ease-out;
+			@apply m-0 p-0;
 
-			transform: translateX(100%);
-			opacity: 0;
-			animation: slideInRight 0.5s forwards;
-
-			&:hover:not(&.active) {
-				@apply bg-emerald-50;
+			> button {
+				@apply block w-full px-5 py-2 text-center font-medium text-black transition-colors duration-200 ease-out;
 			}
 
-			&.active {
+			&.active > button {
 				@apply bg-emerald-100 text-emerald-500;
 			}
 
-			@for $i from 1 through 4 {
-				&:nth-child(#{$i}) {
-					animation-delay: 0.1s * $i;
-				}
+			&:not(.active) > button:hover {
+				@apply bg-emerald-50;
+			}
+		}
+
+		> li {
+			opacity: 0;
+			transform: translateY(-10px);
+			animation: slideInRight 0.4s forwards;
+		}
+
+		/* Задержки для пунктов */
+		@for $i from 1 through 10 {
+			> li:nth-child(#{$i}) {
+				animation-delay: #{0.05 * $i}s;
 			}
 		}
 	}
@@ -43,12 +53,22 @@
 
 @keyframes slideInRight {
 	from {
-		transform: translateX(100%);
+		transform: translateY(-10px);
 		opacity: 0;
 	}
-
 	to {
-		transform: translateX(0);
+		transform: translateY(0);
 		opacity: 1;
+	}
+}
+
+@keyframes fadeInScale {
+	from {
+		opacity: 0;
+		// transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		// transform: scale(1);
 	}
 }

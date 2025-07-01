@@ -30,11 +30,11 @@ const Navigation = () => {
 					<ul>
 						{user ? (
 							<>
-								<li className="my-2 items-center">
+								{/* <li className="my-2 items-center">
 									<NavLink href="/profile">
 										<HiOutlineUser size={21} /> <p>{t('profile')}</p>
 									</NavLink>
-								</li>
+								</li> */}
 								<li className="my-2 flex items-center gap-2">
 									<NavLink href="/profile/favorites">
 										<AiOutlineHeart size={21} /> <p>{t('favorites')}</p>

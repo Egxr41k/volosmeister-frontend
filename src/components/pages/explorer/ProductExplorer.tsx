@@ -3,12 +3,10 @@
 import { ProductService } from '@/services/product.service'
 import { TypePaginationProducts } from '@/types/product.interface'
 import Spinner from '@/ui/Spinner'
-import Button from '@/ui/button/Button'
 import Catalog from '@/ui/catalog/Catalog'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
-import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 import styles from './ProductExplorer.module.scss'
 import Search from './Search'
 import Filters from './filters/Filters'
@@ -50,29 +48,10 @@ const ProductExplorer = ({ initialProducts }: IProductExplorer) => {
 				<Search />
 			</div>
 			<div className={styles.controls}>
-				<Button variant="active" onClick={() => setIsFilterOpen(!isFilterOpen)}>
-					{isFilterOpen ? (
-						<>
-							<FaAnglesLeft /> <p>{t('closeFilters')}</p>
-						</>
-					) : (
-						<>
-							<FaAnglesRight /> <p>{t('openFilters')}</p>
-						</>
-					)}
-				</Button>
+				<Filters />
 				<SortDropdown />
 			</div>
-			<div
-				className={[
-					styles.content,
-					isFilterOpen ? styles.filterOpened : ''
-				].join(' ')}
-			>
-				<aside>
-					<Filters />
-				</aside>
-
+			<div className={styles.content}>
 				<section>
 					<Catalog products={data.products} isLoading={isFetching} />
 				</section>

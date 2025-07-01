@@ -15,15 +15,15 @@ export const getAdminMenu = (): IMenuItem[] => {
 			href: getAdminUrl('/products')
 		},
 		{
-			label: t('navigation.adminMenu.categories'),
+			label: t('categories'),
 			href: getAdminUrl('/categories')
 		},
 		{
-			label: t('navigation.adminMenu.reviews'),
+			label: t('reviews'),
 			href: getAdminUrl('/reviews')
 		},
 		{
-			label: t('navigation.adminMenu.orders'),
+			label: t('orders'),
 			href: getAdminUrl('/orders')
 		}
 	]

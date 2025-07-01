@@ -13,7 +13,7 @@ const CartActions = ({ item }: { item: ICartItem }) => {
 	const quantity = items.find(cartItem => cartItem.id === item.id)?.quantity
 
 	return (
-		<div className="mt-3">
+		<div className="">
 			<div className="flex items-center gap-3">
 				<button
 					onClick={() => changeQuantity({ id: item.id, type: 'minus' })}

@@ -9,7 +9,7 @@ const RecomendedProducts = ({ title }: { title: string }) => {
 	})
 
 	return (
-		<main className="flex flex-grow items-center px-48">
+		<main className="flex flex-grow items-center p-6 md:px-24 lg:px-48">
 			<Catalog
 				products={data?.products || []}
 				title={title}

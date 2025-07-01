@@ -1,5 +1,5 @@
 .btn {
-	@apply rounded-lg px-10 py-2 text-base font-medium transition duration-300 ease-out;
+	@apply whitespace-nowrap rounded-lg text-base font-medium transition duration-300 ease-out;
 
 	&.btn-paginanation {
 		@apply rounded-sm bg-white px-4 py-2;
@@ -19,6 +19,14 @@
 
 	&.btn-white {
 		@apply bg-white text-emerald-500;
+	}
+
+	&.btn-small {
+		@apply px-5 py-2 text-sm;
+	}
+
+	&.btn-medium {
+		@apply px-10 py-2;
 	}
 
 	&.btn-large {

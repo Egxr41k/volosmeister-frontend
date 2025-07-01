@@ -21,8 +21,8 @@ export default function Orders() {
 		return <RecomendedProducts title={t('alternativeTitle')} />
 
 	return (
-		<main className="flex-grow px-48">
-			<h1 className="text-3xl font-semibold">{t('title')}</h1>
+		<main className="flex flex-grow items-center p-6 md:px-24 lg:px-48">
+			<h1 className="text-2xl font-semibold lg:text-3xl">{t('title')}</h1>
 
 			<section>
 				{orders.map(order => (

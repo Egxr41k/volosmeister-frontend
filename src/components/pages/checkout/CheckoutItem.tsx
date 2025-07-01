@@ -10,21 +10,23 @@ const CheckoutItem = ({ cartItem }: { cartItem: ICartItem }) => {
 		<div key={cartItem.id} className={styles.checkoutItem}>
 			<Image
 				src={cartItem.product.images[0]}
-				width={100}
-				height={100}
+				width={200}
+				height={200}
 				alt={cartItem.product.name}
 				unoptimized
 			/>
-			<div className={styles.row}>
+			<div className={styles.content}>
 				<div className={styles.information}>
 					<h1>
 						{cartItem.product.name} ({cartItem.size})
 					</h1>
 					<p>{cartItem.product.category.name}</p>
 				</div>
-				<CartActions item={cartItem} />
+				<div className={styles.price}>
+					<div className="text-lg">{convertPrice(cartItem.price)}</div>
+					<CartActions item={cartItem} />
+				</div>
 			</div>
-			<div className={styles.price}>{convertPrice(cartItem.price)}</div>
 		</div>
 	)
 }

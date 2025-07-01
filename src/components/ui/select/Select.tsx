@@ -1,16 +1,19 @@
-import { useState } from 'react'
+'use client'
+
+import { useOutside } from '@/hooks/useOutside'
 import styles from './Select.module.scss'
 import { ISelect } from './select.interface'
 
 function Select<K>({ data, onChange, value, title }: ISelect<K>) {
-	const [isOpen, setIsOpen] = useState(false)
+	const { isShow, setIsShow, ref } = useOutside(false)
+
 	return (
-		<div className={styles.select}>
-			<button onClick={() => setIsOpen(!isOpen)}>
+		<div ref={ref} className={styles.select}>
+			<button onClick={() => setIsShow(!isShow)}>
 				{title && <b>{title}:</b>}
 				{value?.label || 'Default'}
 			</button>
-			{isOpen && (
+			{isShow && (
 				<ul>
 					{data.map(item => (
 						<li
@@ -20,7 +23,7 @@ function Select<K>({ data, onChange, value, title }: ISelect<K>) {
 							<button
 								onClick={() => {
 									onChange(item)
-									setIsOpen(false)
+									setIsShow(false)
 								}}
 							>
 								{item.label}

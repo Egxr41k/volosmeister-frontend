@@ -8,12 +8,7 @@ const Search = () => {
 	const { queryParams, updateQueryParams } = useFilters()
 
 	return (
-		<div
-			className="grid w-1/4 overflow-hidden rounded-md border border-solid border-gray-300"
-			style={{
-				gridTemplateColumns: '1fr 0.1fr'
-			}}
-		>
+		<div className="flex overflow-hidden rounded-md border border-solid border-gray-300">
 			<input
 				className="w-full px-4 py-2 outline-none"
 				value={queryParams.searchTerm}

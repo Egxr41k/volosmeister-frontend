@@ -13,10 +13,12 @@ const Catalog = ({ products, isLoading, title }: ICatalog) => {
 
 	return (
 		<section>
-			{title && <h1 className="mb-5 text-3xl font-semibold">{title}</h1>}
+			{title && (
+				<h1 className="mb-5 text-2xl font-semibold lg:text-3xl">{title}</h1>
+			)}
 			{products.length ? (
 				<>
-					<div className="grid grid-cols-4 gap-10">
+					<div className="flex flex-wrap items-center justify-center gap-10">
 						{products.map(product => (
 							<ProductItem key={product.id} product={product} />
 						))}

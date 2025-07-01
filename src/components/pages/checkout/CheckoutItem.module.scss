@@ -1,8 +1,8 @@
 .checkoutItem {
-	@apply mb-4 flex items-center rounded-lg bg-white px-6 py-3 pr-[-10px];
+	@apply flex flex-col gap-5 rounded-lg bg-white p-6 md:flex-row md:items-center md:justify-between;
 
-	.row {
-		@apply ml-6 w-full items-center justify-between;
+	.content {
+		@apply flex flex-col lg:flex-row;
 
 		.information {
 			> h1 {
@@ -14,7 +14,7 @@
 		}
 
 		.price {
-			@apply text-lg;
+			@apply flex items-center justify-between md:gap-5 lg:flex-col lg:justify-center;
 		}
 	}
 }

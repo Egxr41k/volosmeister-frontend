@@ -20,8 +20,9 @@ const Button: FC<PropsWithChildren<IButton>> = ({
 				styles.btn,
 				variant === 'active' && styles['btn-active'],
 				variant === 'primary' && styles['btn-primary'],
-				size === 'sm' && 'px-5 py-2 text-sm',
-				size === 'lg' && 'btn-large',
+				size === 'sm' && styles['btn-small'],
+				size === 'md' && styles['btn-medium'],
+				size === 'lg' && styles['btn-large'],
 				className
 			].join(' ')}
 		>

@@ -14,8 +14,9 @@ export const OrderService = {
 	},
 
 	async getById(id: string) {
+		console.log('GET BY ID')
 		const { data } = await instance<IOrder>({
-			url: `ORDERS/${id}`,
+			url: `${ORDERS}/${id}`,
 			method: 'GET'
 		})
 
@@ -23,6 +24,7 @@ export const OrderService = {
 	},
 
 	async getByUserId() {
+		console.log('GET BY USER ID')
 		const { data } = await instance<IOrder[]>({
 			url: `${ORDERS}/by-user`,
 			method: 'GET'

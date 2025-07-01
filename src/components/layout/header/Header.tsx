@@ -11,7 +11,7 @@ const Header = () => {
 	const { user } = useAuth()
 
 	return (
-		<header className="flex w-full items-center justify-between px-48 py-6">
+		<header className="flex w-full items-center justify-between px-6 py-6 md:px-24 lg:px-48">
 			<Navigation />
 
 			<Link href="/">

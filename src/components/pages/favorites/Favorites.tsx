@@ -14,7 +14,7 @@ export default function Favorites() {
 		return <RecomendedProducts title={t('alternativeTitle')} />
 
 	return (
-		<main className="flex-grow px-48">
+		<main className="flex flex-grow items-center p-6 md:px-24 lg:px-48">
 			<Catalog products={profile?.favorites || []} title={t('title')} />
 		</main>
 	)

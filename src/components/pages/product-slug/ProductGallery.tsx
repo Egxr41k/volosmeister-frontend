@@ -9,34 +9,37 @@ export function ProductGallery({ images }: IProductGallery) {
 	const [activeIndex, setActiveIndex] = useState(0)
 
 	return (
-		<div>
-			<Image
-				src={images[activeIndex]}
-				alt=""
-				width={500}
-				height={500}
-				className="h-[500px] w-[500px] rounded-lg bg-white object-contain"
-				priority
-				draggable={false}
-				unoptimized
-			/>
-			<div
-				className="mt-6"
-				style={{ width: '500px', overflowX: 'auto', whiteSpace: 'nowrap' }}
-			>
+		<div className="w-full">
+			<div className="mx-auto w-full max-w-[500px]">
+				<Image
+					src={images[activeIndex]}
+					alt=""
+					width={500}
+					height={500}
+					className="mx-auto aspect-square h-auto w-full rounded-lg bg-white object-contain"
+					priority
+					draggable={false}
+					unoptimized
+				/>
+			</div>
+
+			<div className="mt-6 flex w-full justify-center gap-5 lg:justify-start">
 				{images.map((image, index) => (
-					<button key={index} onClick={() => setActiveIndex(index)}>
+					<button
+						key={index}
+						onClick={() => setActiveIndex(index)}
+						className="flex-shrink-0"
+					>
 						<Image
 							src={image}
 							alt=""
 							width={100}
 							height={100}
-							className={[
-								'owerflow-hidden mr-5 inline h-[100px] w-[100px] rounded-lg border-b-2 border-solid bg-white object-contain transition-all duration-300 last:mr-0',
+							className={`h-[80px] w-[80px] rounded-lg border-b-2 bg-white object-contain transition-colors duration-300 sm:h-[100px] sm:w-[100px] ${
 								index === activeIndex
 									? 'border-emerald-500'
 									: 'border-transparent'
-							].join(' ')}
+							}`}
 							priority
 							draggable={false}
 							unoptimized

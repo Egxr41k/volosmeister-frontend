@@ -1,16 +1,15 @@
 .home {
-	@apply flex flex-grow items-center gap-10 px-48;
+	@apply flex flex-grow flex-col gap-14 px-6 md:px-24 lg:flex-row lg:gap-10 lg:px-48;
 
 	.offer {
-		@apply my-auto flex h-min w-1/2 flex-col items-start gap-5;
-
+		@apply m-auto flex h-min w-5/6 flex-col items-center gap-5 text-center align-middle lg:w-1/2 lg:items-start lg:text-left;
 		> h1 {
 			@apply text-3xl font-semibold;
 		}
 	}
 
 	.newProducts {
-		@apply w-1/2;
+		@apply lg:w-1/2;
 
 		> h1 {
 			@apply text-2xl font-semibold;

@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import { useOutside } from '@/hooks/useOutside'
+import React from 'react'
 import { HiXMark } from 'react-icons/hi2'
 import { IconType } from 'react-icons/lib/iconBase'
 
@@ -11,7 +12,7 @@ interface ISidebarProps {
 }
 
 const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
-	const [isOpen, setIsOpen] = useState(false)
+	const { isShow, setIsShow, ref } = useOutside(false)
 
 	const drawerPos = {
 		right: 'fixed top-0 right-0',
@@ -29,15 +30,15 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 	}
 
 	const hider = {
-		right: isOpen ? ' translate-x-0' : ' translate-x-full',
-		left: isOpen ? '-translate-x-0' : '-translate-x-full'
+		right: isShow ? ' translate-x-0' : ' translate-x-full',
+		left: isShow ? '-translate-x-0' : '-translate-x-full'
 	}
 
 	return (
-		<div className="z-10 flex">
+		<div className="z-20 flex" ref={ref}>
 			<button
 				className="relative flex h-10 w-10 items-center justify-center rounded text-black transition-colors duration-300 hover:text-emerald-500"
-				onClick={() => setIsOpen(true)}
+				onClick={() => setIsShow(true)}
 			>
 				<Icon size={21} />
 			</button>
@@ -54,7 +55,7 @@ const Sidebar = ({ position, children, Icon }: ISidebarProps) => {
 						closeBtnPos[position],
 						'flex h-10 w-10 items-center justify-center rounded text-black transition-colors duration-300 hover:text-emerald-500'
 					].join(' ')}
-					onClick={() => setIsOpen(false)}
+					onClick={() => setIsShow(false)}
 				>
 					<HiXMark size={21} />
 				</button>

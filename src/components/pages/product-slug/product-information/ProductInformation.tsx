@@ -64,14 +64,16 @@ export default function ProductInformation({ product }: IProductInformation) {
 				onChange={handleChangeSize}
 			/>
 
-			<div className={styles.priceRow}>
+			<div className={styles.contentFooter}>
 				<p className={styles.price}>{convertPrice(selectedPriceSize[1])}</p>
-				<Button variant="primary">{t('buyNow')}</Button>
-				<AddToCartInline
-					product={product}
-					size={selectedPriceSize[0]}
-					price={selectedPriceSize[1]}
-				/>
+				<div className={styles.buttons}>
+					<Button variant="primary">{t('buyNow')}</Button>
+					<AddToCartInline
+						product={product}
+						size={selectedPriceSize[0]}
+						price={selectedPriceSize[1]}
+					/>
+				</div>
 			</div>
 
 			<ProductReviewsCount reviews={product.reviews} />

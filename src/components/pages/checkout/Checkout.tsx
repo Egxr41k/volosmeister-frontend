@@ -10,7 +10,6 @@ import Button from '@/ui/button/Button'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import AlsoBuy from './AlsoBuy'
 import styles from './Checkout.module.scss'
 import CheckoutItemList from './CheckoutItemList'
 
@@ -50,7 +49,8 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 
 	return (
 		<main className={styles.checkout}>
-			<div>
+			<CheckoutItemList items={items} />
+			{/* <div className="flex flex-col">
 				<h1 className={styles.header}>{t('title')}</h1>
 				<CheckoutItemList items={items} />
 				<h2 className={styles.header}>{t('recomended')}</h2>
@@ -58,7 +58,7 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 					products={products}
 					excludeProducts={items.map(item => item.product)}
 				/>
-			</div>
+			</div> */}
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 				<h2 className={styles.header}>{t('details')}</h2>
 				<input
@@ -96,7 +96,7 @@ const Checkout = ({ products }: { products?: TypePaginationProducts }) => {
 						<div>{t('total')}</div>
 						<div>{convertPrice(total)}</div>
 					</div>
-					<Button type="submit" variant="primary">
+					<Button type="submit" variant="primary" size="sm">
 						{t('placeOrder')}
 					</Button>
 				</div>

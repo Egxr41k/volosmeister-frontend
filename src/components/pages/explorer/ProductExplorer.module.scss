@@ -1,12 +1,12 @@
 .explorer {
-	@apply px-48;
+	@apply flex-grow p-6 md:px-24 lg:px-48;
 
 	.header {
-		@apply text-3xl font-semibold;
+		@apply text-2xl font-semibold lg:text-3xl;
 	}
 
 	.controls {
-		@apply mb-7 flex items-center justify-between;
+		@apply mb-7 flex flex-wrap items-center justify-between gap-5;
 
 		> button {
 			@apply flex items-center gap-2;
@@ -14,27 +14,10 @@
 	}
 
 	.content {
-		@apply flex gap-0;
-		transition: gap 0.5s ease-in;
-
-		> aside {
-			@apply invisible w-0 whitespace-nowrap opacity-0;
-			transition:
-				width 0.5s ease-in,
-				opacity 0.5s ease-in;
-		}
+		@apply relative w-full;
 
 		> section {
 			@apply w-full;
-			transition: width 0.5s ease-in;
-		}
-
-		&.filterOpened {
-			@apply gap-5;
-
-			> aside {
-				@apply visible w-2/6 opacity-100;
-			}
 		}
 	}
 }
