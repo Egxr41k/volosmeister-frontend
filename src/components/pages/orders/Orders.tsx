@@ -21,22 +21,23 @@ export default function Orders() {
 		return <RecomendedProducts title={t('alternativeTitle')} />
 
 	return (
-		<main className="flex flex-grow items-center p-6 md:px-24 lg:px-48">
+		<main className="flex flex-grow flex-col items-center gap-5 p-6 md:px-24 lg:px-48">
 			<h1 className="text-2xl font-semibold lg:text-3xl">{t('title')}</h1>
 
-			<section>
-				{orders.map(order => (
-					<div
-						key={order.id}
-						className="my-7 flex gap-10 rounded-lg bg-white p-7 shadow"
-					>
-						<span>#{order.id}</span>
-						<span>{order.status}</span>
-						<span>{new Date(order.createdAt).toLocaleDateString('ru-RU')}</span>
-						<span>{convertPrice(order.total)}</span>
-					</div>
-				))}
-			</section>
+			{orders.map(order => (
+				<div
+					key={order.id}
+					className="flex flex-col gap-5 rounded-lg bg-white p-7 shadow"
+				>
+					{order.items.map(item => (
+						<h1>{item.product.name}</h1>
+					))}
+
+					<p>{order.status}</p>
+					<p>{new Date(order.createdAt).toLocaleDateString('ru-RU')}</p>
+					<p>{convertPrice(order.total)}</p>
+				</div>
+			))}
 		</main>
 	)
 }

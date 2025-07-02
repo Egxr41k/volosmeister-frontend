@@ -21,13 +21,15 @@ const Category = ({
 	const { data: category, isLoading: isLoadingCategory } = useQuery({
 		queryKey: ['category', slug],
 		queryFn: () => CategoryService.getBySlug(slug),
-		initialData: initialCategory
+		initialData: initialCategory,
+		enabled: !initialCategory
 	})
 
 	const { data: products, isLoading: isLoadingProducts } = useQuery({
 		queryKey: ['products', slug],
 		queryFn: () => ProductService.getByCategory(slug),
-		initialData: initialProducts
+		initialData: initialProducts,
+		enabled: !initialProducts
 	})
 
 	if (!category) {
@@ -39,7 +41,7 @@ const Category = ({
 	}
 
 	return (
-		<main className="px-48">
+		<main className="flex flex-grow items-center p-6 md:px-24 lg:px-48">
 			<Catalog
 				products={products ?? []}
 				title={category.name}

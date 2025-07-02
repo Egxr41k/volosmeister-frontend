@@ -13,7 +13,8 @@ const OrderDetails = ({ initialOrder, id }: IOrderDetails) => {
 	const { data } = useQuery({
 		queryKey: ['order'],
 		queryFn: () => OrderService.getById(id),
-		initialData: initialOrder
+		initialData: initialOrder,
+		enabled: !initialOrder
 	})
 
 	return (

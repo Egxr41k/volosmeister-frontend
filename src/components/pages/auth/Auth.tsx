@@ -43,7 +43,7 @@ const Auth = () => {
 	}
 
 	return (
-		<main className="flex flex-grow px-48">
+		<main className="flex flex-grow items-center p-6 md:px-24 lg:px-48">
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className="m-auto rounded-lg bg-white p-8 shadow-sm"

@@ -46,6 +46,15 @@ export const ProductService = {
 		return data
 	},
 
+	async getByManufacturer(manufacturerSlug: string) {
+		const { data } = await instance<IProduct[]>({
+			url: `${PRODUCTS}/by-manufacturer/${manufacturerSlug}`,
+			method: 'GET'
+		})
+
+		return data
+	},
+
 	async getById(productId: string | number) {
 		const { data } = await instance<IProduct>({
 			url: `${PRODUCTS}/${productId}`,
