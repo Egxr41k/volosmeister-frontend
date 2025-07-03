@@ -1,4 +1,4 @@
-export function sendFileXml(file: File, url: string) {
+export function sendFileXml(file: File, url: string): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const formData = new FormData()
 		formData.append('file', file)
@@ -8,7 +8,7 @@ export function sendFileXml(file: File, url: string) {
 		request.responseType = 'json'
 
 		request.onload = () => {
-			resolve(request.response)
+			resolve(request.response as string)
 		}
 		request.onerror = () => {
 			reject(request.response)
