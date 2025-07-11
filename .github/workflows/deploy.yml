@@ -19,4 +19,4 @@ jobs:
           cd ~/volosmeister/volosmeister-frontend
           git pull origin master
           cd ~/volosmeister/volosmeister-backend
-          docker compose up --build -d frontend
+          docker compose up --build --force-recreate -d frontend
