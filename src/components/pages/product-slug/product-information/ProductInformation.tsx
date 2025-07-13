@@ -54,15 +54,18 @@ export default function ProductInformation({ product }: IProductInformation) {
 
 			<ProductIngredients ingredients={product.ingredients} />
 
-			<Select
-				placeholder={t('sizePlaceholder')}
-				options={sizes.map(size => ({
-					label: size,
-					value: size
-				}))}
-				value={selectedPriceSize?.[0]}
-				onChange={handleChangeSize}
-			/>
+			<div className="flex items-center gap-2">
+				<p className={styles.description}>{t('sizePlaceholder')}</p>
+
+				<Select
+					options={sizes.map(size => ({
+						label: size,
+						value: size
+					}))}
+					value={selectedPriceSize[0]}
+					onChange={handleChangeSize}
+				/>
+			</div>
 
 			<div className={styles.contentFooter}>
 				<p className={styles.price}>{convertPrice(selectedPriceSize[1])}</p>
