@@ -52,15 +52,18 @@ const ManufacturerField = ({
 
 	return (
 		<div className="my-2">
-			<Select
-				options={options}
-				value={selectedValue}
-				onChange={handleChange}
-				placeholder="Select manufacturer"
-			/>
+			<div className="flex items-center gap-2">
+				<h2>Select manufacturer</h2>
+				<Select
+					options={options}
+					value={selectedValue}
+					onChange={handleChange}
+				/>
+			</div>
+
 			<button
 				type="button"
-				className="mt-1 text-sm text-emerald-500"
+				className="text-sm text-emerald-500"
 				onClick={() => {
 					const name = prompt('Enter new manufacturer name')
 					if (name) create(name)

@@ -60,15 +60,18 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	return (
 		<div className="my-2">
 			{/* Root level */}
-			<Select
-				options={data.map(c => ({
-					label: c.name,
-					value: c.id.toString()
-				}))}
-				value={selectedCategoryChain[0]?.id.toString()}
-				onChange={value => handleChange(0, value)}
-				placeholder="Select category"
-			/>
+			<div className="flex items-center gap-2">
+				<h2 className="w-full">Select category</h2>
+				<Select
+					options={data.map(c => ({
+						label: c.name,
+						value: c.id.toString()
+					}))}
+					value={selectedCategoryChain[0]?.id.toString()}
+					onChange={value => handleChange(0, value)}
+				/>
+			</div>
+
 			<button
 				type="button"
 				className="text-sm text-emerald-500"
@@ -84,16 +87,19 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 
 					return (
 						<div className={`ml-${index + 4}`} key={category.id}>
-							<Select
-								key={category.id}
-								options={children.map(c => ({
-									label: c.name,
-									value: c.id.toString()
-								}))}
-								value={selectedCategoryChain[index + 1]?.id.toString()}
-								onChange={value => handleChange(index + 1, value)}
-								placeholder="Select subcategory"
-							/>
+							<div className="flex">
+								<p className="w-full">Select subcategory</p>
+								<Select
+									key={category.id}
+									options={children.map(c => ({
+										label: c.name,
+										value: c.id.toString()
+									}))}
+									value={selectedCategoryChain[index + 1]?.id.toString()}
+									onChange={value => handleChange(index + 1, value)}
+								/>
+							</div>
+
 							<button
 								type="button"
 								className="text-sm text-emerald-500"
