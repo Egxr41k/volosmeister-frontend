@@ -17,7 +17,7 @@ const Dashboard = () => {
 	})
 
 	return (
-		<>
+		<main className="flex-grow p-6 md:px-24 lg:px-48">
 			<h1 className="mb-8 text-3xl font-semibold">Dashboard</h1>
 			{isFetching ? (
 				<Spinner />
@@ -41,7 +41,7 @@ const Dashboard = () => {
 				<ExportDataButton />
 				<ImportDataButton />
 			</div>
-		</>
+		</main>
 	)
 }
 

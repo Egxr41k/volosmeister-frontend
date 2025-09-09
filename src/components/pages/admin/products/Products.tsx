@@ -8,7 +8,7 @@ const Products = () => {
 	const { data, isFetching, mutate } = useAdminProducts()
 
 	return (
-		<>
+		<main className="flex-grow p-6 md:px-24 lg:px-48">
 			<div className="mb-7 flex items-center justify-between">
 				<h1 className="text-3xl font-semibold">Products</h1>
 				<Link
@@ -23,7 +23,7 @@ const Products = () => {
 				listItems={data}
 				removeHandler={mutate}
 			/>
-		</>
+		</main>
 	)
 }
 
