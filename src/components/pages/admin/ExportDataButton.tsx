@@ -1,20 +1,12 @@
 import { DataService } from '@/services/data.service'
 import { getArchiveName } from '@/utils/get-archive-name'
+import { saveAs } from 'file-saver'
 
 const ExportDataButton = () => {
 	const handleExport = async () => {
 		try {
 			const result = await DataService.export()
-			const url = URL.createObjectURL(result.data)
-
-			const a = document.createElement('a')
-			a.href = url
-			a.download = getArchiveName()
-			document.body.appendChild(a)
-			a.click()
-			document.body.removeChild(a)
-
-			URL.revokeObjectURL(url)
+			saveAs(result.data, getArchiveName())
 		} catch (err) {
 			console.error('Export error:', err)
 		}
