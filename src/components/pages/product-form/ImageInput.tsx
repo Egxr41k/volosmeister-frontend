@@ -32,6 +32,7 @@ const ImageInput = ({
 	return (
 		<div className="w-[500px]">
 			<Image
+				className="h-[500px] w-[500px] object-contain"
 				src={file ? URL.createObjectURL(file) : image}
 				alt={''}
 				width={500}
@@ -42,7 +43,7 @@ const ImageInput = ({
 				type="file"
 				id="fileInput"
 				accept=".jpg"
-				className="my-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:duration-300 file:ease-in-out hover:file:bg-violet-600"
+				className="my-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:duration-300 file:ease-in-out hover:file:bg-emerald-600"
 				onChange={event => {
 					onFileChange(event.target.files?.[0])
 				}}

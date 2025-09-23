@@ -48,14 +48,16 @@ const FormGallery = ({
 
 	return (
 		<div>
-			<ImageInput
-				image={productImages[activeIndex] ?? ''}
-				onChange={(image: string) => setProductImageToPos(image, activeIndex)}
-				file={productImageFiles[activeIndex]}
-				onFileChange={(file: File | undefined) =>
-					setProductImageFileToPos(file, activeIndex)
-				}
-			/>
+			{productImages.length !== 0 && (
+				<ImageInput
+					image={productImages[activeIndex] ?? ''}
+					onChange={(image: string) => setProductImageToPos(image, activeIndex)}
+					file={productImageFiles[activeIndex]}
+					onFileChange={(file: File | undefined) =>
+						setProductImageFileToPos(file, activeIndex)
+					}
+				/>
+			)}
 			<div
 				className="my-2"
 				style={{ width: '500px', overflowX: 'auto', whiteSpace: 'nowrap' }}
@@ -74,7 +76,7 @@ const FormGallery = ({
 						<img
 							src={image}
 							alt=""
-							className="h-20 w-20 rounded-lg object-cover"
+							className="h-20 w-20 rounded-lg object-contain"
 							draggable={false}
 						/>
 					</button>
