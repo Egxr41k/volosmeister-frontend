@@ -1,7 +1,5 @@
 import { ICategory } from './category.interface'
-import { IFeature } from './feature.interface'
 import { IManufacturer } from './manufacturer.interface'
-import { IProperty } from './property.interface'
 import { IReview } from './review.interface'
 
 export interface IProduct {
@@ -18,8 +16,6 @@ export interface IProduct {
 	instructionForUse: string
 	ingredients: string[]
 	reviews: IReview[]
-	features: IFeature[]
-	properties: IProperty[]
 }
 
 export interface IProductDetails {
@@ -42,18 +38,9 @@ export type TypeProductData = {
 	description?: string
 	instructionForUse?: string
 	images: string[]
-	categoryName: string
-	manufacturerName: string
+	categoryId: number
+	manufacturerId: number
 	ingredients: string[]
-	features: {
-		title: string
-		image: string
-		description: string
-	}[]
-	properties: {
-		name: string
-		value: string
-	}[]
 }
 
 export type TypeProductDataFilters = {

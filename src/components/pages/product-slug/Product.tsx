@@ -7,9 +7,7 @@ import { useTranslations } from 'next-intl'
 import ProductInformation from './product-information/ProductInformation'
 import ProductReviews from './product-reviews/ProductReviews'
 import styles from './Product.module.scss'
-import ProductFeatures from './ProductFeatures'
 import { ProductGallery } from './ProductGallery'
-import ProductProperties from './ProductProperties'
 import SimilarProducts from './SimilarProducts'
 
 interface IProductPage {
@@ -46,8 +44,6 @@ export default function Product({
 				<ProductInformation product={product} />
 			</div>
 
-			<ProductFeatures features={product.features ?? []} />
-			<ProductProperties properties={product.properties ?? []} />
 			<SimilarProducts similarProducts={similarProducts ?? []} />
 			<ProductReviews reviews={product.reviews} productId={product.id} />
 		</main>

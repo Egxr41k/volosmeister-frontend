@@ -7,11 +7,9 @@ import Spinner from '@/ui/Spinner'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import CategoryField from './CategoryField'
-import FeatureFields from './FeatureFields'
 import FormGallery from './FormGallery'
 import IngredientsField from './IngredientsField'
 import ManufacturerField from './ManufacturerField'
-import PropertyFields from './PropertyFields'
 import SizesPricesField from './SizesPricesField'
 import { useImageFiles } from './useImageFiles'
 import { useFormProduct } from './useProductFields'
@@ -36,13 +34,8 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 
 	const { product, setProduct, setProductField } = useFormProduct(data)
 
-	const {
-		productImageFiles,
-		setProductImageFiles,
-		featureImageFiles,
-		setFeatureImageFiles,
-		setImagesToProduct
-	} = useImageFiles()
+	const { productImageFiles, setProductImageFiles, setImagesToProduct } =
+		useImageFiles()
 
 	const queryClient = useQueryClient()
 
@@ -71,14 +64,13 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 		const newProduct = await setImagesToProduct(product)
 		setProduct(value => ({
 			...value,
-			images: newProduct.images,
-			features: newProduct.features
+			images: newProduct.images
 		}))
 		const { id, category, reviews, manufacturer, ...productData } = newProduct
 		const data = {
 			...productData,
-			categoryName: category.name,
-			manufacturerName: manufacturer.name
+			categoryId: category.id,
+			manufacturerId: manufacturer.id
 		} as TypeProductData
 
 		isEditMode ? update(data) : create(data)
@@ -160,18 +152,6 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 						<ManufacturerField
 							manufacturer={product.manufacturer}
 							setManufacturer={value => setProductField('manufacturer', value)}
-						/>
-
-						<PropertyFields
-							properties={product.properties ?? []}
-							setProperties={value => setProductField('properties', value)}
-						/>
-
-						<FeatureFields
-							features={product.features ?? []}
-							setFeatures={value => setProductField('features', value)}
-							featureImageFiles={featureImageFiles}
-							setFeatureImageFiles={setFeatureImageFiles}
 						/>
 					</div>
 				</form>
