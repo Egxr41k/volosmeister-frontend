@@ -69,7 +69,7 @@ const FormGallery = ({
 						className={[
 							'mr-5 inline overflow-hidden rounded-lg border-b-2 border-solid transition-all duration-300 last:mr-0 hover:shadow-md',
 							index === activeIndex
-								? 'border-violet-500 shadow-md'
+								? 'border-emerald-500 shadow-md'
 								: 'border-transparent'
 						].join(' ')}
 					>

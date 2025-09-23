@@ -32,6 +32,10 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 		initialData: initialProduct
 	})
 
+	// useEffect(() => {
+	//   console.log(data)
+	// }, [data])
+
 	const { product, setProduct, setProductField } = useFormProduct(data)
 
 	const { productImageFiles, setProductImageFiles, setImagesToProduct } =
@@ -66,6 +70,9 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 			...value,
 			images: newProduct.images
 		}))
+
+		console.log(newProduct)
+
 		const { id, category, reviews, manufacturer, ...productData } = newProduct
 		const data = {
 			...productData,
