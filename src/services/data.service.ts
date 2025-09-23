@@ -1,18 +1,30 @@
-import { axiosClassic } from '@/services/api/api.intercepter'
-import { sendFileXml } from './send-file-xml'
+import { instance } from '@/services/api/api.intercepter'
 
-const baseUrl = process.env.SERVER_URL
+const DATA = '/data'
 
 export const DataService = {
 	async import(file: File) {
-		await sendFileXml(file, baseUrl + '/data/import')
+		const formData = new FormData()
+		formData.append('file', file)
+		const { data } = await instance<string>({
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			},
+			url: `${DATA}/import`,
+			method: 'POST',
+			data: formData
+		})
+
+		return data
 	},
 
 	async export() {
-		return axiosClassic({
-			url: '/data/export',
+		const { data } = await instance<void>({
+			url: `${DATA}/export`,
 			method: 'POST',
 			responseType: 'blob'
 		})
+
+		return data
 	}
 }

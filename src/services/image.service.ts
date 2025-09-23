@@ -1,28 +1,33 @@
-import { sendFileXml } from './send-file-xml'
+import { instance } from './api/api.intercepter'
 
-const baseUrl = process.env.SERVER_URL
-const endpoint = 'minio/image'
-const url = `${baseUrl}/${endpoint}`
+const IMAGE = '/minio/image'
 
 export const ImageService = {
 	async save(file: File) {
-		return await sendFileXml(file, url)
+		const formData = new FormData()
+		formData.append('file', file)
+		const { data } = await instance<string>({
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			},
+			url: IMAGE,
+			method: 'POST',
+			data: formData
+		})
 
-		// const response = await fetch(`${url}/${file.name}`)
-		// return await response.text()
+		return data
 	},
 
 	async checkExisting(imageSrc: string) {
 		return imageSrc != '' ? (await fetch(imageSrc)).ok : false
 	},
 
-	async deleteImage(filename: string) {
-		const response = await fetch(`${url}/${filename}`, {
-			method: 'DELETE',
-			headers: {
-				'content-type': 'application/json'
-			}
+	async delete(filename: string) {
+		const { data } = await instance<void>({
+			url: `${IMAGE}/${filename}`,
+			method: 'DELETE'
 		})
-		return response.ok
+
+		return data
 	}
 }
