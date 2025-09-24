@@ -88,10 +88,10 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 	if (isEditMode && !product) return <p>Error loading product</p>
 
 	return (
-		<div className="flex items-center justify-center">
-			<div className="rounded-md border border-solid border-gray-300">
+		<div className="flex flex-grow items-center justify-center p-6 md:px-24 lg:px-48">
+			<div className="rounded-md bg-white p-5">
 				<form
-					className="flex flex-col gap-5 p-5 sm:flex-row"
+					className="flex flex-col gap-5 sm:flex-row"
 					encType="multipart/form-data"
 					method="post"
 					onSubmit={event => event.preventDefault()}
@@ -114,6 +114,20 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 								type="text"
 								onChange={event => setProductField('name', event.target.value)}
 								value={product.name}
+							/>
+						</div>
+
+						<div className="my-2 flex flex-wrap gap-2">
+							<ManufacturerField
+								manufacturer={product.manufacturer}
+								setManufacturer={value =>
+									setProductField('manufacturer', value)
+								}
+							/>
+
+							<CategoryField
+								category={product.category}
+								setCategory={value => setProductField('category', value)}
 							/>
 						</div>
 
@@ -149,16 +163,6 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 							setSizes={value => setProductField('sizes', value)}
 							prices={product.prices ?? []}
 							setPrices={value => setProductField('prices', value)}
-						/>
-
-						<CategoryField
-							category={product.category}
-							setCategory={value => setProductField('category', value)}
-						/>
-
-						<ManufacturerField
-							manufacturer={product.manufacturer}
-							setManufacturer={value => setProductField('manufacturer', value)}
 						/>
 					</div>
 				</form>

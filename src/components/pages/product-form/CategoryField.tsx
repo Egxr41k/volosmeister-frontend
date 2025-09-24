@@ -3,6 +3,7 @@ import { CategoryService } from '@/services/category.service'
 import { ICategory } from '@/types/category.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { HiMinus, HiPlus } from 'react-icons/hi2'
 import Select from './Select'
 
 interface ICategoryField {
@@ -37,6 +38,7 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		if (isSuccess) {
 			if (!category) {
 				setCategory(categories[0])
+				setSelectedCategoryChain([categories[0]])
 			} else {
 				const path = findPathToCategory(category.id)
 				setSelectedCategoryChain(path)
@@ -44,87 +46,79 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 		}
 	}, [categories])
 
-	const handleChange = async (level: number, categoryId: string) => {
+	const handleChange = async (categoryId: string) => {
 		const selected = findCategoryById(+categoryId)
 		if (!selected) return
 
-		const updatedSelected = [...selectedCategoryChain.slice(0, level), selected]
-		setSelectedCategoryChain(updatedSelected)
-
+		const pathToSelected = findPathToCategory(selected.id)
+		setSelectedCategoryChain(pathToSelected)
 		setCategory(selected)
 	}
 
-	const handleCreate = async (level: number, parentId?: number) => {
+	const handleCreate = async (parentId?: number) => {
 		const name = prompt('Enter new category name')
 		if (!name) return
 		const created = await create({ name, parentId })
-		handleChange(level, created.id.toString())
+		console.log('created:', created)
+		handleChange(created.id.toString())
+	}
+
+	const addSubcategory = () => {
+		console.log('adding subcategory...')
+		const lastInChain = selectedCategoryChain[selectedCategoryChain.length - 1]
+		console.log('last in chain is: ', lastInChain)
+		const children = cache[lastInChain.id]
+		console.log('children: ', children)
+		if (children.length === 0) {
+			return handleCreate(lastInChain.id)
+		}
+		setCategory(children[0])
+		setSelectedCategoryChain(prev => [...prev, children[0]])
 	}
 
 	return (
-		<div className="my-2">
-			{/* Root level */}
-			<div className="flex items-center gap-2">
-				<h2 className="w-full">Select category</h2>
-				<Select
-					options={categories.map(c => ({
-						label: c.name,
-						value: c.id.toString()
-					}))}
-					value={selectedCategoryChain[0]?.id.toString()}
-					onChange={value => handleChange(0, value)}
-				/>
-			</div>
+		<>
+			{selectedCategoryChain.map(category => {
+				const children = !category.parentId
+					? categories
+					: cache[category.parentId!] || []
 
-			<button
-				type="button"
-				className="text-sm text-emerald-500"
-				onClick={() => handleCreate(0)}
-			>
-				+ Create category
-			</button>
-
-			{/*nested level */}
-			{selectedCategoryChain &&
-				selectedCategoryChain.map((category, index) => {
-					const children = cache[category.id] || []
-
-					return (
-						<div className={`ml-${index + 2}`} key={category.id}>
-							{children.length === 0 ? (
-								<p className="w-full">
-									"{selectedCategoryChain[index].name}" hasn`t subcategory
-								</p>
-							) : (
-								<div className="flex">
-									<p className="w-full">Select subcategory</p>
-									<Select
-										key={category.id}
-										options={children.map(c => ({
-											label: c.name,
-											value: c.id.toString()
-										}))}
-										value={selectedCategoryChain[index + 1]?.id.toString()}
-										onChange={value => handleChange(index + 1, value)}
-									/>
-								</div>
-							)}
+				return (
+					<div className="flex gap-1" key={category.id}>
+						<Select
+							key={category.id}
+							options={children.map(c => ({
+								label: c.name,
+								value: c.id.toString()
+							}))}
+							value={category.id.toString()}
+							onChange={value => handleChange(value)}
+						/>
+						<div className="flex flex-col justify-between">
 							<button
 								type="button"
-								className="text-sm text-emerald-500"
-								onClick={() =>
-									handleCreate(
-										index + 1,
-										selectedCategoryChain[selectedCategoryChain.length - 1].id
-									)
-								}
+								className="hover:text-emerald-500"
+								onClick={() => handleCreate(category.parentId)}
 							>
-								+ Create subcategory for "{selectedCategoryChain[index].name}"
+								<HiPlus size={16} />
+							</button>
+							<button type="button" className="hover:text-emerald-500">
+								<HiMinus size={16} />
 							</button>
 						</div>
-					)
-				})}
-		</div>
+						<div className="flex">
+							<p className="m-auto">/</p>
+						</div>
+					</div>
+				)
+			})}
+			<button
+				className="rounded border border-gray-300 bg-white p-2 text-sm hover:border-emerald-500 hover:text-emerald-500"
+				onClick={() => addSubcategory()}
+			>
+				Add subcategory
+			</button>
+		</>
 	)
 }
 

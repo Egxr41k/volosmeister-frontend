@@ -2,6 +2,7 @@ import { ManufacturerService } from '@/services/manufacturer.service'
 import { IManufacturer } from '@/types/manufacturer.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import { HiMinus, HiPlus } from 'react-icons/hi2'
 import Select from './Select'
 
 interface IManufacturerField {
@@ -54,9 +55,8 @@ const ManufacturerField = ({
 	}
 
 	return (
-		<div className="my-2">
-			<div className="flex items-center gap-2">
-				<h2>Select manufacturer</h2>
+		<>
+			<div className="flex gap-1">
 				<Select
 					options={manufacturers.map(m => ({
 						label: m.name,
@@ -65,16 +65,24 @@ const ManufacturerField = ({
 					value={selectedValue}
 					onChange={handleChange}
 				/>
-			</div>
 
-			<button
-				type="button"
-				className="text-sm text-emerald-500"
-				onClick={handleCreate}
-			>
-				+ Create new manufacturer
-			</button>
-		</div>
+				<div className="flex flex-col justify-between">
+					<button
+						type="button"
+						className="hover:text-emerald-500"
+						onClick={() => handleCreate}
+					>
+						<HiPlus size={16} />
+					</button>
+					<button type="button" className="hover:text-emerald-500">
+						<HiMinus size={16} />
+					</button>
+				</div>
+			</div>
+			<div className="flex">
+				<p className="m-auto">:</p>
+			</div>
+		</>
 	)
 }
 
