@@ -13,7 +13,7 @@ import { cartSlice } from './cart/cart.slice'
 import { filtersSlice } from './filters/filters.slice'
 import { userSlice } from './user/user.slice'
 
-const isClient = typeof window !== undefined
+const isClient = typeof window !== 'undefined'
 
 const combinedReducers = combineReducers({
 	user: userSlice.reducer,
@@ -22,7 +22,7 @@ const combinedReducers = combineReducers({
 	filters: filtersSlice.reducer
 })
 
-let mainReduser = combinedReducers
+let mainReducer = combinedReducers
 
 if (isClient) {
 	const { persistReducer } = require('redux-persist')
@@ -34,11 +34,11 @@ if (isClient) {
 		whitelist: ['cart']
 	}
 
-	mainReduser = persistReducer(persistConfig, combinedReducers)
+	mainReducer = persistReducer(persistConfig, combinedReducers)
 }
 
 export const store = configureStore({
-	reducer: mainReduser,
+	reducer: mainReducer,
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({
 			serializableCheck: {
@@ -49,4 +49,4 @@ export const store = configureStore({
 
 export const persistor = persistStore(store)
 
-export type TypeRootStore = ReturnType<typeof mainReduser>
+export type TypeRootStore = ReturnType<typeof mainReducer>

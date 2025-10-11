@@ -3,6 +3,7 @@ export interface ICategory {
 	name: string
 	slug: string
 	parentId?: number
+	manufacturerId: number
 }
 
 export interface ICategoryTree extends ICategory {

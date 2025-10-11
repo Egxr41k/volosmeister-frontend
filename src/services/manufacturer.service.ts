@@ -1,5 +1,9 @@
 import { axiosClassic, instance } from '@/services/api/api.intercepter'
-import { IManufacturer } from '@/types/manufacturer.interface'
+import {
+	IManufacturer,
+	IManufacturerWithCategoryTree,
+	IManufacturerWithRootCategories
+} from '@/types/manufacturer.interface'
 
 const MANUFACTURERS = '/manufacturers'
 
@@ -7,6 +11,24 @@ export const ManufacturerService = {
 	async getAll() {
 		const { data } = await axiosClassic<IManufacturer[]>({
 			url: MANUFACTURERS,
+			method: 'GET'
+		})
+
+		return data
+	},
+
+	async getAllWithRootCategories() {
+		const { data } = await axiosClassic<IManufacturerWithRootCategories[]>({
+			url: `${MANUFACTURERS}/root-categories`,
+			method: 'GET'
+		})
+
+		return data
+	},
+
+	async getAllWithCategoryTree() {
+		const { data } = await axiosClassic<IManufacturerWithCategoryTree[]>({
+			url: `${MANUFACTURERS}/category-tree`,
 			method: 'GET'
 		})
 

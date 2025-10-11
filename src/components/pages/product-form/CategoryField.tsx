@@ -1,6 +1,7 @@
 import { useCategoryCache } from '@/hooks/useCategoryCache'
 import { CategoryService } from '@/services/category.service'
 import { ICategory } from '@/types/category.interface'
+import { IManufacturer } from '@/types/manufacturer.interface'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { HiMinus, HiPlus } from 'react-icons/hi2'
@@ -9,17 +10,25 @@ import Select from './Select'
 interface ICategoryField {
 	category: ICategory
 	setCategory: (value: ICategory) => void
+	manufacturer: IManufacturer
 }
 
-const CategoryField = ({ category, setCategory }: ICategoryField) => {
+const CategoryField = ({
+	category,
+	setCategory,
+	manufacturer
+}: ICategoryField) => {
 	const [selectedCategoryChain, setSelectedCategoryChain] = useState<
 		ICategory[]
 	>([])
 
 	const queryClient = useQueryClient()
+
+	// загружаем категории конкретного производителя
 	const { data: categories = [], isSuccess } = useQuery({
-		queryKey: ['get all as tree categories'],
-		queryFn: () => CategoryService.getAllAsTree()
+		queryKey: ['get all as tree categories', manufacturer.id],
+		queryFn: () => CategoryService.getAllAsTree(manufacturer.id),
+		enabled: !!manufacturer.id
 	})
 
 	const { cache, addToCache, findPathToCategory, findCategoryById } =
@@ -27,24 +36,38 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 
 	const { mutateAsync: create } = useMutation({
 		mutationFn: (data: { name: string; parentId?: number }) =>
-			CategoryService.create(data.name, data.parentId),
-		onSuccess: data => {
+			CategoryService.create(data.name, manufacturer.id!, data.parentId),
+		onSuccess: async data => {
 			addToCache(data)
-			//queryClient.invalidateQueries(['get all categories'])
+
+			if (data.parentId) {
+				const pathToSelected = findPathToCategory(data.parentId)
+				setSelectedCategoryChain([...pathToSelected, data])
+			} else {
+				setSelectedCategoryChain([data])
+			}
+
+			setCategory(data)
+			queryClient.invalidateQueries([
+				'get all as tree categories',
+				manufacturer.id
+			])
 		}
 	})
 
 	useEffect(() => {
-		if (isSuccess) {
-			if (!category) {
+		if (isSuccess && categories.length > 0) {
+			if (!category || category.manufacturerId !== manufacturer.id) {
 				setCategory(categories[0])
 				setSelectedCategoryChain([categories[0]])
 			} else {
 				const path = findPathToCategory(category.id)
 				setSelectedCategoryChain(path)
 			}
+		} else {
+			setSelectedCategoryChain([])
 		}
-	}, [categories])
+	}, [categories, isSuccess, manufacturer.id])
 
 	const handleChange = async (categoryId: string) => {
 		const selected = findCategoryById(+categoryId)
@@ -58,19 +81,14 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 	const handleCreate = async (parentId?: number) => {
 		const name = prompt('Enter new category name')
 		if (!name) return
-		const created = await create({ name, parentId })
-		console.log('created:', created)
-		handleChange(created.id.toString())
+		await create({ name, parentId })
 	}
 
 	const addSubcategory = () => {
-		console.log('adding subcategory...')
 		const lastInChain = selectedCategoryChain[selectedCategoryChain.length - 1]
-		console.log('last in chain is: ', lastInChain)
-		const children = cache[lastInChain.id]
-		console.log('children: ', children)
+		const children = lastInChain ? cache[lastInChain.id] : []
 		if (children.length === 0) {
-			return handleCreate(lastInChain.id)
+			return handleCreate(lastInChain?.id)
 		}
 		setCategory(children[0])
 		setSelectedCategoryChain(prev => [...prev, children[0]])
@@ -86,7 +104,6 @@ const CategoryField = ({ category, setCategory }: ICategoryField) => {
 				return (
 					<div className="flex gap-1" key={category.id}>
 						<Select
-							key={category.id}
 							options={children.map(c => ({
 								label: c.name,
 								value: c.id.toString()

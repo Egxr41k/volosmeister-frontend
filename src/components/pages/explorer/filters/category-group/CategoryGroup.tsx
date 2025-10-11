@@ -1,4 +1,4 @@
-import { CategoryService } from '@/services/category.service'
+import { ManufacturerService } from '@/services/manufacturer.service'
 import Spinner from '@/ui/Spinner'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
@@ -9,8 +9,8 @@ const CategoryGroup = () => {
 	const t = useTranslations('explorer.filters.category')
 
 	const { data, isFetching } = useQuery({
-		queryKey: ['get all categories'],
-		queryFn: () => CategoryService.getAllAsTree()
+		queryKey: ['manufacturers'],
+		queryFn: () => ManufacturerService.getAllWithCategoryTree()
 	})
 
 	return (
@@ -18,7 +18,11 @@ const CategoryGroup = () => {
 			{isFetching ? (
 				<Spinner />
 			) : data?.length ? (
-				data.map(category => <CategoryTree category={category} />)
+				data.map(manufacturer =>
+					manufacturer.categories.map(category => (
+						<CategoryTree category={category} />
+					))
+				)
 			) : (
 				<p>Categories not found</p>
 			)}

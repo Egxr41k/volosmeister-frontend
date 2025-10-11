@@ -32,10 +32,6 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 		initialData: initialProduct
 	})
 
-	// useEffect(() => {
-	//   console.log(data)
-	// }, [data])
-
 	const { product, setProduct, setProductField } = useFormProduct(data)
 
 	const { productImageFiles, setProductImageFiles, setImagesToProduct } =
@@ -51,6 +47,7 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 			queryClient.invalidateQueries({
 				queryKey: ['products', product.id]
 			})
+			alert('product updated succesfully')
 		}
 	})
 
@@ -61,6 +58,7 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 			queryClient.invalidateQueries({
 				queryKey: ['products', product.id]
 			})
+			alert('product created succesfully')
 		}
 	})
 
@@ -97,7 +95,7 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 					onSubmit={event => event.preventDefault()}
 				>
 					<FormGallery
-						productImages={product.images ?? []}
+						productImages={product.images ?? ['']}
 						setProductImages={value => setProductField('images', value)}
 						productImageFiles={productImageFiles}
 						setProductImageFiles={setProductImageFiles}
@@ -124,11 +122,13 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 									setProductField('manufacturer', value)
 								}
 							/>
-
-							<CategoryField
-								category={product.category}
-								setCategory={value => setProductField('category', value)}
-							/>
+							{product.manufacturer && product.manufacturer?.id && (
+								<CategoryField
+									category={product.category}
+									setCategory={value => setProductField('category', value)}
+									manufacturer={product.manufacturer}
+								/>
+							)}
 						</div>
 
 						<div className="my-2 overflow-hidden rounded-md border border-solid border-gray-300">
@@ -152,7 +152,8 @@ const ProductForm = ({ initialProduct, slug }: IProductPage) => {
 								value={product.instructionForUse}
 							/>
 						</div>
-
+					</div>
+					<div>
 						<IngredientsField
 							ingredients={product.ingredients ?? []}
 							setIngredients={value => setProductField('ingredients', value)}

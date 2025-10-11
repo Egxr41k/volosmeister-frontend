@@ -13,9 +13,18 @@ export const CategoryService = {
 		return data
 	},
 
-	async getAllAsTree() {
+	async getByManufacturerId(manufacturerId: number) {
+		const { data } = await axiosClassic<ICategory[]>({
+			url: `${CATEGORIES}/${manufacturerId}`,
+			method: 'GET'
+		})
+
+		return data
+	},
+
+	async getAllAsTree(manufacturerId: number) {
 		const { data } = await axiosClassic<ICategoryTree[]>({
-			url: `${CATEGORIES}/as-tree`,
+			url: `${CATEGORIES}/as-tree/${manufacturerId}`,
 			method: 'GET'
 		})
 
@@ -40,9 +49,9 @@ export const CategoryService = {
 		return data
 	},
 
-	async getRoot() {
+	async getRoot(manufacturerId: number) {
 		const { data } = await axiosClassic<ICategory[]>({
-			url: `${CATEGORIES}/root`,
+			url: `${CATEGORIES}/root/${manufacturerId}`,
 			method: 'GET'
 		})
 
@@ -76,11 +85,15 @@ export const CategoryService = {
 		return data
 	},
 
-	async create(name: string, parentId?: number | string) {
+	async create(
+		name: string,
+		manufacturerId: number,
+		parentId?: number | string
+	) {
 		const { data } = await instance<ICategory>({
 			url: CATEGORIES,
 			method: 'POST',
-			data: { name, parentId }
+			data: { name, manufacturerId, parentId }
 		})
 
 		return data

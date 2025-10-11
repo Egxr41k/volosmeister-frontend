@@ -19,12 +19,10 @@ export const DataService = {
 	},
 
 	async export() {
-		const { data } = await instance<void>({
+		return await instance({
 			url: `${DATA}/export`,
 			method: 'POST',
 			responseType: 'blob'
 		})
-
-		return data
 	}
 }

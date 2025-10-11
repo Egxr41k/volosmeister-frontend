@@ -1,5 +1,5 @@
 import { ICategory } from '@/types/category.interface'
-import { IManufacturer } from '@/types/manufacturer.interface'
+import { IManufacturerWithRootCategories } from '@/types/manufacturer.interface'
 import { IMenuItem } from './menu.interface'
 
 export const convertCategorysToMenuItems = (
@@ -11,9 +11,10 @@ export const convertCategorysToMenuItems = (
 	}))
 
 export const convertManufacturersToMenuItems = (
-	manufacturers: IManufacturer[]
-): IMenuItem[] =>
+	manufacturers: IManufacturerWithRootCategories[]
+): (IMenuItem & { categories: ICategory[] })[] =>
 	manufacturers.map(manufacturer => ({
 		label: manufacturer.name,
-		href: `/manufacturer/${manufacturer.slug}`
+		href: `/manufacturer/${manufacturer.slug}`,
+		categories: manufacturer.categories
 	}))

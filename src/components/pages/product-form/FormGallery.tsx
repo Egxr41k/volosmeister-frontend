@@ -67,7 +67,7 @@ const FormGallery = ({
 						key={image}
 						onClick={() => setActiveIndex(index)}
 						className={[
-							'mr-5 inline overflow-hidden rounded-lg border-b-2 border-solid transition-all duration-300 last:mr-0 hover:shadow-md',
+							'mr-5 inline overflow-hidden rounded-lg border-2 border-solid transition-all duration-300 last:mr-0 hover:shadow-md',
 							index === activeIndex
 								? 'border-emerald-500 shadow-md'
 								: 'border-transparent'
@@ -83,13 +83,13 @@ const FormGallery = ({
 				))}
 				<div className="my-2 flex gap-5">
 					<button
-						className="rounded-lg bg-gray-200 px-4 py-2"
+						className="rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300"
 						onClick={addProductImage}
 					>
 						+ Add
 					</button>
 					<button
-						className="rounded-lg bg-gray-200 px-4 py-2"
+						className="rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300"
 						onClick={() => removeProductImage(activeIndex)}
 					>
 						- Remove selected

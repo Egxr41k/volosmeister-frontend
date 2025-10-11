@@ -15,7 +15,7 @@ const ServerImage = ({ src, alt, className, width, height }: IServerImage) => {
 
 	useEffect(() => {
 		ImageService.checkExisting(src).then(result => setIsImageValid(result))
-	}, [isImageValid])
+	}, [src])
 
 	if (!src)
 		return (
@@ -33,7 +33,7 @@ const ServerImage = ({ src, alt, className, width, height }: IServerImage) => {
 		<Image
 			src={src}
 			alt={alt ?? ''}
-			className={[className, 'object-cover'].join('')}
+			className={[className, 'object-contain'].join(' ')}
 			width={width ?? 0}
 			height={height ?? 0}
 			unoptimized

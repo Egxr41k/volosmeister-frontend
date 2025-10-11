@@ -16,8 +16,8 @@ const FavoriteButton = ({ productId }: { productId: number }) => {
 		['toggle favorite'],
 		() => UserService.toggleFavorite(productId),
 		{
-			onSuccess() {
-				queryClient.invalidateQueries(['get profile'])
+			onSuccess(data) {
+				queryClient.setQueryData(['get profile'], data)
 			}
 		}
 	)

@@ -70,7 +70,7 @@ const ManufacturerField = ({
 					<button
 						type="button"
 						className="hover:text-emerald-500"
-						onClick={() => handleCreate}
+						onClick={() => handleCreate()}
 					>
 						<HiPlus size={16} />
 					</button>

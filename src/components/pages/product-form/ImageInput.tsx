@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import ServerImage from '@/ui/ServerImage'
 import { useEffect, useState } from 'react'
 
 interface IImageInput {
@@ -31,19 +31,18 @@ const ImageInput = ({
 
 	return (
 		<div className="w-[500px]">
-			<Image
-				className="h-[500px] w-[500px] object-contain"
+			<ServerImage
+				className="h-[500px] w-[500px]"
 				src={file ? URL.createObjectURL(file) : image}
 				alt={''}
 				width={500}
 				height={500}
-				unoptimized
 			/>
 			<input
 				type="file"
 				id="fileInput"
 				accept=".jpg"
-				className="my-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:duration-300 file:ease-in-out hover:file:bg-emerald-600"
+				className="my-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-gray-200 file:px-4 file:py-2 file:text-base file:duration-300 file:ease-in-out hover:file:bg-gray-300"
 				onChange={event => {
 					onFileChange(event.target.files?.[0])
 				}}

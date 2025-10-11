@@ -16,6 +16,7 @@ export const useAdminProducts = () => {
 						viewUrl: `/product/${product.slug}`,
 						editUrl: getAdminUrl(`/products/edit/${product.slug}`),
 						items: [
+							product.manufacturer.name,
 							product.name,
 							product.category.name,
 							formatDate(product.createdAt.toString())

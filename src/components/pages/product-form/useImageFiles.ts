@@ -3,9 +3,10 @@ import { IProduct } from '@/types/product.interface'
 import { useState } from 'react'
 
 export const useImageFiles = () => {
-	const [productImageFiles, setProductImageFiles] = useState(
-		[] as (File | undefined)[]
-	)
+	const [productImageFiles, setProductImageFiles] = useState([undefined] as (
+		| File
+		| undefined
+	)[])
 
 	const setImagesToProduct = async (product: IProduct): Promise<IProduct> => {
 		const productImagesSrc = await initProductImageSrc(
