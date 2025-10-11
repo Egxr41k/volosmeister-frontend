@@ -1,6 +1,6 @@
 import { TypePaginationProducts } from '@/types/product.interface'
-import Button from '@/ui/button/Button'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import styles from './Home.module.scss'
 import NewProducts from './NewProducts'
 
@@ -16,7 +16,12 @@ const Home = ({ initialProducts }: IHomeProps) => {
 			<div className={styles.offer}>
 				<h1>{t('offer.title')}</h1>
 				<p>{t('offer.description')}</p>
-				<Button variant="primary">{t('offer.button')}</Button>
+				<Link
+					className="whitespace-nowrap rounded-lg bg-emerald-500 px-10 py-2 text-base font-medium text-white transition duration-300 ease-out"
+					href="https://ig.me/m/volosmeister"
+				>
+					{t('offer.button')}
+				</Link>
 			</div>
 
 			<NewProducts initialProducts={initialProducts} />
