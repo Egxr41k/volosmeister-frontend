@@ -3,11 +3,13 @@ import styles from './Button.module.scss'
 
 interface IPaginationButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	isActive: boolean
+	//disabled?: boolean
 }
 
 const PaginationButton = ({
 	children,
 	isActive,
+	//disabled = false,
 	className,
 	...rest
 }: PropsWithChildren<IPaginationButton>) => (
@@ -19,6 +21,7 @@ const PaginationButton = ({
 			isActive && styles['btn-active'],
 			className
 		].join(' ')}
+		//disabled
 	>
 		{children}
 	</button>
