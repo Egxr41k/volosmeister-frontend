@@ -40,5 +40,4 @@ The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ###@Egxr41k 2023
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Egxr41k/volosmeister-fontend)
 
